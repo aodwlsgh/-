@@ -1,5 +1,5 @@
 {
- "totalRuns": 487,
+ "totalRuns": 489,
  "sessions": [
   {
    "at": null,
@@ -248,6 +248,27 @@
     "variant": "A+B"
    },
    "what": "P5 diagnostic: regression slope of actual on predicted margin (compression without a prior season); no parameter chosen",
+   "runs": 1,
+   "chosen": null
+  },
+  {
+   "at": "2026-10-22T19:01:11.439Z",
+   "window": {
+    "season": "2023-24",
+    "variant": "A+B",
+    "prior": "2022-23 (prior only)"
+   },
+   "what": "P5 re-rehearsal (user decision 1): every parameter frozen from 2024-25, 2022-23 used only as the prior season; judged once. 승패 S2 conditional (1.105), so no combined refit (decision 1c not triggered)",
+   "runs": 1,
+   "chosen": null
+  },
+  {
+   "at": "2026-10-22T19:01:11.439Z",
+   "window": {
+    "season": "2023-24+2024-25",
+    "variant": "B"
+   },
+   "what": "P5 diagnostic: compression slope with the prior season (1.205 vs 1.176 in 2024-25, 1.387 without a prior); no parameter chosen",
    "runs": 1,
    "chosen": null
   }
