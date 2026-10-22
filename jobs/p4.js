@@ -23,12 +23,15 @@ const RULES_ON = { garbageTime: true, clutchFoul: true, overtime: true, latent: 
 const t0 = Date.now();
 const rms = xs => Math.sqrt(xs.reduce((a, b) => a + b * b, 0) / xs.length);
 
+const simMs = [];
 async function simRows(n, rules, latent) {
   k = 0;
   return walkForward({
     games, target: DEV, params: P.params, filter,
     onGame: ({ ratings, homePlan, awayPlan, game }) => {
+      const t = performance.now();
       const s = simulateGame({ ratings, home: game.home.id, away: game.away.id, homePlan, awayPlan }, { n, seed: +game.id % 2147483647, rules, latent });
+      simMs.push(performance.now() - t);
       return { sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate } };
     },
   });
@@ -55,6 +58,7 @@ function spread(rows) {
   return { games: rows.length, simMarginSD: +simM.toFixed(3), actualMarginResidSD: +actM.toFixed(3), marginRatio: +(simM / actM).toFixed(4), simTotalSD: +simT.toFixed(3), actualTotalResidSD: +actT.toFixed(3), totalRatio: +(simT / actT).toFixed(4), marginBias: +mean(resM).toFixed(3), totalBias: +mean(resT).toFixed(3) };
 }
 
+const msStats = () => { const a = [...simMs].sort((x, y) => x - y); return { mean: +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1), p95: +a[Math.floor(a.length * 0.95)].toFixed(1), max: +a[a.length - 1].toFixed(1) }; };
 const [cmd] = process.argv.slice(2);
 if (cmd === 'mean') {
   const n = +arg('--n', 10000);
@@ -96,7 +100,7 @@ if (cmd === 'mean') {
   const rows = await simRows(n, RULES_ON, L);
   const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
   const vsAnalytic = { marginMeanDiff: +avg(rows.map(r => r.sim.margin - r.model.margin)).toFixed(3), totalMeanDiff: +avg(rows.map(r => r.sim.total - r.model.total)).toFixed(3), overtimeRate: +avg(rows.map(r => r.sim.ot)).toFixed(4) };
-  const out = { ...spread(rows), rulesOnVsAnalytic: vsAnalytic, n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000 };
+  const out = { ...spread(rows), rulesOnVsAnalytic: vsAnalytic, n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000, simMsPerGame: msStats() };
   out.pass = out.marginRatio >= 0.9 && out.marginRatio <= 1.1 && out.totalRatio >= 0.9 && out.totalRatio <= 1.1;
   await writeJson('docs/reports/p4-var.json', out);
   console.log(JSON.stringify(out, null, 1));

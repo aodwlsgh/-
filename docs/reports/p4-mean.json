@@ -1,0 +1,23 @@
+{
+ "games": 1230,
+ "n": 10000,
+ "rules": {
+  "garbageTime": false,
+  "clutchFoul": false,
+  "overtime": false,
+  "latent": false
+ },
+ "marginMeanAbsDiff": 0.1695,
+ "marginMeanDiff": -0.0054,
+ "marginMaxAbsDiff": 0.791,
+ "totalMeanAbsDiff": 0.1826,
+ "totalMeanDiff": -0.0447,
+ "totalMaxAbsDiff": 0.928,
+ "limits": {
+  "marginMeanAbsDiff": 0.5,
+  "totalMeanAbsDiff": 1,
+  "meanDiff": 0.3
+ },
+ "seconds": 1408.395,
+ "pass": true
+}
