@@ -1,0 +1,677 @@
+{
+ "summary": {
+  "games": 20,
+  "possessions": {
+   "passWithin2pct": "7/20",
+   "meanAbsPct": 2.98,
+   "meanSignedPct": -1.65,
+   "maxAbsPct": 13.15
+  },
+  "possessionsCorrected": {
+   "passWithin2pct": "13/20",
+   "meanAbsPct": 1.64,
+   "meanSignedPct": 1.48,
+   "maxAbsPct": 3.1,
+   "boxFlags": [
+    "2026-01-21 CHI-LAC: LAC box TOV=0 (pbp 16); CHI box TOV=0 (pbp 12)"
+   ]
+  },
+  "stints": {
+   "periodsWith5": "162/164",
+   "stintsTotal": 682,
+   "stintsNot5": 10,
+   "playersMinWithin1": "526/533",
+   "maxPlayerMinDiff": 8.97,
+   "anomalies": {
+    "notInBox": 1,
+    "subMissingIn": 3,
+    "lateFill": 1,
+    "boxMinMissing": 1
+   }
+  },
+  "shots": {
+   "fgaPlays": 3634,
+   "fgaBox": 3624,
+   "fgaNoCoord": 0,
+   "tpaPlays": 1488,
+   "tpaBox": 1477,
+   "hoop": {
+    "x": 25,
+    "y": 1
+   },
+   "textDistShots": 2644,
+   "distMAE": 0.38,
+   "distWithin2ft": "2644/2644",
+   "threesUnder21ft": 0,
+   "zoneShare": {
+    "ra": 29.6,
+    "paint": 19.5,
+    "mid": 9.9,
+    "c3": 10.5,
+    "ab3": 30.5
+   }
+  }
+ },
+ "rows": [
+  {
+   "game": "2025-01-16 PHI-NY",
+   "possPbp": 96.5,
+   "possBox": 98.4,
+   "diffPct": -1.89,
+   "possBox2": 95.4,
+   "diffPct2": 1.2,
+   "boxFlags": "",
+   "perTeam": [
+    -0.6,
+    -3.2
+   ],
+   "periods": "10/10",
+   "stints": 27,
+   "badStints": 0,
+   "teamMin": [
+    265,
+    265
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 25,
+   "players": 25,
+   "ot": true,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-01-16 TOR-BOS",
+   "possPbp": 93.5,
+   "possBox": 94.3,
+   "diffPct": -0.81,
+   "possBox2": 91.8,
+   "diffPct2": 1.9,
+   "boxFlags": "",
+   "perTeam": [
+    -2,
+    0.4
+   ],
+   "periods": "8/8",
+   "stints": 28,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.48,
+   "within1": 25,
+   "players": 25,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-01-16 CHI-ATL",
+   "possPbp": 104,
+   "possBox": 105.5,
+   "diffPct": -1.46,
+   "possBox2": 103.5,
+   "diffPct2": 0.44,
+   "boxFlags": "",
+   "perTeam": [
+    -2.5,
+    -0.4
+   ],
+   "periods": "8/8",
+   "stints": 35,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 25,
+   "players": 25,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-03-10 ATL-PHI",
+   "possPbp": 101.5,
+   "possBox": 105,
+   "diffPct": -3.31,
+   "possBox2": 100.5,
+   "diffPct2": 1.02,
+   "boxFlags": "",
+   "perTeam": [
+    -3,
+    -3.6
+   ],
+   "periods": "8/8",
+   "stints": 29,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 1.43,
+   "within1": 22,
+   "players": 24,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-11-05 TOR-MIL",
+   "possPbp": 99,
+   "possBox": 102.5,
+   "diffPct": -3.41,
+   "possBox2": 98.5,
+   "diffPct2": 0.51,
+   "boxFlags": "",
+   "perTeam": [
+    -2.2,
+    -4.6
+   ],
+   "periods": "7/8",
+   "stints": 34,
+   "badStints": 6,
+   "teamMin": [
+    248.5,
+    240
+   ],
+   "maxMinDiff": 8.97,
+   "within1": 28,
+   "players": 29,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-11-05 ATL-ORL",
+   "possPbp": 100,
+   "possBox": 103.5,
+   "diffPct": -3.38,
+   "possBox2": 99,
+   "diffPct2": 1.01,
+   "boxFlags": "",
+   "perTeam": [
+    -3.3,
+    -3.4
+   ],
+   "periods": "8/8",
+   "stints": 40,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 26,
+   "players": 26,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-11-05 CHI-PHI",
+   "possPbp": 101.5,
+   "possBox": 106.2,
+   "diffPct": -4.41,
+   "possBox2": 99.7,
+   "diffPct2": 1.83,
+   "boxFlags": "",
+   "perTeam": [
+    -1.7,
+    -7
+   ],
+   "periods": "8/8",
+   "stints": 36,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.45,
+   "within1": 26,
+   "players": 26,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-01-21 PHI-PHX",
+   "possPbp": 104.5,
+   "possBox": 106.8,
+   "diffPct": -2.19,
+   "possBox2": 102.3,
+   "diffPct2": 2.11,
+   "boxFlags": "",
+   "perTeam": [
+    -1.8,
+    -2.6
+   ],
+   "periods": "8/8",
+   "stints": 31,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.46,
+   "within1": 29,
+   "players": 29,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-01-21 CHI-LAC",
+   "possPbp": 100,
+   "possBox": 88.4,
+   "diffPct": 13.15,
+   "possBox2": 100.4,
+   "diffPct2": -0.38,
+   "boxFlags": "LAC box TOV=0 (pbp 16); CHI box TOV=0 (pbp 12)",
+   "perTeam": [
+    13.3,
+    13
+   ],
+   "periods": "7/8",
+   "stints": 24,
+   "badStints": 2,
+   "teamMin": [
+    246.7,
+    240
+   ],
+   "maxMinDiff": 7,
+   "within1": 23,
+   "players": 24,
+   "ot": false,
+   "anomalies": "1/1/0/1",
+   "_an": {
+    "notInBox": 1,
+    "subMissingIn": 1,
+    "lateFill": 0,
+    "boxMinMissing": 1
+   }
+  },
+  {
+   "game": "2026-01-21 HOU-SA",
+   "possPbp": 97.5,
+   "possBox": 102.5,
+   "diffPct": -4.92,
+   "possBox2": 95.5,
+   "diffPct2": 2.05,
+   "boxFlags": "",
+   "perTeam": [
+    -3.7,
+    -6.1
+   ],
+   "periods": "8/8",
+   "stints": 35,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.44,
+   "within1": 27,
+   "players": 27,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-03-25 DET-ATL",
+   "possPbp": 110,
+   "possBox": 112.4,
+   "diffPct": -2.15,
+   "possBox2": 106.9,
+   "diffPct2": 2.88,
+   "boxFlags": "",
+   "perTeam": [
+    -3,
+    -1.2
+   ],
+   "periods": "10/10",
+   "stints": 37,
+   "badStints": 0,
+   "teamMin": [
+    265,
+    265
+   ],
+   "maxMinDiff": 0.48,
+   "within1": 28,
+   "players": 28,
+   "ot": true,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-03-25 IND-LAL",
+   "possPbp": 106.5,
+   "possBox": 110,
+   "diffPct": -3.22,
+   "possBox2": 105.5,
+   "diffPct2": 0.91,
+   "boxFlags": "",
+   "perTeam": [
+    -2.9,
+    -3.6
+   ],
+   "periods": "8/8",
+   "stints": 34,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 24,
+   "players": 24,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-12-25 NY-CLE",
+   "possPbp": 103,
+   "possBox": 102.9,
+   "diffPct": 0.1,
+   "possBox2": 99.9,
+   "diffPct2": 3.1,
+   "boxFlags": "",
+   "perTeam": [
+    1.9,
+    -1.6
+   ],
+   "periods": "8/8",
+   "stints": 35,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.47,
+   "within1": 26,
+   "players": 26,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-12-25 OKC-SA",
+   "possPbp": 96.5,
+   "possBox": 96.6,
+   "diffPct": -0.12,
+   "possBox2": 94.6,
+   "diffPct2": 1.99,
+   "boxFlags": "",
+   "perTeam": [
+    -0.2,
+    0
+   ],
+   "periods": "8/8",
+   "stints": 32,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.48,
+   "within1": 28,
+   "players": 28,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2025-12-25 GS-DAL",
+   "possPbp": 105.5,
+   "possBox": 107.3,
+   "diffPct": -1.71,
+   "possBox2": 103.3,
+   "diffPct2": 2.09,
+   "boxFlags": "",
+   "perTeam": [
+    -0.2,
+    -3.2
+   ],
+   "periods": "8/8",
+   "stints": 32,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.47,
+   "within1": 28,
+   "players": 28,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-10-20 DET-BOS",
+   "possPbp": 98.5,
+   "possBox": 101.2,
+   "diffPct": -2.63,
+   "possBox2": 99.7,
+   "diffPct2": -1.16,
+   "boxFlags": "",
+   "perTeam": [
+    -0.2,
+    -4.9
+   ],
+   "periods": "8/8",
+   "stints": 39,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 28,
+   "players": 28,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-10-20 NY-PHI",
+   "possPbp": 102,
+   "possBox": 106.9,
+   "diffPct": -4.57,
+   "possBox2": 99.9,
+   "diffPct2": 2.12,
+   "boxFlags": "",
+   "perTeam": [
+    -4.6,
+    -4.6
+   ],
+   "periods": "8/8",
+   "stints": 33,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 28,
+   "players": 28,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-10-21 ORL-ATL",
+   "possPbp": 109.5,
+   "possBox": 112.5,
+   "diffPct": -2.67,
+   "possBox2": 107.5,
+   "diffPct2": 1.86,
+   "boxFlags": "",
+   "perTeam": [
+    -1.6,
+    -3.7
+   ],
+   "periods": "8/8",
+   "stints": 41,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.47,
+   "within1": 26,
+   "players": 26,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-10-21 WSH-MIL",
+   "possPbp": 103.5,
+   "possBox": 104.6,
+   "diffPct": -1.03,
+   "possBox2": 102.1,
+   "diffPct2": 1.39,
+   "boxFlags": "",
+   "perTeam": [
+    -1.1,
+    -1
+   ],
+   "periods": "8/8",
+   "stints": 41,
+   "badStints": 0,
+   "teamMin": [
+    240,
+    240
+   ],
+   "maxMinDiff": 0.5,
+   "within1": 30,
+   "players": 30,
+   "ot": false,
+   "anomalies": "0/0/0/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 0,
+    "lateFill": 0,
+    "boxMinMissing": 0
+   }
+  },
+  {
+   "game": "2026-10-21 MIA-MIN",
+   "possPbp": 106,
+   "possBox": 108.6,
+   "diffPct": -2.39,
+   "possBox2": 103.1,
+   "diffPct2": 2.81,
+   "boxFlags": "",
+   "perTeam": [
+    -1.3,
+    -3.4
+   ],
+   "periods": "8/8",
+   "stints": 39,
+   "badStints": 2,
+   "teamMin": [
+    239.1,
+    240
+   ],
+   "maxMinDiff": 2.55,
+   "within1": 24,
+   "players": 27,
+   "ot": false,
+   "anomalies": "0/2/1/0",
+   "_an": {
+    "notInBox": 0,
+    "subMissingIn": 2,
+    "lateFill": 1,
+    "boxMinMissing": 0
+   }
+  }
+ ]
+}

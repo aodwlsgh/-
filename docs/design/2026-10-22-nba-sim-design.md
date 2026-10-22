@@ -1,7 +1,7 @@
 # NBA 경기 시뮬레이터 & 픽 추천 시스템 — 설계 문서 (v1)
 
 - 작성일: 2026-10-22
-- 상태: 사용자 검토 대기
+- 상태: 사용자 승인. 2026-10-22 개정: 주 데이터 출처를 cdn.nba.com에서 ESPN으로 변경(§2.1, §3, §4, §5, §16)
 - 대상 종목: NBA (KBL·축구는 v2 이후)
 
 ---
@@ -30,7 +30,7 @@
 ## 2. 범위
 
 ### 2.1 v1 포함
-- cdn.nba.com 기반 데이터 수집(일정, 박스스코어, 플레이바이플레이), 공식 부상 리포트 수집
+- ESPN 기반 데이터 수집(일정, 박스스코어, 플레이바이플레이, 부상), NBA 공식 부상 리포트(보조) 수집
 - 선수 능력치 모델(시즌 초 축소 추정 포함), 팀 수비 보정(팀 단위), 출전 시간 모델
 - 공격권 단위 몬테카를로 시뮬레이터 + 확률 보정층
 - 변수 엔진: 결장, 출전 확률, 출전 시간 제한, 백투백, 시즌 초 손발 미숙, 슛 감각 변동, 가비지 타임, 클러치 파울 작전
@@ -51,8 +51,9 @@
 
 | 항목 | 내용 |
 |---|---|
-| 네트워크 | 클라우드 작업 공간은 허용 목록 밖 도메인 접속이 거부된다(2026-10-22 확인: stats.nba.com, cdn.nba.com, ESPN, Basketball-Reference 모두 403). 아래 도메인을 관리자 설정 → Capabilities → 네트워크 접근에 추가해야 한다. |
-| 허용 필요 도메인 | `cdn.nba.com`(필수), `ak-static.cms.nba.com`(부상 리포트), `site.api.espn.com`(보조), `stats.nba.com`(선택 — 클라우드 IP를 자주 차단하므로 없어도 동작해야 함) |
+| 네트워크 | 클라우드 작업 공간은 허용 목록 밖 도메인 접속이 거부된다. 허용 위치: 클라우드 환경 설정 → Network access → Allowed domains. (2026-10-22 허용 완료) |
+| 허용 필요 도메인 | `site.api.espn.com`(**필수, 주 출처**), `ak-static.cms.nba.com`(부상 리포트 PDF, 보조) |
+| 사용 불가 도메인 (2026-10-22 확인) | `cdn.nba.com`: **클라우드에서 IP 차단, 사용 불가.** 허용 목록에 넣어도 NBA CDN(Akamai)이 클라우드 출구 IP에 403 Access Denied를 돌려준다. 브라우저 헤더를 붙여도 같다. `stats.nba.com`: 응답 없음(타임아웃), 사용하지 않는다. |
 | 베트맨 | **자동 수집(크롤링) 금지.** robots로 차단돼 있고 약관상 부적절하다. 배당은 사용자가 있을 때 Chrome 화면 판독, 캡처 판독, 수동 입력으로만 받는다. |
 | 작업 공간 휘발성 | 클라우드 작업 공간은 비활성 시 초기화되고, 예약 작업은 매번 새 세션으로 시작한다. 따라서 코드·데이터·기록은 **대시보드 아티팩트 안에** 보관한다(§12). |
 | 과거 배당 부재 | 지난 시즌 베트맨 배당 기록이 없으므로 백테스트는 '확률 정확도'만 검증한다. 수익성은 운영 시작 시점부터 누적 추적한다. |
@@ -65,7 +66,7 @@
 ## 4. 아키텍처
 
 ```
-[cdn.nba.com · 부상 리포트 · ESPN]
+[ESPN (일정·경기·부상) · NBA 부상 리포트 PDF(보조)]
         │  collect.js (증분 수집, 캐시, 재시도)
         ▼
   원천 데이터 (경기별 박스스코어/플레이바이플레이)
@@ -116,23 +117,26 @@
 
 ## 5. 데이터 수집
 
-### 5.1 원천 (엔드포인트 형식은 구현 첫 단계에서 실제 응답으로 확인)
-| 데이터 | URL 패턴 |
-|---|---|
-| 시즌 일정 | `https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json` |
-| 오늘 스코어보드 | `https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json` |
-| 박스스코어 | `https://cdn.nba.com/static/json/liveData/boxscore/boxscore_{gameId}.json` |
-| 플레이바이플레이 | `https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{gameId}.json` |
-| 공식 부상 리포트(PDF) | `https://ak-static.cms.nba.com/referee/injury/Injury-Report_{YYYY-MM-DD}_{시각}.pdf` (파일명의 시각 표기와 갱신 주기는 구현 시 확인) |
-| 부상 보조 | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries` (구현 시 확인) |
+### 5.1 원천 (2026-10-22 개정: 주 출처 ESPN. 실제 응답 확인 결과는 `docs/schemas/p0-results.md`)
+| 데이터 | 출처 | URL 패턴 |
+|---|---|---|
+| 일정·스코어보드 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=YYYYMMDD` (날짜별 조회. 기간 조회는 0건을 돌려줌) |
+| 박스스코어 + 플레이바이플레이 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event={espnId}` |
+| 부상 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries` (상태는 `Out` / `Day-To-Day` 두 가지) |
+| 공식 부상 리포트(PDF) | NBA (보조) | `https://ak-static.cms.nba.com/referee/injury/Injury-Report_{YYYY-MM-DD}_{hh}_{mm}{AM\|PM}.pdf` (2025-26 이후. 15분 간격, 미국 동부시간 기준. 2024-25까지는 `_{hh}{AM\|PM}` 형식) |
+| ~~cdn.nba.com 일정·박스·PBP~~ | 사용 불가 | 클라우드에서 IP 차단(§3). 수집기는 어댑터 구조로 만들어, 차단이 풀리면 붙일 수 있게만 둔다. |
 
-- gameId 형식: `002{시즌 앞 두 자리}{5자리 번호}` — 2024-25 = `00224xxxxx`, 2025-26 = `00225xxxxx`, 2026-27 = `00226xxxxx` (정규시즌).
+- 경기 ID: ESPN 이벤트 ID(예: `401809234`)를 쓴다. 정규시즌 판별은 `season.slug == "regular-season"`(`season.type == 2`)로 한다. `season.year`는 시즌이 끝나는 해다(2025-26 → 2026).
+- 팀 약어는 ESPN 표기를 기준으로 한다(예: `WSH`, `GS`, `SA`, `NY`, `NO`, `UTAH`). NBA PDF의 표기(확인된 예: `MIL@WAS`)는 매핑표로 변환한다. 30개 팀 ESPN 약어는 P0 샘플에서 전부 확인했다.
+- 박스스코어 출전 시간(MIN)은 정수 분이다. 정밀한 출전 시간은 교체 이벤트로 계산한다.
+- ESPN 박스스코어의 공격 리바운드(OREB)는 팀 리바운드를 포함하지 않는다(플레이바이플레이에는 "team rebound"로 있음).
 
 ### 5.2 수집 규칙
 - 초당 2회 이하, 지수 백오프 재시도(최대 3회), 응답 원본은 압축 저장.
 - **증분 수집**: 저장본에 없는 '종료된 경기'만 받는다.
 - 첫 구축 시 2024-25(사전값용)와 2025-26(백테스트용), 2026-27(현재) 전 경기를 받는다.
-- 부상 리포트는 경기일 기준 가장 최근 PDF를 받아 `{playerName, team, status, reason}`으로 파싱한다. 이름은 박스스코어 선수 목록과 매칭하고, 매칭 실패는 리포트에 표시한다.
+- 부상은 ESPN injuries를 주 출처로 쓴다. 보조로 경기일 기준 가장 최근 NBA PDF를 받아 `{playerName, team, status, reason}`으로 파싱한다. PDF는 형식 검사(머리글 열 `Game Date, Game Time, Matchup, Team, Player Name, Current Status, Reason`)를 통과할 때만 쓴다. PDF에만 있는 세분 상태(Questionable/Doubtful/Probable)의 반영 방식은 계획 문서의 결정을 따른다. 이름은 박스스코어 선수 목록과 매칭하고, 매칭 실패는 리포트에 표시한다.
+- **스키마 검증**: 모든 ESPN 응답은 `engine/schema/espn.js`로 검사한다. 형식이 어긋나면(필드 누락·타입 변경·박스 레이블 변경·처음 보는 플레이 유형 등) 실패로 처리하고 수집을 중단하며, 이유를 리포트에 남긴다. 형식은 맞지만 데이터가 깨진 경우(음수 팀 턴오버, 들어온 선수가 빠진 교체 등)는 해당 경기에 품질 경고를 붙이고 대체 규칙으로 처리하며, 경고 목록을 리포트에 표시한다.
 
 ---
 
@@ -356,9 +360,15 @@
 ---
 
 ## 16. 리스크와 한계
-- stats.nba.com 클라우드 차단 가능성 → v1은 cdn.nba.com만으로 동작하게 설계.
-- cdn.nba.com 응답 형식 변경 → 파서에 스키마 검사와 실패 경고.
-- 부상 리포트 PDF 형식 변경 → ESPN 보조.
+- **ESPN은 비공식 API다.** 문서·약관상 공개 API로 보장되지 않는다. 예고 없이 형식이 바뀌거나, 엔드포인트가 사라지거나, 요청 제한·차단이 생길 수 있다. 대응은 다음과 같다.
+  - 모든 응답을 스키마 검사하고, 어긋나면 실패로 멈춘다(§5.2). 매일 작업 시작 시 실시간 스키마 점검(`scripts/check-schema-live.mjs`)을 돌린다.
+  - 요청은 초당 2회 이하로 하고 캐시를 우선한다. 개인·비상업 용도로만 쓴다.
+  - 수집 실패 시 마지막 저장본으로 실행하고 "데이터 지연"을 표시한다(§13).
+  - 가공 데이터는 저장소에 보관해, 출처가 끊겨도 과거 데이터와 모델은 남게 한다.
+  - 수집기를 출처별 어댑터로 나눠 대체 출처를 붙일 자리를 남긴다.
+- ESPN 데이터 자체 결함(박스스코어 턴오버 0·음수, 들어온 선수가 빠진 교체 기록 등. P0 샘플 20경기 중 2경기에서 확인) → 품질 경고와 플레이바이플레이 기반 대체값으로 처리하고, 리포트에 표시한다.
+- cdn.nba.com·stats.nba.com은 클라우드에서 사용할 수 없다(§3) → v1은 ESPN만으로 동작한다.
+- 부상 상태의 세분도: ESPN은 `Out`/`Day-To-Day` 두 단계뿐이다 → NBA PDF가 있으면 세분 상태로 보정한다. PDF 형식이 바뀌면 ESPN만으로 동작한다.
 - 시즌 초 표본 부족 → 축소 추정, 그래도 초반 2~3주는 불확실성이 크다는 점을 리포트에 표시.
 - 베트맨 마진이 커서 장기 수익은 보장되지 않음 → 기대값 기준을 보수 확률로 계산하고 "패스"를 정상 출력으로 취급.
 - 모델 과신 → 보정층과 실전 추적으로 지속 점검.

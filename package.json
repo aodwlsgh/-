@@ -1,0 +1,11 @@
+{
+  "name": "nba-sim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test",
+    "check:schema:live": "node scripts/check-schema-live.mjs"
+  }
+}
