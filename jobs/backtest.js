@@ -125,11 +125,18 @@ if (cmd === 'sims') {
   const injuriesFor = (g, side, players) => { const r = base(g, side, players); listed.set(`${g.id}|${side}`, r.statuses); return r; };
   walkForward({ games, target: { season: '2024-25' }, params: P.params, variant: 'B', injuriesFor });
   const byId = new Map(games.map(g => [g.id, g]));
+  // rotation players (at least 15 minutes on average over their last five appearances before the game) measure
+  // injury absence; fringe players also sit by coach's decision, which the minutes model already covers
+  const apps = new Map();
+  for (const g of games) for (const p of g.players) if (!p.dnp && p.sec > 0) (apps.get(p.id) ?? apps.set(p.id, []).get(p.id)).push([Date.parse(g.start), p.sec / 60]);
+  const rotation = (id, start) => { const a = (apps.get(id) ?? []).filter(x => x[0] < start).slice(-5); return a.length > 0 && a.reduce((s, x) => s + x[1], 0) / a.length >= 15; };
   const count = {};
   for (const [key, sts] of listed) {
     const g = byId.get(key.split('|')[0]);
     const played = new Set(g.players.filter(p => !p.dnp && p.sec > 0).map(p => p.id));
-    for (const { id, status } of sts) { const c = (count[status] ??= { listed: 0, played: 0 }); c.listed++; if (played.has(id)) c.played++; }
+    for (const { id, status } of sts) {
+      for (const k of [status, `${status}|${rotation(id, Date.parse(g.start)) ? 'rotation' : 'fringe'}`]) { const c = (count[k] ??= { listed: 0, played: 0 }); c.listed++; if (played.has(id)) c.played++; }
+    }
   }
   for (const c of Object.values(count)) { c.rate = +(c.played / c.listed).toFixed(4); const se = Math.sqrt(c.rate * (1 - c.rate) / c.listed); c.ci95 = [+(c.rate - 1.96 * se).toFixed(4), +(c.rate + 1.96 * se).toFixed(4)]; }
   const ledger = JSON.parse(await readFile(LEDGER, 'utf8'));

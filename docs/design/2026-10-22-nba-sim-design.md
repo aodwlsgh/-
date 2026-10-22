@@ -182,7 +182,7 @@
 
 ### 6.5 출전 시간 모델
 - 기본값: 최근 15경기 출전 시간의 지수가중평균(반감기 5경기).
-- 부상 상태 → 출전 확률(초기값, 백테스트로 보정): Out 0, Doubtful 0.15, Questionable 0.55, Probable 0.9, Available 1.0.
+- 부상 상태 → 출전 확률: 초기값 Out 0, Doubtful 0.15, Questionable 0.55, Probable 0.9, Available 1.0 → **2026-10-22 2024-25 경기 전 스냅샷으로 보정: Doubtful 0.02, Questionable 0.53, Probable 0.97**(로테이션 선수 실제 출전 비율, `data/model/play-prob.json`). Out 0·Available 1·ESPN Day-To-Day 0.55는 유지.
 - 운영 시 상태 결정(2026-10-22 사용자 결정)
   - ESPN `Out`은 0이다.
   - ESPN `Day-To-Day`는 같은 날 NBA PDF가 형식 검사를 통과하면 PDF의 상태(Doubtful/Questionable/Probable)를 쓴다. 없으면 0.55다.

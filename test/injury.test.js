@@ -91,3 +91,10 @@ test('report time from the PDF title (ET)', () => {
   assert.equal(reportTimeEt('garbage'), null);
   assert.equal(reportTimeEt(null), null);
 });
+
+test('PLAY_PROB equals the values calibrated on 2024-25 (data/model/play-prob.json)', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { PLAY_PROB } = await import('../engine/injury.js');
+  const cal = JSON.parse(await readFile(new URL('../data/model/play-prob.json', import.meta.url), 'utf8')).chosen;
+  assert.deepEqual(PLAY_PROB, cal);
+});

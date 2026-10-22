@@ -1,0 +1,155 @@
+{
+ "fittedOn": {
+  "season": "2024-25",
+  "snapshots": "run-time (B)"
+ },
+ "chosenAt": "2026-10-22T17:10:11.684Z",
+ "cumulativeTuningRuns": 440,
+ "counts": {
+  "Out": {
+   "listed": 9860,
+   "played": 11,
+   "rate": 0.0011,
+   "ci95": [
+    0.0004,
+    0.0018
+   ]
+  },
+  "Out|rotation": {
+   "listed": 5806,
+   "played": 0,
+   "rate": 0,
+   "ci95": [
+    0,
+    0
+   ]
+  },
+  "Out|fringe": {
+   "listed": 4054,
+   "played": 11,
+   "rate": 0.0027,
+   "ci95": [
+    0.0011,
+    0.0043
+   ]
+  },
+  "Probable": {
+   "listed": 620,
+   "played": 567,
+   "rate": 0.9145,
+   "ci95": [
+    0.8925,
+    0.9365
+   ]
+  },
+  "Probable|rotation": {
+   "listed": 540,
+   "played": 523,
+   "rate": 0.9685,
+   "ci95": [
+    0.9538,
+    0.9832
+   ]
+  },
+  "Questionable": {
+   "listed": 1514,
+   "played": 725,
+   "rate": 0.4789,
+   "ci95": [
+    0.4537,
+    0.5041
+   ]
+  },
+  "Questionable|fringe": {
+   "listed": 339,
+   "played": 104,
+   "rate": 0.3068,
+   "ci95": [
+    0.2577,
+    0.3559
+   ]
+  },
+  "Questionable|rotation": {
+   "listed": 1175,
+   "played": 621,
+   "rate": 0.5285,
+   "ci95": [
+    0.5,
+    0.557
+   ]
+  },
+  "Available": {
+   "listed": 1129,
+   "played": 945,
+   "rate": 0.837,
+   "ci95": [
+    0.8155,
+    0.8585
+   ]
+  },
+  "Available|fringe": {
+   "listed": 288,
+   "played": 146,
+   "rate": 0.5069,
+   "ci95": [
+    0.4492,
+    0.5646
+   ]
+  },
+  "Available|rotation": {
+   "listed": 841,
+   "played": 799,
+   "rate": 0.9501,
+   "ci95": [
+    0.9354,
+    0.9648
+   ]
+  },
+  "Doubtful": {
+   "listed": 197,
+   "played": 3,
+   "rate": 0.0152,
+   "ci95": [
+    -0.0019,
+    0.0323
+   ]
+  },
+  "Doubtful|rotation": {
+   "listed": 144,
+   "played": 3,
+   "rate": 0.0208,
+   "ci95": [
+    -0.0025,
+    0.0441
+   ]
+  },
+  "Doubtful|fringe": {
+   "listed": 53,
+   "played": 0,
+   "rate": 0,
+   "ci95": [
+    0,
+    0
+   ]
+  },
+  "Probable|fringe": {
+   "listed": 80,
+   "played": 44,
+   "rate": 0.55,
+   "ci95": [
+    0.441,
+    0.659
+   ]
+  }
+ },
+ "note": "Out is kept at 0 (user decision Q2); Day-To-Day (ESPN only) has no history and stays 0.55",
+ "chosen": {
+  "Out": 0,
+  "Doubtful": 0.02,
+  "Questionable": 0.53,
+  "Probable": 0.97,
+  "Available": 1,
+  "Day-To-Day": 0.55
+ },
+ "rule": "Doubtful/Questionable/Probable = share of rotation players (>= 15 min average over the last five appearances) listed with that status who played, rounded to 0.01; Out 0 (user decision Q2); Available 1 (not an injury doubt); Day-To-Day (ESPN only) 0.55, no history"
+}

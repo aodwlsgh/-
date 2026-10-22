@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { jobGroup, snapshotCutoff, RUN_A_ET, RUN_B_ET } from '../engine/snapshot.js';
+import { PLAY_PROB } from '../engine/injury.js';
 import { fromEt } from '../engine/time.js';
 
 const at = (d, h, m) => fromEt(d, h, m).toISOString();
@@ -47,7 +48,7 @@ const players = [{ id: '1', name: 'Haywood Highsmith' }, { id: '2', name: 'Cam T
 
 test('PDF snapshot to play probabilities for one team of one game (design §14.2 B)', () => {
   const r = snapshotInjuries(snap, { team: 'BKN', home: 'CHA', away: 'BKN', players });
-  assert.deepEqual(r.injuries, { 1: 0, 2: 0.55, 3: 0.9 });
+  assert.deepEqual(r.injuries, { 1: PLAY_PROB.Out, 2: PLAY_PROB.Questionable, 3: PLAY_PROB.Probable });
   assert.deepEqual(r.unmatched, ['Nobody, Unknown']);
   assert.equal(r.notSubmitted, false);
   assert.equal(r.rows, 4);

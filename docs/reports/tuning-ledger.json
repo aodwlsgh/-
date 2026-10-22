@@ -1,5 +1,5 @@
 {
- "totalRuns": 438,
+ "totalRuns": 440,
  "sessions": [
   {
    "at": null,
@@ -178,6 +178,24 @@
    },
    "what": "Note (leak review F9): jobs/p3.js forward evaluated the 14 accumulated 2026-27 games at 10:57 (before re-tunes at 11:30 and 11:41) and again after; evaluation only, no parameter chosen from it. These 14 games are part of the §14.4 re-check pool.",
    "runs": 0
+  },
+  {
+   "at": "2026-10-22T17:09:36.250Z",
+   "window": {
+    "season": "2024-25",
+    "variant": "B"
+   },
+   "what": "P5 injury-status play probabilities (share of listed players who played)",
+   "runs": 1
+  },
+  {
+   "at": "2026-10-22T17:10:11.682Z",
+   "window": {
+    "season": "2024-25",
+    "variant": "B"
+   },
+   "what": "P5 injury-status play probabilities (share of listed players who played)",
+   "runs": 1
   }
  ]
 }

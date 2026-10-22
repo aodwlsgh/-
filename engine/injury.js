@@ -1,7 +1,8 @@
 // Injury sources (design §5.2, §6.5): ESPN injuries (primary) and the NBA injury PDF (secondary).
 // The PDF parser takes positioned text items, so PDF decoding stays outside the engine.
 
-export const PLAY_PROB = { Out: 0, Doubtful: 0.15, Questionable: 0.55, Probable: 0.9, Available: 1, 'Day-To-Day': 0.55 };
+// = data/model/play-prob.json (2024-25 run-time reports, rotation players; design §6.5)
+export const PLAY_PROB = { Out: 0, Doubtful: 0.02, Questionable: 0.53, Probable: 0.97, Available: 1, 'Day-To-Day': 0.55 };
 const PDF_STATUSES = ['Out', 'Doubtful', 'Questionable', 'Probable', 'Available'];
 const HEADER = ['Game Date', 'Game Time', 'Matchup', 'Team', 'Player Name', 'Current Status', 'Reason'];
 const COLS = ['gameDate', 'gameTime', 'matchup', 'team', 'player', 'status', 'reason'];
