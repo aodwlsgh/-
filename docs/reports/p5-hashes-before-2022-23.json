@@ -1,0 +1,49 @@
+{
+ "generatedAt": "2026-10-22T18:11:27.879Z",
+ "inputs": {
+  "data/model/params.json": "c3d585808cbf2956aa9a139566116204094af8df3e2087d402c3930f1dda057f",
+  "data/model/latent.json": "9ca1406edc72e42de2208dca3fe2f3010b894abeae9a331cdebd5d69f3fe1f7c",
+  "data/model/calibration.json": "a6431a97b1891272b7da4daa0325395c75155caaba0deca46f597acbdf3b4994",
+  "data/model/play-prob.json": "46d831a75bb9e463373d8cd908958aac185b18a34d86789e56e500874fc524bf",
+  "data/games/2024-25": {
+   "files": 163,
+   "sha256": "2f54b8f2e54eb436db58c9dab4933d259b4859aeebbbbc99f7126cdf59a88394"
+  },
+  "data/injury-pdf/2024-25": {
+   "files": 164,
+   "sha256": "419cd184c2b3dc747de104367c3a50fe3304d7c9fdc07635a9c424589848f24f"
+  },
+  "data/games/2023-24": {
+   "files": 160,
+   "sha256": "fe8c7160220cf1d43f29c974586347c066f18817715a52fb4c6cb8781c554923"
+  },
+  "data/schedule/2024-25.json": "53788c9098f500c3017035304e8bd40ae80a27aef2915743d60b3fa102d9dcbb",
+  "data/games/2025-26": {
+   "files": 164,
+   "sha256": "71f0a168d13665722a2089972f01afa396b0f6ff81aaedb7d505cd9222f3ca24"
+  },
+  "data/injury-pdf/2025-26": {
+   "files": 165,
+   "sha256": "455be91ab4887204365328b713ed48e6a8f7f17beae04806fcb97160ce6f715d"
+  },
+  "data/schedule/2025-26.json": "510aacc71a8914f258d21f9203b70649f89b47d6a7c02ece9d563c060b3a55b4"
+ },
+ "predictions": {
+  "2024-25 A": {
+   "games": 1230,
+   "sha256": "95095bfb5aed0d1c32cd1604f89bcd632948363d1799d2e47e2b4740a9c410a2"
+  },
+  "2024-25 B": {
+   "games": 1230,
+   "sha256": "165d33d4b1a0e55503aadb14a5d5346036e6673e8fcac4eb30f531376a85532e"
+  },
+  "2025-26 A": {
+   "games": 1230,
+   "sha256": "b5c292f2b38077f4e6d9816c557cfd95100e0746beac6ff462e44d8067f0e13b"
+  },
+  "2025-26 B": {
+   "games": 1230,
+   "sha256": "6d30afe45bbe7ae0096cac8d4b2c774af4beda432e4149be0ed3d53bd0fc8d4d"
+  }
+ }
+}
