@@ -1,5 +1,5 @@
 {
- "totalRuns": 440,
+ "totalRuns": 487,
  "sessions": [
   {
    "at": null,
@@ -196,6 +196,60 @@
    },
    "what": "P5 injury-status play probabilities (share of listed players who played)",
    "runs": 1
+  },
+  {
+   "at": "2026-10-22T17:35:30.962Z",
+   "window": {
+    "season": "2024-25",
+    "variant": "B"
+   },
+   "what": "P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 3 parameters)",
+   "runs": 22,
+   "chosen": {
+    "w": 0.6
+   }
+  },
+  {
+   "at": "2026-10-22T17:36:26.576Z",
+   "window": {
+    "season": "2024-25",
+    "variant": "B"
+   },
+   "what": "P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 2 parameters)",
+   "runs": 22,
+   "chosen": {
+    "w": 0.6
+   }
+  },
+  {
+   "at": "2026-10-22T17:38:48.885Z",
+   "window": {
+    "season": "2024-25",
+    "variant": "B"
+   },
+   "what": "P5 in-sample check of the fitted ensemble and calibration (S1-S3, markets, close finishes); no parameter chosen",
+   "runs": 1,
+   "chosen": null
+  },
+  {
+   "at": "2026-10-22T17:38:48.885Z",
+   "window": {
+    "season": "2023-24",
+    "variant": "A+B"
+   },
+   "what": "P5 rehearsal (user request 5): every parameter frozen from 2024-25; judged once",
+   "runs": 1,
+   "chosen": null
+  },
+  {
+   "at": "2026-10-22T17:38:48.885Z",
+   "window": {
+    "season": "2023-24+2024-25",
+    "variant": "A+B"
+   },
+   "what": "P5 diagnostic: regression slope of actual on predicted margin (compression without a prior season); no parameter chosen",
+   "runs": 1,
+   "chosen": null
   }
  ]
 }

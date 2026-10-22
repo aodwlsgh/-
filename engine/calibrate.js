@@ -6,8 +6,9 @@
 //           (piecewise linear, knots -15.5, -5.5, 0, 5.5, 15.5) and a slope piecewise linear in |t| (knots 0,
 //           5.5, 15.5, so the win event has its own slope); 8 parameters.
 //           Per game the calibrated survival is made non-increasing (pool adjacent violators).
-//   total   survival P(total > L) at lines floor(mean) + 0.5 + k, k = -15..14; logistic with intercept,
-//           slope and a term linear in (L - mean); 3 parameters.
+//   total   survival P(total > L) at lines floor(mean) + 0.5 + k, k = -15..14; logistic with intercept and
+//           slope; 2 parameters. (A third term linear in L - mean was collinear with the simulated survival and
+//           took its weight negative on 2024-25; dropped before any rehearsal or test result was seen.)
 // All markets (승패, 승5패, 핸디캡, 언더오버) are read from these two calibrated distributions.
 // User decision 4: one ensemble weight w (fitted on 2024-25) moves the simulated margin distribution to
 // w·model + (1 - w)·baseline; scenarios keep their simulated change on top of that location (engine/scenario.js).
@@ -78,9 +79,9 @@ const hats = knots => t => knots.map((k, j) => {
 const interceptBasis = hats([-15.5, -5.5, 0, 5.5, 15.5]), slopeBasis = hats([0, 5.5, 15.5]);
 const marginFeatures = (t, z) => [...interceptBasis(t), ...slopeBasis(Math.abs(t)).map(b => b * z)];
 const totalLines = mean => Array.from({ length: 30 }, (_, i) => Math.floor(mean) + 0.5 + (i - 15));
-const totalFeatures = (r, z) => [1, z, r / 15];
+const totalFeatures = z => [1, z];
 
-export const IDENTITY = { margin: [0, 0, 0, 0, 0, 1, 1, 1], total: [0, 1, 0] };
+export const IDENTITY = { margin: [0, 0, 0, 0, 0, 1, 1, 1], total: [0, 1] };
 
 // non-increasing least-squares fit (pool adjacent violators)
 function monotoneDown(v) {
@@ -103,7 +104,7 @@ export function marginSurvival(cal, sim) {
 }
 export function totalSurvival(cal, sim) {
   const lines = totalLines(sim.total);
-  return { lines, s: monotoneDown(lines.map(L => sigmoid(dot(cal.total, totalFeatures(L - sim.total, logit(survival(sim.totalHist, L))))))) };
+  return { lines, s: monotoneDown(lines.map(L => sigmoid(dot(cal.total, totalFeatures(logit(survival(sim.totalHist, L))))))) };
 }
 
 // rows: [{ sim, actual: { margin, total } }]
@@ -115,7 +116,7 @@ export function fitCalibration(rows) {
       my.push(r.actual.margin > t ? 1 : 0);
     }
     for (const L of totalLines(r.sim.total)) {
-      tx.push(totalFeatures(L - r.sim.total, logit(survival(r.sim.totalHist, L))));
+      tx.push(totalFeatures(logit(survival(r.sim.totalHist, L))));
       ty.push(r.actual.total > L ? 1 : 0);
     }
   }

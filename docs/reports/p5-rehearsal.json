@@ -1,0 +1,5569 @@
+{
+ "season": "2023-24",
+ "generatedAt": "2026-10-22T17:36:46.314Z",
+ "inputs": {
+  "data/model/params.json": "c3d585808cbf2956aa9a139566116204094af8df3e2087d402c3930f1dda057f",
+  "data/model/latent.json": "9ca1406edc72e42de2208dca3fe2f3010b894abeae9a331cdebd5d69f3fe1f7c",
+  "data/model/calibration.json": "a6431a97b1891272b7da4daa0325395c75155caaba0deca46f597acbdf3b4994"
+ },
+ "head": "a41581c2160fbcd8a223ad4f0cdfbf59e5f8fe5b",
+ "ensembleW": 0.6,
+ "calibrationFittedOn": {
+  "season": "2024-25",
+  "variant": "B",
+  "games": 1230,
+  "sims": "data/model/sims/2024-25-B.json.gz"
+ },
+ "variants": {
+  "A": {
+   "counts": {
+    "rows": 1215,
+    "judged": 1122,
+    "preJobStart": 87,
+    "dataExcluded": 7
+   },
+   "all": {
+    "n": 1122,
+    "S1": {
+     "model": 0.2155,
+     "base": 0.2193,
+     "diff": -0.0039,
+     "ci95": [
+      -0.0076,
+      -0.0001
+     ],
+     "pass": true
+    },
+    "S2": {
+     "slope": 1.2655,
+     "ci95": [
+      1.0925,
+      1.4595
+     ],
+     "pass": false
+    },
+    "S3": {
+     "margin": {
+      "sim": 13.9944,
+      "actual": 14.2391,
+      "ratio": 0.9828,
+      "pass": true
+     },
+     "total": {
+      "sim": 17.4268,
+      "actual": 18.4002,
+      "ratio": 0.9471,
+      "pass": true
+     },
+     "pass": true
+    },
+    "pass": false,
+    "markets": {
+     "ml": {
+      "n": 1122,
+      "slope": 1.2655,
+      "pass": false,
+      "ci95": [
+       1.0925,
+       1.4595
+      ]
+     },
+     "ml5": {
+      "n": 3366,
+      "slope": 1.1665,
+      "pass": false,
+      "ci95": [
+       1.014,
+       1.347
+      ]
+     },
+     "hc": {
+      "n": 17754,
+      "slope": 1.021,
+      "pass": true,
+      "ci95": [
+       0.9454,
+       1.107
+      ]
+     },
+     "ou": {
+      "n": 19074,
+      "slope": 0.953,
+      "pass": true,
+      "ci95": [
+       0.8645,
+       1.0599
+      ]
+     }
+    },
+    "eligibleMarkets": [
+     "hc",
+     "ou"
+    ],
+    "close": {
+     "all": {
+      "games": 1122,
+      "le1": {
+       "calibrated": 0.0611,
+       "raw": 0.0534,
+       "actual": 0.0357
+      },
+      "le3": {
+       "calibrated": 0.1627,
+       "raw": 0.1427,
+       "actual": 0.1417
+      },
+      "le5": {
+       "calibrated": 0.2659,
+       "raw": 0.2351,
+       "actual": 0.2371
+      },
+      "le7": {
+       "calibrated": 0.3697,
+       "raw": 0.3398,
+       "actual": 0.3556
+      },
+      "le10": {
+       "calibrated": 0.5349,
+       "raw": 0.5104,
+       "actual": 0.5178
+      }
+     },
+     "exp<3": {
+      "games": 545,
+      "le1": {
+       "calibrated": 0.0659,
+       "raw": 0.0558,
+       "actual": 0.0459
+      },
+      "le3": {
+       "calibrated": 0.176,
+       "raw": 0.1496,
+       "actual": 0.1541
+      },
+      "le5": {
+       "calibrated": 0.2865,
+       "raw": 0.2462,
+       "actual": 0.2716
+      },
+      "le7": {
+       "calibrated": 0.3959,
+       "raw": 0.3554,
+       "actual": 0.3945
+      },
+      "le10": {
+       "calibrated": 0.5671,
+       "raw": 0.5325,
+       "actual": 0.545
+      }
+     },
+     "exp3-8": {
+      "games": 464,
+      "le1": {
+       "calibrated": 0.0601,
+       "raw": 0.0533,
+       "actual": 0.0259
+      },
+      "le3": {
+       "calibrated": 0.159,
+       "raw": 0.1412,
+       "actual": 0.1336
+      },
+      "le5": {
+       "calibrated": 0.2604,
+       "raw": 0.2328,
+       "actual": 0.2091
+      },
+      "le7": {
+       "calibrated": 0.3629,
+       "raw": 0.3364,
+       "actual": 0.3405
+      },
+      "le10": {
+       "calibrated": 0.5261,
+       "raw": 0.5048,
+       "actual": 0.5065
+      }
+     },
+     "exp>=8": {
+      "games": 113,
+      "le1": {
+       "calibrated": 0.042,
+       "raw": 0.0428,
+       "actual": 0.0265
+      },
+      "le3": {
+       "calibrated": 0.1141,
+       "raw": 0.1156,
+       "actual": 0.115
+      },
+      "le5": {
+       "calibrated": 0.1893,
+       "raw": 0.191,
+       "actual": 0.1858
+      },
+      "le7": {
+       "calibrated": 0.2719,
+       "raw": 0.2784,
+       "actual": 0.2301
+      },
+      "le10": {
+       "calibrated": 0.4156,
+       "raw": 0.4268,
+       "actual": 0.4336
+      }
+     }
+    },
+    "overtime": {
+     "sim": 0.0244,
+     "actual": 0.049
+    },
+    "accuracy": {
+     "ensemble": {
+      "marginMAE": 11.1673,
+      "marginBias": 0.9025
+     },
+     "simulator": {
+      "marginMAE": 11.2336,
+      "totalMAE": 14.7432,
+      "totalBias": 0.8341
+     },
+     "baseline": {
+      "marginMAE": 11.1711,
+      "totalMAE": 15.1471
+     }
+    }
+   },
+   "byPeriodGroup": {
+    "hourly/A": {
+     "n": 835,
+     "S1": {
+      "model": 0.2136,
+      "base": 0.2175,
+      "diff": -0.0038,
+      "ci95": [
+       -0.0072,
+       0.001
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.314,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9994,
+       "actual": 14.5464,
+       "ratio": 0.9624,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4283,
+       "actual": 18.1886,
+       "ratio": 0.9582,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 835,
+       "slope": 1.314,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 2505,
+       "slope": 1.1877,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 13183,
+       "slope": 1.0006,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 14195,
+       "slope": 0.9485,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 835,
+       "le1": {
+        "calibrated": 0.0606,
+        "raw": 0.0532,
+        "actual": 0.0323
+       },
+       "le3": {
+        "calibrated": 0.1618,
+        "raw": 0.1423,
+        "actual": 0.1341
+       },
+       "le5": {
+        "calibrated": 0.2644,
+        "raw": 0.2343,
+        "actual": 0.2204
+       },
+       "le7": {
+        "calibrated": 0.3676,
+        "raw": 0.3385,
+        "actual": 0.3437
+       },
+       "le10": {
+        "calibrated": 0.5324,
+        "raw": 0.5087,
+        "actual": 0.515
+       }
+      },
+      "exp<3": {
+       "games": 388,
+       "le1": {
+        "calibrated": 0.0658,
+        "raw": 0.0557,
+        "actual": 0.0412
+       },
+       "le3": {
+        "calibrated": 0.176,
+        "raw": 0.1497,
+        "actual": 0.134
+       },
+       "le5": {
+        "calibrated": 0.2864,
+        "raw": 0.2461,
+        "actual": 0.2448
+       },
+       "le7": {
+        "calibrated": 0.3956,
+        "raw": 0.3552,
+        "actual": 0.3814
+       },
+       "le10": {
+        "calibrated": 0.5672,
+        "raw": 0.5326,
+        "actual": 0.5464
+       }
+      },
+      "exp3-8": {
+       "games": 358,
+       "le1": {
+        "calibrated": 0.0599,
+        "raw": 0.0531,
+        "actual": 0.0251
+       },
+       "le3": {
+        "calibrated": 0.159,
+        "raw": 0.1412,
+        "actual": 0.1397
+       },
+       "le5": {
+        "calibrated": 0.2603,
+        "raw": 0.2328,
+        "actual": 0.2039
+       },
+       "le7": {
+        "calibrated": 0.3626,
+        "raw": 0.3363,
+        "actual": 0.3324
+       },
+       "le10": {
+        "calibrated": 0.5257,
+        "raw": 0.5045,
+        "actual": 0.4972
+       }
+      },
+      "exp>=8": {
+       "games": 89,
+       "le1": {
+        "calibrated": 0.041,
+        "raw": 0.0423,
+        "actual": 0.0225
+       },
+       "le3": {
+        "calibrated": 0.1114,
+        "raw": 0.1141,
+        "actual": 0.1124
+       },
+       "le5": {
+        "calibrated": 0.1851,
+        "raw": 0.1887,
+        "actual": 0.1798
+       },
+       "le7": {
+        "calibrated": 0.2658,
+        "raw": 0.2746,
+        "actual": 0.2247
+       },
+       "le10": {
+        "calibrated": 0.4073,
+        "raw": 0.4212,
+        "actual": 0.4494
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0244,
+      "actual": 0.0503
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.4165,
+       "marginBias": 0.5743
+      },
+      "simulator": {
+       "marginMAE": 11.4655,
+       "totalMAE": 14.5298,
+       "totalBias": 0.2285
+      },
+      "baseline": {
+       "marginMAE": 11.4295,
+       "totalMAE": 15.0069
+      }
+     }
+    },
+    "hourly/B": {
+     "n": 287,
+     "S1": {
+      "model": 0.2208,
+      "base": 0.2248,
+      "diff": -0.004,
+      "ci95": [
+       -0.0118,
+       0.0031
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.1567,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9799,
+       "actual": 13.2586,
+       "ratio": 1.0544,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4223,
+       "actual": 18.8925,
+       "ratio": 0.9222,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 287,
+       "slope": 1.1567,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 861,
+       "slope": 1.0935,
+       "pass": true,
+       "ci95": null
+      },
+      "hc": {
+       "n": 4571,
+       "slope": 1.092,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 4879,
+       "slope": 0.9774,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ml5",
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 287,
+       "le1": {
+        "calibrated": 0.0625,
+        "raw": 0.0543,
+        "actual": 0.0453
+       },
+       "le3": {
+        "calibrated": 0.1653,
+        "raw": 0.144,
+        "actual": 0.1638
+       },
+       "le5": {
+        "calibrated": 0.2703,
+        "raw": 0.2375,
+        "actual": 0.2857
+       },
+       "le7": {
+        "calibrated": 0.3758,
+        "raw": 0.3436,
+        "actual": 0.3902
+       },
+       "le10": {
+        "calibrated": 0.5423,
+        "raw": 0.5155,
+        "actual": 0.5261
+       }
+      },
+      "exp<3": {
+       "games": 157,
+       "le1": {
+        "calibrated": 0.0661,
+        "raw": 0.0559,
+        "actual": 0.0573
+       },
+       "le3": {
+        "calibrated": 0.1759,
+        "raw": 0.1495,
+        "actual": 0.2038
+       },
+       "le5": {
+        "calibrated": 0.2868,
+        "raw": 0.2464,
+        "actual": 0.3376
+       },
+       "le7": {
+        "calibrated": 0.3964,
+        "raw": 0.3558,
+        "actual": 0.4268
+       },
+       "le10": {
+        "calibrated": 0.5669,
+        "raw": 0.5324,
+        "actual": 0.5414
+       }
+      },
+      "exp3-8": {
+       "games": 106,
+       "le1": {
+        "calibrated": 0.0611,
+        "raw": 0.054,
+        "actual": 0.0283
+       },
+       "le3": {
+        "calibrated": 0.1591,
+        "raw": 0.1411,
+        "actual": 0.1132
+       },
+       "le5": {
+        "calibrated": 0.2608,
+        "raw": 0.2329,
+        "actual": 0.2264
+       },
+       "le7": {
+        "calibrated": 0.3637,
+        "raw": 0.337,
+        "actual": 0.3679
+       },
+       "le10": {
+        "calibrated": 0.5275,
+        "raw": 0.506,
+        "actual": 0.5377
+       }
+      },
+      "exp>=8": {
+       "games": 24,
+       "le1": {
+        "calibrated": 0.0456,
+        "raw": 0.0449,
+        "actual": 0.0417
+       },
+       "le3": {
+        "calibrated": 0.1238,
+        "raw": 0.1211,
+        "actual": 0.125
+       },
+       "le5": {
+        "calibrated": 0.2047,
+        "raw": 0.1996,
+        "actual": 0.2083
+       },
+       "le7": {
+        "calibrated": 0.2943,
+        "raw": 0.2923,
+        "actual": 0.25
+       },
+       "le10": {
+        "calibrated": 0.446,
+        "raw": 0.4477,
+        "actual": 0.375
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0246,
+      "actual": 0.0453
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.4421,
+       "marginBias": 1.8574
+      },
+      "simulator": {
+       "marginMAE": 10.5588,
+       "totalMAE": 15.3642,
+       "totalBias": 2.5961
+      },
+      "baseline": {
+       "marginMAE": 10.4192,
+       "totalMAE": 15.5551
+      }
+     }
+    }
+   },
+   "byMonth": {
+    "2023-10": {
+     "n": 37,
+     "S1": {
+      "model": 0.258,
+      "base": 0.2489,
+      "diff": 0.0091,
+      "ci95": [
+       -0.0176,
+       0.0353
+      ],
+      "pass": false
+     },
+     "S2": {
+      "slope": -0.1922,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.1207,
+       "actual": 13.8092,
+       "ratio": 1.0226,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.3822,
+       "actual": 17.9012,
+       "ratio": 0.971,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 37,
+       "slope": -0.1922,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 111,
+       "slope": 0.3968,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 592,
+       "slope": 0.9178,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 629,
+       "slope": 0.6659,
+       "pass": false,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 37,
+       "le1": {
+        "calibrated": 0.0632,
+        "raw": 0.0539,
+        "actual": 0.0541
+       },
+       "le3": {
+        "calibrated": 0.1718,
+        "raw": 0.1469,
+        "actual": 0.1351
+       },
+       "le5": {
+        "calibrated": 0.2782,
+        "raw": 0.2402,
+        "actual": 0.2973
+       },
+       "le7": {
+        "calibrated": 0.3868,
+        "raw": 0.3485,
+        "actual": 0.3784
+       },
+       "le10": {
+        "calibrated": 0.563,
+        "raw": 0.5296,
+        "actual": 0.5405
+       }
+      },
+      "exp<3": {
+       "games": 32,
+       "le1": {
+        "calibrated": 0.0629,
+        "raw": 0.0535,
+        "actual": 0.0313
+       },
+       "le3": {
+        "calibrated": 0.1735,
+        "raw": 0.1478,
+        "actual": 0.125
+       },
+       "le5": {
+        "calibrated": 0.2801,
+        "raw": 0.241,
+        "actual": 0.2813
+       },
+       "le7": {
+        "calibrated": 0.3886,
+        "raw": 0.3491,
+        "actual": 0.3438
+       },
+       "le10": {
+        "calibrated": 0.5666,
+        "raw": 0.532,
+        "actual": 0.5313
+       }
+      },
+      "exp3-8": {
+       "games": 5,
+       "le1": {
+        "calibrated": 0.0649,
+        "raw": 0.0568,
+        "actual": 0.2
+       },
+       "le3": {
+        "calibrated": 0.1604,
+        "raw": 0.141,
+        "actual": 0.2
+       },
+       "le5": {
+        "calibrated": 0.2658,
+        "raw": 0.2351,
+        "actual": 0.4
+       },
+       "le7": {
+        "calibrated": 0.3754,
+        "raw": 0.3441,
+        "actual": 0.6
+       },
+       "le10": {
+        "calibrated": 0.5402,
+        "raw": 0.5143,
+        "actual": 0.6
+       }
+      },
+      "exp>=8": {
+       "games": 0,
+       "le1": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le3": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le5": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le7": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le10": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0248,
+      "actual": 0.0811
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.2075,
+       "marginBias": 0.0936
+      },
+      "simulator": {
+       "marginMAE": 11.3424,
+       "totalMAE": 15.4007,
+       "totalBias": 0.3504
+      },
+      "baseline": {
+       "marginMAE": 11.1266,
+       "totalMAE": 15.7406
+      }
+     }
+    },
+    "2023-11": {
+     "n": 206,
+     "S1": {
+      "model": 0.2211,
+      "base": 0.2309,
+      "diff": -0.0098,
+      "ci95": [
+       -0.0189,
+       -0.0015
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.5297,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0702,
+       "actual": 13.527,
+       "ratio": 1.0402,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4595,
+       "actual": 18.2576,
+       "ratio": 0.9563,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 206,
+       "slope": 1.5297,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 618,
+       "slope": 1.3809,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3294,
+       "slope": 1.1631,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3502,
+       "slope": 0.9834,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 206,
+       "le1": {
+        "calibrated": 0.063,
+        "raw": 0.0542,
+        "actual": 0.0485
+       },
+       "le3": {
+        "calibrated": 0.1686,
+        "raw": 0.1453,
+        "actual": 0.2087
+       },
+       "le5": {
+        "calibrated": 0.2749,
+        "raw": 0.2391,
+        "actual": 0.2961
+       },
+       "le7": {
+        "calibrated": 0.3824,
+        "raw": 0.3466,
+        "actual": 0.432
+       },
+       "le10": {
+        "calibrated": 0.5537,
+        "raw": 0.5232,
+        "actual": 0.5534
+       }
+      },
+      "exp<3": {
+       "games": 139,
+       "le1": {
+        "calibrated": 0.0644,
+        "raw": 0.0546,
+        "actual": 0.0647
+       },
+       "le3": {
+        "calibrated": 0.1738,
+        "raw": 0.1479,
+        "actual": 0.2158
+       },
+       "le5": {
+        "calibrated": 0.2826,
+        "raw": 0.243,
+        "actual": 0.3165
+       },
+       "le7": {
+        "calibrated": 0.3916,
+        "raw": 0.3517,
+        "actual": 0.4532
+       },
+       "le10": {
+        "calibrated": 0.565,
+        "raw": 0.5306,
+        "actual": 0.5683
+       }
+      },
+      "exp3-8": {
+       "games": 65,
+       "le1": {
+        "calibrated": 0.0608,
+        "raw": 0.0536,
+        "actual": 0.0154
+       },
+       "le3": {
+        "calibrated": 0.1593,
+        "raw": 0.1407,
+        "actual": 0.2
+       },
+       "le5": {
+        "calibrated": 0.2611,
+        "raw": 0.2321,
+        "actual": 0.2615
+       },
+       "le7": {
+        "calibrated": 0.3659,
+        "raw": 0.3374,
+        "actual": 0.4
+       },
+       "le10": {
+        "calibrated": 0.5335,
+        "raw": 0.5097,
+        "actual": 0.5385
+       }
+      },
+      "exp>=8": {
+       "games": 2,
+       "le1": {
+        "calibrated": 0.0431,
+        "raw": 0.0451,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1111,
+        "raw": 0.1158,
+        "actual": 0
+       },
+       "le5": {
+        "calibrated": 0.1866,
+        "raw": 0.1927,
+        "actual": 0
+       },
+       "le7": {
+        "calibrated": 0.2727,
+        "raw": 0.2833,
+        "actual": 0
+       },
+       "le10": {
+        "calibrated": 0.4267,
+        "raw": 0.441,
+        "actual": 0
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0252,
+      "actual": 0.0534
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.5938,
+       "marginBias": 2.883
+      },
+      "simulator": {
+       "marginMAE": 10.5558,
+       "totalMAE": 14.6683,
+       "totalBias": 3.5557
+      },
+      "baseline": {
+       "marginMAE": 10.7431,
+       "totalMAE": 15.0378
+      }
+     }
+    },
+    "2023-12": {
+     "n": 194,
+     "S1": {
+      "model": 0.2032,
+      "base": 0.2103,
+      "diff": -0.0071,
+      "ci95": [
+       -0.0148,
+       0.0011
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.7683,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0362,
+       "actual": 13.5758,
+       "ratio": 1.0339,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.5159,
+       "actual": 17.3324,
+       "ratio": 1.0106,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 194,
+       "slope": 1.7683,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 582,
+       "slope": 1.5517,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3079,
+       "slope": 1.1288,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3298,
+       "slope": 1.0194,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 194,
+       "le1": {
+        "calibrated": 0.0614,
+        "raw": 0.0536,
+        "actual": 0.0206
+       },
+       "le3": {
+        "calibrated": 0.1618,
+        "raw": 0.142,
+        "actual": 0.0928
+       },
+       "le5": {
+        "calibrated": 0.2648,
+        "raw": 0.2342,
+        "actual": 0.2113
+       },
+       "le7": {
+        "calibrated": 0.369,
+        "raw": 0.3393,
+        "actual": 0.3505
+       },
+       "le10": {
+        "calibrated": 0.5358,
+        "raw": 0.5114,
+        "actual": 0.5464
+       }
+      },
+      "exp<3": {
+       "games": 99,
+       "le1": {
+        "calibrated": 0.0662,
+        "raw": 0.0559,
+        "actual": 0.0202
+       },
+       "le3": {
+        "calibrated": 0.1737,
+        "raw": 0.1476,
+        "actual": 0.0707
+       },
+       "le5": {
+        "calibrated": 0.2839,
+        "raw": 0.2438,
+        "actual": 0.202
+       },
+       "le7": {
+        "calibrated": 0.3936,
+        "raw": 0.3531,
+        "actual": 0.3333
+       },
+       "le10": {
+        "calibrated": 0.5657,
+        "raw": 0.5309,
+        "actual": 0.5455
+       }
+      },
+      "exp3-8": {
+       "games": 81,
+       "le1": {
+        "calibrated": 0.0594,
+        "raw": 0.053,
+        "actual": 0.0247
+       },
+       "le3": {
+        "calibrated": 0.1563,
+        "raw": 0.1399,
+        "actual": 0.1358
+       },
+       "le5": {
+        "calibrated": 0.2557,
+        "raw": 0.2303,
+        "actual": 0.2346
+       },
+       "le7": {
+        "calibrated": 0.3571,
+        "raw": 0.3333,
+        "actual": 0.3951
+       },
+       "le10": {
+        "calibrated": 0.521,
+        "raw": 0.5023,
+        "actual": 0.5802
+       }
+      },
+      "exp>=8": {
+       "games": 14,
+       "le1": {
+        "calibrated": 0.0388,
+        "raw": 0.0408,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1095,
+        "raw": 0.1139,
+        "actual": 0
+       },
+       "le5": {
+        "calibrated": 0.1824,
+        "raw": 0.189,
+        "actual": 0.1429
+       },
+       "le7": {
+        "calibrated": 0.2646,
+        "raw": 0.2767,
+        "actual": 0.2143
+       },
+       "le10": {
+        "calibrated": 0.4102,
+        "raw": 0.4269,
+        "actual": 0.3571
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0242,
+      "actual": 0.0361
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6395,
+       "marginBias": 1.0102
+      },
+      "simulator": {
+       "marginMAE": 10.7006,
+       "totalMAE": 14.0015,
+       "totalBias": 1.7635
+      },
+      "baseline": {
+       "marginMAE": 10.647,
+       "totalMAE": 14.1365
+      }
+     }
+    },
+    "2024-01": {
+     "n": 214,
+     "S1": {
+      "model": 0.2141,
+      "base": 0.2176,
+      "diff": -0.0035,
+      "ci95": [
+       -0.011,
+       0.0036
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2643,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0045,
+       "actual": 15.5591,
+       "ratio": 0.9001,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.5099,
+       "actual": 20.5219,
+       "ratio": 0.8532,
+       "pass": false
+      },
+      "pass": false
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 214,
+       "slope": 1.2643,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 642,
+       "slope": 1.1479,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3388,
+       "slope": 1.0441,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3638,
+       "slope": 0.7057,
+       "pass": false,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 214,
+       "le1": {
+        "calibrated": 0.0604,
+        "raw": 0.0528,
+        "actual": 0.0467
+       },
+       "le3": {
+        "calibrated": 0.1628,
+        "raw": 0.1427,
+        "actual": 0.1495
+       },
+       "le5": {
+        "calibrated": 0.266,
+        "raw": 0.2351,
+        "actual": 0.257
+       },
+       "le7": {
+        "calibrated": 0.3697,
+        "raw": 0.3399,
+        "actual": 0.3692
+       },
+       "le10": {
+        "calibrated": 0.5349,
+        "raw": 0.5105,
+        "actual": 0.4953
+       }
+      },
+      "exp<3": {
+       "games": 105,
+       "le1": {
+        "calibrated": 0.0653,
+        "raw": 0.0553,
+        "actual": 0.0762
+       },
+       "le3": {
+        "calibrated": 0.1762,
+        "raw": 0.1498,
+        "actual": 0.181
+       },
+       "le5": {
+        "calibrated": 0.2874,
+        "raw": 0.247,
+        "actual": 0.3333
+       },
+       "le7": {
+        "calibrated": 0.3969,
+        "raw": 0.3564,
+        "actual": 0.4381
+       },
+       "le10": {
+        "calibrated": 0.5672,
+        "raw": 0.5327,
+        "actual": 0.5524
+       }
+      },
+      "exp3-8": {
+       "games": 91,
+       "le1": {
+        "calibrated": 0.0588,
+        "raw": 0.0523,
+        "actual": 0.022
+       },
+       "le3": {
+        "calibrated": 0.1575,
+        "raw": 0.1401,
+        "actual": 0.1209
+       },
+       "le5": {
+        "calibrated": 0.2578,
+        "raw": 0.2309,
+        "actual": 0.1868
+       },
+       "le7": {
+        "calibrated": 0.3595,
+        "raw": 0.3341,
+        "actual": 0.3077
+       },
+       "le10": {
+        "calibrated": 0.5232,
+        "raw": 0.5028,
+        "actual": 0.4286
+       }
+      },
+      "exp>=8": {
+       "games": 18,
+       "le1": {
+        "calibrated": 0.0398,
+        "raw": 0.0413,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1112,
+        "raw": 0.1141,
+        "actual": 0.1111
+       },
+       "le5": {
+        "calibrated": 0.1831,
+        "raw": 0.1873,
+        "actual": 0.1667
+       },
+       "le7": {
+        "calibrated": 0.2628,
+        "raw": 0.2727,
+        "actual": 0.2778
+       },
+       "le10": {
+        "calibrated": 0.405,
+        "raw": 0.42,
+        "actual": 0.5
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0245,
+      "actual": 0.0561
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 12.0568,
+       "marginBias": 1.3677
+      },
+      "simulator": {
+       "marginMAE": 12.1621,
+       "totalMAE": 16.9576,
+       "totalBias": -0.5218
+      },
+      "baseline": {
+       "marginMAE": 11.9995,
+       "totalMAE": 17.1502
+      }
+     }
+    },
+    "2024-02": {
+     "n": 161,
+     "S1": {
+      "model": 0.2205,
+      "base": 0.2174,
+      "diff": 0.0032,
+      "ci95": [
+       -0.0057,
+       0.0121
+      ],
+      "pass": false
+     },
+     "S2": {
+      "slope": 1.1468,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9526,
+       "actual": 14.5298,
+       "ratio": 0.9603,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4277,
+       "actual": 17.8597,
+       "ratio": 0.9758,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 161,
+       "slope": 1.1468,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 483,
+       "slope": 0.9208,
+       "pass": true,
+       "ci95": null
+      },
+      "hc": {
+       "n": 2535,
+       "slope": 0.9489,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 2737,
+       "slope": 1.0558,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 161,
+       "le1": {
+        "calibrated": 0.0594,
+        "raw": 0.0526,
+        "actual": 0.0124
+       },
+       "le3": {
+        "calibrated": 0.1588,
+        "raw": 0.141,
+        "actual": 0.1056
+       },
+       "le5": {
+        "calibrated": 0.2598,
+        "raw": 0.2324,
+        "actual": 0.1863
+       },
+       "le7": {
+        "calibrated": 0.3617,
+        "raw": 0.3357,
+        "actual": 0.2733
+       },
+       "le10": {
+        "calibrated": 0.5237,
+        "raw": 0.5032,
+        "actual": 0.4845
+       }
+      },
+      "exp<3": {
+       "games": 58,
+       "le1": {
+        "calibrated": 0.0668,
+        "raw": 0.0566,
+        "actual": 0.0172
+       },
+       "le3": {
+        "calibrated": 0.177,
+        "raw": 0.1505,
+        "actual": 0.1379
+       },
+       "le5": {
+        "calibrated": 0.2897,
+        "raw": 0.249,
+        "actual": 0.2241
+       },
+       "le7": {
+        "calibrated": 0.3994,
+        "raw": 0.3586,
+        "actual": 0.3103
+       },
+       "le10": {
+        "calibrated": 0.5683,
+        "raw": 0.5338,
+        "actual": 0.4655
+       }
+      },
+      "exp3-8": {
+       "games": 73,
+       "le1": {
+        "calibrated": 0.0602,
+        "raw": 0.0533,
+        "actual": 0.0137
+       },
+       "le3": {
+        "calibrated": 0.1605,
+        "raw": 0.1425,
+        "actual": 0.0959
+       },
+       "le5": {
+        "calibrated": 0.2623,
+        "raw": 0.2344,
+        "actual": 0.1781
+       },
+       "le7": {
+        "calibrated": 0.365,
+        "raw": 0.3384,
+        "actual": 0.3014
+       },
+       "le10": {
+        "calibrated": 0.5277,
+        "raw": 0.5064,
+        "actual": 0.5205
+       }
+      },
+      "exp>=8": {
+       "games": 30,
+       "le1": {
+        "calibrated": 0.0428,
+        "raw": 0.0431,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1191,
+        "raw": 0.1192,
+        "actual": 0.0667
+       },
+       "le5": {
+        "calibrated": 0.1957,
+        "raw": 0.1954,
+        "actual": 0.1333
+       },
+       "le7": {
+        "calibrated": 0.2805,
+        "raw": 0.2847,
+        "actual": 0.1333
+       },
+       "le10": {
+        "calibrated": 0.4275,
+        "raw": 0.4362,
+        "actual": 0.4333
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0241,
+      "actual": 0.0435
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.6294,
+       "marginBias": -0.2297
+      },
+      "simulator": {
+       "marginMAE": 11.721,
+       "totalMAE": 14.3021,
+       "totalBias": -2.2879
+      },
+      "baseline": {
+       "marginMAE": 11.5844,
+       "totalMAE": 14.3712
+      }
+     }
+    },
+    "2024-03": {
+     "n": 214,
+     "S1": {
+      "model": 0.2118,
+      "base": 0.2156,
+      "diff": -0.0038,
+      "ci95": [
+       -0.0121,
+       0.0036
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2884,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9184,
+       "actual": 14.241,
+       "ratio": 0.9773,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.3084,
+       "actual": 17.6977,
+       "ratio": 0.978,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 214,
+       "slope": 1.2884,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 642,
+       "slope": 1.2869,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3375,
+       "slope": 0.9649,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3638,
+       "slope": 1.0862,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 214,
+       "le1": {
+        "calibrated": 0.0612,
+        "raw": 0.0538,
+        "actual": 0.028
+       },
+       "le3": {
+        "calibrated": 0.1621,
+        "raw": 0.1428,
+        "actual": 0.1308
+       },
+       "le5": {
+        "calibrated": 0.2651,
+        "raw": 0.2354,
+        "actual": 0.1963
+       },
+       "le7": {
+        "calibrated": 0.3671,
+        "raw": 0.3386,
+        "actual": 0.3411
+       },
+       "le10": {
+        "calibrated": 0.5288,
+        "raw": 0.506,
+        "actual": 0.4953
+       }
+      },
+      "exp<3": {
+       "games": 77,
+       "le1": {
+        "calibrated": 0.0685,
+        "raw": 0.0578,
+        "actual": 0.039
+       },
+       "le3": {
+        "calibrated": 0.1809,
+        "raw": 0.1537,
+        "actual": 0.1429
+       },
+       "le5": {
+        "calibrated": 0.2933,
+        "raw": 0.2519,
+        "actual": 0.2338
+       },
+       "le7": {
+        "calibrated": 0.4023,
+        "raw": 0.361,
+        "actual": 0.4286
+       },
+       "le10": {
+        "calibrated": 0.5704,
+        "raw": 0.5356,
+        "actual": 0.5844
+       }
+      },
+      "exp3-8": {
+       "games": 107,
+       "le1": {
+        "calibrated": 0.0607,
+        "raw": 0.0536,
+        "actual": 0.0187
+       },
+       "le3": {
+        "calibrated": 0.161,
+        "raw": 0.1423,
+        "actual": 0.1121
+       },
+       "le5": {
+        "calibrated": 0.2642,
+        "raw": 0.2351,
+        "actual": 0.1682
+       },
+       "le7": {
+        "calibrated": 0.3664,
+        "raw": 0.3385,
+        "actual": 0.2991
+       },
+       "le10": {
+        "calibrated": 0.5288,
+        "raw": 0.5063,
+        "actual": 0.4579
+       }
+      },
+      "exp>=8": {
+       "games": 30,
+       "le1": {
+        "calibrated": 0.0445,
+        "raw": 0.0443,
+        "actual": 0.0333
+       },
+       "le3": {
+        "calibrated": 0.1175,
+        "raw": 0.1166,
+        "actual": 0.1667
+       },
+       "le5": {
+        "calibrated": 0.1961,
+        "raw": 0.1939,
+        "actual": 0.2
+       },
+       "le7": {
+        "calibrated": 0.2795,
+        "raw": 0.2815,
+        "actual": 0.2667
+       },
+       "le10": {
+        "calibrated": 0.4223,
+        "raw": 0.429,
+        "actual": 0.4
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0243,
+      "actual": 0.0607
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.2206,
+       "marginBias": -0.1825
+      },
+      "simulator": {
+       "marginMAE": 11.3172,
+       "totalMAE": 13.8889,
+       "totalBias": 0.3719
+      },
+      "baseline": {
+       "marginMAE": 11.1682,
+       "totalMAE": 15.0528
+      }
+     }
+    },
+    "2024-04": {
+     "n": 96,
+     "S1": {
+      "model": 0.2145,
+      "base": 0.2171,
+      "diff": -0.0026,
+      "ci95": [
+       -0.0164,
+       0.0098
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 0.9639,
+      "ci95": null,
+      "pass": true
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9141,
+       "actual": 13.0602,
+       "ratio": 1.0654,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.2681,
+       "actual": 17.2471,
+       "ratio": 1.0012,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": true,
+     "markets": {
+      "ml": {
+       "n": 96,
+       "slope": 0.9639,
+       "pass": true,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 288,
+       "slope": 0.8299,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 1491,
+       "slope": 0.893,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 1632,
+       "slope": 1.0785,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ml",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 96,
+       "le1": {
+        "calibrated": 0.0599,
+        "raw": 0.0533,
+        "actual": 0.0625
+       },
+       "le3": {
+        "calibrated": 0.1565,
+        "raw": 0.1397,
+        "actual": 0.1667
+       },
+       "le5": {
+        "calibrated": 0.2564,
+        "raw": 0.2304,
+        "actual": 0.2708
+       },
+       "le7": {
+        "calibrated": 0.3566,
+        "raw": 0.3321,
+        "actual": 0.3333
+       },
+       "le10": {
+        "calibrated": 0.5142,
+        "raw": 0.4955,
+        "actual": 0.5313
+       }
+      },
+      "exp<3": {
+       "games": 35,
+       "le1": {
+        "calibrated": 0.0685,
+        "raw": 0.0578,
+        "actual": 0.0286
+       },
+       "le3": {
+        "calibrated": 0.1801,
+        "raw": 0.1529,
+        "actual": 0.1429
+       },
+       "le5": {
+        "calibrated": 0.2928,
+        "raw": 0.2512,
+        "actual": 0.2571
+       },
+       "le7": {
+        "calibrated": 0.4025,
+        "raw": 0.3609,
+        "actual": 0.3143
+       },
+       "le10": {
+        "calibrated": 0.5707,
+        "raw": 0.5355,
+        "actual": 0.4857
+       }
+      },
+      "exp3-8": {
+       "games": 42,
+       "le1": {
+        "calibrated": 0.0612,
+        "raw": 0.0544,
+        "actual": 0.0714
+       },
+       "le3": {
+        "calibrated": 0.1591,
+        "raw": 0.1419,
+        "actual": 0.1667
+       },
+       "le5": {
+        "calibrated": 0.2608,
+        "raw": 0.2339,
+        "actual": 0.2619
+       },
+       "le7": {
+        "calibrated": 0.3621,
+        "raw": 0.3364,
+        "actual": 0.3571
+       },
+       "le10": {
+        "calibrated": 0.5193,
+        "raw": 0.4993,
+        "actual": 0.5714
+       }
+      },
+      "exp>=8": {
+       "games": 19,
+       "le1": {
+        "calibrated": 0.041,
+        "raw": 0.0427,
+        "actual": 0.1053
+       },
+       "le3": {
+        "calibrated": 0.1071,
+        "raw": 0.1107,
+        "actual": 0.2105
+       },
+       "le5": {
+        "calibrated": 0.1797,
+        "raw": 0.1843,
+        "actual": 0.3158
+       },
+       "le7": {
+        "calibrated": 0.26,
+        "raw": 0.2696,
+        "actual": 0.3158
+       },
+       "le10": {
+        "calibrated": 0.3988,
+        "raw": 0.4135,
+        "actual": 0.5263
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0237,
+      "actual": 0.0208
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.572,
+       "marginBias": 0.0276
+      },
+      "simulator": {
+       "marginMAE": 10.6495,
+       "totalMAE": 13.8574,
+       "totalBias": 2.5912
+      },
+      "baseline": {
+       "marginMAE": 10.6325,
+       "totalMAE": 14.2419
+      }
+     }
+    }
+   },
+   "preJobStartReference": {
+    "n": 86,
+    "S1": {
+     "model": 0.1994,
+     "base": 0.2091,
+     "diff": -0.0097,
+     "ci95": [
+      -0.0242,
+      0.0051
+     ],
+     "pass": true
+    },
+    "S2": {
+     "slope": 1.4793,
+     "ci95": null,
+     "pass": false
+    },
+    "S3": {
+     "margin": {
+      "sim": 13.9931,
+      "actual": 16.427,
+      "ratio": 0.8518,
+      "pass": false
+     },
+     "total": {
+      "sim": 17.4389,
+      "actual": 18.4325,
+      "ratio": 0.9461,
+      "pass": true
+     },
+     "pass": false
+    },
+    "pass": false,
+    "markets": {
+     "ml": {
+      "n": 86,
+      "slope": 1.4793,
+      "pass": false,
+      "ci95": null
+     },
+     "ml5": {
+      "n": 258,
+      "slope": 1.5197,
+      "pass": false,
+      "ci95": null
+     },
+     "hc": {
+      "n": 1349,
+      "slope": 0.9628,
+      "pass": true,
+      "ci95": null
+     },
+     "ou": {
+      "n": 1462,
+      "slope": 0.978,
+      "pass": true,
+      "ci95": null
+     }
+    },
+    "eligibleMarkets": [],
+    "close": {
+     "all": {
+      "games": 86,
+      "le1": {
+       "calibrated": 0.0604,
+       "raw": 0.0533,
+       "actual": 0.0349
+      },
+      "le3": {
+       "calibrated": 0.1594,
+       "raw": 0.1411,
+       "actual": 0.093
+      },
+      "le5": {
+       "calibrated": 0.2612,
+       "raw": 0.233,
+       "actual": 0.1628
+      },
+      "le7": {
+       "calibrated": 0.3641,
+       "raw": 0.3369,
+       "actual": 0.3256
+      },
+      "le10": {
+       "calibrated": 0.5285,
+       "raw": 0.5066,
+       "actual": 0.4535
+      }
+     },
+     "exp<3": {
+      "games": 37,
+      "le1": {
+       "calibrated": 0.0668,
+       "raw": 0.0565,
+       "actual": 0.027
+      },
+      "le3": {
+       "calibrated": 0.1752,
+       "raw": 0.1489,
+       "actual": 0.1081
+      },
+      "le5": {
+       "calibrated": 0.2853,
+       "raw": 0.2453,
+       "actual": 0.2432
+      },
+      "le7": {
+       "calibrated": 0.3941,
+       "raw": 0.3541,
+       "actual": 0.3514
+      },
+      "le10": {
+       "calibrated": 0.5648,
+       "raw": 0.5308,
+       "actual": 0.4324
+      }
+     },
+     "exp3-8": {
+      "games": 40,
+      "le1": {
+       "calibrated": 0.0593,
+       "raw": 0.053,
+       "actual": 0.05
+      },
+      "le3": {
+       "calibrated": 0.1575,
+       "raw": 0.1411,
+       "actual": 0.075
+      },
+      "le5": {
+       "calibrated": 0.258,
+       "raw": 0.2326,
+       "actual": 0.1
+      },
+      "le7": {
+       "calibrated": 0.3609,
+       "raw": 0.3366,
+       "actual": 0.3
+      },
+      "le10": {
+       "calibrated": 0.5262,
+       "raw": 0.5066,
+       "actual": 0.45
+      }
+     },
+     "exp>=8": {
+      "games": 9,
+      "le1": {
+       "calibrated": 0.0393,
+       "raw": 0.0419,
+       "actual": 0
+      },
+      "le3": {
+       "calibrated": 0.1033,
+       "raw": 0.1092,
+       "actual": 0.1111
+      },
+      "le5": {
+       "calibrated": 0.1759,
+       "raw": 0.1839,
+       "actual": 0.1111
+      },
+      "le7": {
+       "calibrated": 0.2544,
+       "raw": 0.2676,
+       "actual": 0.3333
+      },
+      "le10": {
+       "calibrated": 0.3893,
+       "raw": 0.4071,
+       "actual": 0.5556
+      }
+     }
+    },
+    "overtime": {
+     "sim": 0.0241,
+     "actual": 0.0465
+    },
+    "accuracy": {
+     "ensemble": {
+      "marginMAE": 12.508,
+      "marginBias": 1.179
+     },
+     "simulator": {
+      "marginMAE": 12.4959,
+      "totalMAE": 14.6434,
+      "totalBias": 0.731
+     },
+     "baseline": {
+      "marginMAE": 12.6736,
+      "totalMAE": 15.1524
+     }
+    }
+   },
+   "byFirstMonth": {
+    "firstMonth": {
+     "n": 207,
+     "S1": {
+      "model": 0.2269,
+      "base": 0.235,
+      "diff": -0.0082,
+      "ci95": [
+       -0.0151,
+       0.0004
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.5942,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0859,
+       "actual": 13.6687,
+       "ratio": 1.0305,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4506,
+       "actual": 18.2641,
+       "ratio": 0.9555,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 207,
+       "slope": 1.5942,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 621,
+       "slope": 1.2595,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3312,
+       "slope": 1.1578,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3519,
+       "slope": 0.9348,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 207,
+       "le1": {
+        "calibrated": 0.0634,
+        "raw": 0.0542,
+        "actual": 0.0483
+       },
+       "le3": {
+        "calibrated": 0.1701,
+        "raw": 0.1459,
+        "actual": 0.1981
+       },
+       "le5": {
+        "calibrated": 0.2769,
+        "raw": 0.2398,
+        "actual": 0.3092
+       },
+       "le7": {
+        "calibrated": 0.3851,
+        "raw": 0.3478,
+        "actual": 0.43
+       },
+       "le10": {
+        "calibrated": 0.5579,
+        "raw": 0.5257,
+        "actual": 0.5459
+       }
+      },
+      "exp<3": {
+       "games": 152,
+       "le1": {
+        "calibrated": 0.0641,
+        "raw": 0.0544,
+        "actual": 0.0592
+       },
+       "le3": {
+        "calibrated": 0.1736,
+        "raw": 0.1477,
+        "actual": 0.1974
+       },
+       "le5": {
+        "calibrated": 0.2819,
+        "raw": 0.2423,
+        "actual": 0.3224
+       },
+       "le7": {
+        "calibrated": 0.3908,
+        "raw": 0.351,
+        "actual": 0.4342
+       },
+       "le10": {
+        "calibrated": 0.5654,
+        "raw": 0.5309,
+        "actual": 0.5461
+       }
+      },
+      "exp3-8": {
+       "games": 55,
+       "le1": {
+        "calibrated": 0.0613,
+        "raw": 0.0538,
+        "actual": 0.0182
+       },
+       "le3": {
+        "calibrated": 0.1605,
+        "raw": 0.141,
+        "actual": 0.2
+       },
+       "le5": {
+        "calibrated": 0.2632,
+        "raw": 0.2329,
+        "actual": 0.2727
+       },
+       "le7": {
+        "calibrated": 0.369,
+        "raw": 0.3388,
+        "actual": 0.4182
+       },
+       "le10": {
+        "calibrated": 0.5371,
+        "raw": 0.5115,
+        "actual": 0.5455
+       }
+      },
+      "exp>=8": {
+       "games": 0,
+       "le1": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le3": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le5": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le7": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le10": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0251,
+      "actual": 0.0628
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6497,
+       "marginBias": 2.3057
+      },
+      "simulator": {
+       "marginMAE": 10.619,
+       "totalMAE": 14.6943,
+       "totalBias": 2.9587
+      },
+      "baseline": {
+       "marginMAE": 10.8094,
+       "totalMAE": 15.0202
+      }
+     }
+    },
+    "rest": {
+     "n": 915,
+     "S1": {
+      "model": 0.2129,
+      "base": 0.2158,
+      "diff": -0.0029,
+      "ci95": [
+       -0.0066,
+       0.0009
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2475,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9736,
+       "actual": 14.346,
+       "ratio": 0.974,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4214,
+       "actual": 18.3969,
+       "ratio": 0.947,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 915,
+       "slope": 1.2475,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 2745,
+       "slope": 1.1578,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 14442,
+       "slope": 0.9969,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 15555,
+       "slope": 0.9594,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 915,
+       "le1": {
+        "calibrated": 0.0606,
+        "raw": 0.0533,
+        "actual": 0.0328
+       },
+       "le3": {
+        "calibrated": 0.1611,
+        "raw": 0.142,
+        "actual": 0.129
+       },
+       "le5": {
+        "calibrated": 0.2635,
+        "raw": 0.234,
+        "actual": 0.2208
+       },
+       "le7": {
+        "calibrated": 0.3663,
+        "raw": 0.338,
+        "actual": 0.3388
+       },
+       "le10": {
+        "calibrated": 0.5297,
+        "raw": 0.507,
+        "actual": 0.5115
+       }
+      },
+      "exp<3": {
+       "games": 393,
+       "le1": {
+        "calibrated": 0.0666,
+        "raw": 0.0563,
+        "actual": 0.0407
+       },
+       "le3": {
+        "calibrated": 0.1769,
+        "raw": 0.1504,
+        "actual": 0.1374
+       },
+       "le5": {
+        "calibrated": 0.2883,
+        "raw": 0.2477,
+        "actual": 0.2519
+       },
+       "le7": {
+        "calibrated": 0.3978,
+        "raw": 0.3571,
+        "actual": 0.3791
+       },
+       "le10": {
+        "calibrated": 0.5678,
+        "raw": 0.5331,
+        "actual": 0.5445
+       }
+      },
+      "exp3-8": {
+       "games": 409,
+       "le1": {
+        "calibrated": 0.06,
+        "raw": 0.0532,
+        "actual": 0.0269
+       },
+       "le3": {
+        "calibrated": 0.1588,
+        "raw": 0.1412,
+        "actual": 0.1247
+       },
+       "le5": {
+        "calibrated": 0.26,
+        "raw": 0.2328,
+        "actual": 0.2005
+       },
+       "le7": {
+        "calibrated": 0.362,
+        "raw": 0.3361,
+        "actual": 0.3301
+       },
+       "le10": {
+        "calibrated": 0.5246,
+        "raw": 0.5039,
+        "actual": 0.5012
+       }
+      },
+      "exp>=8": {
+       "games": 113,
+       "le1": {
+        "calibrated": 0.042,
+        "raw": 0.0428,
+        "actual": 0.0265
+       },
+       "le3": {
+        "calibrated": 0.1141,
+        "raw": 0.1156,
+        "actual": 0.115
+       },
+       "le5": {
+        "calibrated": 0.1893,
+        "raw": 0.191,
+        "actual": 0.1858
+       },
+       "le7": {
+        "calibrated": 0.2719,
+        "raw": 0.2784,
+        "actual": 0.2301
+       },
+       "le10": {
+        "calibrated": 0.4156,
+        "raw": 0.4268,
+        "actual": 0.4336
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0243,
+      "actual": 0.0459
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.2843,
+       "marginBias": 0.5851
+      },
+      "simulator": {
+       "marginMAE": 11.3726,
+       "totalMAE": 14.7543,
+       "totalBias": 0.3535
+      },
+      "baseline": {
+       "marginMAE": 11.2529,
+       "totalMAE": 15.1758
+      }
+     }
+    }
+   }
+  },
+  "B": {
+   "counts": {
+    "rows": 1215,
+    "judged": 1122,
+    "preJobStart": 87,
+    "dataExcluded": 7
+   },
+   "all": {
+    "n": 1122,
+    "S1": {
+     "model": 0.2167,
+     "base": 0.2193,
+     "diff": -0.0026,
+     "ci95": [
+      -0.0062,
+      0.001
+     ],
+     "pass": true
+    },
+    "S2": {
+     "slope": 1.2453,
+     "ci95": [
+      1.0846,
+      1.4317
+     ],
+     "pass": false
+    },
+    "S3": {
+     "margin": {
+      "sim": 14.0006,
+      "actual": 14.257,
+      "ratio": 0.982,
+      "pass": true
+     },
+     "total": {
+      "sim": 17.4465,
+      "actual": 18.392,
+      "ratio": 0.9486,
+      "pass": true
+     },
+     "pass": true
+    },
+    "pass": false,
+    "markets": {
+     "ml": {
+      "n": 1122,
+      "slope": 1.2453,
+      "pass": false,
+      "ci95": [
+       1.0846,
+       1.4317
+      ]
+     },
+     "ml5": {
+      "n": 3366,
+      "slope": 1.1706,
+      "pass": false,
+      "ci95": [
+       1.0176,
+       1.3663
+      ]
+     },
+     "hc": {
+      "n": 17754,
+      "slope": 1.0188,
+      "pass": true,
+      "ci95": [
+       0.9467,
+       1.1094
+      ]
+     },
+     "ou": {
+      "n": 19074,
+      "slope": 0.9715,
+      "pass": true,
+      "ci95": [
+       0.8917,
+       1.0834
+      ]
+     }
+    },
+    "eligibleMarkets": [
+     "hc",
+     "ou"
+    ],
+    "close": {
+     "all": {
+      "games": 1122,
+      "le1": {
+       "calibrated": 0.0616,
+       "raw": 0.0538,
+       "actual": 0.0357
+      },
+      "le3": {
+       "calibrated": 0.1646,
+       "raw": 0.1443,
+       "actual": 0.1417
+      },
+      "le5": {
+       "calibrated": 0.2686,
+       "raw": 0.2373,
+       "actual": 0.2371
+      },
+      "le7": {
+       "calibrated": 0.372,
+       "raw": 0.3416,
+       "actual": 0.3556
+      },
+      "le10": {
+       "calibrated": 0.5356,
+       "raw": 0.511,
+       "actual": 0.5178
+      }
+     },
+     "exp<3": {
+      "games": 549,
+      "le1": {
+       "calibrated": 0.066,
+       "raw": 0.0558,
+       "actual": 0.0455
+      },
+      "le3": {
+       "calibrated": 0.1776,
+       "raw": 0.1509,
+       "actual": 0.1603
+      },
+      "le5": {
+       "calibrated": 0.2886,
+       "raw": 0.2478,
+       "actual": 0.2787
+      },
+      "le7": {
+       "calibrated": 0.3975,
+       "raw": 0.3567,
+       "actual": 0.4044
+      },
+      "le10": {
+       "calibrated": 0.5675,
+       "raw": 0.5328,
+       "actual": 0.5574
+      }
+     },
+     "exp3-8": {
+      "games": 460,
+      "le1": {
+       "calibrated": 0.0609,
+       "raw": 0.0539,
+       "actual": 0.0283
+      },
+      "le3": {
+       "calibrated": 0.161,
+       "raw": 0.1428,
+       "actual": 0.1326
+      },
+      "le5": {
+       "calibrated": 0.2633,
+       "raw": 0.2352,
+       "actual": 0.2109
+      },
+      "le7": {
+       "calibrated": 0.3653,
+       "raw": 0.3385,
+       "actual": 0.337
+      },
+      "le10": {
+       "calibrated": 0.5266,
+       "raw": 0.5052,
+       "actual": 0.5022
+      }
+     },
+     "exp>=8": {
+      "games": 113,
+      "le1": {
+       "calibrated": 0.0427,
+       "raw": 0.0436,
+       "actual": 0.0177
+      },
+      "le3": {
+       "calibrated": 0.1165,
+       "raw": 0.1178,
+       "actual": 0.0885
+      },
+      "le5": {
+       "calibrated": 0.193,
+       "raw": 0.1946,
+       "actual": 0.1416
+      },
+      "le7": {
+       "calibrated": 0.2753,
+       "raw": 0.2818,
+       "actual": 0.1947
+      },
+      "le10": {
+       "calibrated": 0.417,
+       "raw": 0.4284,
+       "actual": 0.3894
+      }
+     }
+    },
+    "overtime": {
+     "sim": 0.0245,
+     "actual": 0.049
+    },
+    "accuracy": {
+     "ensemble": {
+      "marginMAE": 11.1908,
+      "marginBias": 0.9074
+     },
+     "simulator": {
+      "marginMAE": 11.2647,
+      "totalMAE": 14.7292,
+      "totalBias": 1.722
+     },
+     "baseline": {
+      "marginMAE": 11.1711,
+      "totalMAE": 15.1471
+     }
+    }
+   },
+   "byPeriodGroup": {
+    "hourly/A": {
+     "n": 835,
+     "S1": {
+      "model": 0.2153,
+      "base": 0.2175,
+      "diff": -0.0022,
+      "ci95": [
+       -0.0056,
+       0.0023
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2797,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0041,
+       "actual": 14.5612,
+       "ratio": 0.9617,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4445,
+       "actual": 18.2001,
+       "ratio": 0.9585,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 835,
+       "slope": 1.2797,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 2505,
+       "slope": 1.1787,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 13183,
+       "slope": 0.9973,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 14195,
+       "slope": 0.9774,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 835,
+       "le1": {
+        "calibrated": 0.0609,
+        "raw": 0.0534,
+        "actual": 0.0323
+       },
+       "le3": {
+        "calibrated": 0.1635,
+        "raw": 0.1436,
+        "actual": 0.1341
+       },
+       "le5": {
+        "calibrated": 0.2666,
+        "raw": 0.2361,
+        "actual": 0.2204
+       },
+       "le7": {
+        "calibrated": 0.3696,
+        "raw": 0.3401,
+        "actual": 0.3437
+       },
+       "le10": {
+        "calibrated": 0.533,
+        "raw": 0.5091,
+        "actual": 0.515
+       }
+      },
+      "exp<3": {
+       "games": 388,
+       "le1": {
+        "calibrated": 0.0657,
+        "raw": 0.0556,
+        "actual": 0.0412
+       },
+       "le3": {
+        "calibrated": 0.1772,
+        "raw": 0.1506,
+        "actual": 0.1469
+       },
+       "le5": {
+        "calibrated": 0.288,
+        "raw": 0.2473,
+        "actual": 0.2577
+       },
+       "le7": {
+        "calibrated": 0.3969,
+        "raw": 0.3562,
+        "actual": 0.3969
+       },
+       "le10": {
+        "calibrated": 0.5672,
+        "raw": 0.5325,
+        "actual": 0.5619
+       }
+      },
+      "exp3-8": {
+       "games": 354,
+       "le1": {
+        "calibrated": 0.0606,
+        "raw": 0.0536,
+        "actual": 0.0282
+       },
+       "le3": {
+        "calibrated": 0.1612,
+        "raw": 0.1429,
+        "actual": 0.1328
+       },
+       "le5": {
+        "calibrated": 0.2633,
+        "raw": 0.2351,
+        "actual": 0.2006
+       },
+       "le7": {
+        "calibrated": 0.3654,
+        "raw": 0.3385,
+        "actual": 0.3249
+       },
+       "le10": {
+        "calibrated": 0.5272,
+        "raw": 0.5056,
+        "actual": 0.4915
+       }
+      },
+      "exp>=8": {
+       "games": 93,
+       "le1": {
+        "calibrated": 0.0421,
+        "raw": 0.0433,
+        "actual": 0.0108
+       },
+       "le3": {
+        "calibrated": 0.1147,
+        "raw": 0.1169,
+        "actual": 0.086
+       },
+       "le5": {
+        "calibrated": 0.19,
+        "raw": 0.1929,
+        "actual": 0.1398
+       },
+       "le7": {
+        "calibrated": 0.2713,
+        "raw": 0.2794,
+        "actual": 0.1935
+       },
+       "le10": {
+        "calibrated": 0.412,
+        "raw": 0.4251,
+        "actual": 0.4086
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0244,
+      "actual": 0.0503
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.4425,
+       "marginBias": 0.5789
+      },
+      "simulator": {
+       "marginMAE": 11.5037,
+       "totalMAE": 14.4963,
+       "totalBias": 1.0932
+      },
+      "baseline": {
+       "marginMAE": 11.4295,
+       "totalMAE": 15.0069
+      }
+     }
+    },
+    "hourly/B": {
+     "n": 287,
+     "S1": {
+      "model": 0.2208,
+      "base": 0.2248,
+      "diff": -0.004,
+      "ci95": [
+       -0.0111,
+       0.0028
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.1768,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9904,
+       "actual": 13.2864,
+       "ratio": 1.053,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4522,
+       "actual": 18.8203,
+       "ratio": 0.9273,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 287,
+       "slope": 1.1768,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 861,
+       "slope": 1.1416,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 4571,
+       "slope": 1.0942,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 4879,
+       "slope": 0.9687,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 287,
+       "le1": {
+        "calibrated": 0.0636,
+        "raw": 0.0551,
+        "actual": 0.0453
+       },
+       "le3": {
+        "calibrated": 0.1681,
+        "raw": 0.1463,
+        "actual": 0.1638
+       },
+       "le5": {
+        "calibrated": 0.2743,
+        "raw": 0.2408,
+        "actual": 0.2857
+       },
+       "le7": {
+        "calibrated": 0.3789,
+        "raw": 0.3461,
+        "actual": 0.3902
+       },
+       "le10": {
+        "calibrated": 0.5433,
+        "raw": 0.5163,
+        "actual": 0.5261
+       }
+      },
+      "exp<3": {
+       "games": 161,
+       "le1": {
+        "calibrated": 0.0668,
+        "raw": 0.0564,
+        "actual": 0.0559
+       },
+       "le3": {
+        "calibrated": 0.1785,
+        "raw": 0.1517,
+        "actual": 0.1925
+       },
+       "le5": {
+        "calibrated": 0.2901,
+        "raw": 0.2491,
+        "actual": 0.3292
+       },
+       "le7": {
+        "calibrated": 0.3988,
+        "raw": 0.3578,
+        "actual": 0.4224
+       },
+       "le10": {
+        "calibrated": 0.5683,
+        "raw": 0.5335,
+        "actual": 0.5466
+       }
+      },
+      "exp3-8": {
+       "games": 106,
+       "le1": {
+        "calibrated": 0.0621,
+        "raw": 0.055,
+        "actual": 0.0283
+       },
+       "le3": {
+        "calibrated": 0.1605,
+        "raw": 0.1426,
+        "actual": 0.1321
+       },
+       "le5": {
+        "calibrated": 0.2631,
+        "raw": 0.2354,
+        "actual": 0.2453
+       },
+       "le7": {
+        "calibrated": 0.3647,
+        "raw": 0.3384,
+        "actual": 0.3774
+       },
+       "le10": {
+        "calibrated": 0.5246,
+        "raw": 0.5038,
+        "actual": 0.5377
+       }
+      },
+      "exp>=8": {
+       "games": 20,
+       "le1": {
+        "calibrated": 0.0455,
+        "raw": 0.0449,
+        "actual": 0.05
+       },
+       "le3": {
+        "calibrated": 0.1246,
+        "raw": 0.1223,
+        "actual": 0.1
+       },
+       "le5": {
+        "calibrated": 0.2069,
+        "raw": 0.2024,
+        "actual": 0.15
+       },
+       "le7": {
+        "calibrated": 0.2937,
+        "raw": 0.2928,
+        "actual": 0.2
+       },
+       "le10": {
+        "calibrated": 0.4405,
+        "raw": 0.4441,
+        "actual": 0.3
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0249,
+      "actual": 0.0453
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.4584,
+       "marginBias": 1.8629
+      },
+      "simulator": {
+       "marginMAE": 10.5693,
+       "totalMAE": 15.4069,
+       "totalBias": 3.5514
+      },
+      "baseline": {
+       "marginMAE": 10.4192,
+       "totalMAE": 15.5551
+      }
+     }
+    }
+   },
+   "byMonth": {
+    "2023-10": {
+     "n": 37,
+     "S1": {
+      "model": 0.2584,
+      "base": 0.2489,
+      "diff": 0.0095,
+      "ci95": [
+       -0.0172,
+       0.0339
+      ],
+      "pass": false
+     },
+     "S2": {
+      "slope": -0.3253,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.1369,
+       "actual": 13.8276,
+       "ratio": 1.0224,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.3941,
+       "actual": 17.836,
+       "ratio": 0.9752,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 37,
+       "slope": -0.3253,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 111,
+       "slope": 0.3962,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 592,
+       "slope": 0.968,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 629,
+       "slope": 0.614,
+       "pass": false,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 37,
+       "le1": {
+        "calibrated": 0.0633,
+        "raw": 0.0539,
+        "actual": 0.0541
+       },
+       "le3": {
+        "calibrated": 0.1702,
+        "raw": 0.1454,
+        "actual": 0.1351
+       },
+       "le5": {
+        "calibrated": 0.2761,
+        "raw": 0.2381,
+        "actual": 0.2973
+       },
+       "le7": {
+        "calibrated": 0.3843,
+        "raw": 0.346,
+        "actual": 0.3784
+       },
+       "le10": {
+        "calibrated": 0.5624,
+        "raw": 0.5288,
+        "actual": 0.5405
+       }
+      },
+      "exp<3": {
+       "games": 33,
+       "le1": {
+        "calibrated": 0.0626,
+        "raw": 0.0531,
+        "actual": 0.0303
+       },
+       "le3": {
+        "calibrated": 0.1713,
+        "raw": 0.1458,
+        "actual": 0.1212
+       },
+       "le5": {
+        "calibrated": 0.2771,
+        "raw": 0.2384,
+        "actual": 0.2727
+       },
+       "le7": {
+        "calibrated": 0.3854,
+        "raw": 0.3463,
+        "actual": 0.3636
+       },
+       "le10": {
+        "calibrated": 0.5648,
+        "raw": 0.5304,
+        "actual": 0.5455
+       }
+      },
+      "exp3-8": {
+       "games": 4,
+       "le1": {
+        "calibrated": 0.0692,
+        "raw": 0.0604,
+        "actual": 0.25
+       },
+       "le3": {
+        "calibrated": 0.1615,
+        "raw": 0.1418,
+        "actual": 0.25
+       },
+       "le5": {
+        "calibrated": 0.2671,
+        "raw": 0.2358,
+        "actual": 0.5
+       },
+       "le7": {
+        "calibrated": 0.3756,
+        "raw": 0.3437,
+        "actual": 0.5
+       },
+       "le10": {
+        "calibrated": 0.5423,
+        "raw": 0.5154,
+        "actual": 0.5
+       }
+      },
+      "exp>=8": {
+       "games": 0,
+       "le1": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le3": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le5": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le7": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le10": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.025,
+      "actual": 0.0811
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.2213,
+       "marginBias": 0.2033
+      },
+      "simulator": {
+       "marginMAE": 11.3278,
+       "totalMAE": 15.4078,
+       "totalBias": 0.7719
+      },
+      "baseline": {
+       "marginMAE": 11.1266,
+       "totalMAE": 15.7406
+      }
+     }
+    },
+    "2023-11": {
+     "n": 206,
+     "S1": {
+      "model": 0.2226,
+      "base": 0.2309,
+      "diff": -0.0083,
+      "ci95": [
+       -0.017,
+       0.0004
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.5218,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0697,
+       "actual": 13.5534,
+       "ratio": 1.0381,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.467,
+       "actual": 18.2494,
+       "ratio": 0.9571,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 206,
+       "slope": 1.5218,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 618,
+       "slope": 1.4383,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3293,
+       "slope": 1.1754,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3502,
+       "slope": 1.0105,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 206,
+       "le1": {
+        "calibrated": 0.0631,
+        "raw": 0.0542,
+        "actual": 0.0485
+       },
+       "le3": {
+        "calibrated": 0.1709,
+        "raw": 0.147,
+        "actual": 0.2087
+       },
+       "le5": {
+        "calibrated": 0.2778,
+        "raw": 0.2413,
+        "actual": 0.2961
+       },
+       "le7": {
+        "calibrated": 0.3852,
+        "raw": 0.3488,
+        "actual": 0.432
+       },
+       "le10": {
+        "calibrated": 0.5551,
+        "raw": 0.5242,
+        "actual": 0.5534
+       }
+      },
+      "exp<3": {
+       "games": 139,
+       "le1": {
+        "calibrated": 0.0642,
+        "raw": 0.0544,
+        "actual": 0.0647
+       },
+       "le3": {
+        "calibrated": 0.1754,
+        "raw": 0.1491,
+        "actual": 0.2158
+       },
+       "le5": {
+        "calibrated": 0.285,
+        "raw": 0.2448,
+        "actual": 0.3165
+       },
+       "le7": {
+        "calibrated": 0.394,
+        "raw": 0.3535,
+        "actual": 0.4676
+       },
+       "le10": {
+        "calibrated": 0.5662,
+        "raw": 0.5315,
+        "actual": 0.5683
+       }
+      },
+      "exp3-8": {
+       "games": 65,
+       "le1": {
+        "calibrated": 0.0612,
+        "raw": 0.0539,
+        "actual": 0.0154
+       },
+       "le3": {
+        "calibrated": 0.1629,
+        "raw": 0.1435,
+        "actual": 0.2
+       },
+       "le5": {
+        "calibrated": 0.2653,
+        "raw": 0.2355,
+        "actual": 0.2615
+       },
+       "le7": {
+        "calibrated": 0.3699,
+        "raw": 0.3407,
+        "actual": 0.3692
+       },
+       "le10": {
+        "calibrated": 0.5355,
+        "raw": 0.5115,
+        "actual": 0.5385
+       }
+      },
+      "exp>=8": {
+       "games": 2,
+       "le1": {
+        "calibrated": 0.046,
+        "raw": 0.0478,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1143,
+        "raw": 0.1181,
+        "actual": 0
+       },
+       "le5": {
+        "calibrated": 0.1848,
+        "raw": 0.1898,
+        "actual": 0
+       },
+       "le7": {
+        "calibrated": 0.2734,
+        "raw": 0.283,
+        "actual": 0
+       },
+       "le10": {
+        "calibrated": 0.4212,
+        "raw": 0.435,
+        "actual": 0
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0252,
+      "actual": 0.0534
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6109,
+       "marginBias": 2.9304
+      },
+      "simulator": {
+       "marginMAE": 10.6024,
+       "totalMAE": 14.7725,
+       "totalBias": 4.3847
+      },
+      "baseline": {
+       "marginMAE": 10.7431,
+       "totalMAE": 15.0378
+      }
+     }
+    },
+    "2023-12": {
+     "n": 194,
+     "S1": {
+      "model": 0.2053,
+      "base": 0.2103,
+      "diff": -0.005,
+      "ci95": [
+       -0.0131,
+       0.0022
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.7327,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.023,
+       "actual": 13.6222,
+       "ratio": 1.0294,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.5325,
+       "actual": 17.2855,
+       "ratio": 1.0143,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 194,
+       "slope": 1.7327,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 582,
+       "slope": 1.5572,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3081,
+       "slope": 1.097,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3298,
+       "slope": 0.9872,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 194,
+       "le1": {
+        "calibrated": 0.0612,
+        "raw": 0.0535,
+        "actual": 0.0206
+       },
+       "le3": {
+        "calibrated": 0.1644,
+        "raw": 0.144,
+        "actual": 0.0928
+       },
+       "le5": {
+        "calibrated": 0.2683,
+        "raw": 0.237,
+        "actual": 0.2113
+       },
+       "le7": {
+        "calibrated": 0.3723,
+        "raw": 0.342,
+        "actual": 0.3505
+       },
+       "le10": {
+        "calibrated": 0.5375,
+        "raw": 0.5128,
+        "actual": 0.5464
+       }
+      },
+      "exp<3": {
+       "games": 101,
+       "le1": {
+        "calibrated": 0.0657,
+        "raw": 0.0555,
+        "actual": 0.0198
+       },
+       "le3": {
+        "calibrated": 0.1774,
+        "raw": 0.1506,
+        "actual": 0.0693
+       },
+       "le5": {
+        "calibrated": 0.2884,
+        "raw": 0.2475,
+        "actual": 0.2178
+       },
+       "le7": {
+        "calibrated": 0.3975,
+        "raw": 0.3564,
+        "actual": 0.3465
+       },
+       "le10": {
+        "calibrated": 0.5673,
+        "raw": 0.5323,
+        "actual": 0.5545
+       }
+      },
+      "exp3-8": {
+       "games": 79,
+       "le1": {
+        "calibrated": 0.0593,
+        "raw": 0.053,
+        "actual": 0.0253
+       },
+       "le3": {
+        "calibrated": 0.1572,
+        "raw": 0.1406,
+        "actual": 0.1392
+       },
+       "le5": {
+        "calibrated": 0.257,
+        "raw": 0.2316,
+        "actual": 0.2152
+       },
+       "le7": {
+        "calibrated": 0.3586,
+        "raw": 0.3347,
+        "actual": 0.3797
+       },
+       "le10": {
+        "calibrated": 0.5215,
+        "raw": 0.5028,
+        "actual": 0.5696
+       }
+      },
+      "exp>=8": {
+       "games": 14,
+       "le1": {
+        "calibrated": 0.0399,
+        "raw": 0.0417,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1116,
+        "raw": 0.1154,
+        "actual": 0
+       },
+       "le5": {
+        "calibrated": 0.1866,
+        "raw": 0.192,
+        "actual": 0.1429
+       },
+       "le7": {
+        "calibrated": 0.2682,
+        "raw": 0.2792,
+        "actual": 0.2143
+       },
+       "le10": {
+        "calibrated": 0.4125,
+        "raw": 0.4286,
+        "actual": 0.3571
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0246,
+      "actual": 0.0361
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6852,
+       "marginBias": 1.0474
+      },
+      "simulator": {
+       "marginMAE": 10.7669,
+       "totalMAE": 14.0173,
+       "totalBias": 2.6787
+      },
+      "baseline": {
+       "marginMAE": 10.647,
+       "totalMAE": 14.1365
+      }
+     }
+    },
+    "2024-01": {
+     "n": 214,
+     "S1": {
+      "model": 0.2149,
+      "base": 0.2176,
+      "diff": -0.0027,
+      "ci95": [
+       -0.0094,
+       0.0045
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2712,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0089,
+       "actual": 15.58,
+       "ratio": 0.8992,
+       "pass": false
+      },
+      "total": {
+       "sim": 17.5186,
+       "actual": 20.6185,
+       "ratio": 0.8497,
+       "pass": false
+      },
+      "pass": false
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 214,
+       "slope": 1.2712,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 642,
+       "slope": 1.1625,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3387,
+       "slope": 1.0543,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3638,
+       "slope": 0.7503,
+       "pass": false,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 214,
+       "le1": {
+        "calibrated": 0.0611,
+        "raw": 0.0533,
+        "actual": 0.0467
+       },
+       "le3": {
+        "calibrated": 0.1652,
+        "raw": 0.1445,
+        "actual": 0.1495
+       },
+       "le5": {
+        "calibrated": 0.2687,
+        "raw": 0.2372,
+        "actual": 0.257
+       },
+       "le7": {
+        "calibrated": 0.3715,
+        "raw": 0.3412,
+        "actual": 0.3692
+       },
+       "le10": {
+        "calibrated": 0.5358,
+        "raw": 0.5112,
+        "actual": 0.4953
+       }
+      },
+      "exp<3": {
+       "games": 105,
+       "le1": {
+        "calibrated": 0.0658,
+        "raw": 0.0556,
+        "actual": 0.0667
+       },
+       "le3": {
+        "calibrated": 0.1783,
+        "raw": 0.1513,
+        "actual": 0.181
+       },
+       "le5": {
+        "calibrated": 0.289,
+        "raw": 0.248,
+        "actual": 0.3333
+       },
+       "le7": {
+        "calibrated": 0.3974,
+        "raw": 0.3565,
+        "actual": 0.4381
+       },
+       "le10": {
+        "calibrated": 0.5677,
+        "raw": 0.5329,
+        "actual": 0.5619
+       }
+      },
+      "exp3-8": {
+       "games": 88,
+       "le1": {
+        "calibrated": 0.0603,
+        "raw": 0.0534,
+        "actual": 0.0341
+       },
+       "le3": {
+        "calibrated": 0.1616,
+        "raw": 0.1433,
+        "actual": 0.125
+       },
+       "le5": {
+        "calibrated": 0.263,
+        "raw": 0.235,
+        "actual": 0.1932
+       },
+       "le7": {
+        "calibrated": 0.3643,
+        "raw": 0.3377,
+        "actual": 0.3182
+       },
+       "le10": {
+        "calibrated": 0.5261,
+        "raw": 0.5049,
+        "actual": 0.4318
+       }
+      },
+      "exp>=8": {
+       "games": 21,
+       "le1": {
+        "calibrated": 0.0406,
+        "raw": 0.0416,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1148,
+        "raw": 0.1162,
+        "actual": 0.0952
+       },
+       "le5": {
+        "calibrated": 0.1907,
+        "raw": 0.1924,
+        "actual": 0.1429
+       },
+       "le7": {
+        "calibrated": 0.2726,
+        "raw": 0.2794,
+        "actual": 0.2381
+       },
+       "le10": {
+        "calibrated": 0.417,
+        "raw": 0.4287,
+        "actual": 0.4286
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0247,
+      "actual": 0.0561
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 12.1122,
+       "marginBias": 1.3857
+      },
+      "simulator": {
+       "marginMAE": 12.2212,
+       "totalMAE": 16.9499,
+       "totalBias": 0.4289
+      },
+      "baseline": {
+       "marginMAE": 11.9995,
+       "totalMAE": 17.1502
+      }
+     }
+    },
+    "2024-02": {
+     "n": 161,
+     "S1": {
+      "model": 0.2212,
+      "base": 0.2174,
+      "diff": 0.0038,
+      "ci95": [
+       -0.0059,
+       0.0132
+      ],
+      "pass": false
+     },
+     "S2": {
+      "slope": 1.1428,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9686,
+       "actual": 14.5334,
+       "ratio": 0.9611,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4704,
+       "actual": 17.793,
+       "ratio": 0.9819,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 161,
+       "slope": 1.1428,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 483,
+       "slope": 0.9054,
+       "pass": true,
+       "ci95": null
+      },
+      "hc": {
+       "n": 2536,
+       "slope": 0.9388,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 2737,
+       "slope": 1.093,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 161,
+       "le1": {
+        "calibrated": 0.0607,
+        "raw": 0.0537,
+        "actual": 0.0124
+       },
+       "le3": {
+        "calibrated": 0.1604,
+        "raw": 0.1424,
+        "actual": 0.1056
+       },
+       "le5": {
+        "calibrated": 0.2627,
+        "raw": 0.2349,
+        "actual": 0.1863
+       },
+       "le7": {
+        "calibrated": 0.3641,
+        "raw": 0.3378,
+        "actual": 0.2733
+       },
+       "le10": {
+        "calibrated": 0.5235,
+        "raw": 0.503,
+        "actual": 0.4845
+       }
+      },
+      "exp<3": {
+       "games": 55,
+       "le1": {
+        "calibrated": 0.0692,
+        "raw": 0.0585,
+        "actual": 0.0182
+       },
+       "le3": {
+        "calibrated": 0.1793,
+        "raw": 0.1523,
+        "actual": 0.1636
+       },
+       "le5": {
+        "calibrated": 0.2922,
+        "raw": 0.2509,
+        "actual": 0.2364
+       },
+       "le7": {
+        "calibrated": 0.4013,
+        "raw": 0.36,
+        "actual": 0.3273
+       },
+       "le10": {
+        "calibrated": 0.5675,
+        "raw": 0.5328,
+        "actual": 0.4909
+       }
+      },
+      "exp3-8": {
+       "games": 76,
+       "le1": {
+        "calibrated": 0.0612,
+        "raw": 0.054,
+        "actual": 0.0132
+       },
+       "le3": {
+        "calibrated": 0.162,
+        "raw": 0.1435,
+        "actual": 0.0789
+       },
+       "le5": {
+        "calibrated": 0.2655,
+        "raw": 0.237,
+        "actual": 0.1842
+       },
+       "le7": {
+        "calibrated": 0.3681,
+        "raw": 0.3408,
+        "actual": 0.3026
+       },
+       "le10": {
+        "calibrated": 0.5288,
+        "raw": 0.507,
+        "actual": 0.5132
+       }
+      },
+      "exp>=8": {
+       "games": 30,
+       "le1": {
+        "calibrated": 0.0437,
+        "raw": 0.0439,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.122,
+        "raw": 0.1216,
+        "actual": 0.0667
+       },
+       "le5": {
+        "calibrated": 0.2014,
+        "raw": 0.2003,
+        "actual": 0.1
+       },
+       "le7": {
+        "calibrated": 0.2856,
+        "raw": 0.2893,
+        "actual": 0.1
+       },
+       "le10": {
+        "calibrated": 0.4297,
+        "raw": 0.4383,
+        "actual": 0.4
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0242,
+      "actual": 0.0435
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.6233,
+       "marginBias": -0.2586
+      },
+      "simulator": {
+       "marginMAE": 11.7137,
+       "totalMAE": 14.0341,
+       "totalBias": -1.2012
+      },
+      "baseline": {
+       "marginMAE": 11.5844,
+       "totalMAE": 14.3712
+      }
+     }
+    },
+    "2024-03": {
+     "n": 214,
+     "S1": {
+      "model": 0.2115,
+      "base": 0.2156,
+      "diff": -0.0041,
+      "ci95": [
+       -0.0125,
+       0.0033
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.3018,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9467,
+       "actual": 14.1942,
+       "ratio": 0.9826,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.3248,
+       "actual": 17.6815,
+       "ratio": 0.9798,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 214,
+       "slope": 1.3018,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 642,
+       "slope": 1.3043,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3374,
+       "slope": 0.9821,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3638,
+       "slope": 1.0954,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 214,
+       "le1": {
+        "calibrated": 0.0621,
+        "raw": 0.0546,
+        "actual": 0.028
+       },
+       "le3": {
+        "calibrated": 0.1639,
+        "raw": 0.1445,
+        "actual": 0.1308
+       },
+       "le5": {
+        "calibrated": 0.2678,
+        "raw": 0.2379,
+        "actual": 0.1963
+       },
+       "le7": {
+        "calibrated": 0.3698,
+        "raw": 0.3411,
+        "actual": 0.3411
+       },
+       "le10": {
+        "calibrated": 0.5289,
+        "raw": 0.5062,
+        "actual": 0.4953
+       }
+      },
+      "exp<3": {
+       "games": 80,
+       "le1": {
+        "calibrated": 0.068,
+        "raw": 0.0576,
+        "actual": 0.05
+       },
+       "le3": {
+        "calibrated": 0.1812,
+        "raw": 0.1542,
+        "actual": 0.1625
+       },
+       "le5": {
+        "calibrated": 0.2947,
+        "raw": 0.2535,
+        "actual": 0.25
+       },
+       "le7": {
+        "calibrated": 0.4039,
+        "raw": 0.3629,
+        "actual": 0.425
+       },
+       "le10": {
+        "calibrated": 0.5706,
+        "raw": 0.5362,
+        "actual": 0.6
+       }
+      },
+      "exp3-8": {
+       "games": 106,
+       "le1": {
+        "calibrated": 0.062,
+        "raw": 0.0547,
+        "actual": 0.0189
+       },
+       "le3": {
+        "calibrated": 0.1625,
+        "raw": 0.1439,
+        "actual": 0.1226
+       },
+       "le5": {
+        "calibrated": 0.266,
+        "raw": 0.2371,
+        "actual": 0.1792
+       },
+       "le7": {
+        "calibrated": 0.3675,
+        "raw": 0.3399,
+        "actual": 0.3113
+       },
+       "le10": {
+        "calibrated": 0.5262,
+        "raw": 0.5042,
+        "actual": 0.4528
+       }
+      },
+      "exp>=8": {
+       "games": 28,
+       "le1": {
+        "calibrated": 0.0456,
+        "raw": 0.0456,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1195,
+        "raw": 0.1189,
+        "actual": 0.0714
+       },
+       "le5": {
+        "calibrated": 0.1977,
+        "raw": 0.1961,
+        "actual": 0.1071
+       },
+       "le7": {
+        "calibrated": 0.2807,
+        "raw": 0.2835,
+        "actual": 0.2143
+       },
+       "le10": {
+        "calibrated": 0.4204,
+        "raw": 0.4279,
+        "actual": 0.3571
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0242,
+      "actual": 0.0607
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.2088,
+       "marginBias": -0.2538
+      },
+      "simulator": {
+       "marginMAE": 11.2876,
+       "totalMAE": 13.8596,
+       "totalBias": 1.2479
+      },
+      "baseline": {
+       "marginMAE": 11.1682,
+       "totalMAE": 15.0528
+      }
+     }
+    },
+    "2024-04": {
+     "n": 96,
+     "S1": {
+      "model": 0.219,
+      "base": 0.2171,
+      "diff": 0.0019,
+      "ci95": [
+       -0.0123,
+       0.0142
+      ],
+      "pass": false
+     },
+     "S2": {
+      "slope": 0.893,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.909,
+       "actual": 13.1423,
+       "ratio": 1.0583,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.3166,
+       "actual": 17.2768,
+       "ratio": 1.0023,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 96,
+       "slope": 0.893,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 288,
+       "slope": 0.7987,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 1491,
+       "slope": 0.8523,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 1632,
+       "slope": 1.1498,
+       "pass": false,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [],
+     "close": {
+      "all": {
+       "games": 96,
+       "le1": {
+        "calibrated": 0.0598,
+        "raw": 0.0533,
+        "actual": 0.0625
+       },
+       "le3": {
+        "calibrated": 0.1572,
+        "raw": 0.1405,
+        "actual": 0.1667
+       },
+       "le5": {
+        "calibrated": 0.2577,
+        "raw": 0.2317,
+        "actual": 0.2708
+       },
+       "le7": {
+        "calibrated": 0.3571,
+        "raw": 0.3326,
+        "actual": 0.3333
+       },
+       "le10": {
+        "calibrated": 0.5143,
+        "raw": 0.4955,
+        "actual": 0.5313
+       }
+      },
+      "exp<3": {
+       "games": 36,
+       "le1": {
+        "calibrated": 0.0681,
+        "raw": 0.0575,
+        "actual": 0.0278
+       },
+       "le3": {
+        "calibrated": 0.18,
+        "raw": 0.1529,
+        "actual": 0.1667
+       },
+       "le5": {
+        "calibrated": 0.2926,
+        "raw": 0.2512,
+        "actual": 0.2778
+       },
+       "le7": {
+        "calibrated": 0.4019,
+        "raw": 0.3605,
+        "actual": 0.3333
+       },
+       "le10": {
+        "calibrated": 0.5687,
+        "raw": 0.5339,
+        "actual": 0.5278
+       }
+      },
+      "exp3-8": {
+       "games": 42,
+       "le1": {
+        "calibrated": 0.0608,
+        "raw": 0.0541,
+        "actual": 0.0714
+       },
+       "le3": {
+        "calibrated": 0.1585,
+        "raw": 0.1413,
+        "actual": 0.1429
+       },
+       "le5": {
+        "calibrated": 0.261,
+        "raw": 0.2337,
+        "actual": 0.2619
+       },
+       "le7": {
+        "calibrated": 0.3608,
+        "raw": 0.3349,
+        "actual": 0.3571
+       },
+       "le10": {
+        "calibrated": 0.5193,
+        "raw": 0.4986,
+        "actual": 0.5714
+       }
+      },
+      "exp>=8": {
+       "games": 18,
+       "le1": {
+        "calibrated": 0.0409,
+        "raw": 0.0431,
+        "actual": 0.1111
+       },
+       "le3": {
+        "calibrated": 0.1085,
+        "raw": 0.1137,
+        "actual": 0.2222
+       },
+       "le5": {
+        "calibrated": 0.1805,
+        "raw": 0.1877,
+        "actual": 0.2778
+       },
+       "le7": {
+        "calibrated": 0.2585,
+        "raw": 0.2712,
+        "actual": 0.2778
+       },
+       "le10": {
+        "calibrated": 0.3939,
+        "raw": 0.4117,
+        "actual": 0.4444
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0236,
+      "actual": 0.0208
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6255,
+       "marginBias": 0.0321
+      },
+      "simulator": {
+       "marginMAE": 10.7309,
+       "totalMAE": 13.9674,
+       "totalBias": 3.2829
+      },
+      "baseline": {
+       "marginMAE": 10.6325,
+       "totalMAE": 14.2419
+      }
+     }
+    }
+   },
+   "preJobStartReference": {
+    "n": 86,
+    "S1": {
+     "model": 0.1991,
+     "base": 0.2091,
+     "diff": -0.01,
+     "ci95": [
+      -0.0225,
+      0.0038
+     ],
+     "pass": true
+    },
+    "S2": {
+     "slope": 1.5328,
+     "ci95": null,
+     "pass": false
+    },
+    "S3": {
+     "margin": {
+      "sim": 13.9748,
+      "actual": 16.3453,
+      "ratio": 0.855,
+      "pass": false
+     },
+     "total": {
+      "sim": 17.4529,
+      "actual": 18.5029,
+      "ratio": 0.9433,
+      "pass": true
+     },
+     "pass": false
+    },
+    "pass": false,
+    "markets": {
+     "ml": {
+      "n": 86,
+      "slope": 1.5328,
+      "pass": false,
+      "ci95": null
+     },
+     "ml5": {
+      "n": 258,
+      "slope": 1.5538,
+      "pass": false,
+      "ci95": null
+     },
+     "hc": {
+      "n": 1354,
+      "slope": 0.9647,
+      "pass": true,
+      "ci95": null
+     },
+     "ou": {
+      "n": 1462,
+      "slope": 0.9191,
+      "pass": true,
+      "ci95": null
+     }
+    },
+    "eligibleMarkets": [],
+    "close": {
+     "all": {
+      "games": 86,
+      "le1": {
+       "calibrated": 0.0615,
+       "raw": 0.0541,
+       "actual": 0.0349
+      },
+      "le3": {
+       "calibrated": 0.1633,
+       "raw": 0.1442,
+       "actual": 0.093
+      },
+      "le5": {
+       "calibrated": 0.2661,
+       "raw": 0.2369,
+       "actual": 0.1628
+      },
+      "le7": {
+       "calibrated": 0.3688,
+       "raw": 0.3408,
+       "actual": 0.3256
+      },
+      "le10": {
+       "calibrated": 0.5309,
+       "raw": 0.5087,
+       "actual": 0.4535
+      }
+     },
+     "exp<3": {
+      "games": 39,
+      "le1": {
+       "calibrated": 0.0684,
+       "raw": 0.0579,
+       "actual": 0.0256
+      },
+      "le3": {
+       "calibrated": 0.1797,
+       "raw": 0.1529,
+       "actual": 0.1026
+      },
+      "le5": {
+       "calibrated": 0.2908,
+       "raw": 0.2501,
+       "actual": 0.2564
+      },
+      "le7": {
+       "calibrated": 0.3991,
+       "raw": 0.3587,
+       "actual": 0.3846
+      },
+      "le10": {
+       "calibrated": 0.5655,
+       "raw": 0.5316,
+       "actual": 0.4615
+      }
+     },
+     "exp3-8": {
+      "games": 38,
+      "le1": {
+       "calibrated": 0.0596,
+       "raw": 0.0532,
+       "actual": 0.0526
+      },
+      "le3": {
+       "calibrated": 0.1602,
+       "raw": 0.1433,
+       "actual": 0.0789
+      },
+      "le5": {
+       "calibrated": 0.2619,
+       "raw": 0.2357,
+       "actual": 0.0789
+      },
+      "le7": {
+       "calibrated": 0.3644,
+       "raw": 0.3394,
+       "actual": 0.2632
+      },
+      "le10": {
+       "calibrated": 0.5282,
+       "raw": 0.5084,
+       "actual": 0.4211
+      }
+     },
+     "exp>=8": {
+      "games": 9,
+      "le1": {
+       "calibrated": 0.0394,
+       "raw": 0.0417,
+       "actual": 0
+      },
+      "le3": {
+       "calibrated": 0.1052,
+       "raw": 0.1106,
+       "actual": 0.1111
+      },
+      "le5": {
+       "calibrated": 0.1769,
+       "raw": 0.1842,
+       "actual": 0.1111
+      },
+      "le7": {
+       "calibrated": 0.2564,
+       "raw": 0.2689,
+       "actual": 0.3333
+      },
+      "le10": {
+       "calibrated": 0.3924,
+       "raw": 0.4103,
+       "actual": 0.5556
+      }
+     }
+    },
+    "overtime": {
+     "sim": 0.0242,
+     "actual": 0.0465
+    },
+    "accuracy": {
+     "ensemble": {
+      "marginMAE": 12.5534,
+      "marginBias": 1.2558
+     },
+     "simulator": {
+      "marginMAE": 12.5391,
+      "totalMAE": 14.8494,
+      "totalBias": 1.5259
+     },
+     "baseline": {
+      "marginMAE": 12.6736,
+      "totalMAE": 15.1524
+     }
+    }
+   },
+   "byAbsence": {
+    "noTop3Absence": {
+     "n": 576,
+     "S1": {
+      "model": 0.2196,
+      "base": 0.2213,
+      "diff": -0.0017,
+      "ci95": [
+       -0.0061,
+       0.0029
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2685,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0097,
+       "actual": 14.2121,
+       "ratio": 0.9858,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4628,
+       "actual": 18.3639,
+       "ratio": 0.9509,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 576,
+       "slope": 1.2685,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 1728,
+       "slope": 1.1273,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 9143,
+       "slope": 1.0098,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 9792,
+       "slope": 0.9082,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 576,
+       "le1": {
+        "calibrated": 0.0614,
+        "raw": 0.0534,
+        "actual": 0.0365
+       },
+       "le3": {
+        "calibrated": 0.1665,
+        "raw": 0.1452,
+        "actual": 0.1337
+       },
+       "le5": {
+        "calibrated": 0.271,
+        "raw": 0.2383,
+        "actual": 0.2378
+       },
+       "le7": {
+        "calibrated": 0.3755,
+        "raw": 0.3435,
+        "actual": 0.3681
+       },
+       "le10": {
+        "calibrated": 0.5417,
+        "raw": 0.5153,
+        "actual": 0.5208
+       }
+      },
+      "exp<3": {
+       "games": 318,
+       "le1": {
+        "calibrated": 0.065,
+        "raw": 0.0551,
+        "actual": 0.0472
+       },
+       "le3": {
+        "calibrated": 0.1772,
+        "raw": 0.1506,
+        "actual": 0.1352
+       },
+       "le5": {
+        "calibrated": 0.2873,
+        "raw": 0.2469,
+        "actual": 0.2642
+       },
+       "le7": {
+        "calibrated": 0.3964,
+        "raw": 0.3559,
+        "actual": 0.3962
+       },
+       "le10": {
+        "calibrated": 0.5681,
+        "raw": 0.5334,
+        "actual": 0.5283
+       }
+      },
+      "exp3-8": {
+       "games": 212,
+       "le1": {
+        "calibrated": 0.0598,
+        "raw": 0.0529,
+        "actual": 0.0283
+       },
+       "le3": {
+        "calibrated": 0.1611,
+        "raw": 0.1426,
+        "actual": 0.1368
+       },
+       "le5": {
+        "calibrated": 0.263,
+        "raw": 0.2344,
+        "actual": 0.217
+       },
+       "le7": {
+        "calibrated": 0.3655,
+        "raw": 0.3379,
+        "actual": 0.3679
+       },
+       "le10": {
+        "calibrated": 0.5284,
+        "raw": 0.5062,
+        "actual": 0.533
+       }
+      },
+      "exp>=8": {
+       "games": 46,
+       "le1": {
+        "calibrated": 0.0433,
+        "raw": 0.0443,
+        "actual": 0
+       },
+       "le3": {
+        "calibrated": 0.1181,
+        "raw": 0.1196,
+        "actual": 0.1087
+       },
+       "le5": {
+        "calibrated": 0.195,
+        "raw": 0.197,
+        "actual": 0.1522
+       },
+       "le7": {
+        "calibrated": 0.277,
+        "raw": 0.2842,
+        "actual": 0.1739
+       },
+       "le10": {
+        "calibrated": 0.4199,
+        "raw": 0.4321,
+        "actual": 0.413
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0247,
+      "actual": 0.0521
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.1856,
+       "marginBias": 1.1178
+      },
+      "simulator": {
+       "marginMAE": 11.2593,
+       "totalMAE": 14.9161,
+       "totalBias": 2.6781
+      },
+      "baseline": {
+       "marginMAE": 11.1427,
+       "totalMAE": 15.3011
+      }
+     }
+    },
+    "top3OutOrDoubtful": {
+     "n": 546,
+     "S1": {
+      "model": 0.2137,
+      "base": 0.2173,
+      "diff": -0.0036,
+      "ci95": [
+       -0.0078,
+       0.0017
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2323,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.991,
+       "actual": 14.3008,
+       "ratio": 0.9783,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4292,
+       "actual": 18.3678,
+       "ratio": 0.9489,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 546,
+       "slope": 1.2323,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 1638,
+       "slope": 1.2069,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 8611,
+       "slope": 1.0289,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 9282,
+       "slope": 1.04,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 546,
+       "le1": {
+        "calibrated": 0.0618,
+        "raw": 0.0542,
+        "actual": 0.0348
+       },
+       "le3": {
+        "calibrated": 0.1627,
+        "raw": 0.1433,
+        "actual": 0.1502
+       },
+       "le5": {
+        "calibrated": 0.266,
+        "raw": 0.2362,
+        "actual": 0.2363
+       },
+       "le7": {
+        "calibrated": 0.3682,
+        "raw": 0.3396,
+        "actual": 0.3425
+       },
+       "le10": {
+        "calibrated": 0.5292,
+        "raw": 0.5064,
+        "actual": 0.5147
+       }
+      },
+      "exp<3": {
+       "games": 231,
+       "le1": {
+        "calibrated": 0.0673,
+        "raw": 0.0569,
+        "actual": 0.0433
+       },
+       "le3": {
+        "calibrated": 0.1782,
+        "raw": 0.1513,
+        "actual": 0.1948
+       },
+       "le5": {
+        "calibrated": 0.2903,
+        "raw": 0.2491,
+        "actual": 0.2987
+       },
+       "le7": {
+        "calibrated": 0.3989,
+        "raw": 0.3577,
+        "actual": 0.4156
+       },
+       "le10": {
+        "calibrated": 0.5668,
+        "raw": 0.5319,
+        "actual": 0.5974
+       }
+      },
+      "exp3-8": {
+       "games": 248,
+       "le1": {
+        "calibrated": 0.0618,
+        "raw": 0.0548,
+        "actual": 0.0282
+       },
+       "le3": {
+        "calibrated": 0.161,
+        "raw": 0.1431,
+        "actual": 0.129
+       },
+       "le5": {
+        "calibrated": 0.2635,
+        "raw": 0.2359,
+        "actual": 0.2056
+       },
+       "le7": {
+        "calibrated": 0.3651,
+        "raw": 0.3389,
+        "actual": 0.3105
+       },
+       "le10": {
+        "calibrated": 0.525,
+        "raw": 0.5043,
+        "actual": 0.4758
+       }
+      },
+      "exp>=8": {
+       "games": 67,
+       "le1": {
+        "calibrated": 0.0423,
+        "raw": 0.043,
+        "actual": 0.0299
+       },
+       "le3": {
+        "calibrated": 0.1153,
+        "raw": 0.1166,
+        "actual": 0.0746
+       },
+       "le5": {
+        "calibrated": 0.1916,
+        "raw": 0.1929,
+        "actual": 0.1343
+       },
+       "le7": {
+        "calibrated": 0.2741,
+        "raw": 0.2801,
+        "actual": 0.209
+       },
+       "le10": {
+        "calibrated": 0.4151,
+        "raw": 0.4259,
+        "actual": 0.3731
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0243,
+      "actual": 0.0458
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.1963,
+       "marginBias": 0.6853
+      },
+      "simulator": {
+       "marginMAE": 11.2703,
+       "totalMAE": 14.5321,
+       "totalBias": 0.7133
+      },
+      "baseline": {
+       "marginMAE": 11.201,
+       "totalMAE": 14.9847
+      }
+     }
+    }
+   },
+   "byFirstMonth": {
+    "firstMonth": {
+     "n": 207,
+     "S1": {
+      "model": 0.2284,
+      "base": 0.235,
+      "diff": -0.0067,
+      "ci95": [
+       -0.0137,
+       0.0016
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.5967,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 14.0933,
+       "actual": 13.6901,
+       "ratio": 1.0295,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.4661,
+       "actual": 18.2729,
+       "ratio": 0.9558,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 207,
+       "slope": 1.5967,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 621,
+       "slope": 1.3093,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 3312,
+       "slope": 1.1721,
+       "pass": false,
+       "ci95": null
+      },
+      "ou": {
+       "n": 3519,
+       "slope": 0.9389,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 207,
+       "le1": {
+        "calibrated": 0.0635,
+        "raw": 0.0543,
+        "actual": 0.0483
+       },
+       "le3": {
+        "calibrated": 0.1717,
+        "raw": 0.1471,
+        "actual": 0.1981
+       },
+       "le5": {
+        "calibrated": 0.2792,
+        "raw": 0.2415,
+        "actual": 0.3092
+       },
+       "le7": {
+        "calibrated": 0.387,
+        "raw": 0.3492,
+        "actual": 0.43
+       },
+       "le10": {
+        "calibrated": 0.5588,
+        "raw": 0.5264,
+        "actual": 0.5459
+       }
+      },
+      "exp<3": {
+       "games": 153,
+       "le1": {
+        "calibrated": 0.0639,
+        "raw": 0.0542,
+        "actual": 0.0588
+       },
+       "le3": {
+        "calibrated": 0.1743,
+        "raw": 0.1481,
+        "actual": 0.1961
+       },
+       "le5": {
+        "calibrated": 0.283,
+        "raw": 0.2431,
+        "actual": 0.3203
+       },
+       "le7": {
+        "calibrated": 0.3917,
+        "raw": 0.3515,
+        "actual": 0.451
+       },
+       "le10": {
+        "calibrated": 0.5654,
+        "raw": 0.5307,
+        "actual": 0.5556
+       }
+      },
+      "exp3-8": {
+       "games": 54,
+       "le1": {
+        "calibrated": 0.0624,
+        "raw": 0.0546,
+        "actual": 0.0185
+       },
+       "le3": {
+        "calibrated": 0.1646,
+        "raw": 0.1441,
+        "actual": 0.2037
+       },
+       "le5": {
+        "calibrated": 0.2684,
+        "raw": 0.2368,
+        "actual": 0.2778
+       },
+       "le7": {
+        "calibrated": 0.3739,
+        "raw": 0.3426,
+        "actual": 0.3704
+       },
+       "le10": {
+        "calibrated": 0.5402,
+        "raw": 0.5142,
+        "actual": 0.5185
+       }
+      },
+      "exp>=8": {
+       "games": 0,
+       "le1": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le3": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le5": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le7": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       },
+       "le10": {
+        "calibrated": null,
+        "raw": null,
+        "actual": null
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0253,
+      "actual": 0.0628
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 10.6656,
+       "marginBias": 2.3685
+      },
+      "simulator": {
+       "marginMAE": 10.6568,
+       "totalMAE": 14.8106,
+       "totalBias": 3.6991
+      },
+      "baseline": {
+       "marginMAE": 10.8094,
+       "totalMAE": 15.0202
+      }
+     }
+    },
+    "rest": {
+     "n": 915,
+     "S1": {
+      "model": 0.2141,
+      "base": 0.2158,
+      "diff": -0.0017,
+      "ci95": [
+       -0.0054,
+       0.0017
+      ],
+      "pass": true
+     },
+     "S2": {
+      "slope": 1.2292,
+      "ci95": null,
+      "pass": false
+     },
+     "S3": {
+      "margin": {
+       "sim": 13.9796,
+       "actual": 14.3615,
+       "ratio": 0.9734,
+       "pass": true
+      },
+      "total": {
+       "sim": 17.442,
+       "actual": 18.3894,
+       "ratio": 0.9485,
+       "pass": true
+      },
+      "pass": true
+     },
+     "pass": false,
+     "markets": {
+      "ml": {
+       "n": 915,
+       "slope": 1.2292,
+       "pass": false,
+       "ci95": null
+      },
+      "ml5": {
+       "n": 2745,
+       "slope": 1.1584,
+       "pass": false,
+       "ci95": null
+      },
+      "hc": {
+       "n": 14442,
+       "slope": 0.9921,
+       "pass": true,
+       "ci95": null
+      },
+      "ou": {
+       "n": 15555,
+       "slope": 0.9816,
+       "pass": true,
+       "ci95": null
+      }
+     },
+     "eligibleMarkets": [
+      "hc",
+      "ou"
+     ],
+     "close": {
+      "all": {
+       "games": 915,
+       "le1": {
+        "calibrated": 0.0611,
+        "raw": 0.0537,
+        "actual": 0.0328
+       },
+       "le3": {
+        "calibrated": 0.163,
+        "raw": 0.1436,
+        "actual": 0.129
+       },
+       "le5": {
+        "calibrated": 0.2662,
+        "raw": 0.2363,
+        "actual": 0.2208
+       },
+       "le7": {
+        "calibrated": 0.3686,
+        "raw": 0.3399,
+        "actual": 0.3388
+       },
+       "le10": {
+        "calibrated": 0.5303,
+        "raw": 0.5075,
+        "actual": 0.5115
+       }
+      },
+      "exp<3": {
+       "games": 396,
+       "le1": {
+        "calibrated": 0.0668,
+        "raw": 0.0565,
+        "actual": 0.0404
+       },
+       "le3": {
+        "calibrated": 0.1789,
+        "raw": 0.152,
+        "actual": 0.1465
+       },
+       "le5": {
+        "calibrated": 0.2907,
+        "raw": 0.2496,
+        "actual": 0.2626
+       },
+       "le7": {
+        "calibrated": 0.3997,
+        "raw": 0.3586,
+        "actual": 0.3864
+       },
+       "le10": {
+        "calibrated": 0.5684,
+        "raw": 0.5336,
+        "actual": 0.5581
+       }
+      },
+      "exp3-8": {
+       "games": 406,
+       "le1": {
+        "calibrated": 0.0607,
+        "raw": 0.0538,
+        "actual": 0.0296
+       },
+       "le3": {
+        "calibrated": 0.1605,
+        "raw": 0.1427,
+        "actual": 0.1232
+       },
+       "le5": {
+        "calibrated": 0.2626,
+        "raw": 0.235,
+        "actual": 0.202
+       },
+       "le7": {
+        "calibrated": 0.3641,
+        "raw": 0.3379,
+        "actual": 0.3325
+       },
+       "le10": {
+        "calibrated": 0.5248,
+        "raw": 0.504,
+        "actual": 0.5
+       }
+      },
+      "exp>=8": {
+       "games": 113,
+       "le1": {
+        "calibrated": 0.0427,
+        "raw": 0.0436,
+        "actual": 0.0177
+       },
+       "le3": {
+        "calibrated": 0.1165,
+        "raw": 0.1178,
+        "actual": 0.0885
+       },
+       "le5": {
+        "calibrated": 0.193,
+        "raw": 0.1946,
+        "actual": 0.1416
+       },
+       "le7": {
+        "calibrated": 0.2753,
+        "raw": 0.2818,
+        "actual": 0.1947
+       },
+       "le10": {
+        "calibrated": 0.417,
+        "raw": 0.4284,
+        "actual": 0.3894
+       }
+      }
+     },
+     "overtime": {
+      "sim": 0.0244,
+      "actual": 0.0459
+     },
+     "accuracy": {
+      "ensemble": {
+       "marginMAE": 11.3096,
+       "marginBias": 0.5768
+      },
+      "simulator": {
+       "marginMAE": 11.4022,
+       "totalMAE": 14.7108,
+       "totalBias": 1.2747
+      },
+      "baseline": {
+       "marginMAE": 11.2529,
+       "totalMAE": 15.1758
+      }
+     }
+    }
+   }
+  }
+ },
+ "note": "rehearsal: 2023-24 without a prior season (its first month is shown separately); every parameter fitted on 2024-25 and frozen",
+ "firstMonth": {
+  "from": "2023-10-26",
+  "to": "2023-11-25"
+ }
+}

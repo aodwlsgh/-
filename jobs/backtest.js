@@ -108,7 +108,7 @@ if (cmd === 'sims') {
   const ens = fitEnsembleWeight(rows.map(r => ({ model: { margin: r.sim.margin }, base: r.base, actual: r.actual })));
   const calibration = fitCalibration(withShift(rows, ens.w));
   const ledger = JSON.parse(await readFile(LEDGER, 'utf8'));
-  ledger.sessions.push({ at: new Date().toISOString(), window: { season: '2024-25', variant: fitVariant }, what: 'P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 3 parameters)', runs: ens.grid.length + 1, chosen: { w: ens.w } });
+  ledger.sessions.push({ at: new Date().toISOString(), window: { season: '2024-25', variant: fitVariant }, what: 'P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 2 parameters)', runs: ens.grid.length + 1, chosen: { w: ens.w } });
   ledger.totalRuns += ens.grid.length + 1;
   await writeJson(LEDGER, ledger);
   await writeJson(arg('--out', CAL), {
