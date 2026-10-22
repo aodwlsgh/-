@@ -33,6 +33,19 @@ async function simRows(n, rules, latent) {
     },
   });
 }
+// one walk-forward pass; the inputs are kept so that a grid of latent settings reuses them
+async function inputs() {
+  k = 0;
+  const kept = [];
+  const rows = await walkForward({ games, target: DEV, params: P.params, filter, onGame: x => { kept.push(x); return {}; } });
+  return rows.map((row, i) => ({ row, ...kept[i] }));
+}
+function simFrom(list, n, rules, latent) {
+  return list.map(({ row, ratings, homePlan, awayPlan, game }) => {
+    const s = simulateGame({ ratings, home: game.home.id, away: game.away.id, homePlan, awayPlan }, { n, seed: +game.id % 2147483647, rules, latent });
+    return { ...row, sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate } };
+  });
+}
 function spread(rows) {
   const resM = rows.map(r => r.actual.margin - r.sim.margin), resT = rows.map(r => r.actual.total - r.sim.total);
   const mean = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
@@ -62,8 +75,9 @@ if (cmd === 'mean') {
   const results = [];
   const grid = [];
   for (const gameSD of [0, 0.03, 0.06]) for (const kappa of [0, 0.75, 1.5, 2.25]) for (const shootSD of [0, 0.02]) grid.push({ gameSD, kappa, shootSD, paceSD: 0.03 });
+  const list = await inputs();
   for (const lat of grid) {
-    const s = spread(await simRows(n, RULES_ON, lat));
+    const s = spread(simFrom(list, n, RULES_ON, lat));
     results.push({ ...lat, ...s, objective: +(Math.abs(Math.log(s.marginRatio)) + Math.abs(Math.log(s.totalRatio))).toFixed(5) });
     process.stdout.write('.');
   }
@@ -80,7 +94,9 @@ if (cmd === 'mean') {
   const n = +arg('--n', 10000);
   const L = JSON.parse(await readFile('data/model/latent.json', 'utf8')).latent;
   const rows = await simRows(n, RULES_ON, L);
-  const out = { ...spread(rows), n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000 };
+  const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
+  const vsAnalytic = { marginMeanDiff: +avg(rows.map(r => r.sim.margin - r.model.margin)).toFixed(3), totalMeanDiff: +avg(rows.map(r => r.sim.total - r.model.total)).toFixed(3), overtimeRate: +avg(rows.map(r => r.sim.ot)).toFixed(4) };
+  const out = { ...spread(rows), rulesOnVsAnalytic: vsAnalytic, n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000 };
   out.pass = out.marginRatio >= 0.9 && out.marginRatio <= 1.1 && out.totalRatio >= 0.9 && out.totalRatio <= 1.1;
   await writeJson('docs/reports/p4-var.json', out);
   console.log(JSON.stringify(out, null, 1));
