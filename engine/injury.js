@@ -146,3 +146,11 @@ export function resolveStatuses({ espn, pdf }) {
   }
   return { players, conflicts, pdfUsed: !!pdf };
 }
+
+// "10/22/25 05:30 PM" (PDF title, ET) -> { date: '2025-10-22', hour: 17, minute: 30 }
+export function reportTimeEt(s) {
+  const m = /^(\d{2})\/(\d{2})\/(\d{2})\s+(\d{1,2}):(\d{2})\s*(AM|PM)$/.exec((s ?? '').trim());
+  if (!m) return null;
+  const h12 = +m[4] % 12;
+  return { date: `20${m[3]}-${m[1]}-${m[2]}`, hour: m[6] === 'PM' ? h12 + 12 : h12, minute: +m[5] };
+}

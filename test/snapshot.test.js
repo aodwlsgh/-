@@ -70,3 +70,21 @@ test('team players take precedence over league-wide players with the same name',
   const r = snapshotInjuries(s, { team: 'BKN', home: 'CHA', away: 'BKN', players: [{ id: '2', name: 'Cam Thomas' }, { id: '99', name: 'Cam Thomas' }] });
   assert.deepEqual(r.injuries, { 2: 0 });
 });
+
+import { availableAt } from '../engine/snapshot.js';
+
+test('a PDF is available from the later of its title time and its Last-Modified time (leak review F1/F2)', () => {
+  // hourly era: file "_03PM" holds the 15:30 report, posted 15:30:03
+  const pdf = { reportTime: '01/10/24 03:30 PM', lastModified: '2024-01-10T20:30:03Z' };
+  assert.equal(availableAt(pdf).toISOString(), '2024-01-10T20:30:03.000Z');
+  assert.ok(availableAt(pdf) > fromEt('2024-01-10', 15, 29)); // too late for a 15:30 tip
+  // title only (no header recorded)
+  assert.equal(availableAt({ reportTime: '12/22/25 05:45 PM' }).toISOString(), fromEt('2025-12-22', 17, 45).toISOString());
+  assert.equal(availableAt({}), null);
+});
+
+test('statuses of matched players on request (play-probability calibration)', () => {
+  const r = snapshotInjuries(snap, { team: 'BKN', home: 'CHA', away: 'BKN', players, statusOf: true });
+  assert.deepEqual(r.statuses, [{ id: '1', status: 'Out' }, { id: '2', status: 'Questionable' }, { id: '3', status: 'Probable' }]);
+  assert.equal(snapshotInjuries(snap, { team: 'BKN', home: 'CHA', away: 'BKN', players }).statuses, undefined);
+});

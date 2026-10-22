@@ -170,6 +170,14 @@
      "diagnostics": 9
     }
    }
+  },
+  {
+   "at": "2026-10-22T17:07:41.680Z",
+   "window": {
+    "season": "2026-27"
+   },
+   "what": "Note (leak review F9): jobs/p3.js forward evaluated the 14 accumulated 2026-27 games at 10:57 (before re-tunes at 11:30 and 11:41) and again after; evaluation only, no parameter chosen from it. These 14 games are part of the §14.4 re-check pool.",
+   "runs": 0
   }
  ]
 }

@@ -133,3 +133,11 @@ test('injuryPdfEt reads the ET time back from both file name formats', () => {
     assert.deepEqual(injuryPdfEt(injuryPdfName(et)), et);
   }
 });
+
+test('injury PDFs before a time: newest first, with the server Last-Modified time', async () => {
+  const { c } = harness(url => (/_02_(45|30)AM\.pdf$/.test(url) ? pdf() : xml(403)));
+  const seen = [];
+  for await (const p of c.injuryPdfsBefore(new Date('2026-10-22T07:12:00Z'), { maxSteps: 4 })) seen.push(p);
+  assert.deepEqual(seen.map(p => p.name), ['Injury-Report_2026-10-22_02_45AM.pdf', 'Injury-Report_2026-10-22_02_30AM.pdf']);
+  assert.ok('lastModified' in seen[0]);
+});

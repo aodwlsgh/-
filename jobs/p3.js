@@ -2,11 +2,10 @@
 //   dev      walk-forward on 2024-25 (development season; hyperparameters are chosen here only)
 //   tune     grid search on 2024-25 -> data/model/params.json
 //   forward  walk-forward on 2026-27 (accumulating validation games)
-//   test     2025-26 is sealed: needs --open-test, and every opening is logged in data/model/test-openings.json
+//   test     refused: 2025-26 is opened only by jobs/backtest.js test (design §14.4.1)
 // Usage: node jobs/p3.js <dev|tune|forward|test> [--params data/model/params.json] [--open-test]
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { loadGames } from './lib/games.js';
-import { openTestSeason } from './lib/seal.js';
 import { walkForward, metrics, fitSigma } from '../engine/evaluate.js';
 import { DEFAULT_PARAMS } from '../engine/model.js';
 
@@ -112,8 +111,10 @@ if (cmd === 'dev') {
   console.log(`\n${runs.length} runs in ${(Date.now() - t0) / 1000}s (ledger total ${ledger.totalRuns}); best`, JSON.stringify(choice), best.objective, JSON.stringify({ m: best.marginMAE, t: best.totalMAE, b: best.brier, tb: best.totalBias, base: best.base }));
 } else if (cmd === 'forward' || cmd === 'test') {
   const target = cmd === 'forward' ? FORWARD : TEST;
+  // leak review F7: the single opening of 2025-26 belongs to the full backtest (design §14.4.1)
   if (cmd === 'test') {
-    await openTestSeason({ by: 'jobs/p3.js test', details: { params: arg('--params') ?? 'DEFAULT_PARAMS' } });
+    console.error('2025-26 is the sealed test season; it is opened only by `node jobs/backtest.js test --open-test` (design §14.4.1).');
+    process.exit(2);
   }
   const { params, sigma, source } = await loadParams();
   if (!sigma) { console.error('needs --params with frozen sigma from tuning'); process.exit(2); }

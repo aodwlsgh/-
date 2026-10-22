@@ -177,6 +177,8 @@ export class Accumulator {
   // ---- ratings at the current state (= asOf the next game) ------------------------------------
   ratings(asOf, params = DEFAULT_PARAMS) {
     asOf = cutoffOf(asOf);
+    // a game that started at or after the cutoff must never be inside these ratings (leak review F4)
+    if (this.lastStart && Date.parse(this.lastStart) >= Date.parse(asOf)) throw new Error(`ratings cutoff ${asOf} is not after the latest added game (${this.lastStart})`);
     const asOfDate = etParts(new Date(asOf)).date;
     const season = seasonOf(asOfDate);
     const cur = this.seasons.get(season) ?? { players: new Map(), teams: new Map(), league: newLeague() };
@@ -361,7 +363,7 @@ function rimProtectors(teams, players, cur, params) {
       .sort((a, b) => (b[1].drb + b[1].blk) / b[1].sec - (a[1].drb + a[1].blk) / a[1].sec)
       .slice(0, 2);
     team.rim = cands.map(([id, P]) => {
-      const on = P.rimOn, off = [P.rimTeam[0] - P.rimOn[0], P.rimTeam[1] - P.rimOn[1]];
+      const on = [...P.rimOn], off = [P.rimTeam[0] - P.rimOn[0], P.rimTeam[1] - P.rimOn[1]]; // copies: ratings are snapshots
       const diff = on[1] > 0 && off[1] > 0 ? off[0] / off[1] - on[0] / on[1] : 0;
       const n = Math.min(on[1], off[1]);
       return { id, raAllowedOn: on, raAllowedOff: off, raDiff: diff * n / (n + params.k.rim) };

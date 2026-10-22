@@ -74,6 +74,20 @@ export function createCollector({
     return assertValid(kind, await (await request(`${ESPN_BASE}/${path}`)).json());
   }
 
+  async function* injuryPdfsBefore(at, { maxSteps = 96 } = {}) {
+    let t = new Date(Math.floor(at.getTime() / 900e3) * 900e3);
+    for (let i = 0; i < maxSteps; i++, t = new Date(t.getTime() - 900e3)) {
+      const et = etParts(t);
+      if (et.date < PDF_15MIN_FROM && et.minute !== 0) continue;
+      const name = injuryPdfName(et);
+      const r = await request(`${INJURY_PDF_BASE}/${name}`, { allow4xx: true });
+      if (r.ok && (r.headers.get('content-type') ?? '').includes('pdf')) {
+        const lm = r.headers.get('last-modified');
+        yield { name, et, bytes: new Uint8Array(await r.arrayBuffer()), lastModified: lm ? new Date(lm).toISOString() : null };
+      }
+    }
+  }
+
   return {
     // date: YYYYMMDD (US date). Cached once every game that day is final.
     async schedule(date) {
@@ -96,18 +110,12 @@ export function createCollector({
       return assertValid('summary', s);
     },
     injuries: () => espn('injuries', 'injuries'),
-    // newest NBA injury PDF at or before `at`, searching back in 15-minute ET steps
-    async latestInjuryPdf(at, { maxSteps = 96 } = {}) {
-      let t = new Date(Math.floor(at.getTime() / 900e3) * 900e3);
-      for (let i = 0; i < maxSteps; i++, t = new Date(t.getTime() - 900e3)) {
-        const et = etParts(t);
-        if (et.date < PDF_15MIN_FROM && et.minute !== 0) continue;
-        const name = injuryPdfName(et);
-        const r = await request(`${INJURY_PDF_BASE}/${name}`, { allow4xx: true });
-        if (r.ok && (r.headers.get('content-type') ?? '').includes('pdf')) {
-          return { name, et, bytes: new Uint8Array(await r.arrayBuffer()) };
-        }
-      }
+    // NBA injury PDFs whose file name is at or before `at`, newest first, searching back in 15-minute ET
+    // steps. The file name is not the publication time: callers check availability (engine/snapshot.js
+    // availableAt) from the title time and the server Last-Modified time returned here.
+    injuryPdfsBefore,
+    async latestInjuryPdf(at, opts) {
+      for await (const p of injuryPdfsBefore(at, opts)) return p;
       return null;
     },
   };

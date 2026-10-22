@@ -7,13 +7,13 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
-import { createCollector, PDF_15MIN_FROM, injuryPdfEt } from '../engine/collect.js';
+import { createCollector, PDF_15MIN_FROM } from '../engine/collect.js';
 import { fsCache } from './lib/fs-cache.js';
 import { extractGame } from '../engine/extract.js';
 import { scheduleExclusion } from '../engine/schedule.js';
 import { SchemaError } from '../engine/schema/espn.js';
 import { fromEt, etParts } from '../engine/time.js';
-import { jobGroup, snapshotCutoff, RUN_A_ET, RUN_B_ET } from '../engine/snapshot.js';
+import { jobGroup, snapshotCutoff, availableAt, RUN_A_ET, RUN_B_ET } from '../engine/snapshot.js';
 import { parseInjuryPdf, PdfFormatError } from '../engine/injury.js';
 import { pdfTextItems } from './lib/pdf-text.js';
 
@@ -143,27 +143,28 @@ async function games(season) {
   console.log(`${season} done: ${checks.length} games, data-excluded ${excluded.length} (${(100 * excluded.length / sched.list.length).toFixed(2)}%)`);
 }
 
+// newest report that could be read by `at` (leak review F1/F2, 2026-10-22): availability is the later of the
+// title time and the server Last-Modified time, not the file name; later reports are skipped and listed
 async function snapshot(at, gameDate) {
-  const pdf = await col.latestInjuryPdf(at, { maxSteps: 16 });
-  if (!pdf) return { pdf: null };
   const mdY = `${gameDate.slice(5, 7)}/${gameDate.slice(8, 10)}/${gameDate.slice(0, 4)}`;
-  const lagMin = Math.round((at - fromEt(pdf.et.date, pdf.et.hour, pdf.et.minute)) / 60000);
-  try {
-    const parsed = parseInjuryPdf(await pdfTextItems(pdf.bytes));
-    return {
-      pdf: pdf.name, lagMin, reportTime: parsed.reportTime,
-      rows: parsed.rows.filter(r => r.gameDate === mdY), notSubmitted: parsed.notSubmitted, issues: parsed.issues,
-    };
-  } catch (e) {
-    if (e instanceof PdfFormatError) return { pdf: pdf.name, lagMin, formatError: e.message };
-    throw e;
+  const skipped = [];
+  for await (const pdf of col.injuryPdfsBefore(at, { maxSteps: 16 })) {
+    let parsed = null, formatError = null;
+    try { parsed = parseInjuryPdf(await pdfTextItems(pdf.bytes)); } catch (e) { if (!(e instanceof PdfFormatError)) throw e; formatError = e.message; }
+    const avail = availableAt({ reportTime: parsed?.reportTime, lastModified: pdf.lastModified });
+    if (!avail || avail > at) { skipped.push({ pdf: pdf.name, reportTime: parsed?.reportTime ?? null, lastModified: pdf.lastModified }); continue; }
+    const base = { pdf: pdf.name, reportTime: parsed?.reportTime ?? null, lastModified: pdf.lastModified, availableAt: avail.toISOString(), lagMin: Math.round((at - avail) / 60000), skippedLater: skipped };
+    if (formatError) return { ...base, formatError };
+    return { ...base, rows: parsed.rows.filter(r => r.gameDate === mdY), notSubmitted: parsed.notSubmitted, issues: parsed.issues };
   }
+  return { pdf: null, skippedLater: skipped };
 }
 
 async function pdf(season) {
   const sched = JSON.parse(await readFile(`data/schedule/${season}.json`, 'utf8'));
   const byDate = new Map();
-  for (const g of sched.list) { const d = `${g.usDate.slice(0, 4)}-${g.usDate.slice(4, 6)}-${g.usDate.slice(6)}`; if (!byDate.has(d)) byDate.set(d, []); byDate.get(d).push(g); }
+  // keyed by the ET date of tip-off, the same key the backtest uses (leak review F5)
+  for (const g of sched.list) { const d = etParts(new Date(g.start)).date; if (!byDate.has(d)) byDate.set(d, []); byDate.get(d).push(g); }
   const index = []; // one row per game: group, cutoff, PDF actually used
   for (const [date, list] of byDate) {
     const path = `data/injury-pdf/${season}/${date}.json.gz`;
@@ -187,13 +188,12 @@ async function pdf(season) {
       const group = jobGroup(g.start);
       const snap = group === 'pre_job_start' ? rec.early.find(x => x.id === g.id) : group === 'B' ? rec.runB : rec.main;
       const cutoff = snapshotCutoff(g.start);
-      const pdfEt = snap?.pdf ? injuryPdfEt(snap.pdf) : null;
-      const pdfAt = pdfEt ? fromEt(pdfEt.date, pdfEt.hour, pdfEt.minute) : null;
+      const avail = snap?.availableAt ? new Date(snap.availableAt) : null;
       index.push({
         id: g.id, date, game: `${g.away}@${g.home}`, start: g.start, group, format: rec.format,
-        cutoffEt: etLabel(cutoff), pdf: snap?.pdf ?? null, pdfEt: pdfAt ? etLabel(pdfAt) : null,
-        lagMin: pdfAt ? Math.round((cutoff - pdfAt) / 60000) : null,
-        ok: !!pdfAt && pdfAt <= cutoff && !snap.formatError, formatError: snap?.formatError ?? null,
+        cutoffEt: etLabel(cutoff), pdf: snap?.pdf ?? null, reportTime: snap?.reportTime ?? null, availableEt: avail ? etLabel(avail) : null,
+        lagMin: avail ? Math.round((cutoff - avail) / 60000) : null, skippedLater: snap?.skippedLater?.length ?? 0,
+        ok: !!avail && avail <= cutoff && !snap.formatError, formatError: snap?.formatError ?? null,
       });
     }
   }
@@ -204,6 +204,7 @@ async function pdf(season) {
       games: rows.length, withSnapshot: rows.filter(x => x.ok).length,
       coveragePct: rows.length ? +(100 * rows.filter(x => x.ok).length / rows.length).toFixed(2) : null,
       pdfAfterCutoff: rows.filter(x => x.pdf && !x.ok && !x.formatError).length, formatErrors: rows.filter(x => x.formatError).length,
+      laterReportSkipped: rows.filter(x => x.skippedLater > 0).length,
       lagMinMedian: lags.length ? lags[Math.floor(lags.length / 2)] : null, lagMinMax: lags.length ? lags.at(-1) : null,
     };
   };

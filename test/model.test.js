@@ -151,3 +151,21 @@ test('league environment: recent scoring above the season average lifts the rati
   const more = [...gs, rec({ id: 'future', start: '2025-12-20T23:00Z', players: [pl('h', 0, { min: 48, z: { ra: [8, 8] } }), pl('a', 1, { min: 48 })] })];
   assert.deepEqual(asOf(more, '2025-12-11', P).ratings.league.env, r.league.env);
 });
+
+// leak review F4: ratings can never be read at a cutoff at or before a game already added
+test('Accumulator.ratings refuses a cutoff at or before the latest added game', () => {
+  const acc = new Accumulator(DEFAULT_PARAMS);
+  acc.add(rec({ id: 'x1', start: '2025-11-02T00:00Z' }));
+  assert.throws(() => acc.ratings('2025-11-01'), /cutoff/);
+  assert.doesNotThrow(() => acc.ratings('2025-11-02'));
+});
+
+// leak review F3: a ratings object must not change when later games are added
+test('ratings objects are snapshots (no live references into the accumulator)', () => {
+  const acc = new Accumulator(DEFAULT_PARAMS);
+  for (let i = 0; i < 12; i++) acc.add(rec({ id: `s${i}`, start: new Date(Date.UTC(2025, 10, 1 + i, 23)).toISOString().slice(0, 16) + 'Z' }));
+  const r = acc.ratings('2025-11-14');
+  const before = JSON.stringify(r);
+  for (let i = 13; i < 20; i++) acc.add(rec({ id: `s${i}`, start: new Date(Date.UTC(2025, 10, 1 + i, 23)).toISOString().slice(0, 16) + 'Z' }));
+  assert.equal(JSON.stringify(r), before);
+});

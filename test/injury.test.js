@@ -81,3 +81,13 @@ test('resolve without a usable PDF: Day-To-Day defaults to 0.55', () => {
   assert.equal(r.players[0].playProb, 0.55);
   assert.equal(r.pdfUsed, false);
 });
+
+import { reportTimeEt } from '../engine/injury.js';
+
+test('report time from the PDF title (ET)', () => {
+  assert.deepEqual(reportTimeEt('10/22/25 05:30 PM'), { date: '2025-10-22', hour: 17, minute: 30 });
+  assert.deepEqual(reportTimeEt('01/10/24 12:15 AM'), { date: '2024-01-10', hour: 0, minute: 15 });
+  assert.deepEqual(reportTimeEt('03/05/26 12:45 PM'), { date: '2026-03-05', hour: 12, minute: 45 });
+  assert.equal(reportTimeEt('garbage'), null);
+  assert.equal(reportTimeEt(null), null);
+});
