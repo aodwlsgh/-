@@ -6,6 +6,7 @@
 // Usage: node jobs/p3.js <dev|tune|forward|test> [--params data/model/params.json] [--open-test]
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { loadGames } from './lib/games.js';
+import { openTestSeason } from './lib/seal.js';
 import { walkForward, metrics, fitSigma } from '../engine/evaluate.js';
 import { DEFAULT_PARAMS } from '../engine/model.js';
 
@@ -112,13 +113,7 @@ if (cmd === 'dev') {
 } else if (cmd === 'forward' || cmd === 'test') {
   const target = cmd === 'forward' ? FORWARD : TEST;
   if (cmd === 'test') {
-    if (!process.argv.includes('--open-test')) { console.error('2025-26 is the sealed test season; pass --open-test to open it (logged).'); process.exit(2); }
-    const logPath = 'data/model/test-openings.json';
-    let log = [];
-    try { log = JSON.parse(await readFile(logPath, 'utf8')); } catch {}
-    if (log.length && !process.argv.includes('--reopen')) { console.error(`test season already opened ${log.length}x (${log.map(x => x.at).join(', ')}); pass --reopen to open again (logged).`); process.exit(2); }
-    log.push({ at: new Date().toISOString(), params: arg('--params') ?? 'DEFAULT_PARAMS', by: 'jobs/p3.js test' });
-    await writeJson(logPath, log);
+    await openTestSeason({ by: 'jobs/p3.js test', details: { params: arg('--params') ?? 'DEFAULT_PARAMS' } });
   }
   const { params, sigma, source } = await loadParams();
   if (!sigma) { console.error('needs --params with frozen sigma from tuning'); process.exit(2); }

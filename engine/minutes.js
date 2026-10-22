@@ -22,6 +22,17 @@ export function roster(acc, team, date, P = MINUTES_PARAMS) {
   return out;
 }
 
+// everyone whose latest appearance before the date was for this team, however long ago (backtest B matches
+// injury-report names against this list, so players returning from a long absence are found)
+export function teamHistory(acc, team, date) {
+  const out = [];
+  for (const [id, log] of acc.log) {
+    const last = [...log].reverse().find(x => x.date < date);
+    if (last && last.team === team) out.push(id);
+  }
+  return out;
+}
+
 function expectedMinutes(log, P) {
   const used = log.filter(x => !x.dnp || coachDnp(x.dnpr)).slice(-P.window);
   if (!used.length) return null;
@@ -51,10 +62,11 @@ const posOf = log => {
   return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'F';
 };
 
-// options: participants (backtest A: exactly who played), injuries {playerId: playProb}
-export function projectMinutes(acc, team, date, { participants, injuries = {} } = {}, P = MINUTES_PARAMS) {
+// options: participants (backtest A: exactly who played), injuries {playerId: playProb}, extra: players outside
+// the recent roster to include (backtest B: listed on the injury report as possibly playing)
+export function projectMinutes(acc, team, date, { participants, injuries = {}, extra = [] } = {}, P = MINUTES_PARAMS) {
   const b2b = acc.teamPlayedOn(team, prevDay(date));
-  const ids = participants ? [...new Set([...participants, ...roster(acc, team, date, P)])] : roster(acc, team, date, P);
+  const ids = participants ? [...new Set([...participants, ...roster(acc, team, date, P)])] : [...new Set([...roster(acc, team, date, P), ...extra])];
   const rows = ids.map(id => {
     const log = acc.playerLog(id, date);
     const e = expectedMinutes(log, P);

@@ -147,6 +147,29 @@
    "subsample": "all 1230 dev games, 2000 sims, 2 variants",
    "runs": 2,
    "chosen": null
+  },
+  {
+   "at": "2026-10-22T16:40:25.601Z",
+   "window": {
+    "season": "2024-25"
+   },
+   "what": "User approved design §7.2 change (P4): score effect kappa 0.2, regulation pace factor regPace 0.99172, team shooting form 0, pace noise 0 (estimated on 2024-25 instead of sealed 2025-26). Chosen by P4 calibration stage 1 (24 runs) and stage 2 (10 runs); diagnostics 9 runs.",
+   "runs": 0,
+   "approvedChange": {
+    "design": "§7.2",
+    "latent": {
+     "shootSD": 0,
+     "gameSD": 0,
+     "paceSD": 0,
+     "kappa": 0.2,
+     "regPace": 0.99172
+    },
+    "runsBehindIt": {
+     "stage1": 24,
+     "stage2": 10,
+     "diagnostics": 9
+    }
+   }
   }
  ]
 }

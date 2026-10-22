@@ -1,0 +1,84 @@
+{
+ "season": "2023-24",
+ "runs": {
+  "A": "17:50 ET",
+  "B": "20:50 ET (games from 21:00 ET)"
+ },
+ "generatedAt": "2026-10-22T16:43:42.838Z",
+ "hourly": {
+  "all": {
+   "games": 1230,
+   "withSnapshot": 1230,
+   "coveragePct": 100,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": 50,
+   "lagMinMax": 59
+  },
+  "A": {
+   "games": 852,
+   "withSnapshot": 852,
+   "coveragePct": 100,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": 50,
+   "lagMinMax": 50
+  },
+  "B": {
+   "games": 291,
+   "withSnapshot": 291,
+   "coveragePct": 100,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": 50,
+   "lagMinMax": 50
+  },
+  "pre_job_start": {
+   "games": 87,
+   "withSnapshot": 87,
+   "coveragePct": 100,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": 59,
+   "lagMinMax": 59
+  }
+ },
+ "15min": {
+  "all": {
+   "games": 0,
+   "withSnapshot": 0,
+   "coveragePct": null,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": null,
+   "lagMinMax": null
+  },
+  "A": {
+   "games": 0,
+   "withSnapshot": 0,
+   "coveragePct": null,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": null,
+   "lagMinMax": null
+  },
+  "B": {
+   "games": 0,
+   "withSnapshot": 0,
+   "coveragePct": null,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": null,
+   "lagMinMax": null
+  },
+  "pre_job_start": {
+   "games": 0,
+   "withSnapshot": 0,
+   "coveragePct": null,
+   "pdfAfterCutoff": 0,
+   "formatErrors": 0,
+   "lagMinMedian": null,
+   "lagMinMax": null
+  }
+ }
+}

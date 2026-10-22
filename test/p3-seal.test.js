@@ -11,3 +11,13 @@ test('jobs/p3.js test refuses without --open-test and logs nothing', () => {
   assert.match(r.stderr, /sealed test season/);
   assert.equal(existsSync('data/model/test-openings.json'), before);
 });
+
+test('jobs/backtest.js refuses the 2025-26 test season without --open-test and logs nothing', () => {
+  const before = existsSync('data/model/test-openings.json');
+  for (const args of [['test'], ['sims', '2025-26', 'A'], ['sims', '2025-26', 'B']]) {
+    const r = spawnSync(process.execPath, ['jobs/backtest.js', ...args], { encoding: 'utf8' });
+    assert.equal(r.status, 2, args.join(' '));
+    assert.match(r.stderr, /sealed/);
+  }
+  assert.equal(existsSync('data/model/test-openings.json'), before);
+});
