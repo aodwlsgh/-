@@ -1,0 +1,194 @@
+[
+ {
+  "season": "2024-25",
+  "id": "401704638",
+  "usDate": "20241023",
+  "game": "GS@POR",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 104-140, scoring plays sum 104-139"
+ },
+ {
+  "season": "2024-25",
+  "id": "401704805",
+  "usDate": "20241117",
+  "game": "ATL@POR",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 114-110, scoring plays sum 114-112; fga_mismatch: FGA pbp 86 box 85; 3PA pbp 32 box 32 (heaves 0); sub_missing_player: 3 substitution(s) without the entering player, 0 repaired"
+ },
+ {
+  "season": "2024-25",
+  "id": "401734908",
+  "usDate": "20241217",
+  "game": "MIL@OKC",
+  "stage": "schedule",
+  "reason": "NBA Cup championship (not in standings)"
+ },
+ {
+  "season": "2024-25",
+  "id": "401705090",
+  "usDate": "20250109",
+  "game": "CHA@LAL",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2024-25",
+  "id": "401705098",
+  "usDate": "20250111",
+  "game": "HOU@ATL",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2024-25",
+  "id": "401705103",
+  "usDate": "20250111",
+  "game": "SA@LAL",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2024-25",
+  "id": "401705104",
+  "usDate": "20250111",
+  "game": "CHA@LAC",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2024-25",
+  "id": "401705183",
+  "usDate": "20250122",
+  "game": "MIL@NO",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2024-25",
+  "id": "401752955",
+  "usDate": "20250216",
+  "game": "KEN@CHK",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2024-25",
+  "id": "401752956",
+  "usDate": "20250216",
+  "game": "CAN@SHQ",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2024-25",
+  "id": "401752957",
+  "usDate": "20250216",
+  "game": "SHQ@CHK",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2025-26",
+  "id": "401809511",
+  "usDate": "20251107",
+  "game": "CLE@WSH",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 115-148, scoring plays sum 114-148"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810087",
+  "usDate": "20251115",
+  "game": "DEN@MIN",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 112-123, scoring plays sum 116-127; fga_mismatch: FGA pbp 91 box 88; 3PA pbp 35 box 34 (heaves 0); fga_mismatch: FGA pbp 86 box 83; 3PA pbp 31 box 29 (heaves 0)"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810102",
+  "usDate": "20251117",
+  "game": "OKC@NO",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 109-126, scoring plays sum 109-120; fga_mismatch: FGA pbp 84 box 87; 3PA pbp 39 box 42 (heaves 0)"
+ },
+ {
+  "season": "2025-26",
+  "id": "401809839",
+  "usDate": "20251216",
+  "game": "SA@NY",
+  "stage": "schedule",
+  "reason": "NBA Cup championship (not in standings)"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810384",
+  "usDate": "20260108",
+  "game": "MIA@CHI",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810469",
+  "usDate": "20260120",
+  "game": "LAC@CHI",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 138-110, scoring plays sum 129-107; box_tov_invalid: box totalTurnovers 0, teamTurnovers -12, play-by-play 12; fga_mismatch: FGA pbp 89 box 92; 3PA pbp 44 box 47 (heaves 2); box_tov_invalid: box totalTurnovers 0, teamTurnovers -16, play-by-play 16; fga_mismatch: FGA pbp 91 box 92; 3PA pbp 30 box 30 (heaves 0); box_row_missing_id: athletes[11] stats [\"--\",\"0\",\"0-0\",\"0-0\",\"0-0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"]; sub_missing_player: 1 substitution(s) without the entering player, 1 repaired; player_not_in_box: 1 substituted player(s) missing from the box score; period_start_inferred: 1 period-start lineup(s) trimmed or filled"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810499",
+  "usDate": "20260124",
+  "game": "GS@MIN",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810506",
+  "usDate": "20260125",
+  "game": "DEN@MEM",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2025-26",
+  "id": "401810507",
+  "usDate": "20260125",
+  "game": "DAL@MIL",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2025-26",
+  "id": "401838140",
+  "usDate": "20260215",
+  "game": "WORLD@STARS",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2025-26",
+  "id": "401838141",
+  "usDate": "20260215",
+  "game": "STARS@STRIPES",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2025-26",
+  "id": "401838142",
+  "usDate": "20260215",
+  "game": "WORLD@STRIPES",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2025-26",
+  "id": "401838143",
+  "usDate": "20260215",
+  "game": "STARS@STRIPES",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ }
+]

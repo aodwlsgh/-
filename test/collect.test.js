@@ -102,3 +102,22 @@ test('latest injury PDF: gives up with null after the search window', async () =
   const { c } = harness(() => xml(403));
   assert.equal(await c.latestInjuryPdf(new Date('2026-10-22T07:12:00Z'), { maxSteps: 4 }), null);
 });
+
+test('game(): raw response is cached before validation, and validated again on read', async () => {
+  const bad = fx('summary_401909834.json.gz');
+  bad.plays[5].type = { id: '99999', text: 'New Thing' };
+  const { c, calls } = harness(() => json(bad));
+  await assert.rejects(c.game('401909834'), SchemaError);
+  await assert.rejects(c.game('401909834'), SchemaError); // from cache, still rejected
+  assert.equal(calls.length, 1);
+});
+
+import { fromEt } from '../engine/time.js';
+
+test('fromEt: wall-clock ET to UTC across both DST transitions', () => {
+  assert.equal(fromEt('2026-10-31', 17, 50).toISOString(), '2026-10-31T21:50:00.000Z'); // EDT
+  assert.equal(fromEt('2026-11-02', 17, 50).toISOString(), '2026-11-02T22:50:00.000Z'); // EST
+  assert.equal(fromEt('2027-03-13', 17, 50).toISOString(), '2027-03-13T22:50:00.000Z'); // EST
+  assert.equal(fromEt('2027-03-15', 17, 50).toISOString(), '2027-03-15T21:50:00.000Z'); // EDT
+  assert.deepEqual(etParts(fromEt('2025-12-22', 17, 50)), { date: '2025-12-22', hour: 17, minute: 50 });
+});

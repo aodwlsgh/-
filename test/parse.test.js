@@ -54,6 +54,88 @@ test('and-one is still found past a technical free throw and a team rebound at t
   assert.equal(r.possessions[0].points, 3);
 });
 
+// P2 findings on the P1 sample (back-to-back possessions of one team)
+test('and-one free throw listed before the basket (2025-01-16 NY@PHI)', () => {
+  const r = toPossessions(summary({ plays: [
+    p('Shooting Foul', A, { clock: '6:44' }),
+    p('Free Throw - 1 of 1', H, { made: true, clock: '6:44' }),
+    p('Jump Shot', H, { made: true, pts: 3, clock: '6:44' }),
+    p('Jump Shot', A, { made: true, clock: '6:20' }),
+    end(),
+  ] }));
+  assert.deepEqual(r.count, { [H]: 1, [A]: 1 });
+  assert.equal(r.possessions[0].points, 4);
+});
+
+test('and-one free throw one clock-second after the basket (2026-10-20 PHI@NY)', () => {
+  assert.deepEqual(count([
+    p('Jump Shot', H, { made: true, clock: '4:13' }),
+    p('Shooting Foul', A, { clock: '4:12' }),
+    p('Free Throw - 1 of 1', H, { made: true, clock: '4:12' }),
+    p('Jump Shot', A, { made: true, clock: '3:50' }),
+    end(),
+  ]), { [H]: 1, [A]: 1 });
+});
+
+test('a 1-of-1 free throw after a technical foul is a technical free throw (2026-10-21 MIN@MIA)', () => {
+  const r = toPossessions(summary({ plays: [
+    p('Jump Shot', H, { made: true, clock: '9:45' }),
+    p('Flopping Technical', A, { clock: '9:44' }),
+    p('Free Throw - 1 of 1', H, { clock: '9:44' }),
+    p('Defensive Rebound', A, { clock: '9:44' }),
+    p('Jump Shot', A, { made: true, clock: '9:20' }),
+    end(),
+  ] }));
+  assert.deepEqual(r.count, { [H]: 1, [A]: 1 });
+  assert.equal(r.possessions[0].points, 2);
+});
+
+// 2025-03 401703391: offsetting technicals between a shooting foul and its two free throws
+test('a 2-shot trip after offsetting technicals is a normal trip, not technical', () => {
+  assert.deepEqual(count([
+    p('Jump Shot', A, { made: true, clock: '2:10' }),
+    p('Shooting Foul', A, { clock: '1:48' }),
+    p('Technical Foul', H, { clock: '1:48' }),
+    p('Technical Foul', A, { clock: '1:48' }),
+    p('Free Throw - 1 of 2', H, { made: true, clock: '1:48' }),
+    p('Free Throw - 2 of 2', H, { made: true, clock: '1:48' }),
+    p('Jump Shot', A, { made: true, clock: '1:30' }),
+    end(),
+  ]), { [H]: 1, [A]: 2 });
+});
+
+test('clear-path free throws keep the ball with the shooting team', () => {
+  assert.deepEqual(count([
+    p('Clear Path Foul', A, { clock: '5:00' }),
+    p('Free Throw - Clear Path 1 of 2', H, { made: true, clock: '5:00' }),
+    p('Free Throw - Clear Path 2 of 2', H, { made: true, clock: '5:00' }),
+    p('Jump Shot', H, { made: true, clock: '4:40' }),
+    end(),
+  ]), { [H]: 1 });
+});
+
+// 2025-26 401810518: putback listed before the offensive rebound that led to it
+test('an offensive rebound listed after the basket it led to does not start a new possession', () => {
+  assert.deepEqual(count([
+    p('Driving Layup Shot', H, { clock: '10:54' }),
+    p('Putback Dunk Shot', H, { made: true, clock: '10:53' }),
+    p('Offensive Rebound', H, { clock: '10:53' }),
+    p('Jump Shot', A, { made: true, clock: '10:30' }),
+    end(),
+  ]), { [H]: 1, [A]: 1 });
+});
+
+test('take-foul free throw keeps the ball with the shooting team (2025-11-05 MIL@TOR)', () => {
+  assert.deepEqual(count([
+    p('Jump Shot', H, { clock: '3:08' }),
+    p('Defensive Rebound', A, { clock: '3:07' }),
+    p('Transition Take Foul', H, { clock: '3:07' }),
+    p('Free Throw - 1 of 1', A, { made: true, clock: '3:07' }),
+    p('Jump Shot', A, { made: true, clock: '2:50' }),
+    end(),
+  ]), { [H]: 1, [A]: 1 });
+});
+
 test('missed and-one free throw then offensive rebound keeps the same possession', () => {
   assert.deepEqual(count([
     p('Jump Shot', H, { made: true, clock: '9:00' }),
@@ -279,6 +361,40 @@ test('integrity: truncated play-by-play is detected from the final score', () =>
   assert.equal(checkIntegrity(s).usable.pbp, false);
 });
 
+// 2026-10-21 GS@LAL: running score on plays says 130-105, scoring plays and box sum to 127-105
+test('integrity: a wrong running score with complete scoring plays is a warning, not truncation', () => {
+  const s = summary({ plays: [p('Jump Shot', H, { made: true }), end()] });
+  s.plays.at(-1).homeScore = 5; // running-score field off; scoring plays still sum to 2
+  const r = checkIntegrity(s);
+  assert.ok(!r.issues.some(x => x.code === 'pbp_incomplete'));
+  assert.ok(r.issues.some(x => x.code === 'pbp_running_score_mismatch'));
+  assert.equal(r.usable.pbp, true);
+});
+
+// 2024-10-25 NO@POR: box FGA 78 vs 90 and FTA 15 vs 20 while play-by-play adds up to the final
+test('integrity: box team totals far from complete play-by-play are flagged unusable', () => {
+  const s = summary({
+    plays: [p('Jump Shot', H), p('Jump Shot', H), p('Jump Shot', H), p('Jump Shot', H, { made: true }), end()],
+    box: { [H]: { fg: [1, 1] } },
+  });
+  const r = checkIntegrity(s);
+  assert.ok(r.issues.some(x => x.code === 'box_totals_inconsistent' && x.team === H));
+  assert.equal(r.usable.box, false);
+  assert.equal(r.usable.pbp, true);
+});
+
+test('estimator falls back to play-by-play totals when box team totals are inconsistent', () => {
+  const s = summary({
+    plays: [p('Jump Shot', H), p('Offensive Rebound', H, { ids: ['H1'] }), p('Jump Shot', H), p('Jump Shot', H), p('Jump Shot', H, { made: true }), end()],
+    box: { [H]: { fg: [1, 1], oreb: 0 } },
+  });
+  const e = possessionEstimate(s)[H];
+  assert.equal(e.source, 'pbp');
+  assert.equal(e.fga, 4);
+  assert.equal(e.oreb, 1);
+  assert.equal(e.formula2, 4 - 1 + 0 + 0);
+});
+
 test('integrity: FGA mismatch ignores heaves; broken box turnovers are flagged', () => {
   const s = summary({
     plays: [p('Jump Shot', H), p('Heave Jump Shot', H, { pts: 3, x: 25, y: 70 }), p('Lost Ball Turnover', A), end()],
@@ -305,4 +421,40 @@ test('real fixture: totals match the box and possessions are balanced', () => {
   const st = toStints(s);
   for (const m of Object.values(st.teamMinutes)) assert.ok(Math.abs(m - 240) < 1, `team minutes ${m}`);
   assert.equal(checkIntegrity(s, { stints: st }).issues.length, 0);
+});
+
+// ---- heave season rule (P2 condition 3) ----
+// ESPN box FGA includes end-of-period heaves through 2024-25 and excludes them from 2025-26.
+import { heaveCountsInBox, isHeaveLike } from '../engine/parse.js';
+
+const withSeason = (s, year) => ({ ...s, header: { ...s.header, season: { year, type: 2 } } });
+
+test('heave type counts as box FGA in 2024-25 and not from 2025-26', () => {
+  const plays = [p('Heave Jump Shot', H, { pts: 3, x: 25, y: 70, clock: '0.2' }), end()];
+  const s25 = withSeason(summary({ plays }), 2025);
+  const s26 = withSeason(summary({ plays }), 2026);
+  assert.equal(heaveCountsInBox(s25), true);
+  assert.equal(heaveCountsInBox(s26), false);
+  assert.deepEqual([pbpTotals(s25)[H].fga, pbpTotals(s25)[H].tpa, pbpTotals(s25)[H].heaves], [1, 1, 1]);
+  assert.deepEqual([pbpTotals(s26)[H].fga, pbpTotals(s26)[H].tpa, pbpTotals(s26)[H].heaves], [0, 0, 1]);
+});
+
+test('real 2024-25 game with a 44-ft buzzer heave: box includes it, model excludes it', () => {
+  const s = JSON.parse(gunzipSync(readFileSync(new URL('./fixtures/espn/summary_401705129_2024-25.json.gz', import.meta.url))));
+  assert.equal(heaveCountsInBox(s), true);
+  const pt = pbpTotals(s), bt = boxTotals(s);
+  for (const t of Object.keys(bt)) {
+    assert.equal(pt[t].fga, bt[t].fga, 'FGA');
+    assert.equal(pt[t].tpa, bt[t].tpa, '3PA');
+  }
+  const heave = s.plays.find(pl => /44-foot/.test(pl.text));
+  assert.equal(isHeaveLike(heave), true);
+  assert.equal(shotZone(heave), null);
+  assert.ok(!checkIntegrity(s).issues.some(x => x.code === 'fga_mismatch'));
+});
+
+test('long shots that are not end-of-period heaves keep their zone', () => {
+  const longThree = p('Jump Shot', H, { pts: 3, x: 25, y: 37, clock: '5:00' }); // 36 ft, mid-period
+  assert.equal(isHeaveLike(longThree), false);
+  assert.equal(shotZone(longThree), 'ab3');
 });

@@ -1,0 +1,2206 @@
+{
+ "generatedAt": "2026-10-22T09:51:12.691Z",
+ "limits": {
+  "meanAbsPct": 2,
+  "p95AbsPct": 3.5,
+  "gameMaxPct": 3.5,
+  "excludedRatio": 0.05
+ },
+ "seasons": {
+  "2024-25": {
+   "scheduled": 1230,
+   "checked": 1230,
+   "dataExcluded": 2,
+   "dataExcludedPct": 0.16,
+   "stopRuleTriggered": false,
+   "failures": {
+    "pbp_incomplete": {
+     "count": 2,
+     "pct": 0.16
+    },
+    "fga_mismatch": {
+     "count": 51,
+     "pct": 4.15
+    },
+    "home_away_diff_over_2": {
+     "count": 8,
+     "pct": 0.65
+    },
+    "team_minutes": {
+     "count": 1,
+     "pct": 0.08
+    }
+   },
+   "possessions": {
+    "games": 1228,
+    "meanAbsPct": 1.132,
+    "p95AbsPct": 2.345,
+    "p99AbsPct": 2.691,
+    "maxAbsPct": 3.314,
+    "meanSignedPct": 1.043,
+    "formula1MeanAbsPct": 2.493,
+    "homeAwayDiffOver2": 8,
+    "homeAwayDiffOverAllowance": [
+     {
+      "id": "401704873",
+      "usDate": "20241201",
+      "game": "BOS@CLE",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401705095",
+      "usDate": "20250110",
+      "game": "OKC@NY",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401705126",
+      "usDate": "20250114",
+      "game": "BKN@POR",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401705615",
+      "usDate": "20250325",
+      "game": "ATL@HOU",
+      "haDiff": 3,
+      "periods": 4
+     }
+    ],
+    "heaveAdjusted": {
+     "meanAbsPct": 1.132,
+     "p95AbsPct": 2.345,
+     "over35": 0
+    },
+    "over35": [],
+    "pass": true
+   },
+   "heave": {
+    "rule": "included",
+    "gamesWithHeave": 0,
+    "heavePlays": 0,
+    "fgaMatchAll": "1179/1230",
+    "fgaMatchAllPct": 95.85,
+    "fgaMatchHeaveGames": "0/0",
+    "mismatches": [
+     {
+      "id": "401704641",
+      "usDate": "20241024",
+      "game": "OKC@DEN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401704652",
+      "usDate": "20241025",
+      "game": "NO@POR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "box_totals_inconsistent(22)",
+       "fga_mismatch(22)",
+       "box_totals_inconsistent(3)",
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401704687",
+      "usDate": "20241030",
+      "game": "ATL@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(27)"
+      ]
+     },
+     {
+      "id": "401704732",
+      "usDate": "20241104",
+      "game": "TOR@DEN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401704747",
+      "usDate": "20241107",
+      "game": "MIN@CHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(16)"
+      ]
+     },
+     {
+      "id": "401703370",
+      "usDate": "20241112",
+      "game": "ATL@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401704783",
+      "usDate": "20241113",
+      "game": "IND@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401703380",
+      "usDate": "20241115",
+      "game": "DET@TOR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(28)"
+      ]
+     },
+     {
+      "id": "401704805",
+      "usDate": "20241117",
+      "game": "ATL@POR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(1)",
+       "sub_missing_player"
+      ]
+     },
+     {
+      "id": "401703391",
+      "usDate": "20241119",
+      "game": "CHA@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401703393",
+      "usDate": "20241119",
+      "game": "NO@DAL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401704824",
+      "usDate": "20241120",
+      "game": "ATL@GS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401704889",
+      "usDate": "20241204",
+      "game": "ATL@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401704893",
+      "usDate": "20241205",
+      "game": "CHA@NY",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(30)"
+      ]
+     },
+     {
+      "id": "401704894",
+      "usDate": "20241205",
+      "game": "OKC@TOR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(28)"
+      ]
+     },
+     {
+      "id": "401704902",
+      "usDate": "20241206",
+      "game": "IND@CHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401704907",
+      "usDate": "20241207",
+      "game": "DEN@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401736801",
+      "usDate": "20241212",
+      "game": "SAC@NO",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401736817",
+      "usDate": "20241216",
+      "game": "CHI@TOR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(28)"
+      ]
+     },
+     {
+      "id": "401704938",
+      "usDate": "20241219",
+      "game": "LAL@SAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(13)"
+      ]
+     },
+     {
+      "id": "401704944",
+      "usDate": "20241221",
+      "game": "MEM@ATL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)"
+      ]
+     },
+     {
+      "id": "401704946",
+      "usDate": "20241221",
+      "game": "PHI@CLE",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401704947",
+      "usDate": "20241221",
+      "game": "BOS@CHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(4)",
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401704948",
+      "usDate": "20241221",
+      "game": "WSH@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(27)",
+       "unrecorded_sub",
+       "incomplete_lineups"
+      ]
+     },
+     {
+      "id": "401704957",
+      "usDate": "20241223",
+      "game": "HOU@CHA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(10)"
+      ]
+     },
+     {
+      "id": "401704959",
+      "usDate": "20241223",
+      "game": "BOS@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401704965",
+      "usDate": "20241223",
+      "game": "LAC@MEM",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)"
+      ]
+     },
+     {
+      "id": "401704985",
+      "usDate": "20241227",
+      "game": "NY@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(18)"
+      ]
+     },
+     {
+      "id": "401704986",
+      "usDate": "20241227",
+      "game": "IND@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401704987",
+      "usDate": "20241227",
+      "game": "SA@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401704990",
+      "usDate": "20241227",
+      "game": "CLE@DEN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401705004",
+      "usDate": "20241229",
+      "game": "ATL@TOR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401705019",
+      "usDate": "20241231",
+      "game": "MEM@PHX",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)",
+       "incomplete_lineups"
+      ]
+     },
+     {
+      "id": "401705041",
+      "usDate": "20250103",
+      "game": "SA@DEN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401705044",
+      "usDate": "20250104",
+      "game": "PHI@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401705060",
+      "usDate": "20250106",
+      "game": "PHX@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(21)"
+      ]
+     },
+     {
+      "id": "401705091",
+      "usDate": "20250110",
+      "game": "GS@IND",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401705093",
+      "usDate": "20250110",
+      "game": "NO@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401705117",
+      "usDate": "20250113",
+      "game": "MEM@HOU",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)"
+      ]
+     },
+     {
+      "id": "401705139",
+      "usDate": "20250116",
+      "game": "PHX@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(21)"
+      ]
+     },
+     {
+      "id": "401705171",
+      "usDate": "20250120",
+      "game": "UTAH@NO",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401705174",
+      "usDate": "20250121",
+      "game": "ORL@TOR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(28)"
+      ]
+     },
+     {
+      "id": "401705379",
+      "usDate": "20250223",
+      "game": "LAC@IND",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(12)"
+      ]
+     },
+     {
+      "id": "401705403",
+      "usDate": "20250226",
+      "game": "TOR@IND",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401705418",
+      "usDate": "20250228",
+      "game": "CLE@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401705556",
+      "usDate": "20250317",
+      "game": "DEN@GS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401705602",
+      "usDate": "20250323",
+      "game": "OKC@LAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(12)"
+      ]
+     },
+     {
+      "id": "401705618",
+      "usDate": "20250325",
+      "game": "OKC@SAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401705626",
+      "usDate": "20250327",
+      "game": "DAL@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401705685",
+      "usDate": "20250404",
+      "game": "UTAH@IND",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401705760",
+      "usDate": "20250413",
+      "game": "DAL@MEM",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)"
+      ]
+     }
+    ]
+   },
+   "teamMinutes": {
+    "ok": "1229/1230",
+    "okPct": 99.92,
+    "failures": [
+     {
+      "id": "401705552",
+      "usDate": "20250317",
+      "game": "IND@MIN",
+      "teamMinutes": [
+       265,
+       263.95
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "incomplete_lineups",
+       "minutes_mismatch(11)"
+      ]
+     }
+    ]
+   }
+  },
+  "2025-26": {
+   "scheduled": 1230,
+   "checked": 1230,
+   "dataExcluded": 4,
+   "dataExcludedPct": 0.33,
+   "stopRuleTriggered": false,
+   "failures": {
+    "possessions_over_3.5pct": {
+     "count": 35,
+     "pct": 2.85
+    },
+    "fga_mismatch": {
+     "count": 67,
+     "pct": 5.45
+    },
+    "home_away_diff_over_2": {
+     "count": 5,
+     "pct": 0.41
+    },
+    "pbp_incomplete": {
+     "count": 4,
+     "pct": 0.33
+    },
+    "team_minutes": {
+     "count": 1,
+     "pct": 0.08
+    }
+   },
+   "possessions": {
+    "games": 1226,
+    "meanAbsPct": 1.637,
+    "p95AbsPct": 3.215,
+    "p99AbsPct": 3.864,
+    "maxAbsPct": 4.91,
+    "meanSignedPct": 1.572,
+    "formula1MeanAbsPct": 2.377,
+    "homeAwayDiffOver2": 5,
+    "homeAwayDiffOverAllowance": [
+     {
+      "id": "401809937",
+      "usDate": "20251022",
+      "game": "DET@CHI",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401810034",
+      "usDate": "20251105",
+      "game": "SA@LAL",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401810872",
+      "usDate": "20260320",
+      "game": "GS@DET",
+      "haDiff": 3,
+      "periods": 4
+     }
+    ],
+    "heaveAdjusted": {
+     "meanAbsPct": 1.213,
+     "p95AbsPct": 2.496,
+     "over35": 1
+    },
+    "over35": [
+     {
+      "id": "401809934",
+      "usDate": "20251022",
+      "game": "MIA@ORL",
+      "errPct2": 3.603,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.17,
+      "periods": 4,
+      "issues": [
+       "fga_mismatch(19)"
+      ],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.17%)"
+     },
+     {
+      "id": "401809975",
+      "usDate": "20251027",
+      "game": "PHX@UTAH",
+      "errPct2": 3.882,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.94,
+      "periods": 5,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.94%)"
+     },
+     {
+      "id": "401810015",
+      "usDate": "20251103",
+      "game": "DAL@HOU",
+      "errPct2": 3.535,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 1.99,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 1.99%)"
+     },
+     {
+      "id": "401810056",
+      "usDate": "20251110",
+      "game": "CLE@MIA",
+      "errPct2": 3.625,
+      "heaves": 1,
+      "heaveAdjustedErrPct": 3.16,
+      "periods": 5,
+      "issues": [],
+      "cause": "heave 1개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 3.16%)"
+     },
+     {
+      "id": "401810125",
+      "usDate": "20251122",
+      "game": "ATL@NO",
+      "errPct2": 4.91,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 3.79,
+      "periods": 4,
+      "issues": [
+       "fga_mismatch(1)"
+      ],
+      "cause": "데이터 결함 없음; 추정식 자체 오차로 추정 (원인 미확정)"
+     },
+     {
+      "id": "401810147",
+      "usDate": "20251124",
+      "game": "MIN@SAC",
+      "errPct2": 3.756,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.79,
+      "periods": 5,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.79%)"
+     },
+     {
+      "id": "401810159",
+      "usDate": "20251130",
+      "game": "ATL@PHI",
+      "errPct2": 3.745,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.5,
+      "periods": 6,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.5%)"
+     },
+     {
+      "id": "401810160",
+      "usDate": "20251130",
+      "game": "OKC@POR",
+      "errPct2": 3.684,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.69,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.69%)"
+     },
+     {
+      "id": "401810171",
+      "usDate": "20251201",
+      "game": "HOU@UTAH",
+      "errPct2": 3.947,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.96,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.96%)"
+     },
+     {
+      "id": "401810256",
+      "usDate": "20251221",
+      "game": "HOU@SAC",
+      "errPct2": 3.774,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.75,
+      "periods": 5,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.75%)"
+     },
+     {
+      "id": "401810279",
+      "usDate": "20251226",
+      "game": "CHA@ORL",
+      "errPct2": 4.616,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.95,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.95%)"
+     },
+     {
+      "id": "401810281",
+      "usDate": "20251226",
+      "game": "BOS@IND",
+      "errPct2": 3.68,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.64,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.64%)"
+     },
+     {
+      "id": "401810311",
+      "usDate": "20251229",
+      "game": "CLE@SA",
+      "errPct2": 3.545,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.56,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.56%)"
+     },
+     {
+      "id": "401810385",
+      "usDate": "20260108",
+      "game": "CLE@MIN",
+      "errPct2": 3.609,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.09,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.09%)"
+     },
+     {
+      "id": "401810433",
+      "usDate": "20260115",
+      "game": "MEM@ORL",
+      "errPct2": 3.931,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.35,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.35%)"
+     },
+     {
+      "id": "401810444",
+      "usDate": "20260116",
+      "game": "CLE@PHI",
+      "errPct2": 3.772,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.69,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.69%)"
+     },
+     {
+      "id": "401810451",
+      "usDate": "20260117",
+      "game": "PHX@NY",
+      "errPct2": 4.003,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.85,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.85%)"
+     },
+     {
+      "id": "401809247",
+      "usDate": "20260119",
+      "game": "MIL@ATL",
+      "errPct2": 3.766,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.73,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.73%)"
+     },
+     {
+      "id": "401810492",
+      "usDate": "20260123",
+      "game": "BOS@BKN",
+      "errPct2": 3.774,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.8,
+      "periods": 6,
+      "issues": [
+       "period_start_inferred"
+      ],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.8%)"
+     },
+     {
+      "id": "401810501",
+      "usDate": "20260124",
+      "game": "CLE@ORL",
+      "errPct2": 3.795,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.72,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.72%)"
+     },
+     {
+      "id": "401810562",
+      "usDate": "20260201",
+      "game": "SAC@WSH",
+      "errPct2": 4.636,
+      "heaves": 4,
+      "heaveAdjustedErrPct": 2.44,
+      "periods": 4,
+      "issues": [
+       "fga_mismatch(27)"
+      ],
+      "cause": "heave 4개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.44%)"
+     },
+     {
+      "id": "401810563",
+      "usDate": "20260201",
+      "game": "LAL@NY",
+      "errPct2": 3.795,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.65,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.65%)"
+     },
+     {
+      "id": "401810611",
+      "usDate": "20260207",
+      "game": "CLE@SAC",
+      "errPct2": 3.58,
+      "heaves": 1,
+      "heaveAdjustedErrPct": 3.06,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 1개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 3.06%)"
+     },
+     {
+      "id": "401810634",
+      "usDate": "20260211",
+      "game": "IND@BKN",
+      "errPct2": 4.294,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.72,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.72%)"
+     },
+     {
+      "id": "401810642",
+      "usDate": "20260211",
+      "game": "MEM@DEN",
+      "errPct2": 3.51,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.43,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.43%)"
+     },
+     {
+      "id": "401810650",
+      "usDate": "20260219",
+      "game": "IND@WSH",
+      "errPct2": 4.509,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 3.01,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 3.01%)"
+     },
+     {
+      "id": "401810698",
+      "usDate": "20260225",
+      "game": "SA@TOR",
+      "errPct2": 3.535,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.5,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.5%)"
+     },
+     {
+      "id": "401810736",
+      "usDate": "20260302",
+      "game": "DEN@UTAH",
+      "errPct2": 3.713,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.65,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.65%)"
+     },
+     {
+      "id": "401810821",
+      "usDate": "20260313",
+      "game": "MIN@GS",
+      "errPct2": 4.425,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 3.36,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 3.36%)"
+     },
+     {
+      "id": "401810879",
+      "usDate": "20260321",
+      "game": "LAL@ORL",
+      "errPct2": 3.872,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.75,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.75%)"
+     },
+     {
+      "id": "401810886",
+      "usDate": "20260321",
+      "game": "MIL@PHX",
+      "errPct2": 3.839,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.12,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.12%)"
+     },
+     {
+      "id": "401810909",
+      "usDate": "20260325",
+      "game": "OKC@BOS",
+      "errPct2": 3.652,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.55,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.55%)"
+     },
+     {
+      "id": "401810932",
+      "usDate": "20260328",
+      "game": "PHI@CHA",
+      "errPct2": 4.415,
+      "heaves": 3,
+      "heaveAdjustedErrPct": 2.75,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 3개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.75%)"
+     },
+     {
+      "id": "401810963",
+      "usDate": "20260401",
+      "game": "SAC@TOR",
+      "errPct2": 3.812,
+      "heaves": 2,
+      "heaveAdjustedErrPct": 2.72,
+      "periods": 4,
+      "issues": [],
+      "cause": "heave 2개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 2.72%)"
+     },
+     {
+      "id": "401811002",
+      "usDate": "20260406",
+      "game": "POR@DEN",
+      "errPct2": 3.983,
+      "heaves": 1,
+      "heaveAdjustedErrPct": 3.48,
+      "periods": 5,
+      "issues": [],
+      "cause": "heave 1개가 2025-26부터 박스 FGA에서 빠져 추정식이 그만큼 적게 셈 (heave를 FGA에 되돌리면 3.48%)"
+     }
+    ],
+    "pass": true
+   },
+   "heave": {
+    "rule": "excluded",
+    "gamesWithHeave": 779,
+    "heavePlays": 1101,
+    "fgaMatchAll": "1163/1230",
+    "fgaMatchAllPct": 94.55,
+    "fgaMatchHeaveGames": "733/779",
+    "mismatches": [
+     {
+      "id": "401809934",
+      "usDate": "20251022",
+      "game": "MIA@ORL",
+      "heaves": [
+       1,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401809936",
+      "usDate": "20251022",
+      "game": "PHI@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "box_tov_invalid(2)",
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401809943",
+      "usDate": "20251024",
+      "game": "ATL@ORL",
+      "heaves": [
+       3,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401809944",
+      "usDate": "20251024",
+      "game": "CLE@BKN",
+      "heaves": [
+       1,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401809961",
+      "usDate": "20251026",
+      "game": "BOS@DET",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(8)"
+      ]
+     },
+     {
+      "id": "401809971",
+      "usDate": "20251027",
+      "game": "BKN@HOU",
+      "heaves": [
+       0,
+       3
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401809979",
+      "usDate": "20251028",
+      "game": "CHA@MIA",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(30)"
+      ]
+     },
+     {
+      "id": "401809987",
+      "usDate": "20251029",
+      "game": "SAC@CHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401810004",
+      "usDate": "20251102",
+      "game": "PHI@BKN",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401810040",
+      "usDate": "20251108",
+      "game": "LAL@ATL",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810044",
+      "usDate": "20251108",
+      "game": "IND@DEN",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401810048",
+      "usDate": "20251109",
+      "game": "BOS@ORL",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401809789",
+      "usDate": "20251114",
+      "game": "GS@SA",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401810087",
+      "usDate": "20251115",
+      "game": "DEN@MIN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(16)",
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401810092",
+      "usDate": "20251116",
+      "game": "GS@NO",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401810102",
+      "usDate": "20251117",
+      "game": "OKC@NO",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401810112",
+      "usDate": "20251119",
+      "game": "GS@MIA",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(9)"
+      ]
+     },
+     {
+      "id": "401810122",
+      "usDate": "20251120",
+      "game": "ATL@SA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401809796",
+      "usDate": "20251121",
+      "game": "DEN@HOU",
+      "heaves": [
+       1,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(10)"
+      ]
+     },
+     {
+      "id": "401810125",
+      "usDate": "20251122",
+      "game": "ATL@NO",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810141",
+      "usDate": "20251124",
+      "game": "DAL@MIA",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401810143",
+      "usDate": "20251124",
+      "game": "POR@MIL",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401809806",
+      "usDate": "20251126",
+      "game": "MIN@OKC",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401810188",
+      "usDate": "20251204",
+      "game": "GS@PHI",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401810221",
+      "usDate": "20251208",
+      "game": "SA@NO",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401836750",
+      "usDate": "20251212",
+      "game": "CHI@CHA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(4)"
+      ]
+     },
+     {
+      "id": "401836798",
+      "usDate": "20251214",
+      "game": "PHI@ATL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810249",
+      "usDate": "20251220",
+      "game": "POR@SAC",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(22)"
+      ]
+     },
+     {
+      "id": "401810255",
+      "usDate": "20251221",
+      "game": "MIL@MIN",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(16)"
+      ]
+     },
+     {
+      "id": "401810260",
+      "usDate": "20251222",
+      "game": "UTAH@DEN",
+      "heaves": [
+       2,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(7)"
+      ]
+     },
+     {
+      "id": "401810272",
+      "usDate": "20251223",
+      "game": "OKC@SA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401810286",
+      "usDate": "20251226",
+      "game": "LAC@POR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(22)"
+      ]
+     },
+     {
+      "id": "401810308",
+      "usDate": "20251229",
+      "game": "IND@HOU",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401810334",
+      "usDate": "20260102",
+      "game": "ATL@NY",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(18)"
+      ]
+     },
+     {
+      "id": "401810345",
+      "usDate": "20260103",
+      "game": "POR@SA",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(22)"
+      ]
+     },
+     {
+      "id": "401810352",
+      "usDate": "20260104",
+      "game": "NO@MIA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(14)"
+      ]
+     },
+     {
+      "id": "401810368",
+      "usDate": "20260106",
+      "game": "MIA@MIN",
+      "heaves": [
+       1,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(16)"
+      ]
+     },
+     {
+      "id": "401810422",
+      "usDate": "20260113",
+      "game": "DEN@NO",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401810438",
+      "usDate": "20260115",
+      "game": "UTAH@DAL",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401810469",
+      "usDate": "20260120",
+      "game": "LAC@CHI",
+      "heaves": [
+       2,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "box_tov_invalid(4)",
+       "fga_mismatch(4)",
+       "box_tov_invalid(12)",
+       "fga_mismatch(12)",
+       "box_row_missing_id(4)",
+       "sub_missing_player",
+       "player_not_in_box",
+       "period_start_inferred"
+      ]
+     },
+     {
+      "id": "401810475",
+      "usDate": "20260121",
+      "game": "CLE@CHA",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401810500",
+      "usDate": "20260124",
+      "game": "WSH@CHA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(30)"
+      ]
+     },
+     {
+      "id": "401810510",
+      "usDate": "20260125",
+      "game": "MIA@PHX",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(14)"
+      ]
+     },
+     {
+      "id": "401810512",
+      "usDate": "20260126",
+      "game": "PHI@CHA",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(30)"
+      ]
+     },
+     {
+      "id": "401810515",
+      "usDate": "20260126",
+      "game": "POR@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401810562",
+      "usDate": "20260201",
+      "game": "SAC@WSH",
+      "heaves": [
+       3,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(27)"
+      ]
+     },
+     {
+      "id": "401810573",
+      "usDate": "20260203",
+      "game": "NY@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(18)"
+      ]
+     },
+     {
+      "id": "401810577",
+      "usDate": "20260203",
+      "game": "CHI@MIL",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(4)",
+       "box_row_missing_id(4)",
+       "player_not_in_box"
+      ]
+     },
+     {
+      "id": "401810592",
+      "usDate": "20260205",
+      "game": "CHA@HOU",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(10)"
+      ]
+     },
+     {
+      "id": "401810605",
+      "usDate": "20260207",
+      "game": "UTAH@ORL",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401810618",
+      "usDate": "20260209",
+      "game": "UTAH@MIA",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(26)"
+      ]
+     },
+     {
+      "id": "401810639",
+      "usDate": "20260211",
+      "game": "MIA@NO",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401810649",
+      "usDate": "20260219",
+      "game": "ATL@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810660",
+      "usDate": "20260220",
+      "game": "MIA@ATL",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810662",
+      "usDate": "20260220",
+      "game": "MIL@NO",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401810668",
+      "usDate": "20260221",
+      "game": "MEM@MIA",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(29)"
+      ]
+     },
+     {
+      "id": "401810700",
+      "usDate": "20260225",
+      "game": "SAC@HOU",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401810706",
+      "usDate": "20260226",
+      "game": "SA@BKN",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401810754",
+      "usDate": "20260305",
+      "game": "DAL@ORL",
+      "heaves": [
+       1,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401810756",
+      "usDate": "20260305",
+      "game": "BKN@MIA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401810792",
+      "usDate": "20260310",
+      "game": "DET@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(8)"
+      ]
+     },
+     {
+      "id": "401810866",
+      "usDate": "20260319",
+      "game": "CLE@CHI",
+      "heaves": [
+       2,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401810891",
+      "usDate": "20260322",
+      "game": "TOR@PHX",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(28)"
+      ]
+     },
+     {
+      "id": "401810933",
+      "usDate": "20260328",
+      "game": "SAC@ATL",
+      "heaves": [
+       0,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401810985",
+      "usDate": "20260404",
+      "game": "SA@DEN",
+      "heaves": [
+       1,
+       1
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(24)"
+      ]
+     },
+     {
+      "id": "401811001",
+      "usDate": "20260406",
+      "game": "PHI@SA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401811033",
+      "usDate": "20260410",
+      "game": "MIN@HOU",
+      "heaves": [
+       0,
+       2
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(10)"
+      ]
+     }
+    ]
+   },
+   "teamMinutes": {
+    "ok": "1229/1230",
+    "okPct": 99.92,
+    "failures": [
+     {
+      "id": "401810864",
+      "usDate": "20260319",
+      "game": "DET@WSH",
+      "teamMinutes": [
+       240,
+       245.48
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "unrecorded_sub",
+       "period_start_inferred",
+       "incomplete_lineups",
+       "minutes_mismatch(8)"
+      ]
+     }
+    ]
+   }
+  },
+  "2026-27": {
+   "scheduled": 14,
+   "checked": 14,
+   "dataExcluded": 0,
+   "dataExcludedPct": 0,
+   "stopRuleTriggered": false,
+   "failures": {},
+   "possessions": {
+    "games": 14,
+    "meanAbsPct": 1.721,
+    "p95AbsPct": 2.79,
+    "p99AbsPct": 2.895,
+    "maxAbsPct": 2.921,
+    "meanSignedPct": 1.555,
+    "formula1MeanAbsPct": 2.392,
+    "homeAwayDiffOver2": 0,
+    "homeAwayDiffOverAllowance": [],
+    "heaveAdjusted": {
+     "meanAbsPct": 1.454,
+     "p95AbsPct": 2.352,
+     "over35": 0
+    },
+    "over35": [],
+    "pass": true
+   },
+   "heave": {
+    "rule": "excluded",
+    "gamesWithHeave": 8,
+    "heavePlays": 9,
+    "fgaMatchAll": "14/14",
+    "fgaMatchAllPct": 100,
+    "fgaMatchHeaveGames": "8/8",
+    "mismatches": []
+   },
+   "teamMinutes": {
+    "ok": "14/14",
+    "okPct": 100,
+    "failures": []
+   }
+  }
+ }
+}

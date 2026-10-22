@@ -10,6 +10,20 @@ const PAINT_DEPTH_FROM_HOOP = 13.75; // 19 ft from baseline, hoop centre 5.25 ft
 const CORNER_DEPTH_FROM_HOOP = 8.75; // straight part of the 3pt line, 14 ft from baseline
 
 export const category = pl => PLAY_TYPES[pl.type?.id]?.[1] ?? 'unknown';
+
+// ESPN box FGA/3PA include "Heave Jump Shot" through 2024-25 (season.year 2025) and exclude it
+// from 2025-26 (P1/P2 checks). Missing season = current rules.
+export const heaveCountsInBox = s => (s.header?.season?.year ?? Infinity) <= 2025;
+const HEAVE_FT = 40;
+const HEAVE_LAST_SECONDS = 4;
+// end-of-period heave for modelling, in every season: the heave type, or a 40+ ft shot in the
+// last 4 seconds (2024-25 labels these as ordinary jump shots)
+export function isHeaveLike(pl) {
+  const c = category(pl);
+  if (c === 'heave') return true;
+  if (c !== 'fga' || !pl.coordinate || pl.coordinate.x <= NO_COORD) return false;
+  return Math.hypot(pl.coordinate.x - HOOP.x, pl.coordinate.y - HOOP.y) >= HEAVE_FT && clockSec(pl.clock.displayValue) <= HEAVE_LAST_SECONDS;
+}
 export const periodSeconds = period => (period <= 4 ? 720 : 300);
 
 export function clockSec(s) {
@@ -30,6 +44,38 @@ export function teamsOf(s) {
   return { home: home.team.id, away: away.team.id, final: { [home.team.id]: +home.score, [away.team.id]: +away.score } };
 }
 
+// What a free throw is, from the foul that caused it (same period, within a clock-second):
+// 'technical' (possession untouched), 'retained' (take/flagrant/clear-path: shooters keep the ball)
+// or 'normal'. Technical FTs are not always labelled as such ("Free Throw - 1 of 1" after a flop).
+const RETAINED_FOUL = /Take Foul|Flagrant|Clear Path|Away from Play/i;
+export function ftKind(plays, i) {
+  const pl = plays[i];
+  if (isTechnical(pl)) return 'technical';
+  if (isFlagrant(pl) || /Clear Path/i.test(pl.type.text)) return 'retained';
+  const { k, n } = ftOf(pl);
+  const t = clockSec(pl.clock.displayValue);
+  let labelledTechFts = 0; // each labelled technical FT pairs with one technical foul
+  for (let j = i - 1; j >= 0; j--) {
+    const q = plays[j];
+    if (q.period.number !== pl.period.number || clockSec(q.clock.displayValue) - t > 1) break;
+    const c = category(q);
+    if (c === 'fga' || c === 'heave' || c === 'tov') break;
+    if (c === 'ft') {
+      if (isTechnical(q)) { labelledTechFts++; continue; }
+      if (k > 1 && q.team?.id === pl.team?.id) return ftKind(plays, j); // same trip: kind of the first shot
+      break;
+    }
+    if (/Technical/i.test(q.type.text)) {
+      // technical free throws are single shots; offsetting/double technicals carry none
+      if (n > 1 || /Double Technical/i.test(q.type.text)) continue;
+      if (labelledTechFts > 0) { labelledTechFts--; continue; }
+      return 'technical';
+    }
+    if (c === 'foul') return RETAINED_FOUL.test(q.type.text) ? 'retained' : 'normal';
+  }
+  return 'normal';
+}
+
 // nearest earlier play that can explain a rebound (skips subs, timeouts, fouls, reviews)
 function prevRelevant(plays, i) {
   for (let j = i - 1; j >= 0; j--) {
@@ -41,7 +87,8 @@ function prevRelevant(plays, i) {
 // a rebound right after a missed non-final free throw is a dead-ball team rebound
 function isDeadBallRebound(plays, i) {
   const prev = prevRelevant(plays, i);
-  if (!prev || category(prev) !== 'ft' || prev.scoringPlay || isTechnical(prev)) return false;
+  if (!prev || category(prev) !== 'ft' || prev.scoringPlay) return false;
+  if (ftKind(plays, plays.indexOf(prev)) === 'technical') return true; // ball goes back to the team that had it
   const { k, n } = ftOf(prev);
   return k < n;
 }
@@ -49,12 +96,13 @@ function isDeadBallRebound(plays, i) {
 // and-one: a made basket followed, at the same clock, by a 1-of-1 free throw for the same team
 function isAndOne(plays, i) {
   const shot = plays[i];
+  const t = clockSec(shot.clock.displayValue);
   for (let j = i + 1; j < plays.length; j++) {
     const q = plays[j];
-    if (q.period.number !== shot.period.number || q.clock.displayValue !== shot.clock.displayValue) return false;
+    if (q.period.number !== shot.period.number || t - clockSec(q.clock.displayValue) > 1) return false;
     const c = category(q);
     if (c === 'ft') {
-      if (isTechnical(q)) continue; // a technical can sit between basket and and-one
+      if (ftKind(plays, j) === 'technical') continue; // a technical can sit between basket and and-one
       return q.team?.id === shot.team?.id && /1 of 1/.test(q.type.text);
     }
     if ((c === 'oreb' || c === 'dreb') && !(q.participants || []).length) continue; // dead-ball team rebound
@@ -83,6 +131,17 @@ export function toPossessions(s) {
     count[cur.team] = (count[cur.team] || 0) + 1;
     cur = null;
   };
+  // the feed can list an and-one free throw before its basket: reopen that possession
+  const reopenAndOne = (team, pl) => {
+    const last = possessions.at(-1);
+    if (cur || !last || last.team !== team || last.period !== pl.period.number || last.endType !== 'ft' || !last.andOneFt
+      || Math.abs(last.end - clockSec(pl.clock.displayValue)) > 1) return false;
+    possessions.pop();
+    count[team]--;
+    cur = last;
+    delete cur.end; delete cur.endType;
+    return true;
+  };
   const open = (team, pl) => {
     if (cur && cur.team === team) return;
     if (cur) close('change', pl);
@@ -96,6 +155,7 @@ export function toPossessions(s) {
     switch (c) {
       case 'fga':
       case 'heave':
+        if (pl.scoringPlay && c === 'fga' && reopenAndOne(team, pl)) { cur.points += pl.scoreValue; close('made', pl); break; }
         open(team, pl);
         if (pl.scoringPlay) {
           cur.points += pl.scoreValue;
@@ -103,19 +163,29 @@ export function toPossessions(s) {
         }
         break;
       case 'ft': {
-        if (isTechnical(pl)) {
+        const kind = ftKind(plays, i);
+        if (kind === 'technical') {
           if (pl.scoringPlay) techPoints[team] = (techPoints[team] || 0) + pl.scoreValue;
           break;
         }
         open(team, pl);
         if (pl.scoringPlay) cur.points += pl.scoreValue;
         const { k, n } = ftOf(pl);
-        if (k === n && pl.scoringPlay && !isFlagrant(pl)) close('ft', pl);
+        if (k === n && pl.scoringPlay && kind !== 'retained') {
+          close('ft', pl);
+          // a 1-of-1 may be an and-one listed ahead of its basket (see reopenAndOne)
+          if (n === 1) possessions.at(-1).andOneFt = true;
+        }
         break;
       }
-      case 'oreb':
-        if (!isDeadBallRebound(plays, i)) open(team, pl);
+      case 'oreb': {
+        if (isDeadBallRebound(plays, i)) break;
+        // the feed can list a rebound after the basket/turnover it led to (same team, within a second)
+        const last = possessions.at(-1);
+        if (!cur && last && last.team === team && last.period === pl.period.number && Math.abs(last.end - clockSec(pl.clock.displayValue)) <= 1) break;
+        open(team, pl);
         break;
+      }
       case 'dreb':
         if (isDeadBallRebound(plays, i)) break;
         if (cur && cur.team !== team) close('dreb', pl);
@@ -162,6 +232,7 @@ export function pbpTotals(s) {
   const { home, away } = teamsOf(s);
   const z = () => ({ fga: 0, fgm: 0, tpa: 0, tpm: 0, heaves: 0, fta: 0, ftm: 0, ftaTech: 0, tov: 0, orebPlayer: 0, orebTeamLive: 0, orebTeamDead: 0, dreb: 0, pts: 0 });
   const out = { [home]: z(), [away]: z() };
+  const heaveInBox = heaveCountsInBox(s);
   s.plays.forEach((pl, i) => {
     const t = out[pl.team?.id];
     if (!t) return;
@@ -171,7 +242,13 @@ export function pbpTotals(s) {
         t.fga++; if (pl.scoringPlay) t.fgm++;
         if (pl.pointsAttempted === 3) { t.tpa++; if (pl.scoringPlay) t.tpm++; }
         break;
-      case 'heave': t.heaves++; break;
+      case 'heave':
+        t.heaves++;
+        if (heaveInBox) {
+          t.fga++; if (pl.scoringPlay) t.fgm++;
+          if (pl.pointsAttempted === 3) { t.tpa++; if (pl.scoringPlay) t.tpm++; }
+        }
+        break;
       case 'ft':
         t.fta++; if (pl.scoringPlay) t.ftm++;
         if (isTechnical(pl)) t.ftaTech++;
@@ -195,21 +272,31 @@ export function possessionEstimate(s) {
   const box = boxTotals(s), pbp = pbpTotals(s);
   const out = {};
   for (const [t, b] of Object.entries(box)) {
-    const broken = (b.tov <= 0 || b.teamTov < 0) && pbp[t].tov > 0;
-    const tov = broken ? pbp[t].tov : b.tov;
+    const q = pbp[t];
+    // box team totals far from the play-by-play (> 2 FGA or FTA) are not used at all (P2, 2024-10-25 NO@POR)
+    if (Math.abs(q.fga - b.fga) > 2 || Math.abs(q.fta - b.fta) > 2) {
+      out[t] = {
+        fga: q.fga, oreb: q.orebPlayer, teamOrebLive: q.orebTeamLive, tov: q.tov, tovSource: 'pbp', fta: q.fta, source: 'pbp',
+        formula1: q.fga - q.orebPlayer + q.tov + 0.44 * q.fta,
+        formula2: q.fga - (q.orebPlayer + q.orebTeamLive) + q.tov + 0.44 * q.fta,
+      };
+      continue;
+    }
+    const broken = (b.tov <= 0 || b.teamTov < 0) && q.tov > 0;
+    const tov = broken ? q.tov : b.tov;
     out[t] = {
-      fga: b.fga, oreb: b.oreb, teamOrebLive: pbp[t].orebTeamLive, tov, tovSource: broken ? 'pbp' : 'box', fta: b.fta,
+      fga: b.fga, oreb: b.oreb, teamOrebLive: q.orebTeamLive, tov, tovSource: broken ? 'pbp' : 'box', fta: b.fta, source: 'box',
       formula1: b.fga - b.oreb + b.tov + 0.44 * b.fta,
-      formula2: b.fga - (b.oreb + pbp[t].orebTeamLive) + tov + 0.44 * b.fta,
+      formula2: b.fga - (b.oreb + q.orebTeamLive) + tov + 0.44 * b.fta,
     };
   }
   return out;
 }
 
 // ---- shot zones ----------------------------------------------------------------
-// ra | paint | mid | c3 | ab3; null for heaves, free throws, or a 2 with no location at all
+// ra | paint | mid | c3 | ab3; null for heave-like shots, free throws, or a 2 with no location at all
 export function shotZone(pl) {
-  if (category(pl) !== 'fga') return null;
+  if (category(pl) !== 'fga' || isHeaveLike(pl)) return null;
   const three = pl.pointsAttempted === 3;
   const c = pl.coordinate;
   if (c && c.x > NO_COORD) {
@@ -398,14 +485,22 @@ export function checkIntegrity(s, { stints } = {}) {
   const last = s.plays.at(-1);
   const pbp = pbpTotals(s), box = boxTotals(s);
 
-  if (last.homeScore !== final[home] || last.awayScore !== final[away] || pbp[home].pts !== final[home] || pbp[away].pts !== final[away]) {
-    issues.push({ code: 'pbp_incomplete', detail: `final ${final[home]}-${final[away]}, play-by-play ${last.homeScore}-${last.awayScore}` });
+  // truncation = scoring plays do not add up to the final; the running-score field alone can be off
+  if (pbp[home].pts !== final[home] || pbp[away].pts !== final[away]) {
+    issues.push({ code: 'pbp_incomplete', detail: `final ${final[home]}-${final[away]}, scoring plays sum ${pbp[home].pts}-${pbp[away].pts}` });
     usable.pbp = false;
     usable.stints = false;
+  } else if (last.homeScore !== final[home] || last.awayScore !== final[away]) {
+    issues.push({ code: 'pbp_running_score_mismatch', detail: `final ${final[home]}-${final[away]}, last play running score ${last.homeScore}-${last.awayScore}` });
   }
   for (const t of [home, away]) {
     if ((box[t].tov <= 0 || box[t].teamTov < 0) && pbp[t].tov > 0) {
       issues.push({ code: 'box_tov_invalid', team: t, detail: `box totalTurnovers ${box[t].tov}, teamTurnovers ${box[t].teamTov}, play-by-play ${pbp[t].tov}` });
+    }
+    // box team totals that disagree with complete play-by-play by more than 2: the box is wrong
+    if (usable.pbp && (Math.abs(pbp[t].fga - box[t].fga) > 2 || Math.abs(pbp[t].fta - box[t].fta) > 2)) {
+      issues.push({ code: 'box_totals_inconsistent', team: t, detail: `FGA pbp ${pbp[t].fga} box ${box[t].fga}; FTA pbp ${pbp[t].fta} box ${box[t].fta}; box team totals not used` });
+      usable.box = false;
     }
     if (pbp[t].fga !== box[t].fga || pbp[t].tpa !== box[t].tpa) {
       issues.push({ code: 'fga_mismatch', team: t, detail: `FGA pbp ${pbp[t].fga} box ${box[t].fga}; 3PA pbp ${pbp[t].tpa} box ${box[t].tpa} (heaves ${pbp[t].heaves})` });

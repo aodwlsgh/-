@@ -71,7 +71,8 @@ export function checkScoreboard(sb) {
         const q = `${p}.competitions[0].competitors[${j}]`;
         req.oneOf(t.homeAway, `${q}.homeAway`, ['home', 'away']);
         req.str(t.team?.id, `${q}.team.id`, ID);
-        req.str(t.team?.abbreviation, `${q}.team.abbreviation`);
+        // exhibitions against non-NBA clubs carry no abbreviation; only games we use must have one
+        if (e.season?.slug === 'regular-season') req.str(t.team?.abbreviation, `${q}.team.abbreviation`);
       });
     }
   });

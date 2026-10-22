@@ -102,6 +102,14 @@ test('known data defects are reported as quality issues, not schema errors', () 
   assert.ok(issues.some(x => /athlete without id/.test(x)));
 });
 
+// 2024-10-16 preseason: Ulm (German club) at Portland, no abbreviation for Ulm
+test('preseason exhibition opponent without an abbreviation is accepted', () => {
+  const s = fresh.scoreboard();
+  s.events[0].season.slug = 'preseason';
+  delete s.events[0].competitions[0].competitors[1].team.abbreviation;
+  assert.deepEqual(checkScoreboard(s), []);
+});
+
 const injuriesDrift = {
   'injuries not an array': s => { s.injuries = null; },
   'unknown status value': s => { s.injuries[0].injuries[0].status = 'Questionable-ish'; },

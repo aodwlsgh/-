@@ -9,3 +9,13 @@ function parts(date, timeZone) {
 
 export const etParts = date => parts(date, 'America/New_York');
 export const kstParts = date => parts(date, 'Asia/Seoul');
+
+// wall-clock time in New York -> Date (tries the two possible offsets, EDT then EST)
+export function fromEt(date, hour, minute) {
+  for (const off of [4, 5]) {
+    const d = new Date(Date.UTC(+date.slice(0, 4), +date.slice(5, 7) - 1, +date.slice(8, 10), hour + off, minute));
+    const p = etParts(d);
+    if (p.date === date && p.hour === hour && p.minute === minute) return d;
+  }
+  throw new Error(`no such ET time ${date} ${hour}:${minute}`);
+}

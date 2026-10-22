@@ -6,7 +6,7 @@ import { etParts } from './time.js';
 export const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba';
 export const INJURY_PDF_BASE = 'https://ak-static.cms.nba.com/referee/injury';
 // from 2025-12-22: "_hh_mmAM" every 15 minutes; before that: "_hhAM" hourly (probed 2026-10-22)
-const PDF_15MIN_FROM = '2025-12-22';
+export const PDF_15MIN_FROM = '2025-12-22';
 
 export class FetchError extends Error {
   constructor(url, detail) { super(`fetch failed ${url}: ${detail}`); this.name = 'FetchError'; this.url = url; }
@@ -85,13 +85,15 @@ export function createCollector({
       return sb;
     },
     // ESPN event id; cached once final
+    // ESPN event id; the raw response is cached once final, before validation, so a schema
+    // mismatch never forces a refetch. Cached copies are validated on every read.
     async game(espnId) {
       const key = `espn/summary_${espnId}`;
       const hit = await cache?.get(key);
-      if (hit) return hit;
-      const s = await espn('summary', `summary?event=${espnId}`);
-      if (s.header?.competitions?.[0]?.status?.type?.completed) await cache?.set(key, s);
-      return s;
+      if (hit) return assertValid('summary', hit);
+      const s = await (await request(`${ESPN_BASE}/summary?event=${espnId}`)).json();
+      if (s?.header?.competitions?.[0]?.status?.type?.completed) await cache?.set(key, s);
+      return assertValid('summary', s);
     },
     injuries: () => espn('injuries', 'injuries'),
     // newest NBA injury PDF at or before `at`, searching back in 15-minute ET steps
