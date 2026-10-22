@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-22T11:18:04.834Z",
+ "generatedAt": "2026-10-22T18:29:21.631Z",
  "limits": {
   "meanAbsPct": 2,
   "p95AbsPct": 3.5,
@@ -7,6 +7,900 @@
   "excludedRatio": 0.05
  },
  "seasons": {
+  "2022-23": {
+   "scheduled": 1230,
+   "checked": 1230,
+   "dataExcluded": 6,
+   "dataExcludedPct": 0.49,
+   "stopRuleTriggered": false,
+   "failures": {
+    "fga_mismatch": {
+     "count": 52,
+     "pct": 4.23
+    },
+    "team_minutes": {
+     "count": 6,
+     "pct": 0.49
+    },
+    "pbp_incomplete": {
+     "count": 6,
+     "pct": 0.49
+    },
+    "home_away_diff_over_2": {
+     "count": 6,
+     "pct": 0.49
+    },
+    "possessions_over_3.5pct": {
+     "count": 1,
+     "pct": 0.08
+    }
+   },
+   "possessions": {
+    "games": 1224,
+    "meanAbsPct": 0.987,
+    "p95AbsPct": 2.293,
+    "p99AbsPct": 2.865,
+    "maxAbsPct": 3.541,
+    "meanSignedPct": 0.797,
+    "formula1MeanAbsPct": 2.504,
+    "homeAwayDiffOver2": 6,
+    "homeAwayDiffOverAllowance": [
+     {
+      "id": "401468327",
+      "usDate": "20221110",
+      "game": "DAL@WSH",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401468567",
+      "usDate": "20221213",
+      "game": "NO@UTAH",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401468638",
+      "usDate": "20221223",
+      "game": "MIL@BKN",
+      "haDiff": 4,
+      "periods": 4
+     },
+     {
+      "id": "401468905",
+      "usDate": "20230128",
+      "game": "DAL@UTAH",
+      "haDiff": 3,
+      "periods": 4
+     },
+     {
+      "id": "401469304",
+      "usDate": "20230331",
+      "game": "OKC@IND",
+      "haDiff": 3,
+      "periods": 4
+     }
+    ],
+    "heaveAdjusted": {
+     "meanAbsPct": 0.987,
+     "p95AbsPct": 2.294,
+     "over35": 1
+    },
+    "over35": [
+     {
+      "id": "401468486",
+      "usDate": "20221202",
+      "game": "LAL@MIL",
+      "errPct2": 3.541,
+      "heaves": 0,
+      "heaveAdjustedErrPct": 3.54,
+      "periods": 4,
+      "issues": [
+       "fga_mismatch(13)"
+      ],
+      "cause": "데이터 결함 없음; 추정식 자체 오차로 추정 (원인 미확정)"
+     }
+    ],
+    "pass": true
+   },
+   "heave": {
+    "rule": "included",
+    "gamesWithHeave": 0,
+    "heavePlays": 0,
+    "fgaMatchAll": "1178/1230",
+    "fgaMatchAllPct": 95.77,
+    "fgaMatchHeaveGames": "0/0",
+    "mismatches": [
+     {
+      "id": "401468017",
+      "usDate": "20221018",
+      "game": "LAL@GS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(13)"
+      ]
+     },
+     {
+      "id": "401468019",
+      "usDate": "20221019",
+      "game": "WSH@IND",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(27)"
+      ]
+     },
+     {
+      "id": "401468227",
+      "usDate": "20221028",
+      "game": "CLE@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)",
+       "period_start_inferred"
+      ]
+     },
+     {
+      "id": "401468229",
+      "usDate": "20221028",
+      "game": "IND@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401468252",
+      "usDate": "20221031",
+      "game": "PHI@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401468258",
+      "usDate": "20221101",
+      "game": "CHI@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401468265",
+      "usDate": "20221102",
+      "game": "ATL@NY",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(18)"
+      ]
+     },
+     {
+      "id": "401468281",
+      "usDate": "20221104",
+      "game": "LAC@SA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(24)",
+       "fga_mismatch(12)"
+      ]
+     },
+     {
+      "id": "401468325",
+      "usDate": "20221109",
+      "game": "LAL@LAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(12)"
+      ]
+     },
+     {
+      "id": "401468339",
+      "usDate": "20221112",
+      "game": "BKN@LAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(12)",
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401468341",
+      "usDate": "20221112",
+      "game": "BOS@DET",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401468343",
+      "usDate": "20221112",
+      "game": "ATL@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401468355",
+      "usDate": "20221114",
+      "game": "CHA@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(19)"
+      ]
+     },
+     {
+      "id": "401468365",
+      "usDate": "20221115",
+      "game": "BKN@SAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401468380",
+      "usDate": "20221118",
+      "game": "CHA@CLE",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)",
+       "fga_mismatch(30)",
+       "period_start_inferred"
+      ]
+     },
+     {
+      "id": "401468403",
+      "usDate": "20221121",
+      "game": "ATL@CLE",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(1)"
+      ]
+     },
+     {
+      "id": "401468406",
+      "usDate": "20221121",
+      "game": "POR@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(22)"
+      ]
+     },
+     {
+      "id": "401468418",
+      "usDate": "20221123",
+      "game": "SAC@ATL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401468426",
+      "usDate": "20221123",
+      "game": "LAC@GS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(12)"
+      ]
+     },
+     {
+      "id": "401468477",
+      "usDate": "20221130",
+      "game": "LAC@UTAH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(26)"
+      ]
+     },
+     {
+      "id": "401468486",
+      "usDate": "20221202",
+      "game": "LAL@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(13)"
+      ]
+     },
+     {
+      "id": "401468513",
+      "usDate": "20221205",
+      "game": "PHX@DAL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(21)"
+      ]
+     },
+     {
+      "id": "401468583",
+      "usDate": "20221216",
+      "game": "ATL@CHA",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(30)"
+      ]
+     },
+     {
+      "id": "401468607",
+      "usDate": "20221219",
+      "game": "UTAH@CLE",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(26)"
+      ]
+     },
+     {
+      "id": "401468611",
+      "usDate": "20221219",
+      "game": "DAL@MIN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(6)"
+      ]
+     },
+     {
+      "id": "401468674",
+      "usDate": "20221228",
+      "game": "MIL@CHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(4)",
+       "period_start_inferred"
+      ]
+     },
+     {
+      "id": "401468675",
+      "usDate": "20221228",
+      "game": "MIN@NO",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401468757",
+      "usDate": "20230108",
+      "game": "DAL@OKC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401468781",
+      "usDate": "20230112",
+      "game": "OKC@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401468786",
+      "usDate": "20230112",
+      "game": "CLE@POR",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(22)",
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401468846",
+      "usDate": "20230120",
+      "game": "OKC@SAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401468873",
+      "usDate": "20230124",
+      "game": "CHA@PHX",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(21)"
+      ]
+     },
+     {
+      "id": "401468888",
+      "usDate": "20230126",
+      "game": "CLE@HOU",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401468972",
+      "usDate": "20230207",
+      "game": "PHX@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401468977",
+      "usDate": "20230208",
+      "game": "DET@CLE",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(5)"
+      ]
+     },
+     {
+      "id": "401468992",
+      "usDate": "20230210",
+      "game": "NY@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401469049",
+      "usDate": "20230223",
+      "game": "POR@SAC",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(23)"
+      ]
+     },
+     {
+      "id": "401469054",
+      "usDate": "20230224",
+      "game": "OKC@PHX",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401469063",
+      "usDate": "20230225",
+      "game": "BOS@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)",
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401469075",
+      "usDate": "20230227",
+      "game": "MIA@PHI",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(20)"
+      ]
+     },
+     {
+      "id": "401469103",
+      "usDate": "20230303",
+      "game": "BKN@BOS",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(2)"
+      ]
+     },
+     {
+      "id": "401469110",
+      "usDate": "20230303",
+      "game": "MIN@LAL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(13)"
+      ]
+     },
+     {
+      "id": "401469128",
+      "usDate": "20230305",
+      "game": "MIL@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401469149",
+      "usDate": "20230309",
+      "game": "UTAH@ORL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(19)",
+       "fga_mismatch(26)",
+       "unrecorded_sub"
+      ]
+     },
+     {
+      "id": "401469150",
+      "usDate": "20230309",
+      "game": "BKN@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401469200",
+      "usDate": "20230316",
+      "game": "IND@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": false,
+      "issues": [
+       "pbp_incomplete",
+       "fga_mismatch(11)"
+      ]
+     },
+     {
+      "id": "401469249",
+      "usDate": "20230323",
+      "game": "CLE@BKN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401469277",
+      "usDate": "20230327",
+      "game": "MIL@DET",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401469302",
+      "usDate": "20230330",
+      "game": "NO@DEN",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(3)"
+      ]
+     },
+     {
+      "id": "401469329",
+      "usDate": "20230402",
+      "game": "PHI@MIL",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401469341",
+      "usDate": "20230404",
+      "game": "LAL@UTAH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(13)"
+      ]
+     },
+     {
+      "id": "401469377",
+      "usDate": "20230409",
+      "game": "HOU@WSH",
+      "heaves": [
+       0,
+       0
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "fga_mismatch(27)",
+       "fga_mismatch(10)"
+      ]
+     }
+    ]
+   },
+   "teamMinutes": {
+    "ok": "1224/1230",
+    "okPct": 99.51,
+    "failures": [
+     {
+      "id": "401468249",
+      "usDate": "20221030",
+      "game": "HOU@PHX",
+      "teamMinutes": [
+       238.98,
+       240
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "incomplete_lineups",
+       "minutes_mismatch(21)"
+      ]
+     },
+     {
+      "id": "401468288",
+      "usDate": "20221105",
+      "game": "BKN@CHA",
+      "teamMinutes": [
+       240,
+       236.97
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "unrecorded_sub",
+       "incomplete_lineups",
+       "minutes_mismatch(17)"
+      ]
+     },
+     {
+      "id": "401468356",
+      "usDate": "20221114",
+      "game": "OKC@BOS",
+      "teamMinutes": [
+       239.13,
+       237.53
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "incomplete_lineups",
+       "minutes_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401468565",
+      "usDate": "20221213",
+      "game": "GS@MIL",
+      "teamMinutes": [
+       238.82,
+       240
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "incomplete_lineups",
+       "minutes_mismatch(15)"
+      ]
+     },
+     {
+      "id": "401469145",
+      "usDate": "20230308",
+      "game": "OKC@PHX",
+      "teamMinutes": [
+       240,
+       237.25
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "incomplete_lineups",
+       "minutes_mismatch(25)"
+      ]
+     },
+     {
+      "id": "401469342",
+      "usDate": "20230404",
+      "game": "OKC@GS",
+      "teamMinutes": [
+       238.42,
+       240
+      ],
+      "pbpComplete": true,
+      "issues": [
+       "sub_missing_player",
+       "incomplete_lineups",
+       "minutes_mismatch(9)"
+      ]
+     }
+    ]
+   }
+  },
   "2023-24": {
    "scheduled": 1230,
    "checked": 1230,

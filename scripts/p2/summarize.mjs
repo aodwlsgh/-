@@ -3,7 +3,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { gunzipSync } from 'node:zlib';
 
-const SEASONS = ['2023-24', '2024-25', '2025-26', '2026-27'];
+const SEASONS = ['2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
 const LIMITS = { meanAbsPct: 2, p95AbsPct: 3.5, gameMaxPct: 3.5, excludedRatio: 0.05 };
 const pct = (a, b) => (b ? +(100 * a / b).toFixed(2) : null);
 const quantile = (xs, q) => { const s = [...xs].sort((a, b) => a - b); const i = (s.length - 1) * q; const lo = Math.floor(i); return +(s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo)).toFixed(3); };
