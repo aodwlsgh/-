@@ -125,3 +125,15 @@ test('score effect relative to the expected lead: smaller margin spread, same me
   assert.ok(b.margin.sd < a.margin.sd - 1, `${b.margin.sd} vs ${a.margin.sd}`);
   assert.ok(Math.abs(b.margin.mean - a.margin.mean) < 0.3, `${b.margin.mean} vs ${a.margin.mean}`);
 });
+
+// the P3 ratings already contain late-game fouling and overtime; with the rules on, the regulation pace
+// is scaled by regPace (calibrated on 2024-25) so that the simulated total does not count them twice
+test('regPace scales the regulation possession count', () => {
+  const r = ratings();
+  const p = { ratings: r, home: 'H', away: 'A', homePlan: plan('h'), awayPlan: plan('a') };
+  const lat = { shootSD: 0, gameSD: 0, paceSD: 0, kappa: 0 };
+  const a = simulateGame(p, { n: 4000, seed: 31, rules: { ...RULES_OFF, latent: true }, latent: { ...lat, regPace: 1 } });
+  const b = simulateGame(p, { n: 4000, seed: 31, rules: { ...RULES_OFF, latent: true }, latent: { ...lat, regPace: 0.98 } });
+  assert.ok(Math.abs(b.possessions.mean / a.possessions.mean - 0.98) < 0.003, `${b.possessions.mean} / ${a.possessions.mean}`);
+  assert.ok(Math.abs(b.total.mean / a.total.mean - 0.98) < 0.006, `${b.total.mean} / ${a.total.mean}`);
+});

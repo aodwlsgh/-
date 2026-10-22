@@ -157,8 +157,9 @@ function clutchTrip(tbl, rand, idx, pts) {
 export const DEFAULT_RULES = { garbageTime: true, clutchFoul: true, overtime: true, latent: true };
 // shootSD: team shooting form; gameSD: shooting environment shared by both teams; paceSD: shared pace;
 // kappa: score effect, % change in make probability per point of lead above the expected lead so far
-// (mean-preserving). Calibrated on 2024-25 in P4.
-export const DEFAULT_LATENT = { shootSD: 0.04, gameSD: 0, paceSD: 0.03, kappa: 0 };
+// (mean-preserving); regPace: regulation pace factor, because the P3 ratings already contain late-game
+// fouling and overtime that the rules add explicitly. Calibrated on 2024-25 in P4.
+export const DEFAULT_LATENT = { shootSD: 0.04, gameSD: 0, paceSD: 0.03, kappa: 0, regPace: 1 };
 
 export function simulateGame({ ratings, home, away, homePlan, awayPlan }, { n = 10000, seed = 1, rules = DEFAULT_RULES, latent = DEFAULT_LATENT, check = false } = {}) {
   const rand = rng(seed);
@@ -174,8 +175,8 @@ export function simulateGame({ ratings, home, away, homePlan, awayPlan }, { n = 
     const base = offense(ratings, { players: pl }, def);
     return (base * env.ortgRatio + (s === 0 ? hca / 2 : -hca / 2)) / base;
   });
-  const possTarget = ratings.teams[home].pace * ratings.teams[away].pace / lg.pace * env.paceRatio;
   const L8 = { ...DEFAULT_LATENT, ...latent };
+  const possTarget = ratings.teams[home].pace * ratings.teams[away].pace / lg.pace * env.paceRatio * (R.latent ? L8.regPace : 1);
   const expMargin = R.latent && L8.kappa ? expectedGame(ratings, home, away, { players: plans[0] }, { players: plans[1] }).margin : 0;
 
   const allIds = [...new Set(plans.flat().map(p => p.playerId))];

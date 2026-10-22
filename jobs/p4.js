@@ -55,7 +55,12 @@ function spread(rows) {
   const sdOf = xs => { const m = mean(xs); return Math.sqrt(mean(xs.map(x => (x - m) ** 2))); };
   const simM = rms(rows.map(r => r.sim.marginSD)), simT = rms(rows.map(r => r.sim.totalSD));
   const actM = sdOf(resM), actT = sdOf(resT);
-  return { games: rows.length, simMarginSD: +simM.toFixed(3), actualMarginResidSD: +actM.toFixed(3), marginRatio: +(simM / actM).toFixed(4), simTotalSD: +simT.toFixed(3), actualTotalResidSD: +actT.toFixed(3), totalRatio: +(simT / actT).toFixed(4), marginBias: +mean(resM).toFixed(3), totalBias: +mean(resT).toFixed(3) };
+  const simTotal = mean(rows.map(r => r.sim.total)), modelTotal = mean(rows.map(r => r.model.total));
+  return {
+    games: rows.length, simMarginSD: +simM.toFixed(3), actualMarginResidSD: +actM.toFixed(3), marginRatio: +(simM / actM).toFixed(4), simTotalSD: +simT.toFixed(3), actualTotalResidSD: +actT.toFixed(3), totalRatio: +(simT / actT).toFixed(4), marginBias: +mean(resM).toFixed(3), totalBias: +mean(resT).toFixed(3),
+    marginVsAnalytic: +mean(rows.map(r => r.sim.margin - r.model.margin)).toFixed(3), totalVsAnalytic: +(simTotal - modelTotal).toFixed(3), impliedRegPace: +(modelTotal / simTotal).toFixed(5),
+    simOtRate: +mean(rows.map(r => r.sim.ot)).toFixed(4), actualOtRate: +mean(rows.map(r => (r.overtime ? 1 : 0))).toFixed(4),
+  };
 }
 
 const msStats = () => { const a = [...simMs].sort((x, y) => x - y); return { mean: +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1), p95: +a[Math.floor(a.length * 0.95)].toFixed(1), max: +a[a.length - 1].toFixed(1) }; };
@@ -77,8 +82,13 @@ if (cmd === 'mean') {
 } else if (cmd === 'calibrate') {
   const n = +arg('--n', 2000);
   const results = [];
+  // stage 1 (first run, 24 settings) showed kappa >= 0.75 far too strong and gameSD/shootSD only widening
+  // totals that were already wide enough; stage 2 refines kappa and pace noise. regPace is then set from the
+  // best setting so that the rules-on mean total equals the P3 prediction
+  const stage = +arg('--stage', 2);
   const grid = [];
-  for (const gameSD of [0, 0.03, 0.06]) for (const kappa of [0, 0.75, 1.5, 2.25]) for (const shootSD of [0, 0.02]) grid.push({ gameSD, kappa, shootSD, paceSD: 0.03 });
+  if (stage === 1) for (const gameSD of [0, 0.03, 0.06]) for (const kappa of [0, 0.75, 1.5, 2.25]) for (const shootSD of [0, 0.02]) grid.push({ gameSD, kappa, shootSD, paceSD: 0.03 });
+  else for (const kappa of [0.1, 0.15, 0.2, 0.25, 0.3]) for (const paceSD of [0, 0.03]) grid.push({ gameSD: 0, kappa, shootSD: 0, paceSD, regPace: 1 });
   const list = await inputs();
   for (const lat of grid) {
     const s = spread(simFrom(list, n, RULES_ON, lat));
@@ -88,11 +98,11 @@ if (cmd === 'mean') {
   results.sort((a, b) => a.objective - b.objective);
   const best = results[0];
   let ledger = JSON.parse(await readFile(LEDGER, 'utf8'));
-  ledger.sessions.push({ at: new Date().toISOString(), window: DEV, what: 'P4 latent variance calibration', subsample: `every ${every} dev game, ${n} sims`, runs: results.length, best });
+  ledger.sessions.push({ at: new Date().toISOString(), window: DEV, what: `P4 latent variance calibration, stage ${stage}`, subsample: `every ${every} dev game, ${n} sims`, runs: results.length, best });
   ledger.totalRuns += results.length;
   await writeJson(LEDGER, ledger);
-  await writeJson('data/model/latent.json', { calibratedOn: DEV, chosenAt: new Date().toISOString(), cumulativeTuningRuns: ledger.totalRuns, latent: { shootSD: best.shootSD, gameSD: best.gameSD, paceSD: best.paceSD, kappa: best.kappa }, fit: best });
-  await writeJson('docs/reports/p4-calibration.json', { results });
+  await writeJson('data/model/latent.json', { calibratedOn: DEV, chosenAt: new Date().toISOString(), cumulativeTuningRuns: ledger.totalRuns, latent: { shootSD: best.shootSD, gameSD: best.gameSD, paceSD: best.paceSD, kappa: best.kappa, regPace: stage === 1 ? 1 : best.impliedRegPace }, fit: best });
+  await writeJson(`docs/reports/p4-calibration${stage === 1 ? '' : '-' + stage}.json`, { stage, results });
   console.log(`\n${results.length} runs, ledger ${ledger.totalRuns}; best`, JSON.stringify(best));
 } else if (cmd === 'var') {
   const n = +arg('--n', 10000);
