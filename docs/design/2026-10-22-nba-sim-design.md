@@ -123,7 +123,7 @@
 | 일정·스코어보드 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=YYYYMMDD` (날짜별 조회. 기간 조회는 0건을 돌려줌) |
 | 박스스코어 + 플레이바이플레이 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event={espnId}` |
 | 부상 | ESPN (주) | `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries` (상태는 `Out` / `Day-To-Day` 두 가지) |
-| 공식 부상 리포트(PDF) | NBA (보조) | `https://ak-static.cms.nba.com/referee/injury/Injury-Report_{YYYY-MM-DD}_{hh}_{mm}{AM\|PM}.pdf` (2025-26 이후. 15분 간격, 미국 동부시간 기준. 2024-25까지는 `_{hh}{AM\|PM}` 형식) |
+| 공식 부상 리포트(PDF) | NBA (보조) | `https://ak-static.cms.nba.com/referee/injury/Injury-Report_{YYYY-MM-DD}_{hh}_{mm}{AM\|PM}.pdf` (**2025-12-22부터** 15분 간격, 미국 동부시간 기준. 2025-12-21까지는 `_{hh}{AM\|PM}` 시간 단위 형식. P1에서 확인) |
 | ~~cdn.nba.com 일정·박스·PBP~~ | 사용 불가 | 클라우드에서 IP 차단(§3). 수집기는 어댑터 구조로 만들어, 차단이 풀리면 붙일 수 있게만 둔다. |
 
 - 경기 ID: ESPN 이벤트 ID(예: `401809234`)를 쓴다. 정규시즌 판별은 `season.slug == "regular-season"`(`season.type == 2`)로 한다. `season.year`는 시즌이 끝나는 해다(2025-26 → 2026).
@@ -136,6 +136,13 @@
 - **증분 수집**: 저장본에 없는 '종료된 경기'만 받는다.
 - 첫 구축 시 2024-25(사전값용)와 2025-26(백테스트용), 2026-27(현재) 전 경기를 받는다.
 - 부상은 ESPN injuries를 주 출처로 쓴다. 보조로 경기일 기준 가장 최근 NBA PDF를 받아 `{playerName, team, status, reason}`으로 파싱한다. PDF는 형식 검사(머리글 열 `Game Date, Game Time, Matchup, Team, Player Name, Current Status, Reason`)를 통과할 때만 쓴다. PDF에만 있는 세분 상태(Questionable/Doubtful/Probable)의 반영 방식은 계획 문서의 결정을 따른다. 이름은 박스스코어 선수 목록과 매칭하고, 매칭 실패는 리포트에 표시한다.
+- **데이터 결함 처리 규칙(P1 확정, 상세 `docs/reports/p1-report.md` §4)**
+  - 플레이바이플레이가 최종 점수와 안 맞는 경기(`pbp_incomplete`)는 플레이바이플레이 파생 데이터를 모두 제외한다.
+  - 깨진 박스 TOV는 플레이바이플레이 값으로 대체한다.
+  - 들어온 선수가 빠진 교체는 그 선수의 이후 행동으로 소급 복구한다. 복구 못 한 구간은 라인업 기능에서 제외한다.
+  - 팀 출전 시간 합이 1분 넘게 틀린 경기는 스틴트를 쓰지 않고 박스 MIN을 쓴다.
+  - "Heave Jump Shot"(2025-26부터 박스 FGA에서 제외됨)은 야투·구역·성공률에서 빼고 공격권 종료로만 센다.
+  - NBA 부상 PDF 파일명은 2025-12-21까지 `_{hh}{AM|PM}`(시간 단위), 2025-12-22부터 `_{hh}_{mm}{AM|PM}`(15분 단위)다.
 - **스키마 검증**: 모든 ESPN 응답은 `engine/schema/espn.js`로 검사한다. 형식이 어긋나면(필드 누락·타입 변경·박스 레이블 변경·처음 보는 플레이 유형 등) 실패로 처리하고 수집을 중단하며, 이유를 리포트에 남긴다. 형식은 맞지만 데이터가 깨진 경우(음수 팀 턴오버, 들어온 선수가 빠진 교체 등)는 해당 경기에 품질 경고를 붙이고 대체 규칙으로 처리하며, 경고 목록을 리포트에 표시한다.
 
 ---

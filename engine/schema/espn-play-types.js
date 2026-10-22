@@ -1,5 +1,5 @@
 // ESPN NBA play types seen in the P0 sample (20 games, 2024-25..2026-27), keyed by type.id.
-// category drives parsing: fga | ft | tov | oreb | dreb | sub | foul | end | jump | timeout | other.
+// category drives parsing: fga | heave (end-of-period heave; excluded from box FGA from 2025-26) | ft | tov | oreb | dreb | sub | foul | end | jump | timeout | other.
 // An id not listed here fails schema validation; classify it here before parsing continues.
 export const PLAY_TYPES = {
   "8": ["Delay of Game", "other"],
@@ -106,7 +106,7 @@ export const PLAY_TYPES = {
   "278": ["Ref-Initiated Review (Supported)", "other"],
   "279": ["Ref-Initiated Review (Overturned)", "other"],
   "280": ["Ref-Initiated Review (Stands)", "other"],
-  "282": ["Heave Jump Shot", "fga"],
+  "282": ["Heave Jump Shot", "heave"],
   "402": ["End Game", "end"],
   "412": ["End Period", "end"],
   "517": ["Ejection", "other"],

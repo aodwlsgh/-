@@ -1,0 +1,802 @@
+{
+ "generatedAt": "2026-10-22T07:56:13.565Z",
+ "summary": {
+  "games": 20,
+  "excluded": [
+   {
+    "id": "401810469",
+    "game": "20260120 LAC @ CHI",
+    "reason": "pbp_incomplete: final 138-110, play-by-play 129-107; box_tov_invalid: box totalTurnovers 0, teamTurnovers -12, play-by-play 12; fga_mismatch: FGA pbp 89 box 92; 3PA pbp 44 box 47 (heaves 2); box_tov_invalid: box totalTurnovers 0, teamTurnovers -16, play-by-play 16; fga_mismatch: FGA pbp 91 box 92; 3PA pbp 30 box 30 (heaves 0); box_row_missing_id: athletes[11] stats [\"--\",\"0\",\"0-0\",\"0-0\",\"0-0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"]"
+   }
+  ],
+  "possessions": {
+   "criterion": {
+    "meanAbsPct": 2,
+    "maxAbsPct": 3.5,
+    "homeAwayDiff": 2
+   },
+   "meanAbsPct": 1.81,
+   "maxAbsPct": 3.28,
+   "meanSignedPct": 1.69,
+   "maxHomeAwayDiff": 2,
+   "gamesHomeAwayOver2": [],
+   "formula1Reference": {
+    "meanAbsPct": 2.3,
+    "within2": "9/20"
+   },
+   "pass": true
+  },
+  "stints": {
+   "stintsTotal": 686,
+   "stintsNot5": 3,
+   "playersWithin1Min": "531/536",
+   "gamesTeamMinutesExact": "20/20",
+   "maxPlayerMinDiff": 2.55,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 2,
+    "repairedByAction": 1,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 1,
+    "periodLineupNot5": 0
+   },
+   "gamesStintsUnusable": []
+  },
+  "shots": {
+   "fga": 3627,
+   "withCoord": 3627,
+   "textDist": 2659,
+   "within2ft": 2659,
+   "absErrSum": 1009.3478065806173,
+   "threeInside21": 0,
+   "twoOutside24": 0,
+   "meanDistErrFt": 0.38,
+   "zoneSharePct": {
+    "ra": 29,
+    "paint": 20,
+    "mid": 10.3,
+    "c3": 10.6,
+    "ab3": 30.1,
+    "none": 0
+   },
+   "fgaCompare": {
+    "pbpFga": 3627,
+    "boxFga": 3627,
+    "pbpTpa": 1476,
+    "boxTpa": 1476,
+    "heaves": 13,
+    "teamsMismatch": []
+   }
+  }
+ },
+ "rows": [
+  {
+   "id": "401705127",
+   "game": "2025-01-16 NY @ PHI",
+   "poss": {
+    "home": 97,
+    "away": 97
+   },
+   "est2": 95.4,
+   "errPct2": 1.72,
+   "errPct1": -1.38,
+   "homeAwayDiff": 0,
+   "stints": 27,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    265,
+    265
+   ],
+   "expectedMinutes": 265,
+   "playersWithin1Min": "25/25",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401705128",
+   "game": "2025-01-16 BOS @ TOR",
+   "poss": {
+    "home": 94,
+    "away": 93
+   },
+   "est2": 91.8,
+   "errPct2": 1.9,
+   "errPct1": -0.81,
+   "homeAwayDiff": 1,
+   "stints": 28,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "25/25",
+   "maxMinDiff": 0.48,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401705129",
+   "game": "2025-01-16 ATL @ CHI",
+   "poss": {
+    "home": 104,
+    "away": 104
+   },
+   "est2": 103.5,
+   "errPct2": 0.44,
+   "errPct1": -1.46,
+   "homeAwayDiff": 0,
+   "stints": 35,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "25/25",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401705494",
+   "game": "2025-03-10 PHI @ ATL",
+   "poss": {
+    "home": 102,
+    "away": 101
+   },
+   "est2": 100.5,
+   "errPct2": 1.02,
+   "errPct1": -3.31,
+   "homeAwayDiff": 1,
+   "stints": 29,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "22/24",
+   "maxMinDiff": 1.43,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810020",
+   "game": "2025-11-05 MIL @ TOR",
+   "poss": {
+    "home": 100,
+    "away": 99
+   },
+   "est2": 98.5,
+   "errPct2": 1.02,
+   "errPct1": -2.93,
+   "homeAwayDiff": 1,
+   "stints": 34,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "29/29",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 1,
+    "periodLineupNot5": 0
+   },
+   "issues": [
+    "period_start_inferred"
+   ],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810021",
+   "game": "2025-11-05 ORL @ ATL",
+   "poss": {
+    "home": 101,
+    "away": 99
+   },
+   "est2": 99,
+   "errPct2": 1.01,
+   "errPct1": -3.38,
+   "homeAwayDiff": 2,
+   "stints": 40,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "26/26",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810022",
+   "game": "2025-11-05 PHI @ CHI",
+   "poss": {
+    "home": 102,
+    "away": 101
+   },
+   "est2": 99.7,
+   "errPct2": 1.83,
+   "errPct1": -4.41,
+   "homeAwayDiff": 1,
+   "stints": 36,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "26/26",
+   "maxMinDiff": 0.45,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810468",
+   "game": "2026-01-21 PHX @ PHI",
+   "poss": {
+    "home": 105,
+    "away": 105
+   },
+   "est2": 102.3,
+   "errPct2": 2.6,
+   "errPct1": -1.72,
+   "homeAwayDiff": 0,
+   "stints": 31,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "29/29",
+   "maxMinDiff": 0.46,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810470",
+   "game": "2026-01-21 SA @ HOU",
+   "poss": {
+    "home": 97,
+    "away": 98
+   },
+   "est2": 95.5,
+   "errPct2": 2.05,
+   "errPct1": -4.92,
+   "homeAwayDiff": 1,
+   "stints": 35,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "27/27",
+   "maxMinDiff": 0.44,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810471",
+   "game": "2026-01-21 MIN @ UTAH",
+   "poss": {
+    "home": 105,
+    "away": 104
+   },
+   "est2": 103.7,
+   "errPct2": 0.81,
+   "errPct1": -2.94,
+   "homeAwayDiff": 1,
+   "stints": 27,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "27/27",
+   "maxMinDiff": 0.48,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810906",
+   "game": "2026-03-25 ATL @ DET",
+   "poss": {
+    "home": 109,
+    "away": 111
+   },
+   "est2": 106.9,
+   "errPct2": 2.88,
+   "errPct1": -2.15,
+   "homeAwayDiff": 2,
+   "stints": 37,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    265,
+    265
+   ],
+   "expectedMinutes": 265,
+   "playersWithin1Min": "28/28",
+   "maxMinDiff": 0.48,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401810907",
+   "game": "2026-03-25 LAL @ IND",
+   "poss": {
+    "home": 106,
+    "away": 107
+   },
+   "est2": 105.5,
+   "errPct2": 0.91,
+   "errPct1": -3.22,
+   "homeAwayDiff": 1,
+   "stints": 34,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "24/24",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401809238",
+   "game": "2025-12-25 CLE @ NY",
+   "poss": {
+    "home": 103,
+    "away": 103
+   },
+   "est2": 99.9,
+   "errPct2": 3.1,
+   "errPct1": 0.1,
+   "homeAwayDiff": 0,
+   "stints": 35,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "26/26",
+   "maxMinDiff": 0.47,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401809239",
+   "game": "2025-12-25 SA @ OKC",
+   "poss": {
+    "home": 97,
+    "away": 96
+   },
+   "est2": 94.6,
+   "errPct2": 1.99,
+   "errPct1": -0.12,
+   "homeAwayDiff": 1,
+   "stints": 32,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "28/28",
+   "maxMinDiff": 0.48,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401809240",
+   "game": "2025-12-25 DAL @ GS",
+   "poss": {
+    "home": 105,
+    "away": 106
+   },
+   "est2": 103.3,
+   "errPct2": 2.09,
+   "errPct1": -1.71,
+   "homeAwayDiff": 1,
+   "stints": 32,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "28/28",
+   "maxMinDiff": 0.47,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401909088",
+   "game": "2026-10-20 BOS @ DET",
+   "poss": {
+    "home": 98,
+    "away": 99
+   },
+   "est2": 99.7,
+   "errPct2": -1.16,
+   "errPct1": -2.63,
+   "homeAwayDiff": 1,
+   "stints": 39,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "28/28",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401909089",
+   "game": "2026-10-20 PHI @ NY",
+   "poss": {
+    "home": 104,
+    "away": 102
+   },
+   "est2": 99.9,
+   "errPct2": 3.12,
+   "errPct1": -3.63,
+   "homeAwayDiff": 2,
+   "stints": 33,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "28/28",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401909834",
+   "game": "2026-10-21 ATL @ ORL",
+   "poss": {
+    "home": 109,
+    "away": 110
+   },
+   "est2": 107.5,
+   "errPct2": 1.86,
+   "errPct1": -2.67,
+   "homeAwayDiff": 1,
+   "stints": 41,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "26/26",
+   "maxMinDiff": 0.47,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401909835",
+   "game": "2026-10-21 MIL @ WSH",
+   "poss": {
+    "home": 104,
+    "away": 103
+   },
+   "est2": 102.1,
+   "errPct2": 1.39,
+   "errPct1": -1.03,
+   "homeAwayDiff": 1,
+   "stints": 41,
+   "stintsNot5": 0,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "30/30",
+   "maxMinDiff": 0.5,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 0,
+    "repairedByAction": 0,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": []
+  },
+  {
+   "id": "401909091",
+   "game": "2026-10-21 MIN @ MIA",
+   "poss": {
+    "home": 106,
+    "away": 108
+   },
+   "est2": 103.6,
+   "errPct2": 3.28,
+   "errPct1": -1.47,
+   "homeAwayDiff": 2,
+   "stints": 40,
+   "stintsNot5": 3,
+   "teamMinutes": [
+    240,
+    239.1
+   ],
+   "expectedMinutes": 240,
+   "playersWithin1Min": "24/27",
+   "maxMinDiff": 2.55,
+   "anomalies": {
+    "notInBox": 0,
+    "subMissingPlayer": 2,
+    "repairedByAction": 1,
+    "unrecordedSub": 0,
+    "periodStartAdjusted": 0,
+    "periodLineupNot5": 0
+   },
+   "issues": [
+    "sub_missing_player",
+    "incomplete_lineups"
+   ],
+   "usable": {
+    "pbp": true,
+    "stints": true,
+    "box": true
+   },
+   "quality": [
+    "plays[332]: substitution with 1 participant(s) \"enters the game for Rudy Gobert\"",
+    "plays[333]: substitution with 1 participant(s) \"enters the game for Jaden McDaniels\""
+   ]
+  }
+ ]
+}

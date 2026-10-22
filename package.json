@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "test": "node --test",
+    "test": "node --test test/*.test.js",
     "check:schema:live": "node scripts/check-schema-live.mjs"
+  },
+  "dependencies": {
+    "pdfjs-dist": "4.10.38"
   }
 }
