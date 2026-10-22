@@ -487,10 +487,12 @@
 - **개봉 때 고정하는 구성**(모두 2024-25로만 정함)
   - `data/model/params.json`(레이팅·출전 시간), `data/model/latent.json`(시뮬레이터 잠재 변수, §7.2)
   - `data/model/calibration.json`: 앙상블 가중치와 보정층
-  - **사전 등록 커밋: `d40947ddbc5e50ec25e5fe28f55e9db8ca139727`** (2026-10-22 17:39 UTC, `data/model/preregistration.json`)
-    - 파일 sha256: params `c3d58580…`, latent `9ca1406e…`, calibration `a6431a97…`
+  - **사전 등록 커밋: `53c88f5c7ab3025a89953e8a2e116bb0f9741f3e`** (2026-10-22 19:01 UTC, `data/model/preregistration.json`)
+    - 파일 sha256: params `c3d58580…`, latent `9ca1406e…`, calibration `a6431a97…`. 세 파일 모두 첫 등록과 같은 값이다.
+    - 첫 등록 `d40947d`은 무효다. 사용자가 승인한 코드 변경 때문이다.
+      - 바뀐 파일: `engine/backtest.js`(판정 등급·보고 표), `jobs/backtest.js`(리허설 사전 시즌·보고 옵션·합산 재적합 옵션), `jobs/build-data.js`(2022-23 설정)
+      - 예측 경로 코드는 바뀌지 않았다. 2024-25·2025-26 예측 해시가 변경 전후로 같다(`docs/reports/p5-hashes-*-2022-23.json`).
     - `jobs/backtest.js test`는 이 커밋의 후손이고, `engine/`·`jobs/`·`package.json`·위 세 파일이 이 커밋 이후 바뀌지 않았고, 작업 트리가 깨끗할 때만 연다.
-    - 사용자 검토에서 바뀌는 것이 있으면 다시 등록하고 이 줄을 고친다.
 - **앙상블(결정 4):** 점수 차 위치 = w·(시뮬레이션 평균) + (1 − w)·(단순 기준모델)
   - w는 1개이고 0.05 간격 21개 후보 중 2024-25 Brier 최소로 정한다.
   - 시뮬레이션 분포 전체를 이 위치로 옮긴다. 시나리오는 §8.4대로 변화량을 그 위에 더한다.
