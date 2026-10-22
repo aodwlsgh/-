@@ -1,0 +1,10 @@
+{
+ "commit": "d40947ddbc5e50ec25e5fe28f55e9db8ca139727",
+ "at": "2026-10-22T17:39:31.095Z",
+ "files": {
+  "data/model/params.json": "c3d585808cbf2956aa9a139566116204094af8df3e2087d402c3930f1dda057f",
+  "data/model/latent.json": "9ca1406edc72e42de2208dca3fe2f3010b894abeae9a331cdebd5d69f3fe1f7c",
+  "data/model/calibration.json": "a6431a97b1891272b7da4daa0325395c75155caaba0deca46f597acbdf3b4994"
+ },
+ "criteria": "docs/design/2026-10-22-nba-sim-design.md §14.4, §14.4.1"
+}
