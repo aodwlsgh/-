@@ -2,13 +2,17 @@
 // Runs every per-game check (possessions, heaves, team minutes, truncated play-by-play).
 import {
   teamsOf, toPossessions, toStints, possessionEstimate, pbpTotals, boxTotals, shotZone, isHeaveLike,
-  heaveCountsInBox, checkIntegrity, category,
+  heaveCountsInBox, checkIntegrity, category, clockSec,
 } from './parse.js';
+
+export const ZONE_NAMES = ['ra', 'paint', 'mid', 'c3', 'ab3'];
+// ESPN mixes G/F/C with PG/SG/SF/PF by season; keep the three groups
+const POS_GROUP = { G: 'G', PG: 'G', SG: 'G', GF: 'G', F: 'F', SF: 'F', PF: 'F', FC: 'F', C: 'C' };
 
 // per-game check limits; season-level pass rules live in the P2 report (design §6.1)
 export const CHECK_LIMITS = { possMaxPct: 3.5, homeAwayDiff: 2, minutesTol: 1 };
 const END_CODE = { made: 0, dreb: 1, tov: 2, ft: 3, period: 4, change: 5 };
-const ZONES = ['ra', 'paint', 'mid', 'c3', 'ab3'];
+const ZONES = ZONE_NAMES;
 const seasonLabel = year => `${year - 1}-${String(year).slice(2)}`;
 
 export function extractGame(s) {
@@ -36,7 +40,7 @@ export function extractGame(s) {
       const [ftm, fta] = v.length ? v[at('FT')].split('-').map(Number) : [0, 0];
       const p = {
         id: a.athlete.id, t: side[t.team.id], n: a.athlete.displayName ?? a.athlete.shortName ?? '', st: a.starter ? 1 : 0,
-        dnp: a.didNotPlay ? 1 : 0, min: num('MIN'), sec: Math.round(st.seconds[a.athlete.id] ?? 0),
+        pos: POS_GROUP[a.athlete.position?.abbreviation] ?? '', dnp: a.didNotPlay ? 1 : 0, ...(a.didNotPlay ? { dnpr: a.reason ?? '' } : {}), min: num('MIN'), sec: Math.round(st.seconds[a.athlete.id] ?? 0),
         pts: num('PTS'), ast: num('AST'), stl: num('STL'), blk: num('BLK'), pf: num('PF'),
         orb: num('OREB'), drb: num('DREB'), tov: num('TO'), ftm, fta,
         z: Object.fromEntries(ZONES.map(z => [z, [0, 0]])), hv: 0, zx: 0,
@@ -45,13 +49,16 @@ export function extractGame(s) {
       byId.set(p.id, p);
     }
   }
+  // shot log for on/off splits: [period, clockSec, side, zone index (-1 = heave-like or unlocated), made, shooter]
+  const shots = [];
   for (const pl of s.plays) {
     const c = category(pl);
     if (c !== 'fga' && c !== 'heave') continue;
     const p = byId.get(pl.participants?.[0]?.athlete?.id);
     if (!p) continue;
+    const z = isHeaveLike(pl) ? null : shotZone(pl);
+    shots.push([pl.period.number, clockSec(pl.clock.displayValue), side[pl.team?.id] ?? p.t, z ? ZONES.indexOf(z) : -1, pl.scoringPlay ? 1 : 0, p.id]);
     if (isHeaveLike(pl)) { p.hv++; continue; }
-    const z = shotZone(pl);
     if (!z) { p.zx++; continue; } // no location at all
     p.z[z][1]++;
     if (pl.scoringPlay) p.z[z][0]++;
@@ -92,6 +99,7 @@ export function extractGame(s) {
     players,
     // [period, startSec, endSec, side 0=home 1=away, points, endCode]
     poss: possR.possessions.map(x => [x.period, x.start, x.end, side[x.team], x.points, END_CODE[x.endType]]),
+    shots,
     // [period, startSec, endSec, home5, away5, complete]
     stints: st.stints.map(x => [x.period, x.start, x.end, x.lineups[home], x.lineups[away], x.complete ? 1 : 0]),
   };

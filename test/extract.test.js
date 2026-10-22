@@ -26,6 +26,13 @@ for (const [label, file, season] of [['2026-27', 'summary_401909834.json.gz', '2
       const expected = totals[id].fga + (g.checks.heaveRule === 'excluded' ? totals[id].heaves : 0);
       assert.equal(zoneAtt, expected, 'zone attempts');
     }
+    // P3 fields: position, DNP reason, shot log consistent with zone totals
+    assert.ok(g.players.every(p => ['G', 'F', 'C', ''].includes(p.pos)));
+    assert.ok(g.players.filter(p => p.dnp).every(p => typeof p.dnpr === 'string'));
+    for (const [i] of ['home', 'away'].entries()) {
+      const zoned = g.players.filter(p => p.t === i).reduce((a, p) => a + Object.values(p.z).reduce((x, [, att]) => x + att, 0), 0);
+      assert.equal(g.shots.filter(x => x[2] === i && x[3] >= 0).length, zoned, 'shot log vs zones');
+    }
     // possessions and stints carried through
     const poss = toPossessions(s).count;
     assert.deepEqual(g.checks.poss, ids.map(id => poss[id]));

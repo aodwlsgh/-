@@ -1,0 +1,499 @@
+{
+ "generatedAt": "2026-10-22T10:57:43.953Z",
+ "paramsSource": "data/model/params.json",
+ "target": {
+  "season": "2026-27"
+ },
+ "sigma": {
+  "model": 14.405366618605045,
+  "base": 14.387871946546682
+ },
+ "metrics": {
+  "all": {
+   "n": 14,
+   "model": {
+    "marginMAE": 15.4876,
+    "totalMAE": 10.6902,
+    "brier": 0.2034,
+    "logLoss": 0.5959,
+    "marginBias": 6.3713,
+    "totalBias": -1.9253
+   },
+   "base": {
+    "marginMAE": 15.9169,
+    "totalMAE": 11.2774,
+    "brier": 0.213,
+    "logLoss": 0.6139,
+    "marginBias": 6.9557,
+    "totalBias": -0.8243
+   }
+  },
+  "byMonth": {
+   "2026-10": {
+    "n": 14,
+    "model": {
+     "marginMAE": 15.4876,
+     "totalMAE": 10.6902,
+     "brier": 0.2034,
+     "logLoss": 0.5959,
+     "marginBias": 6.3713,
+     "totalBias": -1.9253
+    },
+    "base": {
+     "marginMAE": 15.9169,
+     "totalMAE": 11.2774,
+     "brier": 0.213,
+     "logLoss": 0.6139,
+     "marginBias": 6.9557,
+     "totalBias": -0.8243
+    }
+   }
+  }
+ },
+ "byPdfFormat": {
+  "all": {
+   "n": 14,
+   "model": {
+    "marginMAE": 15.4876,
+    "totalMAE": 10.6902,
+    "brier": 0.2034,
+    "logLoss": 0.5959,
+    "marginBias": 6.3713,
+    "totalBias": -1.9253
+   },
+   "base": {
+    "marginMAE": 15.9169,
+    "totalMAE": 11.2774,
+    "brier": 0.213,
+    "logLoss": 0.6139,
+    "marginBias": 6.9557,
+    "totalBias": -0.8243
+   }
+  },
+  "by_pdfFormat": {
+   "15min": {
+    "n": 14,
+    "model": {
+     "marginMAE": 15.4876,
+     "totalMAE": 10.6902,
+     "brier": 0.2034,
+     "logLoss": 0.5959,
+     "marginBias": 6.3713,
+     "totalBias": -1.9253
+    },
+    "base": {
+     "marginMAE": 15.9169,
+     "totalMAE": 11.2774,
+     "brier": 0.213,
+     "logLoss": 0.6139,
+     "marginBias": 6.9557,
+     "totalBias": -0.8243
+    }
+   }
+  }
+ },
+ "byGroup": {
+  "all": {
+   "n": 14,
+   "model": {
+    "marginMAE": 15.4876,
+    "totalMAE": 10.6902,
+    "brier": 0.2034,
+    "logLoss": 0.5959,
+    "marginBias": 6.3713,
+    "totalBias": -1.9253
+   },
+   "base": {
+    "marginMAE": 15.9169,
+    "totalMAE": 11.2774,
+    "brier": 0.213,
+    "logLoss": 0.6139,
+    "marginBias": 6.9557,
+    "totalBias": -0.8243
+   }
+  },
+  "by_group": {
+   "A": {
+    "n": 9,
+    "model": {
+     "marginMAE": 14.7608,
+     "totalMAE": 11.1476,
+     "brier": 0.2388,
+     "logLoss": 0.6682,
+     "marginBias": 2.8339,
+     "totalBias": -2.2325
+    },
+    "base": {
+     "marginMAE": 14.3744,
+     "totalMAE": 11.9308,
+     "brier": 0.2281,
+     "logLoss": 0.6441,
+     "marginBias": 2.943,
+     "totalBias": 0.9263
+    }
+   },
+   "B": {
+    "n": 4,
+    "model": {
+     "marginMAE": 20.3905,
+     "totalMAE": 8.4427,
+     "brier": 0.1439,
+     "logLoss": 0.4747,
+     "marginBias": 15.319,
+     "totalBias": -5.6066
+    },
+    "base": {
+     "marginMAE": 21.7642,
+     "totalMAE": 9.4703,
+     "brier": 0.1804,
+     "logLoss": 0.547,
+     "marginBias": 16.1207,
+     "totalBias": -8.1254
+    }
+   },
+   "pre_job_start": {
+    "n": 1,
+    "model": {
+     "marginMAE": 2.4172,
+     "totalMAE": 15.5642,
+     "brier": 0.1219,
+     "logLoss": 0.4295,
+     "marginBias": 2.4172,
+     "totalBias": 15.5642
+    },
+    "base": {
+     "marginMAE": 6.4104,
+     "totalMAE": 12.6247,
+     "brier": 0.2079,
+     "logLoss": 0.6088,
+     "marginBias": 6.4104,
+     "totalBias": 12.6247
+    }
+   }
+  }
+ },
+ "rows": [
+  {
+   "id": "401909088",
+   "date": "2026-10-20",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "BOS@DET",
+   "group": "pre_job_start",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 8,
+    "total": 234,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 5.582813987914193,
+    "total": 218.4357738947115
+   },
+   "base": {
+    "margin": 1.589559107506929,
+    "total": 221.37529979469173
+   }
+  },
+  {
+   "id": "401909089",
+   "date": "2026-10-20",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "PHI@NY",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -6,
+    "total": 206,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": 5.223038458249249,
+    "total": 223.0667626004293
+   },
+   "base": {
+    "margin": 5.874962001334126,
+    "total": 226.95406727525364
+   }
+  },
+  {
+   "id": "401909090",
+   "date": "2026-10-20",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "OKC@SA",
+   "group": "B",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -12,
+    "total": 220,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": -1.856934478267462,
+    "total": 227.94509268826084
+   },
+   "base": {
+    "margin": -0.7129369581267753,
+    "total": 226.79586515114505
+   }
+  },
+  {
+   "id": "401909834",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "ATL@ORL",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -7,
+    "total": 257,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": 0.14048732237064598,
+    "total": 230.7647046024997
+   },
+   "base": {
+    "margin": 0.15922092003333432,
+    "total": 231.78703202305095
+   }
+  },
+  {
+   "id": "401909835",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "MIL@WSH",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 12,
+    "total": 244,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": -0.5015267933913492,
+    "total": 235.0895384163404
+   },
+   "base": {
+    "margin": -2.395682752234734,
+    "total": 232.19311442737992
+   }
+  },
+  {
+   "id": "401909091",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "MIN@MIA",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -25,
+    "total": 237,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": 0.010567399771701957,
+    "total": 241.35925007709372
+   },
+   "base": {
+    "margin": 0.6300589469419435,
+    "total": 237.36408144464662
+   }
+  },
+  {
+   "id": "401909836",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "CHA@BKN",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -7,
+    "total": 213,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": -2.520898260154155,
+    "total": 217.5744053954878
+   },
+   "base": {
+    "margin": -8.769219959860763,
+    "total": 221.32952176297658
+   }
+  },
+  {
+   "id": "401909837",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "CHI@TOR",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 43,
+    "total": 227,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 8.919027433753342,
+    "total": 237.71755032230308
+   },
+   "base": {
+    "margin": 7.607302582833029,
+    "total": 231.17783133559598
+   }
+  },
+  {
+   "id": "401909838",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "UTAH@MEM",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 20,
+    "total": 226,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": -0.3567977637703592,
+    "total": 247.89166071168734
+   },
+   "base": {
+    "margin": 2.9777375199947187,
+    "total": 241.69448656742767
+   }
+  },
+  {
+   "id": "401909839",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "IND@NO",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": -3,
+    "total": 243,
+    "homeWin": 0
+   },
+   "model": {
+    "margin": 2.818100847431026,
+    "total": 244.6006661376795
+   },
+   "base": {
+    "margin": 3.776946212025763,
+    "total": 234.10693396832576
+   }
+  },
+  {
+   "id": "401909840",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "DAL@HOU",
+   "group": "A",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 18,
+    "total": 238,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 5.76319518028744,
+    "total": 233.02762419518103
+   },
+   "base": {
+    "margin": 8.651794673579403,
+    "total": 226.05583392039222
+   }
+  },
+  {
+   "id": "401909092",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "GS@LAL",
+   "group": "B",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 22,
+    "total": 232,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 5.7009021817291625,
+    "total": 226.32782548740494
+   },
+   "base": {
+    "margin": 2.880950129706079,
+    "total": 229.3100990296452
+   }
+  },
+  {
+   "id": "401909841",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "PHX@POR",
+   "group": "B",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 41,
+    "total": 207,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 3.675129913903163,
+    "total": 217.3849942981853
+   },
+   "base": {
+    "margin": 0.1523822556573009,
+    "total": 225.22700813802194
+   }
+  },
+  {
+   "id": "401909842",
+   "date": "2026-10-21",
+   "month": "2026-10",
+   "season": "2026-27",
+   "game": "SAC@LAC",
+   "group": "B",
+   "pdfFormat": "15min",
+   "overtime": false,
+   "actual": {
+    "margin": 25,
+    "total": 217,
+    "homeWin": 1
+   },
+   "model": {
+    "margin": 7.2049741974916515,
+    "total": 226.76844491512983
+   },
+   "base": {
+    "margin": 9.19697254604668,
+    "total": 227.16854559470008
+   }
+  }
+ ]
+}
