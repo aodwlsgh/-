@@ -4,7 +4,7 @@
   "A": "17:50 ET",
   "B": "20:50 ET (games from 21:00 ET)"
  },
- "generatedAt": "2026-10-22T10:20:16.561Z",
+ "generatedAt": "2026-10-22T17:16:04.714Z",
  "hourly": {
   "all": {
    "games": 422,
@@ -12,7 +12,8 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
-   "lagMinMedian": 50,
+   "laterReportSkipped": 8,
+   "lagMinMedian": 20,
    "lagMinMax": 59
   },
   "A": {
@@ -21,8 +22,9 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
-   "lagMinMedian": 50,
-   "lagMinMax": 50
+   "laterReportSkipped": 0,
+   "lagMinMedian": 20,
+   "lagMinMax": 20
   },
   "B": {
    "games": 102,
@@ -30,8 +32,9 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
-   "lagMinMedian": 50,
-   "lagMinMax": 50
+   "laterReportSkipped": 0,
+   "lagMinMedian": 20,
+   "lagMinMax": 20
   },
   "pre_job_start": {
    "games": 22,
@@ -39,7 +42,8 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
-   "lagMinMedian": 59,
+   "laterReportSkipped": 8,
+   "lagMinMedian": 29,
    "lagMinMax": 59
   }
  },
@@ -50,6 +54,7 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
+   "laterReportSkipped": 0,
    "lagMinMedian": 5,
    "lagMinMax": 14
   },
@@ -59,6 +64,7 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
+   "laterReportSkipped": 0,
    "lagMinMedian": 5,
    "lagMinMax": 5
   },
@@ -68,6 +74,7 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
+   "laterReportSkipped": 0,
    "lagMinMedian": 5,
    "lagMinMax": 5
   },
@@ -77,6 +84,7 @@
    "coveragePct": 100,
    "pdfAfterCutoff": 0,
    "formatErrors": 0,
+   "laterReportSkipped": 0,
    "lagMinMedian": 14,
    "lagMinMax": 14
   }
