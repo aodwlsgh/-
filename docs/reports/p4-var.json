@@ -1,0 +1,60 @@
+{
+ "games": 1230,
+ "simMarginSD": 14.068,
+ "actualMarginResidSD": 14.261,
+ "marginRatio": 0.9864,
+ "simTotalSD": 17.544,
+ "actualTotalResidSD": 18.102,
+ "totalRatio": 0.9692,
+ "marginBias": 0.694,
+ "totalBias": 0.198,
+ "marginVsAnalytic": -0.008,
+ "totalVsAnalytic": 0.004,
+ "impliedRegPace": 0.99998,
+ "simOtRate": 0.0228,
+ "actualOtRate": 0.0488,
+ "close5": {
+  "all": {
+   "games": 1230,
+   "sim": 0.2182,
+   "actual": 0.2512
+  },
+  "exp<3": {
+   "games": 390,
+   "sim": 0.2402,
+   "actual": 0.3128
+  },
+  "exp3-8": {
+   "games": 527,
+   "sim": 0.2265,
+   "actual": 0.2562
+  },
+  "exp>=8": {
+   "games": 313,
+   "sim": 0.177,
+   "actual": 0.1661
+  }
+ },
+ "n": 10000,
+ "latent": {
+  "shootSD": 0,
+  "gameSD": 0,
+  "paceSD": 0,
+  "kappa": 0.2,
+  "regPace": 0.99172
+ },
+ "limits": {
+  "ratio": [
+   0.9,
+   1.1
+  ]
+ },
+ "seconds": 1492.947,
+ "simMsPerGame": {
+  "mean": 1207.4,
+  "p95": 1467,
+  "max": 1758.5
+ },
+ "pass": true,
+ "rulesOnMeanPass": true
+}
