@@ -1,5 +1,69 @@
 [
  {
+  "season": "2022-23",
+  "id": "401468281",
+  "usDate": "20221104",
+  "game": "LAC@SA",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 106-113, scoring plays sum 104-113; fga_mismatch: FGA pbp 86 box 88; 3PA pbp 30 box 31 (heaves 0); fga_mismatch: FGA pbp 78 box 80; 3PA pbp 32 box 33 (heaves 0)"
+ },
+ {
+  "season": "2022-23",
+  "id": "401468511",
+  "usDate": "20221205",
+  "game": "PHI@HOU",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 132-123, scoring plays sum 132-125"
+ },
+ {
+  "season": "2022-23",
+  "id": "401468786",
+  "usDate": "20230112",
+  "game": "CLE@POR",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 113-119, scoring plays sum 89-85; fga_mismatch: FGA pbp 58 box 78; 3PA pbp 22 box 33 (heaves 0); fga_mismatch: FGA pbp 69 box 89; 3PA pbp 17 box 22 (heaves 0)"
+ },
+ {
+  "season": "2022-23",
+  "id": "401468924",
+  "usDate": "20230201",
+  "game": "WSH@DET",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2022-23",
+  "id": "401524696",
+  "usDate": "20230219",
+  "game": "GIA@LEB",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
+  "season": "2022-23",
+  "id": "401469046",
+  "usDate": "20230223",
+  "game": "SA@DAL",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 142-116, scoring plays sum 142-115; unrecorded_sub: 1 player(s) appeared without a substitution"
+ },
+ {
+  "season": "2022-23",
+  "id": "401469149",
+  "usDate": "20230309",
+  "game": "UTAH@ORL",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 124-131, scoring plays sum 124-129; fga_mismatch: FGA pbp 91 box 94; 3PA pbp 34 box 34 (heaves 0); fga_mismatch: FGA pbp 83 box 88; 3PA pbp 31 box 34 (heaves 0); unrecorded_sub: 8 player(s) appeared without a substitution"
+ },
+ {
+  "season": "2022-23",
+  "id": "401469200",
+  "usDate": "20230316",
+  "game": "IND@MIL",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 123-139, scoring plays sum 123-136; fga_mismatch: FGA pbp 96 box 97; 3PA pbp 45 box 46 (heaves 0)"
+ },
+ {
   "season": "2023-24",
   "id": "401584717",
   "usDate": "20231028",
