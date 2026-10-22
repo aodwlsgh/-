@@ -5,7 +5,10 @@
 //                        -> data/model/calibration.json (ledger)
 //   playprob             injury-report status -> share who played, 2024-25 run-time snapshots (design §6.5)
 //                        -> data/model/play-prob.json (ledger)
-//   rehearsal            2023-24 A and B with every parameter frozen -> docs/reports/p5-rehearsal.json
+//   rehearsal            2023-24 A and B with every parameter frozen, 2022-23 as its prior season only
+//                        (user decision 1) -> docs/reports/p5-rehearsal-2.json (--out to change)
+//   fit B --seasons 2023-24,2024-25 --keep-w   the single allowed refit of the calibration layer on both
+//                        seasons (user decision 1c, only if the rehearsal grades 승패 S2 as fail)
 //   preregister          record HEAD and the hashes of params/latent/calibration -> data/model/preregistration.json
 //   test                 2025-26 A and B, sealed: only from the pre-registered commit with unchanged files,
 //                        --open-test, logged once -> docs/reports/p5-test.json
@@ -26,7 +29,8 @@ const arg = (k, d) => (process.argv.includes(k) ? process.argv[process.argv.inde
 const writeJson = async (p, v) => { await mkdir(p.split('/').slice(0, -1).join('/'), { recursive: true }); await writeFile(p, JSON.stringify(v, null, 1)); };
 const exists = p => access(p).then(() => true, () => false);
 const LEDGER = 'docs/reports/tuning-ledger.json';
-const PRIOR = { '2023-24': [], '2024-25': ['2023-24'], '2025-26': ['2024-25'], '2026-27': ['2025-26'] };
+// one prior season each; 2022-23 is loaded only for the 2023-24 rehearsal (user decision 1a)
+const PRIOR = { '2023-24': ['2022-23'], '2024-25': ['2023-24'], '2025-26': ['2024-25'], '2026-27': ['2025-26'] };
 const simPath = (season, variant) => `data/model/sims/${season}-${variant}.json.gz`;
 const t0 = Date.now();
 
@@ -65,6 +69,7 @@ async function injuriesForSeason(season, games, statusOf = null) {
 }
 
 async function simulate(season, variant, n) {
+  const started = { head: gitHead(), dirty: gitDirty() }; // provenance at the start of the run
   const games = await loadGames([...PRIOR[season], season]);
   const injuriesFor = variant === 'B' ? await injuriesForSeason(season, games) : null;
   const rows = walkForward({
@@ -75,7 +80,7 @@ async function simulate(season, variant, n) {
       return { sim: { margin: round(s.margin.mean, 4), total: round(s.total.mean, 4), marginSD: round(s.margin.sd, 4), totalSD: round(s.total.sd, 4), ot: s.overtimeRate, marginHist: hist(s.margin.hist, -60), totalHist: hist(s.total.hist, 150), n: s.n } };
     },
   });
-  const out = { season, variant, n, generatedAt: new Date().toISOString(), inputs: { files: await filesHash([PARAMS, LATENT_FILE]), head: gitHead(), dirty: gitDirty() }, latent: LATENT, rows };
+  const out = { season, variant, n, generatedAt: new Date().toISOString(), inputs: { files: await filesHash([PARAMS, LATENT_FILE]), ...started }, latent: LATENT, rows };
   await mkdir('data/model/sims', { recursive: true });
   await writeFile(simPath(season, variant), gzipSync(JSON.stringify(out)));
   console.log(`${season} ${variant}: ${rows.length} games, ${((Date.now() - t0) / 1000).toFixed(0)} s`);
@@ -88,9 +93,12 @@ async function loadSims(season, variant) {
   return d.rows;
 }
 
+// the season's first month (prior-season influence), shown separately (user requests 5 and 7)
+const firstMonth = rows => { const from = rows.map(r => r.date).sort()[0]; return { from, to: new Date(Date.parse(from) + 30 * 86400e3).toISOString().slice(0, 10) }; };
+
 async function judgeSeason(season, opts) {
   const cal = JSON.parse(await readFile(CAL, 'utf8'));
-  const jopts = { cal: cal.calibration, sigmaBase: P.sigma.base, seed: 1 };
+  const jopts = { cal: cal.calibration, sigmaBase: P.sigma.base, seed: 1, bootstrap: 1000, slopeBootstrap: 1000 }; // §14.4.1
   const out = { season, generatedAt: new Date().toISOString(), inputs: await filesHash([PARAMS, LATENT_FILE, CAL]), head: gitHead(), ensembleW: cal.ensemble.w, calibrationFittedOn: cal.fittedOn, variants: {} };
   for (const v of ['A', 'B']) out.variants[v] = report(withShift(await loadSims(season, v), cal.ensemble.w), jopts, opts);
   return out;
@@ -104,16 +112,20 @@ if (cmd === 'sims') {
   await simulate(season, variant, n);
 } else if (cmd === 'fit') {
   const fitVariant = season ?? 'B'; // `fit A` only for comparison
-  const rows = await loadSims('2024-25', fitVariant);
-  const ens = fitEnsembleWeight(rows.map(r => ({ model: { margin: r.sim.margin }, base: r.base, actual: r.actual })));
+  const seasons = arg('--seasons', '2024-25').split(',');
+  const keepW = process.argv.includes('--keep-w');
+  const rows = (await Promise.all(seasons.map(s => loadSims(s, fitVariant)))).flat();
+  const prev = keepW ? JSON.parse(await readFile(CAL, 'utf8')) : null;
+  const ens = keepW ? prev.ensemble : fitEnsembleWeight(rows.map(r => ({ model: { margin: r.sim.margin }, base: r.base, actual: r.actual })));
   const calibration = fitCalibration(withShift(rows, ens.w));
+  const runs = keepW ? 1 : ens.grid.length + 1;
   const ledger = JSON.parse(await readFile(LEDGER, 'utf8'));
-  ledger.sessions.push({ at: new Date().toISOString(), window: { season: '2024-25', variant: fitVariant }, what: 'P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 2 parameters)', runs: ens.grid.length + 1, chosen: { w: ens.w } });
-  ledger.totalRuns += ens.grid.length + 1;
+  ledger.sessions.push({ at: new Date().toISOString(), window: { seasons, variant: fitVariant }, what: keepW ? 'P5 calibration refit on the listed seasons, ensemble weight kept (user decision 1c)' : 'P5 ensemble weight (0.05 grid, Brier of Φ(m/σ)) and calibration fit (margin survival 8 parameters, total 2 parameters)', runs, chosen: { w: ens.w } });
+  ledger.totalRuns += runs;
   await writeJson(LEDGER, ledger);
   await writeJson(arg('--out', CAL), {
-    fittedOn: { season: '2024-25', variant: fitVariant, games: rows.length, sims: simPath('2024-25', fitVariant) },
-    inputs: await filesHash([PARAMS, LATENT_FILE, simPath('2024-25', fitVariant)]), chosenAt: new Date().toISOString(), cumulativeTuningRuns: ledger.totalRuns,
+    fittedOn: { seasons, variant: fitVariant, games: rows.length, sims: seasons.map(s => simPath(s, fitVariant)), ensembleWeightFrom: keepW ? prev.fittedOn : 'this fit' },
+    inputs: await filesHash([PARAMS, LATENT_FILE, ...seasons.map(s => simPath(s, fitVariant))]), chosenAt: new Date().toISOString(), cumulativeTuningRuns: ledger.totalRuns,
     ensemble: { w: ens.w, sigma: ens.sigma, brier: ens.brier, grid: ens.grid }, calibration,
   });
   console.log(JSON.stringify({ w: ens.w, calibration, ledger: ledger.totalRuns }));
@@ -147,13 +159,11 @@ if (cmd === 'sims') {
   console.log(JSON.stringify(count));
 } else if (cmd === 'rehearsal') {
   for (const v of ['A', 'B']) if (!(await exists(simPath('2023-24', v)))) await simulate('2023-24', v, n);
-  const rows = await loadSims('2023-24', 'A');
-  const first = rows.map(r => r.date).sort()[0];
-  const firstMonthTo = new Date(Date.parse(first) + 30 * 86400e3).toISOString().slice(0, 10);
-  const out = await judgeSeason('2023-24', { firstMonthTo });
-  out.note = 'rehearsal: 2023-24 without a prior season (its first month is shown separately); every parameter fitted on 2024-25 and frozen';
-  out.firstMonth = { from: first, to: firstMonthTo };
-  await writeJson('docs/reports/p5-rehearsal.json', out);
+  const fm = firstMonth(await loadSims('2023-24', 'A'));
+  const out = await judgeSeason('2023-24', { firstMonthTo: fm.to });
+  out.note = 'rehearsal: 2023-24 with 2022-23 as its prior season only; every parameter fitted on 2024-25 and frozen';
+  out.firstMonth = fm;
+  await writeJson(arg('--out', 'docs/reports/p5-rehearsal-2.json'), out);
   console.log(`rehearsal written, ${((Date.now() - t0) / 1000).toFixed(0)} s`);
 } else if (cmd === 'preregister') {
   if (gitDirty()) { console.error('commit everything first: the registered commit must be the exact code that opens 2025-26'); process.exit(2); }
@@ -168,7 +178,10 @@ if (cmd === 'sims') {
   if (problems.length) { console.error('not opening 2025-26:\n- ' + problems.join('\n- ')); process.exit(2); }
   await openTestSeason({ by: 'jobs/backtest.js test', details: { commit: pre.commit, head: gitHead(), files: pre.files } });
   for (const v of ['A', 'B']) await simulate('2025-26', v, n);
-  await writeJson('docs/reports/p5-test.json', await judgeSeason('2025-26', {}));
+  const fm = firstMonth(await loadSims('2025-26', 'A'));
+  const out = await judgeSeason('2025-26', { firstMonthTo: fm.to });
+  out.firstMonth = fm;
+  await writeJson('docs/reports/p5-test.json', out);
   console.log(`test season judged, ${((Date.now() - t0) / 1000).toFixed(0)} s`);
 } else {
   console.error('usage: node jobs/backtest.js <sims|fit|rehearsal|test>');
