@@ -159,7 +159,7 @@ export const DEFAULT_RULES = { garbageTime: true, clutchFoul: true, overtime: tr
 // kappa: score effect, % change in make probability per point of lead above the expected lead so far
 // (mean-preserving); regPace: regulation pace factor, because the P3 ratings already contain late-game
 // fouling and overtime that the rules add explicitly. Calibrated on 2024-25 in P4.
-export const DEFAULT_LATENT = { shootSD: 0.04, gameSD: 0, paceSD: 0.03, kappa: 0, regPace: 1 };
+export const DEFAULT_LATENT = { shootSD: 0, gameSD: 0, paceSD: 0, kappa: 0.2, regPace: 0.99172 }; // = data/model/latent.json
 
 export function simulateGame({ ratings, home, away, homePlan, awayPlan }, { n = 10000, seed = 1, rules = DEFAULT_RULES, latent = DEFAULT_LATENT, check = false } = {}) {
   const rand = rng(seed);

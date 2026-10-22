@@ -71,7 +71,7 @@ test('rules off: simulation mean matches the analytic expectation (P4 check)', (
 test('latent shooting form and pace noise widen the distribution', () => {
   const r = ratings();
   const base = simulateGame({ ratings: r, home: 'H', away: 'A', homePlan: plan('h'), awayPlan: plan('a') }, { n: 4000, seed: 2, rules: RULES_OFF });
-  const lat = simulateGame({ ratings: r, home: 'H', away: 'A', homePlan: plan('h'), awayPlan: plan('a') }, { n: 4000, seed: 2, rules: { ...RULES_OFF, latent: true }, latent: { shootSD: 0.06, paceSD: 0.04 } });
+  const lat = simulateGame({ ratings: r, home: 'H', away: 'A', homePlan: plan('h'), awayPlan: plan('a') }, { n: 4000, seed: 2, rules: { ...RULES_OFF, latent: true }, latent: { shootSD: 0.06, paceSD: 0.04, kappa: 0, regPace: 1 } });
   assert.ok(lat.margin.sd > base.margin.sd + 0.5, `${lat.margin.sd} vs ${base.margin.sd}`);
   assert.ok(lat.total.sd > base.total.sd + 1, `${lat.total.sd} vs ${base.total.sd}`);
 });
@@ -136,4 +136,11 @@ test('regPace scales the regulation possession count', () => {
   const b = simulateGame(p, { n: 4000, seed: 31, rules: { ...RULES_OFF, latent: true }, latent: { ...lat, regPace: 0.98 } });
   assert.ok(Math.abs(b.possessions.mean / a.possessions.mean - 0.98) < 0.003, `${b.possessions.mean} / ${a.possessions.mean}`);
   assert.ok(Math.abs(b.total.mean / a.total.mean - 0.98) < 0.006, `${b.total.mean} / ${a.total.mean}`);
+});
+
+test('DEFAULT_LATENT equals the calibrated values in data/model/latent.json', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { DEFAULT_LATENT } = await import('../engine/sim.js');
+  const cal = JSON.parse(await readFile(new URL('../data/model/latent.json', import.meta.url), 'utf8')).latent;
+  assert.deepEqual(DEFAULT_LATENT, cal);
 });

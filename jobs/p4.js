@@ -24,6 +24,8 @@ const t0 = Date.now();
 const rms = xs => Math.sqrt(xs.reduce((a, b) => a + b * b, 0) / xs.length);
 
 const simMs = [];
+// probability of a final margin within 5 points (the middle outcome of the 승5패 market, overtime included)
+const close5 = s => s.margin.hist.slice(60 - 5, 60 + 6).reduce((a, b) => a + b, 0) / s.n;
 async function simRows(n, rules, latent) {
   k = 0;
   return walkForward({
@@ -32,7 +34,7 @@ async function simRows(n, rules, latent) {
       const t = performance.now();
       const s = simulateGame({ ratings, home: game.home.id, away: game.away.id, homePlan, awayPlan }, { n, seed: +game.id % 2147483647, rules, latent });
       simMs.push(performance.now() - t);
-      return { sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate } };
+      return { sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate, close5: close5(s) } };
     },
   });
 }
@@ -46,7 +48,7 @@ async function inputs() {
 function simFrom(list, n, rules, latent) {
   return list.map(({ row, ratings, homePlan, awayPlan, game }) => {
     const s = simulateGame({ ratings, home: game.home.id, away: game.away.id, homePlan, awayPlan }, { n, seed: +game.id % 2147483647, rules, latent });
-    return { ...row, sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate } };
+    return { ...row, sim: { margin: s.margin.mean, total: s.total.mean, marginSD: s.margin.sd, totalSD: s.total.sd, ot: s.overtimeRate, close5: close5(s) } };
   });
 }
 function spread(rows) {
@@ -60,6 +62,10 @@ function spread(rows) {
     games: rows.length, simMarginSD: +simM.toFixed(3), actualMarginResidSD: +actM.toFixed(3), marginRatio: +(simM / actM).toFixed(4), simTotalSD: +simT.toFixed(3), actualTotalResidSD: +actT.toFixed(3), totalRatio: +(simT / actT).toFixed(4), marginBias: +mean(resM).toFixed(3), totalBias: +mean(resT).toFixed(3),
     marginVsAnalytic: +mean(rows.map(r => r.sim.margin - r.model.margin)).toFixed(3), totalVsAnalytic: +(simTotal - modelTotal).toFixed(3), impliedRegPace: +(modelTotal / simTotal).toFixed(5),
     simOtRate: +mean(rows.map(r => r.sim.ot)).toFixed(4), actualOtRate: +mean(rows.map(r => (r.overtime ? 1 : 0))).toFixed(4),
+    close5: Object.fromEntries([['all', () => true], ['exp<3', r => Math.abs(r.model.margin) < 3], ['exp3-8', r => Math.abs(r.model.margin) >= 3 && Math.abs(r.model.margin) < 8], ['exp>=8', r => Math.abs(r.model.margin) >= 8]].map(([k, f]) => {
+      const g = rows.filter(f);
+      return [k, { games: g.length, sim: +mean(g.map(r => r.sim.close5)).toFixed(4), actual: +mean(g.map(r => (Math.abs(r.actual.margin) <= 5 ? 1 : 0))).toFixed(4) }];
+    })),
   };
 }
 
@@ -108,10 +114,10 @@ if (cmd === 'mean') {
   const n = +arg('--n', 10000);
   const L = JSON.parse(await readFile('data/model/latent.json', 'utf8')).latent;
   const rows = await simRows(n, RULES_ON, L);
-  const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
-  const vsAnalytic = { marginMeanDiff: +avg(rows.map(r => r.sim.margin - r.model.margin)).toFixed(3), totalMeanDiff: +avg(rows.map(r => r.sim.total - r.model.total)).toFixed(3), overtimeRate: +avg(rows.map(r => r.sim.ot)).toFixed(4) };
-  const out = { ...spread(rows), rulesOnVsAnalytic: vsAnalytic, n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000, simMsPerGame: msStats() };
+  const out = { ...spread(rows), n, latent: L, limits: { ratio: [0.9, 1.1] }, seconds: (Date.now() - t0) / 1000, simMsPerGame: msStats() };
   out.pass = out.marginRatio >= 0.9 && out.marginRatio <= 1.1 && out.totalRatio >= 0.9 && out.totalRatio <= 1.1;
+  // rules on: the mean is reported against the P3 prediction with the same ±0.3 limit as the rules-off check
+  out.rulesOnMeanPass = Math.abs(out.marginVsAnalytic) <= 0.3 && Math.abs(out.totalVsAnalytic) <= 0.3;
   await writeJson('docs/reports/p4-var.json', out);
   console.log(JSON.stringify(out, null, 1));
 } else {

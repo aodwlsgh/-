@@ -2,28 +2,35 @@
  "calibratedOn": {
   "season": "2024-25"
  },
- "chosenAt": "2026-10-22T12:29:56.162Z",
- "cumulativeTuningRuns": 419,
+ "chosenAt": "2026-10-22T12:58:43.605Z",
+ "cumulativeTuningRuns": 429,
  "latent": {
   "shootSD": 0,
   "gameSD": 0,
-  "paceSD": 0.03,
-  "kappa": 0
+  "paceSD": 0,
+  "kappa": 0.2,
+  "regPace": 0.99172
  },
  "fit": {
   "gameSD": 0,
-  "kappa": 0,
+  "kappa": 0.2,
   "shootSD": 0,
-  "paceSD": 0.03,
+  "paceSD": 0,
+  "regPace": 1,
   "games": 1230,
-  "simMarginSD": 16.471,
-  "actualMarginResidSD": 14.295,
-  "marginRatio": 1.1522,
-  "simTotalSD": 18.818,
-  "actualTotalResidSD": 18.123,
-  "totalRatio": 1.0383,
-  "marginBias": 0.678,
-  "totalBias": -1.335,
-  "objective": 0.17926
+  "simMarginSD": 14.09,
+  "actualMarginResidSD": 14.296,
+  "marginRatio": 0.9856,
+  "simTotalSD": 17.613,
+  "actualTotalResidSD": 18.125,
+  "totalRatio": 0.9718,
+  "marginBias": 0.698,
+  "totalBias": -1.698,
+  "marginVsAnalytic": -0.012,
+  "totalVsAnalytic": 1.9,
+  "impliedRegPace": 0.99172,
+  "simOtRate": 0.0229,
+  "actualOtRate": 0.0488,
+  "objective": 0.04311
  }
 }
