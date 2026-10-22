@@ -121,3 +121,15 @@ test('fromEt: wall-clock ET to UTC across both DST transitions', () => {
   assert.equal(fromEt('2027-03-15', 17, 50).toISOString(), '2027-03-15T21:50:00.000Z'); // EDT
   assert.deepEqual(etParts(fromEt('2025-12-22', 17, 50)), { date: '2025-12-22', hour: 17, minute: 50 });
 });
+
+import { injuryPdfEt } from '../engine/collect.js';
+
+test('injuryPdfEt reads the ET time back from both file name formats', () => {
+  assert.deepEqual(injuryPdfEt('Injury-Report_2026-10-21_05_45PM.pdf'), { date: '2026-10-21', hour: 17, minute: 45 });
+  assert.deepEqual(injuryPdfEt('Injury-Report_2025-12-21_05PM.pdf'), { date: '2025-12-21', hour: 17, minute: 0 });
+  assert.deepEqual(injuryPdfEt('Injury-Report_2026-10-22_12_00AM.pdf'), { date: '2026-10-22', hour: 0, minute: 0 });
+  assert.deepEqual(injuryPdfEt('Injury-Report_2026-10-22_12_30PM.pdf'), { date: '2026-10-22', hour: 12, minute: 30 });
+  for (const et of [{ date: '2026-01-05', hour: 20, minute: 45 }, { date: '2025-11-02', hour: 9, minute: 0 }]) {
+    assert.deepEqual(injuryPdfEt(injuryPdfName(et)), et);
+  }
+});

@@ -7,18 +7,19 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
-import { createCollector, PDF_15MIN_FROM } from '../engine/collect.js';
+import { createCollector, PDF_15MIN_FROM, injuryPdfEt } from '../engine/collect.js';
 import { fsCache } from './lib/fs-cache.js';
 import { extractGame } from '../engine/extract.js';
 import { scheduleExclusion } from '../engine/schedule.js';
 import { SchemaError } from '../engine/schema/espn.js';
-import { fromEt } from '../engine/time.js';
+import { fromEt, etParts } from '../engine/time.js';
+import { jobGroup, snapshotCutoff, RUN_A_ET, RUN_B_ET } from '../engine/snapshot.js';
 import { parseInjuryPdf, PdfFormatError } from '../engine/injury.js';
 import { pdfTextItems } from './lib/pdf-text.js';
 
-// backtest (B) snapshot: last PDF published at or before 17:50 ET on the game date (= daily run A);
-// games starting earlier use the last PDF before tip-off instead (no leakage)
-export const SNAPSHOT_ET = { hour: 17, minute: 50 };
+// backtest (B) snapshots follow the daily runs (engine/snapshot.js): last PDF at or before 17:50 ET
+// (run A), 20:50 ET for games from 21:00 ET (run B), or before tip-off for pre_job_start games
+const etLabel = d => { const p = etParts(d); return `${p.date} ${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`; };
 
 const MAX_EXCLUDED_RATIO = 0.05; // P2 condition 1: stop and report above 5%
 const REBUILD = process.argv.includes('--rebuild');
@@ -162,43 +163,54 @@ async function pdf(season) {
   const sched = JSON.parse(await readFile(`data/schedule/${season}.json`, 'utf8'));
   const byDate = new Map();
   for (const g of sched.list) { const d = `${g.usDate.slice(0, 4)}-${g.usDate.slice(4, 6)}-${g.usDate.slice(6)}`; if (!byDate.has(d)) byDate.set(d, []); byDate.get(d).push(g); }
-  const summary = [];
+  const index = []; // one row per game: group, cutoff, PDF actually used
   for (const [date, list] of byDate) {
     const path = `data/injury-pdf/${season}/${date}.json.gz`;
     let rec = !REBUILD && await exists(path) ? await readGz(path) : null;
+    let dirty = false;
     if (!rec) {
-      const cutoff = fromEt(date, SNAPSHOT_ET.hour, SNAPSHOT_ET.minute);
+      const cutoff = fromEt(date, RUN_A_ET.hour, RUN_A_ET.minute);
       rec = { date, cutoff: cutoff.toISOString(), format: date >= PDF_15MIN_FROM ? '15min' : 'hourly', main: await snapshot(cutoff, date), early: [] };
-      for (const g of list.filter(x => new Date(x.start) <= cutoff)) {
-        rec.early.push({ id: g.id, game: `${g.away}@${g.home}`, start: g.start, ...(await snapshot(new Date(new Date(g.start).getTime() - 60e3), date)) });
+      for (const g of list.filter(x => jobGroup(x.start) === 'pre_job_start')) {
+        rec.early.push({ id: g.id, game: `${g.away}@${g.home}`, start: g.start, ...(await snapshot(snapshotCutoff(g.start), date)) });
       }
-      await writeGz(path, rec);
+      dirty = true;
     }
-    const early = new Set(rec.early.map(e => e.id));
-    summary.push({
-      date, format: rec.format, games: list.length, mainFound: !!rec.main.pdf && !rec.main.formatError,
-      mainGames: list.filter(g => !early.has(g.id)).length, early: rec.early.length,
-      earlyFound: rec.early.filter(e => e.pdf && !e.formatError).length, lagMin: rec.main.lagMin ?? null,
-      formatErrors: [rec.main, ...rec.early].filter(x => x.formatError).length,
-      issues: [rec.main, ...rec.early].reduce((a, x) => a + (x.issues?.length ?? 0), 0),
-    });
+    if (!rec.runB && list.some(g => jobGroup(g.start) === 'B')) {
+      const cutoffB = fromEt(date, RUN_B_ET.hour, RUN_B_ET.minute);
+      rec.runB = { cutoff: cutoffB.toISOString(), ...(await snapshot(cutoffB, date)) };
+      dirty = true;
+    }
+    if (dirty) await writeGz(path, rec);
+    for (const g of list) {
+      const group = jobGroup(g.start);
+      const snap = group === 'pre_job_start' ? rec.early.find(x => x.id === g.id) : group === 'B' ? rec.runB : rec.main;
+      const cutoff = snapshotCutoff(g.start);
+      const pdfEt = snap?.pdf ? injuryPdfEt(snap.pdf) : null;
+      const pdfAt = pdfEt ? fromEt(pdfEt.date, pdfEt.hour, pdfEt.minute) : null;
+      index.push({
+        id: g.id, date, game: `${g.away}@${g.home}`, start: g.start, group, format: rec.format,
+        cutoffEt: etLabel(cutoff), pdf: snap?.pdf ?? null, pdfEt: pdfAt ? etLabel(pdfAt) : null,
+        lagMin: pdfAt ? Math.round((cutoff - pdfAt) / 60000) : null,
+        ok: !!pdfAt && pdfAt <= cutoff && !snap.formatError, formatError: snap?.formatError ?? null,
+      });
+    }
   }
-  const agg = fmt => {
-    const s = summary.filter(x => x.format === fmt);
-    const games = s.reduce((a, x) => a + x.games, 0);
-    const covered = s.reduce((a, x) => a + (x.mainFound ? x.mainGames : 0) + x.earlyFound, 0);
+  const agg = (fmt, group) => {
+    const rows = index.filter(x => x.format === fmt && (!group || x.group === group));
+    const lags = rows.filter(x => x.lagMin != null).map(x => x.lagMin).sort((p, q) => p - q);
     return {
-      dates: s.length, datesWithSnapshot: s.filter(x => x.mainFound).length, games, gamesWithSnapshot: covered,
-      gameCoveragePct: games ? +(100 * covered / games).toFixed(2) : null,
-      earlyGames: s.reduce((a, x) => a + x.early, 0), earlyFound: s.reduce((a, x) => a + x.earlyFound, 0),
-      formatErrors: s.reduce((a, x) => a + x.formatErrors, 0), parseIssues: s.reduce((a, x) => a + x.issues, 0),
-      lagMinMedian: (() => { const l = s.map(x => x.lagMin).filter(x => x != null).sort((p, q) => p - q); return l.length ? l[Math.floor(l.length / 2)] : null; })(),
-      missingDates: s.filter(x => !x.mainFound).map(x => x.date),
+      games: rows.length, withSnapshot: rows.filter(x => x.ok).length,
+      coveragePct: rows.length ? +(100 * rows.filter(x => x.ok).length / rows.length).toFixed(2) : null,
+      pdfAfterCutoff: rows.filter(x => x.pdf && !x.ok && !x.formatError).length, formatErrors: rows.filter(x => x.formatError).length,
+      lagMinMedian: lags.length ? lags[Math.floor(lags.length / 2)] : null, lagMinMax: lags.length ? lags.at(-1) : null,
     };
   };
-  const out = { season, snapshotEt: '17:50', generatedAt: new Date().toISOString(), hourly: agg('hourly'), '15min': agg('15min'), dates: summary };
+  const byFmt = fmt => Object.fromEntries(['all', 'A', 'B', 'pre_job_start'].map(g => [g, agg(fmt, g === 'all' ? null : g)]));
+  const out = { season, runs: { A: '17:50 ET', B: '20:50 ET (games from 21:00 ET)' }, generatedAt: new Date().toISOString(), hourly: byFmt('hourly'), '15min': byFmt('15min') };
+  await writeJson(`data/injury-pdf/${season}/index.json`, index);
   await writeJson(`data/checks/injury-pdf-${season}.json`, out);
-  console.log(season, JSON.stringify({ hourly: { ...out.hourly, missingDates: out.hourly.missingDates.length }, '15min': { ...out['15min'], missingDates: out['15min'].missingDates.length } }));
+  console.log(season, JSON.stringify(out, null, 0));
 }
 
 const [phase, ...seasons] = process.argv.slice(2).filter(a => !a.startsWith('--'));

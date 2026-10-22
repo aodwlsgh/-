@@ -112,3 +112,11 @@ export function createCollector({
     },
   };
 }
+
+// inverse of injuryPdfName: "Injury-Report_2026-10-21_05_45PM.pdf" -> { date, hour, minute } (ET)
+export function injuryPdfEt(name) {
+  const m = name.match(/^Injury-Report_(\d{4}-\d{2}-\d{2})_(\d{2})(?:_(\d{2}))?(AM|PM)\.pdf$/);
+  if (!m) throw new Error(`not an injury report name: ${name}`);
+  const h12 = +m[2] % 12;
+  return { date: m[1], hour: m[4] === 'PM' ? h12 + 12 : h12, minute: +(m[3] ?? 0) };
+}

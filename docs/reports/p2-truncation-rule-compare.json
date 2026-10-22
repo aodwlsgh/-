@@ -1,0 +1,1007 @@
+{
+ "rule": {
+  "before": "last running score or scoring-play sum != final",
+  "after": "scoring-play sum != final (running score alone -> warning pbp_running_score_mismatch)"
+ },
+ "excludedBoth": [
+  {
+   "season": "2024-25",
+   "id": "401704638",
+   "usDate": "20241023",
+   "game": "GS@POR",
+   "final": [
+    104,
+    140
+   ],
+   "lastRunningScore": [
+    104,
+    140
+   ],
+   "scoringPlaySum": [
+    104,
+    139
+   ],
+   "boxPlayerPoints": [
+    104,
+    140
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     92,
+     92
+    ],
+    [
+     93,
+     93
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     30,
+     30
+    ],
+    [
+     30,
+     30
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.224,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete"
+    ]
+   }
+  },
+  {
+   "season": "2024-25",
+   "id": "401704805",
+   "usDate": "20241117",
+   "game": "ATL@POR",
+   "final": [
+    114,
+    110
+   ],
+   "lastRunningScore": [
+    114,
+    110
+   ],
+   "scoringPlaySum": [
+    114,
+    112
+   ],
+   "boxPlayerPoints": [
+    114,
+    110
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     95,
+     95
+    ],
+    [
+     86,
+     85
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     19,
+     19
+    ],
+    [
+     25,
+     25
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.808,
+    "haDiff": 1,
+    "fgaMatch": false,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete",
+     "fga_mismatch"
+    ]
+   }
+  },
+  {
+   "season": "2025-26",
+   "id": "401809511",
+   "usDate": "20251107",
+   "game": "CLE@WSH",
+   "final": [
+    115,
+    148
+   ],
+   "lastRunningScore": [
+    114,
+    148
+   ],
+   "scoringPlaySum": [
+    114,
+    148
+   ],
+   "boxPlayerPoints": [
+    115,
+    148
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     91,
+     91
+    ],
+    [
+     110,
+     110
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     23,
+     23
+    ],
+    [
+     31,
+     31
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 2.584,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete"
+    ]
+   }
+  },
+  {
+   "season": "2025-26",
+   "id": "401810087",
+   "usDate": "20251115",
+   "game": "DEN@MIN",
+   "final": [
+    112,
+    123
+   ],
+   "lastRunningScore": [
+    112,
+    123
+   ],
+   "scoringPlaySum": [
+    116,
+    127
+   ],
+   "boxPlayerPoints": [
+    112,
+    123
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     91,
+     88
+    ],
+    [
+     86,
+     83
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     23,
+     23
+    ],
+    [
+     39,
+     38
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.312,
+    "haDiff": 2,
+    "fgaMatch": false,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete",
+     "fga_mismatch"
+    ]
+   }
+  },
+  {
+   "season": "2025-26",
+   "id": "401810102",
+   "usDate": "20251117",
+   "game": "OKC@NO",
+   "final": [
+    109,
+    126
+   ],
+   "lastRunningScore": [
+    109,
+    120
+   ],
+   "scoringPlaySum": [
+    109,
+    120
+   ],
+   "boxPlayerPoints": [
+    109,
+    126
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     86,
+     86
+    ],
+    [
+     84,
+     87
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     15,
+     15
+    ],
+    [
+     28,
+     28
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.041,
+    "haDiff": 1,
+    "fgaMatch": false,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete",
+     "fga_mismatch"
+    ]
+   }
+  },
+  {
+   "season": "2025-26",
+   "id": "401810469",
+   "usDate": "20260120",
+   "game": "LAC@CHI",
+   "final": [
+    138,
+    110
+   ],
+   "lastRunningScore": [
+    129,
+    107
+   ],
+   "scoringPlaySum": [
+    129,
+    107
+   ],
+   "boxPlayerPoints": [
+    138,
+    110
+   ],
+   "lastPlay": "Free Throw - 2 of 2",
+   "fgaPbpBox": [
+    [
+     89,
+     92
+    ],
+    [
+     91,
+     92
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     12,
+     12
+    ],
+    [
+     15,
+     17
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.638,
+    "haDiff": 1,
+    "fgaMatch": false,
+    "teamMinutesOk": true,
+    "failed": [
+     "pbp_incomplete",
+     "fga_mismatch"
+    ]
+   }
+  }
+ ],
+ "newlyPassing": [
+  {
+   "season": "2024-25",
+   "id": "401704784",
+   "usDate": "20241113",
+   "game": "BOS@BKN",
+   "final": [
+    114,
+    139
+   ],
+   "lastRunningScore": [
+    114,
+    136
+   ],
+   "scoringPlaySum": [
+    114,
+    139
+   ],
+   "boxPlayerPoints": [
+    114,
+    139
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     79,
+     79
+    ],
+    [
+     93,
+     93
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     18,
+     18
+    ],
+    [
+     24,
+     24
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.802,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2024-25",
+   "id": "401703398",
+   "usDate": "20241122",
+   "game": "IND@MIL",
+   "final": [
+    129,
+    117
+   ],
+   "lastRunningScore": [
+    129,
+    116
+   ],
+   "scoringPlaySum": [
+    129,
+    117
+   ],
+   "boxPlayerPoints": [
+    129,
+    117
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     90,
+     90
+    ],
+    [
+     91,
+     91
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     20,
+     20
+    ],
+    [
+     27,
+     27
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.633,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2024-25",
+   "id": "401705240",
+   "usDate": "20250130",
+   "game": "LAL@WSH",
+   "final": [
+    96,
+    134
+   ],
+   "lastRunningScore": [
+    95,
+    134
+   ],
+   "scoringPlaySum": [
+    96,
+    134
+   ],
+   "boxPlayerPoints": [
+    96,
+    134
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     91,
+     91
+    ],
+    [
+     90,
+     90
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     34,
+     34
+    ],
+    [
+     22,
+     22
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.179,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2024-25",
+   "id": "401705326",
+   "usDate": "20250210",
+   "game": "GS@MIL",
+   "final": [
+    111,
+    125
+   ],
+   "lastRunningScore": [
+    111,
+    124
+   ],
+   "scoringPlaySum": [
+    111,
+    125
+   ],
+   "boxPlayerPoints": [
+    111,
+    125
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     76,
+     76
+    ],
+    [
+     93,
+     93
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     34,
+     34
+    ],
+    [
+     38,
+     38
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 2.111,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401809980",
+   "usDate": "20251028",
+   "game": "NY@MIL",
+   "final": [
+    121,
+    111
+   ],
+   "lastRunningScore": [
+    121,
+    110
+   ],
+   "scoringPlaySum": [
+    121,
+    111
+   ],
+   "boxPlayerPoints": [
+    121,
+    111
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     79,
+     79
+    ],
+    [
+     92,
+     92
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     24,
+     24
+    ],
+    [
+     23,
+     23
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.217,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401810203",
+   "usDate": "20251205",
+   "game": "PHI@MIL",
+   "final": [
+    101,
+    116
+   ],
+   "lastRunningScore": [
+    99,
+    116
+   ],
+   "scoringPlaySum": [
+    101,
+    116
+   ],
+   "boxPlayerPoints": [
+    101,
+    116
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     76,
+     76
+    ],
+    [
+     86,
+     86
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     27,
+     27
+    ],
+    [
+     22,
+     22
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 2.294,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401810234",
+   "usDate": "20251218",
+   "game": "LAL@UTAH",
+   "final": [
+    135,
+    143
+   ],
+   "lastRunningScore": [
+    135,
+    141
+   ],
+   "scoringPlaySum": [
+    135,
+    143
+   ],
+   "boxPlayerPoints": [
+    135,
+    143
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     83,
+     83
+    ],
+    [
+     93,
+     93
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     47,
+     47
+    ],
+    [
+     39,
+     39
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.566,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401809242",
+   "usDate": "20251225",
+   "game": "MIN@DEN",
+   "final": [
+    142,
+    138
+   ],
+   "lastRunningScore": [
+    141,
+    138
+   ],
+   "scoringPlaySum": [
+    142,
+    138
+   ],
+   "boxPlayerPoints": [
+    142,
+    138
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     101,
+     101
+    ],
+    [
+     104,
+     104
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     32,
+     32
+    ],
+    [
+     30,
+     30
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.608,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401810333",
+   "usDate": "20260102",
+   "game": "DEN@CLE",
+   "final": [
+    113,
+    108
+   ],
+   "lastRunningScore": [
+    112,
+    108
+   ],
+   "scoringPlaySum": [
+    113,
+    108
+   ],
+   "boxPlayerPoints": [
+    113,
+    108
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     86,
+     86
+    ],
+    [
+     94,
+     94
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     19,
+     19
+    ],
+    [
+     13,
+     13
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 0.479,
+    "haDiff": 1,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401858694",
+   "usDate": "20260331",
+   "game": "DAL@MIL",
+   "final": [
+    123,
+    99
+   ],
+   "lastRunningScore": [
+    123,
+    96
+   ],
+   "scoringPlaySum": [
+    123,
+    99
+   ],
+   "boxPlayerPoints": [
+    123,
+    99
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     92,
+     92
+    ],
+    [
+     96,
+     96
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     26,
+     26
+    ],
+    [
+     28,
+     28
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.984,
+    "haDiff": 2,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2025-26",
+   "id": "401810990",
+   "usDate": "20260405",
+   "game": "MEM@MIL",
+   "final": [
+    131,
+    115
+   ],
+   "lastRunningScore": [
+    129,
+    115
+   ],
+   "scoringPlaySum": [
+    131,
+    115
+   ],
+   "boxPlayerPoints": [
+    131,
+    115
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     83,
+     83
+    ],
+    [
+     92,
+     92
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     24,
+     24
+    ],
+    [
+     28,
+     28
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.061,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2026-27",
+   "id": "401909092",
+   "usDate": "20261021",
+   "game": "GS@LAL",
+   "final": [
+    127,
+    105
+   ],
+   "lastRunningScore": [
+    130,
+    105
+   ],
+   "scoringPlaySum": [
+    127,
+    105
+   ],
+   "boxPlayerPoints": [
+    127,
+    105
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     81,
+     81
+    ],
+    [
+     92,
+     92
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     27,
+     27
+    ],
+    [
+     27,
+     27
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 1.63,
+    "haDiff": 0,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  },
+  {
+   "season": "2026-27",
+   "id": "401909841",
+   "usDate": "20261021",
+   "game": "PHX@POR",
+   "final": [
+    124,
+    83
+   ],
+   "lastRunningScore": [
+    124,
+    82
+   ],
+   "scoringPlaySum": [
+    124,
+    83
+   ],
+   "boxPlayerPoints": [
+    124,
+    83
+   ],
+   "lastPlay": "End Game",
+   "fgaPbpBox": [
+    [
+     94,
+     94
+    ],
+    [
+     84,
+     84
+    ]
+   ],
+   "ftaPbpBox": [
+    [
+     18,
+     18
+    ],
+    [
+     23,
+     23
+    ]
+   ],
+   "checksAfter": {
+    "errPct2": 2.084,
+    "haDiff": 2,
+    "fgaMatch": true,
+    "teamMinutesOk": true,
+    "failed": []
+   },
+   "complete": true
+  }
+ ],
+ "newlyExcluded": [],
+ "summary": {
+  "excludedBefore": 19,
+  "excludedAfter": 6,
+  "excludedBoth": [
+   "2024-25 20241023 GS@POR",
+   "2024-25 20241117 ATL@POR",
+   "2025-26 20251107 CLE@WSH",
+   "2025-26 20251115 DEN@MIN",
+   "2025-26 20251117 OKC@NO",
+   "2025-26 20260120 LAC@CHI"
+  ],
+  "newlyPassing": 13,
+  "newlyPassingAllComplete": true,
+  "newlyExcluded": 0,
+  "lacChiStillExcluded": true
+ },
+ "note": "after-rule exclusions are a subset of before-rule exclusions (scoring-play sum mismatch is in both), so nothing can be newly excluded"
+}
