@@ -26,6 +26,7 @@ const REBUILD = process.argv.includes('--rebuild');
 const exists = async p => { try { await readFile(p); return true; } catch { return false; } };
 
 export const SEASONS = {
+  '2023-24': { year: 2024, from: '2023-10-15', to: '2024-04-30' },
   '2024-25': { year: 2025, from: '2024-10-15', to: '2025-04-30' },
   '2025-26': { year: 2026, from: '2025-10-15', to: '2026-04-30' },
   '2026-27': { year: 2027, from: '2026-10-15', to: '2027-04-30' },

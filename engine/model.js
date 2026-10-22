@@ -18,9 +18,12 @@ export const DEFAULT_PARAMS = {
     teamFg: 600, teamRate: 2000, teamReb: 2000, teamRtg: 2000, pace: 15, hca: 300, rim: 400,
   },
   carry: 0.7, // design §6.3: last season pulled 30% toward the role average
+  carryTeam: null, // same idea for team defence/pace/net rating priors (null = carry)
   tiers: [15, 28], // minutes-per-game tier edges
   prevFadeGames: 200, // league/role averages: last season's weight fades out over this many current games
   halfLifeDays: null, // recency weighting of the current season's games (null = none); tuned on 2024-25
+  envDays: null, // league scoring environment over the last N days (null = off); tuned on 2024-25
+  envK: 50, // games: shrinks the recent environment toward the season average
 };
 
 export function seasonOf(date) {
@@ -111,6 +114,7 @@ export class Accumulator {
     this.seasons = new Map(); // season -> {players, teams, league}
     this.log = new Map(); // playerId -> [{date, team, sec, dnp, dnpr, st, pos}]
     this.teamDates = new Map(); // teamId -> [date...]
+    this.days = new Map(); // ET date -> raw league tallies {season, games, pts, poss, min} (never decayed)
     this.lastStart = null;
   }
 
@@ -134,6 +138,9 @@ export class Accumulator {
       this.log.set(p.id, L);
     }
     if (g.excluded) return; // truncated play-by-play: logs only (who played), no rates
+    const day = this.days.get(d.date) ?? { season: d.season, games: 0, pts: 0, poss: 0, min: 0 };
+    day.games++; day.pts += d.pts[0] + d.pts[1]; day.poss += d.poss[0] + d.poss[1]; day.min += 2 * d.gameSec / 60;
+    this.days.set(d.date, day);
     const S = this.season(d.season);
     if (this.halfLifeDays && S.lastDay && d.date > S.lastDay) decaySeason(S, 0.5 ** (daysBetween(S.lastDay, d.date) / this.halfLifeDays));
     S.lastDay = d.date;
@@ -187,6 +194,7 @@ export class Accumulator {
     // home advantage in points per 100 possessions (home ORtg − away ORtg), shrunk toward 0
     const hcaObs = 100 * (L.homePts / L.homePoss - L.awayPts / L.awayPoss);
     league.hca = hcaObs * L.games / (L.games + params.k.hca);
+    league.env = this.environment(asOfDate, season, league, params);
 
     const tierOf = mpg => (mpg < params.tiers[0] ? 0 : mpg < params.tiers[1] ? 1 : 2);
     const posOf = P => Object.entries(P.pos).sort((a, b) => b[1] - a[1])[0]?.[0] || 'F';
@@ -225,6 +233,22 @@ export class Accumulator {
     }
     rimProtectors(teams, players, cur, params);
     return { asOf, season, league, teams, players, params };
+  }
+
+  // scoring environment of the last envDays (this season, before asOfDate) relative to the season
+  // average, shrunk toward 1 by envK games
+  environment(asOfDate, season, league, params) {
+    if (!params.envDays) return { ortgRatio: 1, paceRatio: 1, games: 0 };
+    const from = new Date(Date.parse(`${asOfDate}T12:00:00Z`) - params.envDays * 86400e3).toISOString().slice(0, 10);
+    let games = 0, pts = 0, poss = 0, min = 0;
+    for (const [date, x] of this.days) {
+      if (x.season !== season || date < from || date >= asOfDate) continue;
+      games += x.games; pts += x.pts; poss += x.poss; min += x.min;
+    }
+    if (!games) return { ortgRatio: 1, paceRatio: 1, games: 0 };
+    const w = games / (games + params.envK);
+    const ortg = 100 * pts / poss, pace = 48 * (poss / 2) / (min / 2);
+    return { ortgRatio: 1 + w * (ortg / league.ortg - 1), paceRatio: 1 + w * (pace / league.pace - 1), games };
   }
 
   // player game log before a date (for minutes projection)
@@ -293,7 +317,7 @@ const mixRates = (a, b, w) => ({
 });
 
 function shrinkTeam(T, pT, league, params, prevLeagueSums) {
-  const k = params.k, c = params.carry;
+  const k = params.k, c = params.carryTeam ?? params.carry;
   // prior: last season's team ratio pulled toward league (1.0) by (1 - carry)
   const prevRatio = (num, den, lgRate) => (pT && den(pT) > 0 ? c * (num(pT) / den(pT)) / lgRate + (1 - c) : 1);
   const lgPrevFg = prevLeagueSums ? prevLeagueSums.att.map((a, z) => prevLeagueSums.made[z] / a) : league.fg;

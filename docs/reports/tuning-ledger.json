@@ -1,0 +1,66 @@
+{
+ "totalRuns": 395,
+ "sessions": [
+  {
+   "at": null,
+   "window": {
+    "season": "2024-25",
+    "from": "2024-11-01"
+   },
+   "seasonsLoaded": [
+    "2024-25"
+   ],
+   "runs": 184,
+   "note": "P3 first tuning (stage 1 grid 144 + stage 2 coordinate 40); exact time not recorded; details docs/reports/p3-tuning.json"
+  },
+  {
+   "at": "2026-10-22T11:30:06.173Z",
+   "window": {
+    "season": "2024-25"
+   },
+   "seasonsLoaded": [
+    "2023-24",
+    "2024-25"
+   ],
+   "runs": 109,
+   "best": {
+    "choice": {
+     "fRate": 0.5,
+     "fFg": 0.25,
+     "fTeam": 1,
+     "halfLifeDays": 60,
+     "kPace": 5,
+     "carry": 0.3,
+     "envDays": 21,
+     "envK": 25
+    },
+    "objective": 25.6061
+   }
+  },
+  {
+   "at": "2026-10-22T11:41:25.067Z",
+   "window": {
+    "season": "2024-25"
+   },
+   "seasonsLoaded": [
+    "2023-24",
+    "2024-25"
+   ],
+   "runs": 102,
+   "best": {
+    "choice": {
+     "fRate": 1,
+     "fFg": 0.25,
+     "fTeam": 1,
+     "halfLifeDays": 60,
+     "kPace": 5,
+     "carry": 0.7,
+     "carryTeam": 0.3,
+     "envDays": 21,
+     "envK": 10
+    },
+    "objective": 25.5796
+   }
+  }
+ ]
+}

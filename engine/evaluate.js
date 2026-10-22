@@ -11,7 +11,8 @@ const etDate = g => etParts(new Date(g.start)).date;
 
 // target: { season, from?, to? } ET dates inclusive
 // the baseline keeps fixed parameters (design defaults) so tuning the model never moves it
-export function walkForward({ games, target, params = DEFAULT_PARAMS, minutesParams = MINUTES_PARAMS, baselineParams = DEFAULT_PARAMS }) {
+// onGame({ ratings, homePlan, awayPlan, game, row }) may add fields to the row (P4 simulation)
+export function walkForward({ games, target, params = DEFAULT_PARAMS, minutesParams = MINUTES_PARAMS, baselineParams = DEFAULT_PARAMS, onGame = null, filter = null }) {
   const sorted = [...games].sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
   const byDate = new Map();
   for (const g of sorted) { const d = etDate(g); if (!byDate.has(d)) byDate.set(d, []); byDate.get(d).push(g); }
@@ -27,18 +28,21 @@ export function walkForward({ games, target, params = DEFAULT_PARAMS, minutesPar
       if (!ratings.empty) {
         for (const g of targets) {
           if (!ratings.teams[g.home.id] || !ratings.teams[g.away.id]) continue;
+          if (filter && !filter(g)) continue;
           const parts = t => g.players.filter(p => p.t === t && !p.dnp && (p.sec > 0 || p.min > 0)).map(p => p.id);
           const hp = projectMinutes(acc, g.home.id, d, { participants: parts(0) }, minutesParams);
           const ap = projectMinutes(acc, g.away.id, d, { participants: parts(1) }, minutesParams);
           const m = expectedGame(ratings, g.home.id, g.away.id, hp, ap);
           const b = baselineGame(ratingsBase, g.home.id, g.away.id);
           const margin = g.final[0] - g.final[1];
-          rows.push({
+          const row = {
             id: g.id, date: d, month: d.slice(0, 7), season: g.season, game: `${g.away.abbr}@${g.home.abbr}`, group: jobGroup(g.start),
             pdfFormat: d < '2025-12-22' ? 'hourly' : '15min', overtime: g.periods > 4,
             actual: { margin, total: g.final[0] + g.final[1], homeWin: margin > 0 ? 1 : 0 },
             model: { margin: m.margin, total: m.total }, base: { margin: b.margin, total: b.total },
-          });
+          };
+          if (onGame) Object.assign(row, onGame({ ratings, homePlan: hp, awayPlan: ap, game: g, row }));
+          rows.push(row);
         }
       }
     }

@@ -61,3 +61,9 @@ test('usage is normalised to the league team usage per possession', () => {
   const g = expectedGame(r, 'H', 'A', plan('h'), plan('a'));
   assert.ok(Math.abs(g.margin) < 1e-9, `margin ${g.margin}`);
 });
+
+test('league environment ratios scale expected scoring and possessions', () => {
+  const base = expectedGame(ratings({ league: { hca: 0 } }), 'H', 'A', plan('h'), plan('a'));
+  const hot = expectedGame(ratings({ league: { hca: 0, env: { ortgRatio: 1.03, paceRatio: 1.02 } } }), 'H', 'A', plan('h'), plan('a'));
+  assert.ok(Math.abs(hot.total / base.total - 1.03 * 1.02) < 1e-9);
+});

@@ -1,8 +1,9 @@
-// ESPN NBA play types, keyed by type.id: P0 sample (111) + P2 full-season collection (classified 2026-10-22).
+// ESPN NBA play types, keyed by type.id: P0 sample + P2 full-season collection + 2023-24 (classified 2026-10-22).
 // category drives parsing: fga | heave (end-of-period heave; excluded from box FGA from 2025-26) | ft | tov | oreb | dreb | sub | foul | end | jump | timeout | other.
 // An id not listed here fails schema validation; classify it here before parsing continues.
 export const PLAY_TYPES = {
   "0": ["Not Available", "other"],
+  "7": ["No Violation", "other"],
   "8": ["Delay of Game", "other"],
   "9": ["Defensive Goaltending", "other"],
   "10": ["Lane", "other"],
@@ -49,6 +50,7 @@ export const PLAY_TYPES = {
   "77": ["Illegal Assist Turnover", "tov"],
   "78": ["Palming Turnover", "tov"],
   "80": ["Punched Ball Turnover", "tov"],
+  "81": ["Swinging Elbows Turnover", "tov"],
   "82": ["Basket from Below Turnover", "tov"],
   "84": ["Offensive Foul Turnover", "tov"],
   "86": ["Out of Bounds - Step Turnover", "tov"],

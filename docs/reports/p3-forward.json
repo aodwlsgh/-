@@ -1,29 +1,29 @@
 {
- "generatedAt": "2026-10-22T10:57:43.953Z",
+ "generatedAt": "2026-10-22T11:41:55.387Z",
  "paramsSource": "data/model/params.json",
  "target": {
   "season": "2026-27"
  },
  "sigma": {
-  "model": 14.405366618605045,
-  "base": 14.387871946546682
+  "model": 14.24618666069588,
+  "base": 14.178439479835983
  },
  "metrics": {
   "all": {
    "n": 14,
    "model": {
-    "marginMAE": 15.4876,
-    "totalMAE": 10.6902,
-    "brier": 0.2034,
-    "logLoss": 0.5959,
-    "marginBias": 6.3713,
-    "totalBias": -1.9253
+    "marginMAE": 16.7109,
+    "totalMAE": 11.1692,
+    "brier": 0.2265,
+    "logLoss": 0.6451,
+    "marginBias": 7.0841,
+    "totalBias": -0.0647
    },
    "base": {
     "marginMAE": 15.9169,
     "totalMAE": 11.2774,
-    "brier": 0.213,
-    "logLoss": 0.6139,
+    "brier": 0.2128,
+    "logLoss": 0.6132,
     "marginBias": 6.9557,
     "totalBias": -0.8243
    }
@@ -32,18 +32,18 @@
    "2026-10": {
     "n": 14,
     "model": {
-     "marginMAE": 15.4876,
-     "totalMAE": 10.6902,
-     "brier": 0.2034,
-     "logLoss": 0.5959,
-     "marginBias": 6.3713,
-     "totalBias": -1.9253
+     "marginMAE": 16.7109,
+     "totalMAE": 11.1692,
+     "brier": 0.2265,
+     "logLoss": 0.6451,
+     "marginBias": 7.0841,
+     "totalBias": -0.0647
     },
     "base": {
      "marginMAE": 15.9169,
      "totalMAE": 11.2774,
-     "brier": 0.213,
-     "logLoss": 0.6139,
+     "brier": 0.2128,
+     "logLoss": 0.6132,
      "marginBias": 6.9557,
      "totalBias": -0.8243
     }
@@ -54,18 +54,18 @@
   "all": {
    "n": 14,
    "model": {
-    "marginMAE": 15.4876,
-    "totalMAE": 10.6902,
-    "brier": 0.2034,
-    "logLoss": 0.5959,
-    "marginBias": 6.3713,
-    "totalBias": -1.9253
+    "marginMAE": 16.7109,
+    "totalMAE": 11.1692,
+    "brier": 0.2265,
+    "logLoss": 0.6451,
+    "marginBias": 7.0841,
+    "totalBias": -0.0647
    },
    "base": {
     "marginMAE": 15.9169,
     "totalMAE": 11.2774,
-    "brier": 0.213,
-    "logLoss": 0.6139,
+    "brier": 0.2128,
+    "logLoss": 0.6132,
     "marginBias": 6.9557,
     "totalBias": -0.8243
    }
@@ -74,18 +74,18 @@
    "15min": {
     "n": 14,
     "model": {
-     "marginMAE": 15.4876,
-     "totalMAE": 10.6902,
-     "brier": 0.2034,
-     "logLoss": 0.5959,
-     "marginBias": 6.3713,
-     "totalBias": -1.9253
+     "marginMAE": 16.7109,
+     "totalMAE": 11.1692,
+     "brier": 0.2265,
+     "logLoss": 0.6451,
+     "marginBias": 7.0841,
+     "totalBias": -0.0647
     },
     "base": {
      "marginMAE": 15.9169,
      "totalMAE": 11.2774,
-     "brier": 0.213,
-     "logLoss": 0.6139,
+     "brier": 0.2128,
+     "logLoss": 0.6132,
      "marginBias": 6.9557,
      "totalBias": -0.8243
     }
@@ -96,18 +96,18 @@
   "all": {
    "n": 14,
    "model": {
-    "marginMAE": 15.4876,
-    "totalMAE": 10.6902,
-    "brier": 0.2034,
-    "logLoss": 0.5959,
-    "marginBias": 6.3713,
-    "totalBias": -1.9253
+    "marginMAE": 16.7109,
+    "totalMAE": 11.1692,
+    "brier": 0.2265,
+    "logLoss": 0.6451,
+    "marginBias": 7.0841,
+    "totalBias": -0.0647
    },
    "base": {
     "marginMAE": 15.9169,
     "totalMAE": 11.2774,
-    "brier": 0.213,
-    "logLoss": 0.6139,
+    "brier": 0.2128,
+    "logLoss": 0.6132,
     "marginBias": 6.9557,
     "totalBias": -0.8243
    }
@@ -116,18 +116,18 @@
    "A": {
     "n": 9,
     "model": {
-     "marginMAE": 14.7608,
-     "totalMAE": 11.1476,
-     "brier": 0.2388,
-     "logLoss": 0.6682,
-     "marginBias": 2.8339,
-     "totalBias": -2.2325
+     "marginMAE": 15.5823,
+     "totalMAE": 12.3577,
+     "brier": 0.2528,
+     "logLoss": 0.6982,
+     "marginBias": 3.3175,
+     "totalBias": 2.4128
     },
     "base": {
      "marginMAE": 14.3744,
      "totalMAE": 11.9308,
      "brier": 0.2281,
-     "logLoss": 0.6441,
+     "logLoss": 0.644,
      "marginBias": 2.943,
      "totalBias": 0.9263
     }
@@ -135,18 +135,18 @@
    "B": {
     "n": 4,
     "model": {
-     "marginMAE": 20.3905,
-     "totalMAE": 8.4427,
-     "brier": 0.1439,
-     "logLoss": 0.4747,
-     "marginBias": 15.319,
-     "totalBias": -5.6066
+     "marginMAE": 22.2399,
+     "totalMAE": 9.6566,
+     "brier": 0.1819,
+     "logLoss": 0.555,
+     "marginBias": 16.1418,
+     "totalBias": -7.2858
     },
     "base": {
      "marginMAE": 21.7642,
      "totalMAE": 9.4703,
-     "brier": 0.1804,
-     "logLoss": 0.547,
+     "brier": 0.1797,
+     "logLoss": 0.5453,
      "marginBias": 16.1207,
      "totalBias": -8.1254
     }
@@ -154,18 +154,18 @@
    "pre_job_start": {
     "n": 1,
     "model": {
-     "marginMAE": 2.4172,
-     "totalMAE": 15.5642,
-     "brier": 0.1219,
-     "logLoss": 0.4295,
-     "marginBias": 2.4172,
-     "totalBias": 15.5642
+     "marginMAE": 4.7532,
+     "totalMAE": 6.5224,
+     "brier": 0.168,
+     "logLoss": 0.5274,
+     "marginBias": 4.7532,
+     "totalBias": 6.5224
     },
     "base": {
      "marginMAE": 6.4104,
      "totalMAE": 12.6247,
-     "brier": 0.2079,
-     "logLoss": 0.6088,
+     "brier": 0.2074,
+     "logLoss": 0.6076,
      "marginBias": 6.4104,
      "totalBias": 12.6247
     }
@@ -188,8 +188,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 5.582813987914193,
-    "total": 218.4357738947115
+    "margin": 3.246823891344434,
+    "total": 227.4776187479639
    },
    "base": {
     "margin": 1.589559107506929,
@@ -211,8 +211,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": 5.223038458249249,
-    "total": 223.0667626004293
+    "margin": 3.6291760859758,
+    "total": 228.47460026602505
    },
    "base": {
     "margin": 5.874962001334126,
@@ -234,8 +234,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": -1.856934478267462,
-    "total": 227.94509268826084
+    "margin": 0.1961109733938855,
+    "total": 231.35520382523265
    },
    "base": {
     "margin": -0.7129369581267753,
@@ -257,8 +257,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": 0.14048732237064598,
-    "total": 230.7647046024997
+    "margin": 1.5473417299373295,
+    "total": 228.76767290066735
    },
    "base": {
     "margin": 0.15922092003333432,
@@ -280,8 +280,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": -0.5015267933913492,
-    "total": 235.0895384163404
+    "margin": -1.0518444471273511,
+    "total": 228.27398677320951
    },
    "base": {
     "margin": -2.395682752234734,
@@ -303,8 +303,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": 0.010567399771701957,
-    "total": 241.35925007709372
+    "margin": 1.6224259493538398,
+    "total": 233.79765495660436
    },
    "base": {
     "margin": 0.6300589469419435,
@@ -326,8 +326,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": -2.520898260154155,
-    "total": 217.5744053954878
+    "margin": -0.34506377228946405,
+    "total": 220.2982505664079
    },
    "base": {
     "margin": -8.769219959860763,
@@ -349,8 +349,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 8.919027433753342,
-    "total": 237.71755032230308
+    "margin": 5.10641099845148,
+    "total": 232.50174675852062
    },
    "base": {
     "margin": 7.607302582833029,
@@ -372,8 +372,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": -0.3567977637703592,
-    "total": 247.89166071168734
+    "margin": 0.6335518810343075,
+    "total": 235.47759261036362
    },
    "base": {
     "margin": 2.9777375199947187,
@@ -395,8 +395,8 @@
     "homeWin": 0
    },
    "model": {
-    "margin": 2.818100847431026,
-    "total": 244.6006661376795
+    "margin": 0.7377873953187617,
+    "total": 232.99193092792058
    },
    "base": {
     "margin": 3.776946212025763,
@@ -418,8 +418,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 5.76319518028744,
-    "total": 233.02762419518103
+    "margin": 3.2631415428210175,
+    "total": 228.70155355487515
    },
    "base": {
     "margin": 8.651794673579403,
@@ -441,8 +441,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 5.7009021817291625,
-    "total": 226.32782548740494
+    "margin": 4.557495392406096,
+    "total": 227.25824742001214
    },
    "base": {
     "margin": 2.880950129706079,
@@ -464,8 +464,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 3.675129913903163,
-    "total": 217.3849942981853
+    "margin": 3.061770574026596,
+    "total": 221.00671244983448
    },
    "base": {
     "margin": 0.1523822556573009,
@@ -487,8 +487,8 @@
     "homeWin": 1
    },
    "model": {
-    "margin": 7.2049741974916515,
-    "total": 226.76844491512983
+    "margin": 3.6173817167879605,
+    "total": 225.5228851970159
    },
    "base": {
     "margin": 9.19697254604668,

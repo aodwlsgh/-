@@ -1,5 +1,93 @@
 [
  {
+  "season": "2023-24",
+  "id": "401584717",
+  "usDate": "20231028",
+  "game": "MEM@WSH",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 113-106, scoring plays sum 120-106; fga_mismatch: FGA pbp 95 box 93; 3PA pbp 48 box 46 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401616465",
+  "usDate": "20231206",
+  "game": "CHA@CHI",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 111-100, scoring plays sum 116-100; fga_mismatch: FGA pbp 92 box 90; 3PA pbp 26 box 25 (heaves 0); fga_mismatch: FGA pbp 92 box 90; 3PA pbp 38 box 37 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401607495",
+  "usDate": "20231209",
+  "game": "IND@LAL",
+  "stage": "schedule",
+  "reason": "NBA Cup championship (not in standings)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585204",
+  "usDate": "20240117",
+  "game": "GS@UTAH",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585217",
+  "usDate": "20240119",
+  "game": "DAL@GS",
+  "stage": "schedule",
+  "reason": "status STATUS_POSTPONED"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585363",
+  "usDate": "20240208",
+  "game": "CLE@BKN",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 95-118, scoring plays sum 91-118; fga_mismatch: FGA pbp 92 box 93; 3PA pbp 25 box 25 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585387",
+  "usDate": "20240211",
+  "game": "BOS@MIA",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 106-110, scoring plays sum 103-110; fga_mismatch: FGA pbp 96 box 97; 3PA pbp 39 box 40 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585411",
+  "usDate": "20240214",
+  "game": "HOU@MEM",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 121-113, scoring plays sum 118-113; fga_mismatch: FGA pbp 78 box 79; 3PA pbp 34 box 35 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585412",
+  "usDate": "20240214",
+  "game": "WSH@NO",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 133-126, scoring plays sum 131-126; fga_mismatch: FGA pbp 88 box 89; 3PA pbp 32 box 32 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401585413",
+  "usDate": "20240214",
+  "game": "SA@DAL",
+  "stage": "data",
+  "reason": "pbp_incomplete: final 116-93, scoring plays sum 114-90; fga_mismatch: FGA pbp 91 box 92; 3PA pbp 30 box 30 (heaves 0); fga_mismatch: FGA pbp 98 box 100; 3PA pbp 39 box 40 (heaves 0)"
+ },
+ {
+  "season": "2023-24",
+  "id": "401623259",
+  "usDate": "20240218",
+  "game": "WEST@EAST",
+  "stage": "schedule",
+  "reason": "all-star / non-NBA team"
+ },
+ {
   "season": "2024-25",
   "id": "401704638",
   "usDate": "20241023",

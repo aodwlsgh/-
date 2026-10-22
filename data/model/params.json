@@ -1,17 +1,22 @@
 {
  "tunedOn": {
-  "season": "2024-25",
-  "from": "2024-11-01"
+  "season": "2024-25"
  },
+ "priorSeasonData": "2023-24 (prior only, not evaluated)",
  "objective": "marginMAE + totalMAE (model, walk-forward, variant A)",
- "chosenAt": "2026-10-22T10:57:12.952Z",
- "note": "carry (last-season weight 0.7) and minutes parameters fixed at design values: 2024-25 has no 2023-24 data, so carry cannot be tuned inside 2024-25",
+ "chosenAt": "2026-10-22T11:41:25.069Z",
+ "cumulativeTuningRuns": 395,
+ "note": "minutes parameters fixed at design values; 2025-26 sealed",
  "choice": {
-  "fRate": 0.25,
+  "fRate": 1,
   "fFg": 0.25,
   "fTeam": 1,
-  "halfLifeDays": 45,
-  "kPace": 1
+  "halfLifeDays": 60,
+  "kPace": 5,
+  "carry": 0.7,
+  "carryTeam": 0.3,
+  "envDays": 21,
+  "envK": 10
  },
  "params": {
   "k": {
@@ -23,40 +28,48 @@
     75
    ],
    "ft": 25,
-   "att": 125,
-   "fta": 125,
-   "tov": 100,
-   "ast": 125,
-   "reb": 150,
+   "att": 500,
+   "fta": 500,
+   "tov": 400,
+   "ast": 500,
+   "reb": 600,
    "teamFg": 600,
    "teamRate": 2000,
    "teamReb": 2000,
    "teamRtg": 2000,
-   "pace": 1,
+   "pace": 5,
    "hca": 300,
    "rim": 400
   },
   "carry": 0.7,
+  "carryTeam": 0.3,
   "tiers": [
    15,
    28
   ],
   "prevFadeGames": 200,
-  "halfLifeDays": 45
+  "halfLifeDays": 60,
+  "envDays": 21,
+  "envK": 10
  },
  "sigma": {
-  "model": 14.405366618605045,
-  "base": 14.387871946546682
+  "model": 14.24618666069588,
+  "base": 14.178439479835983
  },
  "devMetrics": {
   "model": {
-   "marginMAE": 11.2105,
-   "totalMAE": 14.4665,
-   "brier": 0.2119
+   "marginMAE": 11.0916,
+   "totalMAE": 14.488,
+   "brier": 0.2117,
+   "totalBias": 0.2022
   },
   "base": {
-   "marginMAE": 11.304,
-   "totalMAE": 14.8047
+   "marginMAE": 11.0922,
+   "totalMAE": 14.6707,
+   "brier": 0.212,
+   "logLoss": 0.6116,
+   "marginBias": 0.4534,
+   "totalBias": 1.2443
   }
  }
 }

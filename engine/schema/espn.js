@@ -164,7 +164,7 @@ export function checkSummary(s) {
       }
       if (cat === 'sub') {
         // the entering name can be blank in a broken record (quality issue); the phrase itself must stay
-        if (!/(^| )enters the game for /.test(pl.text ?? '')) at(`${p}.text`, `substitution text changed: ${JSON.stringify(pl.text)}`);
+        if (!/(^| )enters the game for( |$)/.test(pl.text ?? '')) at(`${p}.text`, `substitution text changed: ${JSON.stringify(pl.text)}`);
         if (req.arr(pl.participants, `${p}.participants`, 1)) {
           pl.participants.forEach((x, j) => req.str(x?.athlete?.id, `${p}.participants[${j}].athlete.id`, ID));
         }

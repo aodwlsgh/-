@@ -79,6 +79,16 @@ for (const [name, mutate] of Object.entries(scoreboardDrift)) {
   });
 }
 
+// 2023-24: "Grant Williams enters the game for" (leaving player's name missing) is a data defect, not a format change
+test('substitution with the leaving name missing is a quality issue, not a schema error', () => {
+  const s = fresh.summary();
+  const sub = s.plays.find(p => p.type.text === 'Substitution');
+  sub.text = sub.text.replace(/ enters the game for .*$/, ' enters the game for');
+  sub.participants = sub.participants.slice(0, 1);
+  assert.deepEqual(checkSummary(s), []);
+  assert.ok(checkSummaryQuality(s).some(x => /substitution with 1 participant/.test(x)));
+});
+
 test('clean fixture has no quality issues', () => {
   assert.deepEqual(checkSummaryQuality(fresh.summary()), []);
 });

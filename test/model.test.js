@@ -131,3 +131,23 @@ test('time decay weights recent games more and keeps asOf == incremental', () =>
   gs.forEach(g => acc.add(g));
   assert.deepEqual(acc.ratings('2026-01-05', decay), asOf(gs, '2026-01-05', decay).ratings);
 });
+
+// P3 follow-up 4: league scoring environment over the last N days (asOf: earlier days only)
+test('league environment: recent scoring above the season average lifts the ratio, using only earlier days', () => {
+  const gs = [];
+  for (let i = 0; i < 40; i++) {
+    const d = new Date(Date.UTC(2025, 10, 1) + i * 86400e3 + 23 * 3600e3).toISOString().slice(0, 16) + 'Z';
+    const hot = i >= 30; // last 10 days: more makes
+    const z = { ra: [hot ? 7 : 4, 8], ab3: [hot ? 5 : 3, 9] };
+    gs.push(rec({ id: `e${i}`, start: d, players: [pl('h', 0, { min: 48, z }), pl('a', 1, { min: 48, z })] }));
+  }
+  const P = { ...DEFAULT_PARAMS, envDays: 10, envK: 5 };
+  const r = asOf(gs, '2025-12-11', P).ratings;
+  assert.ok(r.league.env.ortgRatio > 1.05, `ratio ${r.league.env.ortgRatio}`);
+  assert.equal(r.league.env.games, 10);
+  const off = asOf(gs, '2025-12-11', DEFAULT_PARAMS).ratings;
+  assert.equal(off.league.env.ortgRatio, 1);
+  // future days do not enter
+  const more = [...gs, rec({ id: 'future', start: '2025-12-20T23:00Z', players: [pl('h', 0, { min: 48, z: { ra: [8, 8] } }), pl('a', 1, { min: 48 })] })];
+  assert.deepEqual(asOf(more, '2025-12-11', P).ratings.league.env, r.league.env);
+});

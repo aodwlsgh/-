@@ -315,6 +315,24 @@ test('an unrepaired substitution leaves flagged incomplete stints', () => {
   assert.match(issue.detail, /480s/);
 });
 
+// 2023-24: "Grant Williams enters the game for" — the leaving player is missing instead
+test('a substitution missing the leaving player brings the entering player in and drops the least-seen one', () => {
+  const s = summary({
+    roster: rosters(),
+    plays: [
+      ...['H1', 'H2', 'H3', 'H4', 'H5'].map(id => p('Jump Shot', H, { ids: [id], clock: '11:00' })),
+      p('Substitution', H, { ids: ['H6'], text: 'H6 enters the game for', clock: '8:00' }),
+      ...['H1', 'H2', 'H3', 'H4', 'H6'].map(id => p('Jump Shot', H, { ids: [id], clock: '3:00' })),
+      end(),
+    ],
+  });
+  const r = toStints(s);
+  assert.equal(r.anomalies.subMissingPlayer, 1);
+  assert.ok(r.stints.every(x => x.lineups[H].length === 5));
+  assert.equal(r.seconds.H6, 480);
+  assert.equal(r.seconds.H5, 240);
+});
+
 test('a player acting without a recorded sub replaces the on-court player not seen again', () => {
   const s = summary({
     roster: rosters(),

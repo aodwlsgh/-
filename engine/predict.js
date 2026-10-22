@@ -53,9 +53,10 @@ const possessions = (ratings, h, a) => ratings.teams[h].pace * ratings.teams[a].
 
 export function expectedGame(ratings, home, away, homePlan, awayPlan) {
   const hca = ratings.league.hca ?? 0;
-  const homeRtg = offense(ratings, homePlan, ratings.teams[away]) + hca / 2;
-  const awayRtg = offense(ratings, awayPlan, ratings.teams[home]) - hca / 2;
-  const poss = possessions(ratings, home, away);
+  const env = ratings.league.env ?? { ortgRatio: 1, paceRatio: 1 }; // date-based league scoring environment
+  const homeRtg = offense(ratings, homePlan, ratings.teams[away]) * env.ortgRatio + hca / 2;
+  const awayRtg = offense(ratings, awayPlan, ratings.teams[home]) * env.ortgRatio - hca / 2;
+  const poss = possessions(ratings, home, away) * env.paceRatio;
   const homePts = poss * homeRtg / 100, awayPts = poss * awayRtg / 100;
   return { homePts, awayPts, margin: homePts - awayPts, total: homePts + awayPts, possessions: poss, homeRtg, awayRtg };
 }

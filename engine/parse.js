@@ -314,6 +314,15 @@ export function shotZone(pl) {
 }
 
 // ---- stints --------------------------------------------------------------------
+// substitution participants: [in, out]; a broken record has one id, and the text tells which side
+// ("enters the game for X" = only the leaving player, "Y enters the game for" = only the entering one)
+function subIds(pl) {
+  const ids = (pl.participants || []).map(x => x.athlete.id);
+  if (ids.length === 2) return { inn: ids[0], out: ids[1] };
+  if (ids.length === 1) return /enters the game for\s*$/.test(pl.text ?? '') ? { inn: ids[0], out: null } : { inn: null, out: ids[0] };
+  return { inn: null, out: null };
+}
+
 // plays whose participants are certainly on the floor at that moment
 function isCourtEvidence(pl) {
   const c = category(pl);
@@ -359,8 +368,7 @@ export function toStints(s) {
       idx.forEach(([pl], k) => {
         const c = category(pl);
         if (c === 'sub') {
-          const ids = (pl.participants || []).map(x => x.athlete.id);
-          const [inn, out] = ids.length === 2 ? ids : [null, ids[0]];
+          const { inn, out } = subIds(pl);
           if (out && teamOf(out) === t && !first.has(out)) first.set(out, { kind: 'out', at: k });
           if (inn && teamOf(inn) === t && !first.has(inn)) first.set(inn, { kind: 'in', at: k });
         } else if (isCourtEvidence(pl)) {
@@ -428,16 +436,22 @@ export function toStints(s) {
       if (c === 'sub') {
         const t = pl.team?.id;
         if (!on[t]) return;
-        const ids = (pl.participants || []).map(x => x.athlete.id);
+        const { inn, out } = subIds(pl);
         flush(now);
-        if (ids.length === 2) {
-          on[t].delete(ids[1]);
-          on[t].add(ids[0]);
-        } else if (ids.length === 1) {
+        if (inn && out) {
+          on[t].delete(out);
+          on[t].add(inn);
+        } else if (out) {
           anomalies.subMissingPlayer++;
-          notes.push({ period: per, clock: pl.clock.displayValue, kind: 'subMissingPlayer', team: t, out: ids[0], play: pl.text });
-          on[t].delete(ids[0]);
+          notes.push({ period: per, clock: pl.clock.displayValue, kind: 'subMissingPlayer', team: t, out, play: pl.text });
+          on[t].delete(out);
           holes[t].push({ from: now });
+        } else if (inn) {
+          anomalies.subMissingPlayer++;
+          const leaver = on[t].size >= 5 ? pickLeaver(t, k, [inn]) : null;
+          if (leaver) on[t].delete(leaver);
+          on[t].add(inn);
+          notes.push({ period: per, clock: pl.clock.displayValue, kind: 'subMissingLeaver', team: t, in: inn, out: leaver, play: pl.text });
         }
         return;
       }
