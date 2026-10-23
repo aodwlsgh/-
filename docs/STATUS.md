@@ -48,7 +48,8 @@
   - 시간대 선택 칸: **없다**(2026-10-23 사용자 확인)
   - cron 직접 입력 칸: **없다**(2026-10-23 사용자 확정). KST 고정을 유지하고, 서머타임이 바뀔 때마다 사용자가 위 날짜에 손으로 바꾼다
 - **승5패 "미제공" 표시 코드는 브랜치 `claude/new-session-0toqi8`에만 있다**(c33e38c, 2026-10-23 승인). 2026-10-24 자동 실행 A·B 보고를 마친 뒤 `main`에 병합한다. 그 전에는 `main`에 코드를 병합하지 않는다
-- **main 강제 푸시 차단:** 사용자가 클래식 Branch protection rule(체크 항목 모두 비움)로 설정한다(2026-10-23 결정). 설정 뒤 `protected` 값을 다시 확인한다. 설정이 불가능하면 체인 머리 해시를 두 곳 이상에 기록하는 대안을 제안한다
+- **main 강제 푸시 차단: 설정 완료.** 사용자가 클래식 Branch protection rule을 설정했다(체크 항목 모두 비움, "Require a pull request" 끔). 2026-10-23 11:33Z 확인 결과 `main`의 `protected: true`다
+  - 남은 확인: 일일 푸시(`jobs/commit-daily.js`의 fast-forward)가 막히지 않는지. 2026-10-24 06:50 KST 자동 실행 A에서 확인한다
 - **사후 점검 2026-11-02 11:30 KST**(`trig_01DNdRdJKc86N1QjVVvLbjEe`, 다음 단계를 막지 않음)
   - 10-31 ET 실행 A·B의 실제 시작이 21:50Z/00:50Z(11-01 06:50·09:50 KST)인지 본다
   - **11-01 ET 실행 A·B의 실제 시작이 22:50Z/01:50Z(11-02 07:50·10:50 KST)인지 본다**
@@ -125,7 +126,10 @@
   - 두 실행 모두 픽 로그 쓰기에서 멈췄다("head version unknown"). **원인: `jobs/lib/db-files.js`가 빈 DB에서 readChain의 기본 head로 "없는 head"를 덮어썼다. dbc41c3에서 고쳤다.** 빈 DB 테스트 6개를 추가했다
 - 첫 실제 DB 쓰기(`runs/2026-10-23-B-0537`, `runs/2026-10-23-A-0538`, 둘 다 version 1)를 다시 읽어 내용이 실행 기록과 같음을 확인했다. 체인(`meta`·`blocks`)과 `failures`는 아직 0개다
 - ArtifactData `out_dir` 저장 형식(실제 확인): 파일에는 문서 본문만 있고 version은 없다. version은 읽기 결과의 글에 나온다. 그래서 head는 `--head-version`으로 넘긴다
-- `main` 브랜치 보호: 없음(강제 푸시가 GitHub 설정으로 막혀 있지 않다). 2026-10-23 10:36Z 다시 확인해도 `protected: false`였다. 사용자가 설정한 뒤 다시 확인한다
+- `main` 브랜치 보호
+  - 10:36Z까지는 없었다(`protected: false`)
+  - 2026-10-23 사용자가 클래식 Branch protection rule을 설정했다(체크 항목 모두 비움, "Require a pull request" 끔). 11:33Z에 다시 확인한 결과 `protected: true`다
+  - 무인 실행의 fast-forward 푸시가 이 규칙에 막히지 않는지는 2026-10-24 06:50 KST 자동 실행에서 확인한다
 - 첫 실제 베트맨 캡처: 아래 "첫 캡처 확인" 참조
 
 ## 첫 캡처 확인 — 종결 (2026-10-23 "첫 캡처 확인 종결 / 팀명 변경 승인", 상세 `docs/betman/2026-10-23-capture.md`)
