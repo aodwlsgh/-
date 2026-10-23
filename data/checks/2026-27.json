@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-10-22T10:24:19.870Z",
- "games": 14,
+ "generatedAt": "2026-10-23T21:51:08.059Z",
+ "games": 16,
  "checks": [
   {
    "id": "401909088",
@@ -316,6 +316,52 @@
    "teamMinutesOk": true,
    "pbpComplete": true,
    "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909093",
+   "usDate": "20261022",
+   "matchup": "CLE@PHI",
+   "errPct2": 1.156,
+   "errPct1": -2.917,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909094",
+   "usDate": "20261022",
+   "matchup": "DEN@OKC",
+   "errPct2": 3.981,
+   "errPct1": -2.523,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    2
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "possessions_over_3.5pct"
+   ],
    "issues": []
   }
  ]
