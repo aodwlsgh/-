@@ -19,15 +19,13 @@ test('stamps carry UTC and KST; ET tip-offs move by one KST hour across 2026-11-
 });
 
 // ---- teams ----
-test('Betman Korean team names map to ESPN abbreviations (24 confirmed on the 2026-10-23 capture, 6 still unconfirmed)', () => {
+test('Betman Korean team names map to ESPN abbreviations (unverified until the first capture)', () => {
   assert.equal(byKorean('마이애미 히트').espn, 'MIA');
   assert.equal(byKorean('미네소타 팀버울브스').espn, 'MIN');
   assert.equal(byKorean('LA레이커스').espn, 'LAL');
   assert.equal(byKorean('골든스테이트').espn, 'GS');
   assert.equal(byKorean('없는팀'), undefined);
-  assert.ok(TEAMS.every(t => t.ko));
-  assert.equal(byKorean('휴스턴 로케츠').espn, 'HOU');
-  assert.deepEqual(TEAMS.filter(t => !t.koVerified).map(t => t.espn).sort(), ['BKN', 'CLE', 'DEN', 'OKC', 'PHI', 'PHX']);
+  assert.ok(TEAMS.every(t => t.ko && t.koVerified === false));
 });
 
 // ---- odds input ----
