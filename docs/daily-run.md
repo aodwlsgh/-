@@ -5,7 +5,13 @@
   - 실행 B: `CRON_TZ=America/New_York 50 20 * * *`
 - 실행 시각은 승인 없이 바꾸지 않는다(P9 승인 2).
 - 대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX
-- 현황(2026-10-23): 이 세션에서 만든 작업 A·B는 저장소 없이 실행되어 0단계에서 멈췄고, 지금 꺼져 있다. 사용자가 아래 "예약 작업 만들기" 값으로 저장소를 고른 작업을 만든다.
+- 현황(2026-10-23)
+  - 사용자가 저장소를 고른 작업을 만들었다: A `trig_01ATZgLgwB6vjQY61XNHeNoK`(`CRON_TZ=Asia/Seoul 50 6 * * *`), B `trig_01HB4E5mvxkWzNYAkA1DYTHy`(`CRON_TZ=Asia/Seoul 50 9 * * *`).
+  - **KST 고정은 임시 방식이다**(설계는 ET 고정). 서머타임 종료 뒤 A 07:50·B 10:50 KST로 바꾼다. 바꿀 시각은 2026-11-01 09:50 KST 실행 뒤, 11-02 06:50 KST 전이다(`docs/STATUS.md` 맨 위).
+  - 이 세션에서 만든 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 저장소 없이 실행되어 0단계에서 멈췄다. 지금 꺼져 있다.
+- 수동 실행 규칙
+  - 06:50 KST 앞뒤 10분에는 하지 않는다.
+  - A와 B를 동시에 하지 않는다. 같은 파일(부상 리포트 스냅샷, 기준점)을 쓰므로 git 커밋이 충돌하고, 게시가 거부된다.
 
 ## 일일 커밋 허용 경로
 무인 실행은 아래 경로만 커밋한다. 이 목록은 2026-10-23 P9 승인 3·6에 따른 것이고, `jobs/lib/commit-guard.js`의 `ALLOWED_PATHS`와 같아야 한다(테스트로 확인한다).
