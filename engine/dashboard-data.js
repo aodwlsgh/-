@@ -30,6 +30,19 @@ export const TEXT = {
   pass: '오늘은 패스',
   met: '충족',
   unmet: '미충족',
+  // P9 (2026-10-23 approval): no odds is not a pass; unevaluated markets stay in the ledger with a reason
+  noOdds: '배당 미입력',
+  noOddsClosed: '배당 미입력(마감)',
+  awaiting: '평가 대기(실행 B 뒤)',
+  awaitingFinal: '평가 대기(최종 예측 뒤)',
+  unevaluated: '평가 못 함',
+  deadlineMissed: '마감 경과로 평가 못 함',
+  noPrediction: '예측 없음',
+  provisional: '예비 — 실행 시각 전 예측, 평가에 쓰지 않음',
+  fixed: '확정된 기록은 수정할 수 없습니다',
+  overroundWarn: '오버라운드 경고',
+  parallel: 'ESPN+PDF 병행 기록 — 픽·EV 미사용',
+  writeFailed: '픽 로그 쓰기 실패',
 };
 // wording that would read as a release or as purchase advice; never shown in any state
 export const FORBIDDEN = [/해제\s*가능/, /구매\s*가능/, /베팅\s*가능/, /추천/, /구매\s*하세요/, /베팅\s*하세요/, /지금\s*구매/];

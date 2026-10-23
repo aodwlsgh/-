@@ -28,9 +28,10 @@ export function joinGames(oddsRecs, games) {
   return out;
 }
 
-// odds records not evaluated yet: the latest entry per market before its deadline
+// odds records not evaluated yet: the latest entry per market before its deadline (a market closed as
+// `unevaluated`, engine/day-status.js, is never evaluated later)
 export function pendingOdds(chain, { now = new Date() } = {}) {
-  const done = new Set(chain.filter(r => r.type === 'evaluation').map(marketKey));
+  const done = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
   const latest = new Map();
   for (const r of chain) {
     if (r.type !== 'odds' || done.has(marketKey(r)) || ms(r.deadline.utc) <= ms(now)) continue;
@@ -42,7 +43,7 @@ export function pendingOdds(chain, { now = new Date() } = {}) {
 
 export function evaluationRecords({ oddsRecs, day, cal, chain = [], now = new Date() }) {
   const games = new Map(day.games.map(g => [g.gameId, g]));
-  const fixed = new Set(chain.filter(r => r.type === 'evaluation').map(marketKey));
+  const fixed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey)); // closed either way
   const notes = [], todo = [];
   for (const o of oddsRecs) {
     const k = marketKey(o);

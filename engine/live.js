@@ -14,9 +14,10 @@ import { etParts } from './time.js';
 import { jobGroup } from './snapshot.js';
 import { PLAY_PROB, normalizeName } from './injury.js';
 import { byEspn } from './teams.js';
+import { TEXT } from './dashboard-data.js';
 
 export const RULES_ON = { garbageTime: true, clutchFoul: true, overtime: true, latent: true }; // = jobs/backtest.js
-export const PARALLEL_LABEL = 'ESPN+PDF 병행 기록 — 픽·EV 미사용';
+export const PARALLEL_LABEL = TEXT.parallel;
 const etDate = start => etParts(new Date(start)).date;
 const round = (x, d = 6) => +x.toFixed(d);
 
