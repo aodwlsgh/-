@@ -50,7 +50,7 @@
 - **승5패 "미제공" 표시 코드는 브랜치 `claude/new-session-0toqi8`에만 있다**(c33e38c, 2026-10-23 승인). 2026-10-24 자동 실행 A·B 보고를 마친 뒤 `main`에 병합한다. 그 전에는 `main`에 코드를 병합하지 않는다
 - **main 강제 푸시 차단: 설정 완료.** 사용자가 클래식 Branch protection rule을 설정했다(체크 항목 모두 비움, "Require a pull request" 끔). 2026-10-23 11:33Z 확인 결과 `main`의 `protected: true`다
   - 남은 확인: 일일 푸시(`jobs/commit-daily.js`의 fast-forward)가 막히지 않는지. 2026-10-24 06:50 KST 자동 실행 A에서 확인한다
-  - **관리자 우회 차단 켬**("Do not allow bypassing the above settings", 2026-10-23 사용자 설정). 다른 체크는 그대로이고 "Require a pull request"는 꺼져 있다. 관리자 적용 여부는 이 세션의 도구로 읽을 수 없어 사용자 설정 화면으로만 확인한다. 일일 푸시 영향은 10-24 06:50 KST 실행에서 확인한다
+  - **관리자 우회 차단: 화면 미확인.** 2026-10-23 사용자가 "Do not allow bypassing the above settings"를 켰다고 알렸으나, 규칙 설정은 사용자가 보낸 설정 화면으로만 인정한다. 같은 날 보낸다고 한 설정 화면은 이 세션에 도착하지 않아 "Do not allow bypassing the above settings"와 "Require a pull request" 상태를 읽지 못했다. 화면을 받으면 화면 그대로 기록하고, 꺼져 있으면 "관리자 우회 차단: 미설정"으로 적는다. 이 세션의 도구로는 `protected` 값만 읽힌다. 일일 푸시 영향은 10-24 06:50 KST 실행에서 확인한다
   - 일일 푸시가 이 설정으로 막히면 원인만 보고하고 멈춘다. 설정 변경은 사용자가 한다
 - **사후 점검 2026-11-02 11:30 KST**(`trig_01DNdRdJKc86N1QjVVvLbjEe`, 다음 단계를 막지 않음)
   - 10-31 ET 실행 A·B의 실제 시작이 21:50Z/00:50Z(11-01 06:50·09:50 KST)인지 본다
