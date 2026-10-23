@@ -1,4 +1,5 @@
-// Dashboard browser tests (P8; 2026-10-23 user conditions 2-5, 7, 8). Chromium, fake artifact database.
+// Dashboard browser tests (P8; 2026-10-23 user conditions 2-5, 7, 8; P9 approval 1, 3, 4, 5, 6, 8). Chromium, fake
+// artifact database.
 // Run: cd tools/browser && npm test
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
@@ -15,7 +16,7 @@ const forbidden = text => FORBIDDEN.filter(re => re.test(text)).map(String);
 const controls = page => page.$$eval('button, a, [role=button], input[type=button], input[type=submit]', els => els.map(e => (e.textContent || e.value || e.getAttribute('aria-label') || '').trim()));
 const kstLocal = t => stamp(t).kst.slice(0, 16);
 
-async function enterOdds(page, day, rows, round = 901) {
+async function fillOdds(page, day, rows, round = 901) {
   await tab(page, 'odds');
   await page.fill('#o-round', String(round));
   for (let i = 0; i < rows.length; i++) {
@@ -29,9 +30,16 @@ async function enterOdds(page, day, rows, round = 901) {
     await page.fill(`#o-${i}-deadline`, kstLocal(Date.parse(g.start.utc) - 10 * 60e3));
   }
   await page.click('#o-save');
+  await page.waitForSelector('#confirm, #odds .msg.bad');
+  if (!(await page.$('#confirm'))) throw new Error(`no confirmation screen: ${await page.textContent('#odds .msg.bad')}`);
+}
+async function enterOdds(page, day, rows, round = 901) {
+  await fillOdds(page, day, rows, round);
+  await page.click('#o-confirm');
   await page.waitForSelector('#odds .msg');
   return page.textContent('#odds .msg');
 }
+const types = page => page.evaluate(() => window.__dash.chain.records.map(r => r.type));
 
 test('example data: the example banner is large, odds input and pick records are locked, every pick and EV area says 예시', async () => {
   const { page, errors, close } = await open(browser);
@@ -179,5 +187,122 @@ test('not the owner: read-only, no odds form', async () => {
   await tab(page, 'odds');
   assert.match(await page.textContent('#odds .lock'), /소유자만/);
   assert.equal(await page.$('#o-save'), null);
+  await close();
+});
+
+// ---- P9 (2026-10-23 approval) ----
+test('no odds reads "배당 미입력" on every status, never "오늘은 패스"', async () => {
+  const { page, errors, close } = await open(browser, { day: liveDay() });
+  await tab(page, 'odds');
+  assert.equal((await page.textContent('[data-single-status]')).trim(), TEXT.noOdds);
+  assert.equal((await page.textContent('[data-combo-status]')).trim(), TEXT.noOdds);
+  assert.ok(!(await page.textContent('#odds')).includes(TEXT.pass));
+  await tab(page, 'today');
+  const st = await page.$$eval('[data-status]', els => els.map(e => e.textContent));
+  assert.ok(st.length > 0 && st.every(s => s === TEXT.noOdds));
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('confirmation screen: nothing is written before [확정], [돌아가기] writes nothing, then it says records cannot be changed', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 3, away: 3 } }]);
+  assert.equal((await types(page)).length, 0);
+  assert.match(await page.textContent('#confirm'), /평가·픽 확정 — 확정 뒤 수정 불가/);
+  await page.click('#o-back');
+  await page.waitForSelector('#odds .msg');
+  assert.equal(await page.$('#confirm'), null);
+  assert.equal((await types(page)).length, 0);
+  const msg = await enterOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 3, away: 3 } }]);
+  assert.ok(msg.includes(TEXT.fixed));
+  assert.ok((await types(page)).includes('evaluation'));
+  // the same market again: odds record only, shown as such before confirming; it appears in the odds movement table
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 2.8, away: 3.2 } }]);
+  assert.match(await page.textContent('#confirm'), /배당만 기록 — 이미 확정된 마켓/);
+  const before = (await types(page)).filter(x => x === 'evaluation').length;
+  await page.click('#o-confirm');
+  await page.waitForSelector('#odds .msg');
+  assert.equal((await types(page)).filter(x => x === 'evaluation').length, before);
+  await tab(page, 'record');
+  assert.equal(await page.$$eval('#movement tbody tr', els => els.length), 1);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('overround outside 1.00-1.30 warns and still saves; evaluated without candidates reads "오늘은 패스"', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 1.2, away: 1.2 } }]);
+  assert.match(await page.textContent('[data-warn]'), /1\.00 미만 또는 1\.30 초과/);
+  await page.click('#o-confirm');
+  await page.waitForSelector('#odds .msg');
+  assert.equal((await types(page)).filter(x => x === 'evaluation').length, 2);
+  assert.equal((await types(page)).filter(x => x === 'pick').length, 0);
+  assert.match(await page.textContent('[data-combo-status]'), new RegExp(TEXT.pass));
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('a provisional prediction is labelled and its odds are recorded without evaluation', async () => {
+  const day = liveDay();
+  day.games[0].prediction = { ...day.games[0].prediction, final: false };
+  const { page, errors, close } = await open(browser, { day });
+  assert.ok(await page.$('[data-prov]'));
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 3, away: 3 } }]);
+  assert.match(await page.textContent('#confirm'), /배당만 기록 — 최종 예측 뒤 평가/);
+  await page.click('#o-confirm');
+  await page.waitForSelector('#odds .msg');
+  assert.deepEqual(await types(page), ['odds']);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('a failed write stays on screen with its reason, is noted outside the chain, and the input is kept', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await page.evaluate(() => window.__db.hooks.push(async op => { if (op === 'acquire') throw new Error('permission denied'); }));
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 3, away: 3 } }]);
+  await page.click('#o-confirm');
+  await page.waitForSelector('#alertBand:not([hidden])');
+  const band = await page.textContent('#alertBand');
+  assert.ok(band.includes(TEXT.writeFailed) && band.includes('permission denied') && band.includes('DB failures'));
+  assert.equal((await types(page)).length, 0);
+  assert.equal(await page.evaluate(() => [...window.__db.docs.keys()].filter(k => k.startsWith('failures/')).length), 1);
+  assert.match(await page.inputValue('#o-json'), /"round":901/);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('day-file alerts, the ESPN+PDF parallel record and the 2-fold record table', async () => {
+  const day = liveDay();
+  day.alerts = [{ code: 'db', text: '픽 로그 쓰기 실패 — retries exhausted' }];
+  day.games[1].parallel = { label: TEXT.parallel, usedForPicks: false, same: false, diffs: [{ side: 'home', id: '1', name: 'Test Player', pdf: null, merged: 0 }], winProbHome: 0.41 };
+  const { page, errors, close } = await open(browser, { day });
+  assert.match(await page.textContent('#alertBand'), /retries exhausted/);
+  assert.match(await page.textContent('[data-par]:nth-of-type(1)') ?? '', /./);
+  assert.ok((await page.textContent('#today')).includes(`${TEXT.parallel}: 차이 1명(Test Player)`));
+  await tab(page, 'record');
+  const combo = await page.textContent('#comboTable');
+  assert.match(combo, /해제 조건에 넣지 않음/);
+  assert.ok(!combo.includes(TEXT.met) && !combo.includes(TEXT.unmet));
+  assert.ok(!(await page.textContent('#record')).includes('해제 조건 진행도 — 2폴더'));
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('typed odds survive a pick-log refresh (the odds tab re-renders on every database change)', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await tab(page, 'odds');
+  await page.fill('#o-round', '777');
+  await page.fill('#o-0-no', '5');
+  await page.selectOption('#o-0-type', 'OU');
+  await page.fill('#o-0-line', '225.5');
+  await page.fill('#o-0-odd-over', '1.8');
+  await page.evaluate(() => window.__dashRefresh());
+  await page.waitForTimeout(100);
+  assert.deepEqual([await page.inputValue('#o-round'), await page.inputValue('#o-0-no'), await page.inputValue('#o-0-type'), await page.inputValue('#o-0-line'), await page.inputValue('#o-0-odd-over')], ['777', '5', 'OU', '225.5', '1.8']);
+  assert.deepEqual(errors, []);
   await close();
 });

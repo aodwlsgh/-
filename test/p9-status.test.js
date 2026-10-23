@@ -136,3 +136,27 @@ test('new wording has no forbidden phrases', () => {
   const texts = [...Object.values(TEXT), ...Object.values(UNEVALUATED_REASONS), overroundWarning(1.4).text, comboTable([]).caption];
   assert.deepEqual(texts.flatMap(forbiddenIn), []);
 });
+
+test('confirmation screen: the first entry of a market fixes it, later or pre-final entries are odds only, integer lines unsupported, overround warns without blocking', async () => {
+  const { classifyInput, HANDLING } = await import('../engine/day-status.js');
+  const now = new Date('2026-11-02T22:00:00Z');
+  const day = { kind: 'live', games: [game('g1', '2026-11-03T00:00:00Z'), { ...game('g2', '2026-11-03T03:00:00Z', { group: 'B', final: false }), home: { espn: 'LAL' }, away: { espn: 'LAC' } }] };
+  const mk = (betmanNo, home, away, type, odds, line) => ({ betmanNo, home, away, deadline: '2026-11-03T08:50:00+09:00', type, odds, ...(line != null ? { line } : {}) });
+  const input = { round: 7, capturedAt: '2026-11-03T06:59:00+09:00', source: 'manual', markets: [
+    mk(1, '보스턴 셀틱스', '뉴욕 닉스', 'ML', { home: 1.5, away: 1.5 }),
+    mk(1, '보스턴 셀틱스', '뉴욕 닉스', 'ML', { home: 1.6, away: 2.2 }),
+    mk(2, '보스턴 셀틱스', '뉴욕 닉스', 'OU', { over: 1.8, under: 1.9 }, 220),
+    mk(3, 'LA 레이커스', 'LA 클리퍼스', 'ML', { home: 1.8, away: 1.9 }),
+  ] };
+  const fixedBefore = [{ type: 'evaluation', round: 7, betmanNo: 9, gameId: 'g1' }];
+  const c = classifyInput({ input, day, chain: fixedBefore, now });
+  assert.equal(c.ok, true, c.error);
+  assert.deepEqual(c.rows.map(r => r.handling), ['fix', 'oddsOnlyFixed', 'unsupported', 'oddsOnlyAwaitingB']);
+  assert.equal(c.rows[0].text, HANDLING.fix);
+  assert.match(c.rows[0].text, /수정 불가/);
+  assert.ok(c.rows[0].warning, 'overround 1.333 > 1.30 warns');
+  assert.equal(c.warnings, 1);
+  const again = classifyInput({ input: { ...input, markets: [input.markets[0]] }, day, chain: [{ type: 'evaluation', round: 7, betmanNo: 1 }], now });
+  assert.equal(again.rows[0].handling, 'oddsOnlyFixed');
+  assert.equal(classifyInput({ input: { ...input, round: 'x' }, day, chain: [], now }).ok, false);
+});

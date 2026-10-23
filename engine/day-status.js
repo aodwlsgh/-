@@ -6,7 +6,8 @@
 // fixed, never relaxed afterwards). Odds movement compares later entries of a market with its first entry
 // (monitoring only; picks and EV never use it). 2-folds are a separate record table, not exit conditions.
 import { TEXT, comboProgress } from './dashboard-data.js';
-import { marketKey } from './log-records.js';
+import { marketKey, joinGames } from './log-records.js';
+import { toOddsRecords } from './odds.js';
 import { stamp } from './clock.js';
 
 const ms = t => new Date(t).getTime();
@@ -124,4 +125,26 @@ export function comboTable(log) {
       { key: 'brier', label: 'Brier 모델 / 시장', value: p.marketBrier.model == null ? '—' : `${p.marketBrier.model.toFixed(4)} / ${p.marketBrier.market.toFixed(4)}` },
     ],
   };
+}
+
+// confirmation screen (2026-10-23 P9 approval 1): what saving an odds input will do, market by market, before
+// anything is written. The first entry of a market fixes its evaluation; later entries are odds records only.
+export const HANDLING = {
+  fix: '평가·픽 확정 — 확정 뒤 수정 불가',
+  oddsOnlyFixed: '배당만 기록 — 이미 확정된 마켓(변동 모니터링용)',
+  oddsOnlyAwaitingB: '배당만 기록 — 실행 B 예측 뒤 평가',
+  oddsOnlyAwaitingFinal: '배당만 기록 — 최종 예측 뒤 평가',
+  unsupported: '미지원(정수 기준선) — 평가만 기록, 픽 제외',
+};
+export function classifyInput({ input, day, chain, now = new Date() }) {
+  let recs;
+  try { recs = joinGames(toOddsRecords(input, { now }), day.games); } catch (e) { return { ok: false, error: e.message, rows: [] }; }
+  const closed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
+  const rows = recs.map(o => {
+    const g = day.games.find(x => x.gameId === o.gameId), k = marketKey(o);
+    const handling = closed.has(k) ? 'oddsOnlyFixed' : !g.prediction?.final ? (g.group === 'B' ? 'oddsOnlyAwaitingB' : 'oddsOnlyAwaitingFinal') : o.lineKind === 'integer' ? 'unsupported' : 'fix';
+    closed.add(k); // a market repeated in the same input: only its first entry fixes
+    return { market: k, gameId: o.gameId, game: `${g.away.espn}@${g.home.espn}`, type: o.market, line: o.line, odds: o.odds, overround: o.overround, warning: overroundWarning(o.overround), deadline: o.deadline, handling, text: HANDLING[handling] };
+  });
+  return { ok: true, rows, warnings: rows.filter(r => r.warning).length };
 }

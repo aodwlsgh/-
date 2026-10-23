@@ -4,8 +4,13 @@
 // chain check is always in the header, every pick and EV carries "기록 전용 — 구매 비권장" (example data: "예시"),
 // scenario results are "미검증" (back-to-back also "근사") and never reach the pick and EV columns, the exit
 // progress never reads as a release, Korean team names are "미확인", integer lines "미지원(픽 제외)".
+// P9 (2026-10-23 approval): odds go through a confirmation screen (the first entry of a market fixes it, later ones
+// are odds only), overround outside 1.00-1.30 warns without blocking, no odds reads "배당 미입력" (never "오늘은
+// 패스"), write failures stay on screen with their reason and are noted in the database outside the chain,
+// 2-folds are a record table outside the exit conditions, provisional predictions and the ESPN+PDF parallel record
+// are labelled and never priced.
 import {
-  TEXT, validateDay, gameView, scenarioView, sensitivityBadges, chainText, anchorCheck, exitView, comboProgress,
+  TEXT, validateDay, gameView, scenarioView, sensitivityBadges, chainText, anchorCheck, exitView,
 } from '../engine/dashboard-data.js';
 import { pageStore, readChain, appendAsPage, HEAD_PATH } from '../engine/log-store.js';
 import { roundRecords } from '../engine/log-records.js';
@@ -14,6 +19,7 @@ import { inFirstMonth, settle, SEASON_OPENING, FIRST_MONTH } from '../engine/pic
 import { SELECTIONS } from '../engine/odds.js';
 import { MARGIN_T, marginSurvival } from '../engine/calibrate.js';
 import { seasonOf } from '../engine/model.js';
+import { classifyInput, gameStatuses, dayStatus, oddsMovement, comboTable } from '../engine/day-status.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -39,7 +45,7 @@ const NOTE_KO = { 'already fixed': '이미 확정된 마켓이라 배당만 기�
 const S = {
   day: null, cal: null, status: null, anchor: null, db: null, store: null, owner: false, dbState: 'connecting',
   chain: { records: [], verify: { ok: true, problems: [] }, head: null, orphans: [] }, chainKnown: false,
-  tab: 'today', gi: 0, scen: new Map(), running: false, runs: null, msg: null,
+  tab: 'today', gi: 0, scen: new Map(), running: false, runs: null, msg: null, pending: null, fail: null, retry: null, clearForm: false,
   tabId: `tab-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`,
 };
 window.__dash = S; // read by the browser tests (tools/browser)
@@ -85,7 +91,9 @@ async function connect() {
   db.doc(HEAD_PATH).onSnapshot(() => { clearTimeout(t); t = setTimeout(refreshChain, 300); }, () => {});
 }
 
+const chainKey = c => `${c.records.length}|${c.records.at(-1)?.hash ?? ''}|${c.verify.ok}|${c.orphans.length}|${c.head?.leaseHolder ?? ''}`;
 async function refreshChain() {
+  const before = S.chainKnown ? chainKey(S.chain) : null;
   try {
     S.chain = await readChain(S.store);
     S.chainKnown = true;
@@ -94,7 +102,8 @@ async function refreshChain() {
     S.msg = { bad: true, text: `픽 로그를 읽지 못했습니다: ${e.message ?? e.code ?? e}` };
   }
   renderHeader();
-  if (['odds', 'record', 'model'].includes(S.tab)) renderTab();
+  // re-render only when the chain changed (the head snapshot also fires for nothing new)
+  if (['odds', 'record', 'model'].includes(S.tab) && (S.dbState !== 'ok' || before !== chainKey(S.chain))) renderTab();
 }
 
 function setTab(t) {
@@ -136,6 +145,13 @@ function renderBands() {
     why.push(`${s} 시즌 첫 한 달(${open}~${end})은 시장과 관계없이 기록 전용입니다.`);
   }
   $('#roWhy').textContent = why.join(' ');
+  renderAlerts();
+}
+
+function renderAlerts() {
+  const items = [...(S.day.alerts ?? []).map(a => a.text), ...(S.fail ? [S.fail.text] : [])];
+  $('#alertBand').hidden = !items.length;
+  $('#alertList').innerHTML = items.map(x => `<li>${esc(x)}</li>`).join('');
 }
 
 function renderTab() {
@@ -161,11 +177,15 @@ const msgHtml = () => (S.msg ? `<div class="msg${S.msg.bad ? ' bad' : ''}" role=
 // ------------------------------------------------------------------ today ------------------------------------------
 function renderToday() {
   const d = S.day;
+  const gs = gameStatuses({ day: d, chain: S.chain.records, now: new Date() });
   const rows = d.games.map(g => {
     const v = gameView(g, S.cal), st = g.dataStatus ?? {};
     const inj = st.injurySnapshot ? ['home', 'away'].map(k => st.injurySnapshot[k]).filter(Boolean) : [];
     const unmatched = inj.flatMap(x => x.unmatched ?? []).length, absent = inj.reduce((a, x) => a + (x.top3Absent ?? 0), 0);
     const status = [`실행 ${esc(st.run ?? g.group)}`, st.injurySnapshot ? `부상 리포트 반영${absent ? `, 상위 3인 결장 ${absent}` : ''}${unmatched ? `, 이름 미매칭 ${unmatched}` : ''}` : '부상 리포트 없음'];
+    if (!isEx() && g.prediction.final === false) status.unshift(`<span class="badge unv" data-prov>${TEXT.provisional}</span>`);
+    if (g.parallel) status.push(`<span data-par>${TEXT.parallel}: ${g.parallel.same ? '차이 없음' : `차이 ${g.parallel.diffs.length}명(${g.parallel.diffs.slice(0, 3).map(x => esc(x.name)).join(', ')}), 홈 승률 ${pct(g.parallel.winProbHome)}`}</span>`);
+    if (!isEx()) status.push(`<strong data-status>${esc(gs.get(g.gameId)?.text ?? '')}</strong>`);
     return `<tr data-game="${esc(g.gameId)}">
       <td class="n">${hm(g.start.kst)}<div class="note">${esc(g.start.et?.slice(11) ?? '')}</div></td>
       <td>${matchup(g)} <button class="btn ghost" data-open="${esc(g.gameId)}" style="padding:2px 8px;font-size:12px">상세</button></td>
@@ -455,25 +475,65 @@ function readOddsForm() {
   return { round: +$('#o-round').value, capturedAt: new Date().toISOString(), source: 'manual', markets };
 }
 
-async function saveRound(input) {
+function previewRound(input) {
+  if (!canWrite()) { S.msg = { bad: true, text: writeBlock() }; return renderOdds(); }
+  const c = classifyInput({ input, day: S.day, chain: S.chain.records, now: new Date() });
+  if (!c.ok) { S.msg = { bad: true, text: c.error }; S.pending = null; return renderOdds(); }
+  S.pending = { input, rows: c.rows };
+  S.msg = null;
+  renderOdds();
+}
+
+function confirmHtml() {
+  const rows = S.pending.rows.map(r => `<tr data-confirm-row><td class="mono">${esc(r.market)}</td><td>${esc(r.game)}</td><td>${MARKET_KO[r.type]}${r.line != null ? ` ${r.line}` : ''}</td>
+    <td class="n">${Object.entries(r.odds).map(([k, o]) => `${SEL_KO[k]} ${fx(o)}`).join(' · ')}</td><td class="n">${fx(r.overround, 3)}${r.warning ? ` <span class="warnline" data-warn>${esc(r.warning.text)}</span>` : ''}</td>
+    <td><strong>${esc(r.text)}</strong></td><td class="note">${hm(r.deadline.kst)} KST</td></tr>`).join('');
+  return `<div class="card confirm" id="confirm"><header><h2>확인 — 아직 기록하지 않았습니다</h2><span class="note">[확정]을 누르면 픽 로그에 추가됩니다. ${TEXT.fixed}. 각 마켓의 처음 확정만 평가·픽이 되고, 나중 입력은 배당 레코드로만 남습니다.</span></header>
+    <div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th class="n">배당</th><th class="n">오버라운드</th><th>처리</th><th>마감</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="row"><button class="btn" type="button" id="o-confirm">확정</button><button class="btn ghost" type="button" id="o-back">돌아가기</button></div></div>`;
+}
+
+async function confirmRound() {
+  const { input, rows } = S.pending;
+  S.pending = null;
   if (!canWrite()) { S.msg = { bad: true, text: writeBlock() }; return renderOdds(); }
   let built;
   try {
     built = roundRecords({ input, day: S.day, cal: S.cal, chain: S.chain.records, now: new Date() });
   } catch (e) { S.msg = { bad: true, text: e.message }; return renderOdds(); }
-  const r = await appendAsPage(S.store, built.records, { holder: S.tabId });
+  let r;
+  try { r = await appendAsPage(S.store, built.records, { holder: S.tabId }); } catch (e) { r = { ok: false, reason: String(e.message ?? e.code ?? e) }; }
   await refreshChain();
   const notes = built.notes.map(n => `${n.market}: ${NOTE_KO[n.note] ?? n.note}`);
-  S.msg = r.ok ? { text: `기록했습니다: 레코드 ${built.records.length}개(배당 ${built.records.filter(x => x.type === 'odds').length}, 평가 ${built.records.filter(x => x.type === 'evaluation').length}, 픽 ${built.records.filter(x => x.type === 'pick').length}, 2폴더 ${built.records.filter(x => x.type === 'combo').length})${notes.length ? ` · ${notes.join(' · ')}` : ''}` }
-    : { bad: true, text: REASON_KO[r.reason] ?? r.reason };
+  if (r.ok) {
+    S.fail = null; S.retry = null; S.clearForm = true;
+    S.msg = { text: `기록했습니다: 레코드 ${built.records.length}개(배당 ${built.records.filter(x => x.type === 'odds').length}, 평가 ${built.records.filter(x => x.type === 'evaluation').length}, 픽 ${built.records.filter(x => x.type === 'pick').length}, 2폴더 ${built.records.filter(x => x.type === 'combo').length}). ${TEXT.fixed}.${notes.length ? ` · ${notes.join(' · ')}` : ''}` };
+  } else await writeFailed(r.reason, rows, input);
+  renderBands();
   renderOdds();
 }
 
+// a failed write stays on screen with its reason; a note goes to the database outside the chain (failures/) for the
+// next daily run's report; the input is kept so it can be sent again before its deadline
+async function writeFailed(reason, rows, input) {
+  const at = new Date();
+  const markets = rows.map(r => r.market).join(', ');
+  let noted = false;
+  try { await S.db.doc(`failures/${S.tabId}-${at.getTime()}`).set({ at: at.toISOString(), reason, markets, holder: S.tabId }); noted = true; } catch { noted = false; }
+  S.fail = { text: `${TEXT.writeFailed} — ${REASON_KO[reason] ?? reason} (${hm(stampKst(at))} KST, 마켓 ${markets}). ${noted ? '사유를 DB failures에 남겼습니다' : 'DB에 사유를 남기지 못했습니다: 이 화면이 유일한 기록입니다'}. 마감 전이면 다시 확정할 수 있고, 마감 뒤에는 기록하지 않습니다.` };
+  S.retry = input ? JSON.stringify(input) : null;
+  S.msg = { bad: true, text: S.fail.text };
+}
+const stampKst = d => new Date(d.getTime() + 9 * 3600e3).toISOString().replace('Z', '+09:00');
+
 async function savePurchase(pickId, bought) {
   if (!canWrite()) { S.msg = { bad: true, text: writeBlock() }; return renderTab(); }
-  const r = await appendAsPage(S.store, [purchaseRecord(pickId, bought, { now: new Date() })], { holder: S.tabId });
+  let r;
+  try { r = await appendAsPage(S.store, [purchaseRecord(pickId, bought, { now: new Date() })], { holder: S.tabId }); } catch (e) { r = { ok: false, reason: String(e.message ?? e.code ?? e) }; }
   await refreshChain();
-  S.msg = r.ok ? { text: `구매 여부를 기록했습니다(${pickId}: ${bought ? '구매함' : '구매 안 함'}). 픽 레코드는 그대로입니다.` } : { bad: true, text: REASON_KO[r.reason] ?? r.reason };
+  if (r.ok) S.msg = { text: `구매 여부를 기록했습니다(${pickId}: ${bought ? '구매함' : '구매 안 함'}). 픽 레코드는 그대로입니다.` };
+  else await writeFailed(r.reason, [{ market: pickId }], null);
+  renderBands();
   renderTab();
 }
 
@@ -486,7 +546,35 @@ function pickRow(p, bought, { showResult = false, results = null } = {}) {
     ${showResult ? `<td>${res == null ? '대기' : res ? '적중' : '실패'}</td>` : ''}<td>${buy} ${ctl}</td></tr>`;
 }
 
+// what is typed in the odds form survives a re-render (a pick-log refresh re-renders this tab)
+function formState() {
+  if (!$('#oddsForm')) return null;
+  const rows = $$('#o-rows .o-row').map(row => ({
+    game: row.querySelector('.o-game').value, no: row.querySelector('.o-no').value, type: row.querySelector('.o-type').value,
+    line: row.querySelector('.o-line').value, deadline: row.querySelector('.o-deadline').value,
+    odds: Object.fromEntries($$('.o-odd', row).map(e => [e.dataset.sel, e.value])),
+  }));
+  return { round: $('#o-round').value, rows, json: $('#o-json').value };
+}
+function restoreForm(f) {
+  $('#o-round').value = f.round;
+  $('#o-json').value = f.json;
+  f.rows.forEach((r, i) => {
+    addOddsRow();
+    const row = $$('#o-rows .o-row')[i];
+    row.querySelector('.o-game').value = r.game;
+    row.querySelector('.o-type').value = r.type;
+    row.querySelector('.o-type').dispatchEvent(new Event('change'));
+    row.querySelector('.o-no').value = r.no;
+    row.querySelector('.o-line').value = r.line;
+    row.querySelector('.o-deadline').value = r.deadline;
+    for (const e of $$('.o-odd', row)) e.value = r.odds[e.dataset.sel] ?? '';
+  });
+}
+
 function renderOdds() {
+  const keep = S.clearForm ? null : formState();
+  S.clearForm = false;
   const ex = isEx(), ids = todayIds();
   const recs = S.chain.records.filter(r => ids.has(r.gameId));
   const evals = recs.filter(r => r.type === 'evaluation'), picks = recs.filter(r => r.type === 'pick');
@@ -494,31 +582,39 @@ function renderOdds() {
   const combos = S.chain.records.filter(r => r.type === 'combo' && r.legs.some(id => pickIds.has(id)));
   const bought = purchases();
   const block = writeBlock();
+  const ds = dayStatus({ day: S.day, chain: S.chain.records, now: new Date() });
+  const none = ds.code === 'noOdds' ? TEXT.noOdds : ds.code === 'pending' ? ds.text : ds.code === 'unevaluated' ? TEXT.unevaluated : null;
   const evRows = ex
     ? `<tr class="pick-area"><td colspan="9"><span class="badge ex lg">${TEXT.exampleCell}</span> 예시 데이터에는 실제 베트맨 배당이 없어 EV를 계산하지 않습니다.</td></tr>`
     : evals.length ? evals.map(r => `<tr><td class="mono">${esc(r.round)}-${esc(r.betmanNo)}</td><td>${shortGame(r.gameId)}</td><td>${MARKET_KO[r.market]}</td><td class="n">${r.line ?? '—'}${r.unsupported && /integer/.test(r.unsupported) ? ` <span class="badge uns">${TEXT.unsupported}</span>` : ''}</td><td>${SEL_KO[r.selection]}</td><td class="n">${fx(r.odds)}</td>
         ${r.unsupported ? `<td class="n" colspan="2">${/integer/.test(r.unsupported) ? TEXT.unsupported : '보정 범위 밖(픽 제외)'}</td><td class="n ev-cell">— ${roBadge()}</td>` : `<td class="n">${pct(r.p)}</td><td class="n">${pct(r.pCons)}</td><td class="n ev-cell">${sgn(r.ev * 100, 1)}% ${roBadge()}</td>`}
         <td class="n">${pct(r.noVig)}</td></tr>`).join('')
-      : '<tr><td colspan="10" class="note">아직 기록된 배당이 없습니다. 배당을 입력하면 평가가 여기에 확정됩니다.</td></tr>';
+      : `<tr><td colspan="10"><strong data-day-status>${esc(ds.text)}</strong> <span class="note">배당이 들어오고 그 경기의 최종 예측이 있으면 평가가 여기에 확정됩니다.</span></td></tr>`;
   $('#odds').innerHTML = `
     ${msgHtml()}
-    <div class="card"><header><h2>배당 입력</h2><span class="note">입력하는 순간 검증하고 바로 픽 로그에 추가합니다. 추가된 레코드는 고치거나 지울 수 없습니다.</span></header>
+    ${!block && S.pending ? confirmHtml() : ''}
+    <div class="card"><header><h2>배당 입력</h2><span class="note">저장 전에 확인 화면을 거칩니다. ${TEXT.fixed}. 오버라운드가 1.00 미만이거나 1.30을 넘으면 경고만 하고 저장은 막지 않습니다.</span></header>
       ${block ? `<div class="lock">${esc(block)}</div>` : oddsFormHtml()}</div>
     <div class="card"><header><h2>기대값 표</h2>${roBadge(true)}${exTag()}<span class="note">기본 예측만 씁니다. 시나리오·민감도 결과는 이 표에 들어오지 않습니다. EV = p_cons × 배당 − 1, p_cons = p − 0.1·|p − 0.5|</span></header>
       <div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th class="n">기준선</th><th>선택</th><th class="n">배당</th><th class="n">모델 p</th><th class="n">p_cons</th><th class="n">EV</th><th class="n">시장(마진 제거)</th></tr></thead><tbody>${evRows}</tbody></table></div></div>
     <div class="card"><header><h2>단일 후보(EV ≥ +3%)</h2>${roBadge(true)}</header>
       ${ex ? `<div class="pick-area"><span class="badge ex lg">${TEXT.exampleCell}</span> 예시에는 후보가 없습니다.</div>`
     : picks.length ? `<div class="tbl"><table><thead><tr><th></th><th>id</th><th>경기</th><th>선택</th><th class="n">배당</th><th class="n">p_cons</th><th class="n">EV</th><th>구매 여부(별도 기록)</th></tr></thead><tbody>${picks.map(p => pickRow(p, bought.get(p.id))).join('')}</tbody></table></div>`
-      : '<p class="note">후보 없음</p>'}</div>
+      : `<p data-single-status>${none ? `<strong>${esc(none)}</strong>` : '<span class="note">후보 없음</span>'}</p>`}</div>
     <div class="card"><header><h2>2폴더 후보</h2>${roBadge(true)}<span class="note">서로 다른 경기, 같은 회차, 원배당 곱 ≥ 2.0, 조합 EV 순 상위 3개</span></header>
       ${ex ? `<div class="pick-area"><span class="badge ex lg">${TEXT.exampleCell}</span> 예시에는 2폴더가 없습니다.</div>`
     : combos.length ? `<div class="tbl"><table><thead><tr><th></th><th>다리</th><th class="n">원배당 곱</th><th class="n">p_cons</th><th class="n">조합 EV</th><th>가장 이른 마감</th></tr></thead><tbody>${combos.map(c => `<tr class="pick-row"><td>${roBadge(true)}</td><td class="mono">${c.legs.map(esc).join(' + ')}</td><td class="n">${fx(c.oddsProduct)}</td><td class="n">${pct(c.pCons)}</td><td class="n ev-cell">${sgn(c.ev * 100, 1)}% ${roBadge()}</td><td>${hm(c.deadline?.kst)} KST</td></tr>`).join('')}</tbody></table></div>`
-      : `<p><strong>${TEXT.pass}</strong> <span class="note">조건을 채우는 2폴더가 없습니다.</span></p>`}</div>`;
+      : `<p data-combo-status>${none ? `<strong>${esc(none)}</strong>` : ds.code === 'pass' ? `<strong>${TEXT.pass}</strong> <span class="note">평가한 마켓 중 조건을 채우는 다리·2폴더가 없습니다.</span>` : '<span class="note">조건을 채우는 2폴더가 없습니다.</span>'}</p>`}</div>`;
   if (!block && !ex) {
-    addOddsRow();
+    if (keep?.rows.length) restoreForm(keep); else addOddsRow();
     $('#o-add').addEventListener('click', addOddsRow);
-    $('#o-save').addEventListener('click', () => saveRound(readOddsForm()));
-    $('#o-json-save').addEventListener('click', () => { try { saveRound({ ...JSON.parse($('#o-json').value) }); } catch (e) { S.msg = { bad: true, text: `JSON 형식 오류: ${e.message}` }; renderOdds(); } });
+    $('#o-save').addEventListener('click', () => previewRound(readOddsForm()));
+    $('#o-json-save').addEventListener('click', () => { try { previewRound({ ...JSON.parse($('#o-json').value) }); } catch (e) { S.msg = { bad: true, text: `JSON 형식 오류: ${e.message}` }; renderOdds(); } });
+    if (S.retry) { $('#o-json').value = S.retry; $('#o-json').closest('details').open = true; }
+    if (S.pending) {
+      $('#o-confirm').addEventListener('click', confirmRound);
+      $('#o-back').addEventListener('click', () => { S.pending = null; S.msg = { text: '확정하지 않았습니다. 아무것도 기록하지 않았습니다.' }; renderOdds(); });
+    }
   }
   for (const b of $$('#odds [data-buy]')) b.addEventListener('click', () => savePurchase(b.dataset.buy, b.dataset.v === '1'));
 }
@@ -533,7 +629,7 @@ function exitTable(v, caption) {
 function renderRecord() {
   const recs = S.chain.records;
   const sum = summarize(recs, { now: new Date() });
-  const vS = exitView(sum.exit), vC = exitView(comboProgress(recs));
+  const vS = exitView(sum.exit), ct = comboTable(recs), mv = oddsMovement(recs), un = recs.filter(r => r.type === 'unevaluated');
   const results = new Map(recs.filter(r => r.type === 'result').map(r => [r.gameId, r]));
   const bought = purchases();
   const picks = recs.filter(r => r.type === 'pick').slice().reverse();
@@ -546,7 +642,7 @@ function renderRecord() {
       <p class="note">블록 ${S.chain.head?.blocks ?? 0}개 · ${esc(a.text)}${S.chain.orphans.length ? ` · <strong>머리 문서 밖 블록 ${S.chain.orphans.map(esc).join(', ')}: 확인 필요</strong>` : ''}${S.chain.verify.problems?.length ? ` · ${S.chain.verify.problems.map(esc).join(' · ')}` : ''}</p>` : '<p class="note">확인 중</p>'}</div>
     <div class="grid2">
       <div class="card"><header><h2>해제 조건 진행도 — 단일 픽</h2></header>${exitTable(vS, '설계 §9.4. 모두 충족해도 해제는 사용자 승인으로만 합니다.')}</div>
-      <div class="card"><header><h2>해제 조건 진행도 — 2폴더(별도 집계)</h2></header>${exitTable(vC, '같은 조건, 단일 픽과 따로 셉니다. 시장 Brier는 두 다리 확률의 곱으로 비교합니다.')}</div>
+      <div class="card" id="comboTable"><header><h2>2폴더 기록 — 해제 조건에 넣지 않음</h2></header><div class="tbl"><table><caption class="note" style="text-align:left">${esc(ct.caption)}</caption><tbody>${ct.columns.map(c => `<tr><td>${c.label}</td><td class="n">${esc(c.value)}</td></tr>`).join('')}</tbody></table></div></div>
     </div>
     <div class="card"><header><h2>성적 요약</h2>${roBadge(true)}</header>
       <div class="kpis">
@@ -557,6 +653,10 @@ function renderRecord() {
         <div class="kpi"><b>${sum.combos.settled} / ${sum.combos.n}</b><span>2폴더 정산 / 전체, ROI ${pct(sum.combos.roi)}</span></div>
         <div class="kpi"><b>${sgn(tb.all, 2)}</b><span>언더오버 총점 편향(실제 − 예측), 최근 4주 ${sgn(tb.last4weeks, 2)}, ${tb.games}경기. 표시만, 예측은 조정하지 않음</span></div>
       </div></div>
+    <div class="card" id="unevaluated"><header><h2>평가 못 한 마켓</h2><span class="note">마감 전에 평가하지 못한 마켓도 사유와 함께 장부에 남깁니다.</span></header>
+      ${un.length ? `<div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th>사유</th></tr></thead><tbody>${un.map(r => `<tr><td class="mono">${esc(r.id)}</td><td>${shortGame(r.gameId)}</td><td>${MARKET_KO[r.market] ?? esc(r.market)}${r.line != null ? ` ${r.line}` : ''}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="note">없음</p>'}</div>
+    <div class="card" id="movement"><header><h2>배당 변동 — 첫 입력 대비</h2><span class="note">모니터링만 합니다. 픽·EV에는 쓰지 않습니다.</span></header>
+      ${mv.markets.length ? `<div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>첫 입력</th><th>나중 입력</th><th class="n">마진 제거 확률 변화(%p)</th></tr></thead><tbody>${mv.markets.flatMap(m => m.later.map(l => `<tr><td class="mono">${esc(m.market)}</td><td>${shortGame(m.gameId)}</td><td>${Object.entries(m.first.odds).map(([k, o]) => `${SEL_KO[k]} ${fx(o)}`).join(' · ')}</td><td>${Object.entries(l.odds).map(([k, o]) => `${SEL_KO[k]} ${fx(o)}`).join(' · ')}${l.lineChanged ? ' (기준선 바뀜)' : ''}</td><td class="n">${Object.entries(l.dNoVigPp).map(([k, v]) => `${SEL_KO[k]} ${sgn(v)}`).join(' · ')}</td></tr>`)).join('')}</tbody></table></div><p class="note">마켓 ${mv.summary.markets}개, 나중 입력 ${mv.summary.laterEntries}개, 평균 ${fx(mv.summary.meanAbsNoVigPp, 1)}%p, 최대 ${fx(mv.summary.maxAbsNoVigPp, 1)}%p</p>` : '<p class="note">같은 마켓을 다시 입력한 기록이 없습니다.</p>'}</div>
     <div class="card"><header><h2>픽 기록</h2>${roBadge(true)}<span class="note">최근 것부터. 구매 여부는 별도 레코드로 추가합니다.</span></header>
       ${picks.length ? `<div class="tbl"><table><thead><tr><th></th><th>id</th><th>경기</th><th>선택</th><th class="n">배당</th><th class="n">p_cons</th><th class="n">EV</th><th>결과</th><th>구매 여부</th></tr></thead><tbody>${picks.map(p => pickRow(p, bought.get(p.id), { showResult: true, results })).join('')}</tbody></table></div>` : '<p class="note">아직 픽 기록이 없습니다.</p>'}</div>`;
   for (const b of $$('#record [data-buy]')) b.addEventListener('click', () => savePurchase(b.dataset.buy, b.dataset.v === '1'));

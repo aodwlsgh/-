@@ -65,6 +65,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .band.example { background: var(--ex-bg); color: var(--ex-ink); }
 .band .big { font-family: var(--font-display); font-size: clamp(20px, 3.4vw, 28px); line-height: 1.2; letter-spacing: 0.01em; }
 .band .why { font-size: 13px; }
+.band.alert { background: var(--bad-bg); color: var(--bad); }
+.band.alert ul { margin: 0; padding-left: 18px; font-weight: 600; }
+.warnline { color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-edge); border-radius: 6px; padding: 2px 6px; display: inline-block; }
+.confirm { border: 2px solid var(--warn-edge); }
 
 /* tabs */
 .tabs { background: var(--surface); border-bottom: 1px solid var(--line); }
@@ -146,6 +150,7 @@ details summary { cursor: pointer; color: var(--accent); font-size: 12.5px; }
 </div></header>
 <div class="band example" id="exBand" hidden><div class="wrap"><span class="big" id="exText"></span><span class="why">이 화면의 예측은 실제 운영 데이터가 아닙니다. 실제 2026-27 경기는 일일 작업이 시작되면 이 자리에 표시됩니다.</span></div></div>
 <div class="band record"><div class="wrap"><span class="big" id="roText">기록 전용 — 구매 비권장</span><span class="why" id="roWhy"></span></div></div>
+<div class="band alert" id="alertBand" role="alert" hidden><div class="wrap"><span class="big">경고</span><ul id="alertList"></ul></div></div>
 <nav class="tabs" aria-label="화면"><div class="wrap" role="tablist">
   <button role="tab" data-tab="today" id="t-today">오늘 경기</button>
   <button role="tab" data-tab="detail" id="t-detail">경기 상세</button>
