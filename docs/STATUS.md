@@ -3,12 +3,14 @@
 > 새 세션은 이 파일부터 읽는다. `main`에 합칠 때마다 갱신한다.
 
 - 마지막 갱신: 2026-10-23
-- 현재 단계: **P8(대시보드) 계획 보고 — 구현 전 승인 대기.** P7 완료·승인(2026-10-23). 계획은 `docs/plans/2026-10-22-nba-sim-plan.md` P8·P9 절
+- 현재 단계: **P8 완료(2026-10-23, 보고 `docs/reports/p8-report.md`) — 다음 P9(일일 작업·예약)**
+- **대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX** (비공개). 지금은 2024-25 예시 데이터를 싣고 있고, 실제 2026-27 데이터는 P9 첫 실행부터 들어온다.
 - 문서
   - 설계: `docs/design/2026-10-22-nba-sim-design.md` (§8.4 시나리오·앙상블, §9.2 보수 확률, §9.4 기록 전용 기간 종료 조건, §9.5 주당 예상 픽 수, §14.2 데이터 분할·그룹·구간, §14.4·§14.4.1 시험 시즌 개봉 규칙과 사전 등록)
   - 계획과 결정 기록: `docs/plans/2026-10-22-nba-sim-plan.md`
   - 보고: `docs/reports/p1-report.md`, `p2-report.md`, `p3-report.md`, `p4-report.md`, `p5-report.md`, `p5-leak-review.md`
-- 테스트: `npm test` (225개, 예측 불변 회귀 테스트와 SHA-256 표준 시험 벡터 포함 약 50초)
+- 테스트: `npm test` (251개, 예측 불변 회귀 테스트와 SHA-256 표준 시험 벡터 포함 약 50초)
+- 브라우저 테스트: `cd tools/browser && npm ci && npm test`(9개), 시간 측정 `npm run perf`. Chromium 경로는 `/opt/pw-browsers/chromium`(다른 PC는 환경 변수 `CHROMIUM`)
 - 모델
   - `engine/model.js`(asOf·레이팅), `engine/minutes.js`, `engine/predict.js`, `engine/evaluate.js`
   - 튜닝값: `data/model/params.json` (2024-25 전용, 2023-24는 사전값. 2022-23은 2023-24 리허설의 사전값 전용), 보정층·앙상블 `data/model/calibration.json`(2024-25 B판), 출전 확률 `data/model/play-prob.json`. **튜닝 실행 누적 횟수는 `docs/reports/tuning-ledger.json`에 기록**한다(매 튜닝마다 더한다).
@@ -38,11 +40,21 @@
 - `engine/teams.js`는 동결 경로(`jobs/lib/provenance.js` FROZEN의 `engine`)이고 예측 경로(`engine/snapshot.js`)가 읽는다. 그래서 53c88f5 상태 그대로 둔다(2026-10-23 P8 승인 조건 1).
 - `test/sha256.test.js`: 자체 SHA-256을 표준 벡터(빈 문자열, "abc", 55·56·64·112바이트, 100만 개 "a", 한글)와 길이 0~300 전부 `node:crypto` 대조로 검사
 
+## P8 결과 (대시보드)
+- 픽 로그 저장: `engine/log-store.js`. 아티팩트 DB의 `blocks/b000000`(레코드 묶음)과 `meta/head`(블록 수, 마지막 seq·해시, 잠금). 쓰기는 owner만
+  - 대시보드: 만료되는 잠금(30초) + 머리 문서에 잠금 표시 → 블록이 없을 때만 쓰기 → 머리 갱신
+  - 일일 작업(P9, ArtifactData): `jobStep()`이 다음 동작을 정한다. 블록 생성과 머리 갱신을 `if_version` 고정 일괄 쓰기 하나로 하고, 버전이 바뀌면 다시 읽고 재시도한다. 만료된 잠금은 무시한다
+- 레코드: `engine/log-records.js`(배당·평가·픽·2폴더. 처음 확정한 평가·픽 유지, 실행 B 전 경기는 배당만, `pendingOdds`로 나중에 평가)
+- 화면 규칙·문구: `engine/dashboard-data.js`(TEXT, 금지 문구, 해제 조건 진행도, 2폴더 별도 진행도)
+- 오늘 파일 형식: `data/live/today.json`(`engine/dashboard-data.js` 머리 주석). 게시 목록은 `node scripts/p8/closure.mjs`
+- 예시 데이터: `node scripts/p8/example-day.mjs` → `data/live/example-day.json`(2025-02-12, 15경기)
+
 ## 다음 할 일
-- **P8 구현은 계획 승인 뒤에 시작한다.** 계획 요점
-  - 새 파일: `engine/dashboard-data.js`(today.json 형식·검사), `engine/log-records.js`(배당·평가·픽·2폴더 레코드), `engine/log-store.js`(DB 블록 저장 순서), `dashboard/`(페이지·워커), `tools/browser/`(Chromium 테스트, 별도 package.json)
-  - 픽 로그는 해시 체인 그대로, DB에 블록 문서(`blocks/`)와 머리 문서(`meta/head`)로 저장. 쓰기는 owner만. 대시보드는 잠금(acquire) + 버전 갱신, 일일 작업은 `if_version` 원자적 일괄 쓰기
-  - 화면: 체인 검증 상시 표시, 픽·EV "기록 전용 — 구매 비권장", 시나리오 "미검증", 백투백 "근사", 시나리오·민감도는 픽·EV 칸 금지, 해제 조건 진행도("해제 가능" 류 문구 금지), 한글 팀명 "미확인", 정수 기준선 "미지원"
-  - P8 게시 시점에는 2024-25 과거 하루를 "예시" 표시로 싣는다. 실제 2026-27 데이터는 P9 첫 실행부터
-- P9 일일 작업: 실행 A 순서(기본 예측 → 픽·리포트 → 픽 로그 확정 → 민감도), 매일 픽 로그 git 커밋(체인 검증 + 앞부분 일치 확인 후), 언더오버 편향 모니터링. 완료 기준에 2026-10-31·11-01(ET) 실제 실행 시각 점검 포함
+- **P9 일일 작업**
+  - 실행 A 순서: 기본 예측 → 픽·리포트 → 픽 로그 확정(마감 전, `pendingOdds` + `evaluationRecords`, `jobStep`으로 ArtifactData 쓰기) → 민감도
+  - `data/live/today.json`을 `engine/dashboard-data.js` 형식으로 만들어 대시보드를 같은 URL로 다시 게시
+  - 매일 픽 로그 git 커밋: 체인 검증과 앞부분 일치 확인 뒤 `data/picklog/log.jsonl`, `data/live/anchor.json`
+  - 언더오버 편향 모니터링
+  - 완료 기준: 코드 완료(예약 작업 생성, `CRON_TZ=America/New_York`, 시각 계산 테스트) + 사후 점검 2026-11-02(10-31·11-01 실제 실행 시각, 다음 단계를 막지 않음)
+- 첫 실제 쓰기 뒤 확인할 것: 실제 DB에서 체인 검증 표시와 `ArtifactData list`
 - 첫 실제 베트맨 캡처 때 확인할 것: 한글 팀명, 정수 기준선 규정

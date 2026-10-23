@@ -1,0 +1,228 @@
+{
+ "generatedAt": "2026-10-23T07:24:31.832Z",
+ "browser": "Chromium 141.0.7390.37 (/opt/pw-browsers/chromium, headless)",
+ "day": "2025-02-12",
+ "kind": "example",
+ "measure": "click on 다시 돌리기 -> scenario result rendered; 10,000 simulations in a module Web Worker; one variable changed before every run",
+ "runsPerGame": 5,
+ "limitMs": 5000,
+ "overall": {
+  "runs": 75,
+  "medianMs": 1467,
+  "maxMs": 2172
+ },
+ "pass": true,
+ "pageErrors": [],
+ "games": [
+  {
+   "gameId": "401705335",
+   "game": "SA@BOS",
+   "medianMs": 1657,
+   "maxMs": 1890,
+   "simMedianMs": 1654,
+   "runsMs": [
+    1740,
+    1657,
+    1504,
+    1890,
+    1392
+   ]
+  },
+  {
+   "gameId": "401705336",
+   "game": "CHA@ORL",
+   "medianMs": 1513,
+   "maxMs": 2172,
+   "simMedianMs": 1509,
+   "runsMs": [
+    2172,
+    1632,
+    1513,
+    1407,
+    1384
+   ]
+  },
+  {
+   "gameId": "401705337",
+   "game": "IND@WSH",
+   "medianMs": 1442,
+   "maxMs": 1619,
+   "simMedianMs": 1438,
+   "runsMs": [
+    1440,
+    1470,
+    1442,
+    1619,
+    1415
+   ]
+  },
+  {
+   "gameId": "401705338",
+   "game": "PHI@BKN",
+   "medianMs": 1502,
+   "maxMs": 1523,
+   "simMedianMs": 1499,
+   "runsMs": [
+    1438,
+    1502,
+    1523,
+    1385,
+    1510
+   ]
+  },
+  {
+   "gameId": "401705339",
+   "game": "ATL@NY",
+   "medianMs": 1495,
+   "maxMs": 1540,
+   "simMedianMs": 1491,
+   "runsMs": [
+    1415,
+    1519,
+    1408,
+    1540,
+    1495
+   ]
+  },
+  {
+   "gameId": "401705340",
+   "game": "CLE@TOR",
+   "medianMs": 1453,
+   "maxMs": 1509,
+   "simMedianMs": 1448,
+   "runsMs": [
+    1453,
+    1509,
+    1447,
+    1490,
+    1351
+   ]
+  },
+  {
+   "gameId": "401705341",
+   "game": "DET@CHI",
+   "medianMs": 1546,
+   "maxMs": 1611,
+   "simMedianMs": 1542,
+   "runsMs": [
+    1611,
+    1607,
+    1516,
+    1450,
+    1546
+   ]
+  },
+  {
+   "gameId": "401705342",
+   "game": "MIL@MIN",
+   "medianMs": 1596,
+   "maxMs": 2163,
+   "simMedianMs": 1593,
+   "runsMs": [
+    1878,
+    2163,
+    1520,
+    1596,
+    1509
+   ]
+  },
+  {
+   "gameId": "401705343",
+   "game": "SAC@NO",
+   "medianMs": 1379,
+   "maxMs": 1530,
+   "simMedianMs": 1375,
+   "runsMs": [
+    1530,
+    1379,
+    1343,
+    1467,
+    1347
+   ]
+  },
+  {
+   "gameId": "401705344",
+   "game": "MIA@OKC",
+   "medianMs": 1376,
+   "maxMs": 1539,
+   "simMedianMs": 1372,
+   "runsMs": [
+    1376,
+    1286,
+    1194,
+    1539,
+    1472
+   ]
+  },
+  {
+   "gameId": "401705345",
+   "game": "PHX@HOU",
+   "medianMs": 1416,
+   "maxMs": 1572,
+   "simMedianMs": 1411,
+   "runsMs": [
+    1572,
+    1303,
+    1416,
+    1450,
+    1339
+   ]
+  },
+  {
+   "gameId": "401705346",
+   "game": "POR@DEN",
+   "medianMs": 1312,
+   "maxMs": 1536,
+   "simMedianMs": 1306,
+   "runsMs": [
+    1255,
+    1312,
+    1512,
+    1257,
+    1536
+   ]
+  },
+  {
+   "gameId": "401705347",
+   "game": "LAL@UTAH",
+   "medianMs": 1412,
+   "maxMs": 1501,
+   "simMedianMs": 1408,
+   "runsMs": [
+    1501,
+    1349,
+    1371,
+    1466,
+    1412
+   ]
+  },
+  {
+   "gameId": "401705348",
+   "game": "GS@DAL",
+   "medianMs": 1304,
+   "maxMs": 1571,
+   "simMedianMs": 1300,
+   "runsMs": [
+    1304,
+    1298,
+    1571,
+    1358,
+    1241
+   ]
+  },
+  {
+   "gameId": "401705349",
+   "game": "MEM@LAC",
+   "medianMs": 1514,
+   "maxMs": 1843,
+   "simMedianMs": 1510,
+   "runsMs": [
+    1550,
+    1843,
+    1395,
+    1514,
+    1417
+   ]
+  }
+ ]
+}

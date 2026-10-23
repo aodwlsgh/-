@@ -1,0 +1,122 @@
+{
+ "opening": {
+  "season": "2025-26",
+  "at": "2026-10-23T04:20:49Z",
+  "registeredCommit": "53c88f5c7ab3025a89953e8a2e116bb0f9741f3e",
+  "variant": "B",
+  "n": 1129,
+  "S1": {
+   "model": 0.2053,
+   "base": 0.2084,
+   "diff": -0.0032,
+   "ci95": [
+    -0.0072,
+    0.0007
+   ],
+   "pass": true,
+   "label": "pass, advantage unconfirmed"
+  },
+  "S2": {
+   "slope": 1.071,
+   "ci95": [
+    0.8938,
+    1.2749
+   ],
+   "grade": "pass",
+   "pass": true
+  },
+  "S3": {
+   "margin": {
+    "sim": 14.1255,
+    "actual": 14.6629,
+    "ci95": [
+     0.9236,
+     1.0065
+    ],
+    "ratio": 0.9633,
+    "pass": true
+   },
+   "total": {
+    "sim": 17.6074,
+    "actual": 18.8209,
+    "ci95": [
+     0.8989,
+     0.9785
+    ],
+    "ratio": 0.9355,
+    "pass": true
+   },
+   "pass": true
+  },
+  "markets": {
+   "ml": {
+    "n": 1129,
+    "slope": 1.071,
+    "ci95": [
+     0.8938,
+     1.2749
+    ],
+    "grade": "pass"
+   },
+   "ml5": {
+    "n": 3387,
+    "slope": 1.0243,
+    "ci95": [
+     0.8857,
+     1.1778
+    ],
+    "grade": "pass"
+   },
+   "hc": {
+    "n": 17477,
+    "slope": 1.0246,
+    "ci95": [
+     0.9417,
+     1.1125
+    ],
+    "grade": "pass"
+   },
+   "ou": {
+    "n": 19193,
+    "slope": 1.0264,
+    "ci95": [
+     0.9352,
+     1.1246
+    ],
+    "grade": "pass"
+   }
+  },
+  "brier": {
+   "simulatorRaw": 0.2111,
+   "ensembleRaw": 0.2083,
+   "ensembleCalibrated": 0.2053,
+   "baseline": 0.2084
+  },
+  "outcome": {
+   "action": "all-pass",
+   "pickEligible": [
+    "ml",
+    "ml5",
+    "hc",
+    "ou"
+   ],
+   "conditional": [],
+   "recordOnly": [],
+   "noTuningOn": "the judged season; failed or conditional items are re-checked on accumulating 2026-27 games"
+  }
+ },
+ "calibration": {
+  "fittedOn": {
+   "season": "2024-25",
+   "variant": "B",
+   "games": 1230,
+   "sims": "data/model/sims/2024-25-B.json.gz"
+  },
+  "ensembleW": 0.6
+ },
+ "tuningRuns": 489,
+ "regression": {
+  "commit": "53c88f5",
+  "test": "test/p6-invariance.test.js"
+ }
+}

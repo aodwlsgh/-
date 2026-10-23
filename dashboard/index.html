@@ -1,0 +1,163 @@
+<title>NBA 시뮬레이터 기록판</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a scorer's-table ledger. A sticky header carries the chain seal, warning bands sit under it in full
+   width, five tabs hold dense tables; numbers in mono, the two warning labels in a heavy Korean display face. */
+:root {
+  --bg: #f2f4f6; --surface: #ffffff; --sunk: #e8ecf0; --ink: #17202b; --muted: #5a6475; --line: #d3d9e1;
+  --accent: #0e5c66; --accent-ink: #ffffff;
+  --warn-bg: #fff2cf; --warn-ink: #5f4000; --warn-edge: #d99a00;
+  --ex-bg: #ebe4fb; --ex-ink: #3a2780; --ex-edge: #7656dc;
+  --good: #1b7543; --bad: #b3261e; --bad-bg: #fde8e6;
+  --s1: #2a78d6; --s2: #eb6834;
+  --font-display: 'Black Han Sans', 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10141a; --surface: #171d25; --sunk: #1e2530; --ink: #e4e8ee; --muted: #9ba5b5; --line: #2a323e;
+  --accent: #5bbec7; --accent-ink: #0b1a1c;
+  --warn-bg: #362a08; --warn-ink: #ffd877; --warn-edge: #c58c00;
+  --ex-bg: #261e40; --ex-ink: #d6c9ff; --ex-edge: #8d72ef;
+  --good: #6fd39a; --bad: #ff8a80; --bad-bg: #3a1714;
+  --s1: #3987e5; --s2: #d95926; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #10141a; --surface: #171d25; --sunk: #1e2530; --ink: #e4e8ee; --muted: #9ba5b5; --line: #2a323e;
+  --accent: #5bbec7; --accent-ink: #0b1a1c;
+  --warn-bg: #362a08; --warn-ink: #ffd877; --warn-edge: #c58c00;
+  --ex-bg: #261e40; --ex-ink: #d6c9ff; --ex-edge: #8d72ef;
+  --good: #6fd39a; --bad: #ff8a80; --bad-bg: #3a1714;
+  --s1: #3987e5; --s2: #d95926; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.55 var(--font-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.num, td.n, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* header with the chain seal */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding-block: 10px; }
+.brand { display: flex; flex-direction: column; min-width: 0; }
+.brand h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+.brand .sub { color: var(--muted); font-size: 12.5px; }
+.seal { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; min-width: 0; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 12.5px; background: var(--sunk); max-width: 100%; overflow-wrap: anywhere; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+.chip.ok { border-color: color-mix(in srgb, var(--good) 45%, var(--line)); }
+.chip.ok::before { background: var(--good); }
+.chip.bad { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); font-weight: 600; }
+.chip.bad::before { background: var(--bad); }
+.seal .anchor { font-size: 12px; color: var(--muted); }
+
+/* warning bands */
+.band { border-bottom: 1px solid var(--line); }
+.band .wrap { padding-block: 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.band.record { background: var(--warn-bg); color: var(--warn-ink); border-left: 0; background-image: repeating-linear-gradient(135deg, var(--warn-edge) 0 10px, transparent 10px 20px); background-size: 100% 5px; background-repeat: no-repeat; background-position: bottom; }
+.band.example { background: var(--ex-bg); color: var(--ex-ink); }
+.band .big { font-family: var(--font-display); font-size: clamp(20px, 3.4vw, 28px); line-height: 1.2; letter-spacing: 0.01em; }
+.band .why { font-size: 13px; }
+
+/* tabs */
+.tabs { background: var(--surface); border-bottom: 1px solid var(--line); }
+.tabs .wrap { display: flex; gap: 2px; overflow-x: auto; padding-block: 0; }
+.tabs button { border: 0; background: none; padding: 12px 14px 10px; border-bottom: 3px solid transparent; color: var(--muted); font-weight: 600; white-space: nowrap; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs button:hover { color: var(--ink); }
+
+main .wrap { padding-block: 18px 48px; display: grid; gap: 18px; }
+section.panel { display: grid; gap: 16px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; min-width: 0; }
+.card > h2, .card > header > h2 { font-size: 15px; font-weight: 700; }
+.card > header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 10px; }
+.card > h2 { margin-bottom: 10px; }
+.note { color: var(--muted); font-size: 12.5px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+
+/* tables */
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: 0.02em; white-space: nowrap; }
+td.n, th.n { text-align: right; white-space: nowrap; }
+tr.sub td { border-bottom: 0; padding-top: 0; color: var(--muted); font-size: 12px; }
+
+/* badges */
+.badge { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11.5px; font-weight: 700; white-space: nowrap; border: 1px solid currentColor; line-height: 1.5; vertical-align: 1px; }
+.badge.record { color: var(--warn-ink); background: var(--warn-bg); border-color: var(--warn-edge); }
+.badge.record.lg { font-family: var(--font-display); font-weight: 400; font-size: 15px; padding: 2px 9px; letter-spacing: 0.02em; }
+.badge.ex { color: var(--ex-ink); background: var(--ex-bg); border-color: var(--ex-edge); }
+.badge.ex.lg { font-family: var(--font-display); font-weight: 400; font-size: 15px; padding: 2px 9px; }
+.badge.unv { color: var(--bad); }
+.badge.apx { color: var(--muted); }
+.badge.unc { color: var(--muted); font-weight: 600; }
+.badge.uns { color: var(--muted); }
+.badge.met { color: var(--good); }
+.badge.unmet { color: var(--bad); }
+.ko { color: var(--muted); font-size: 12px; }
+
+/* exit progress */
+.overall { font-weight: 700; padding: 8px 12px; border-radius: var(--r); background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-edge); }
+
+/* forms */
+.form { display: grid; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: end; }
+label.f { display: grid; gap: 3px; font-size: 12px; color: var(--muted); min-width: 0; }
+input[type="number"], input[type="text"], input[type="datetime-local"], select, textarea { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 6px 8px; min-width: 0; color: var(--ink); }
+input[type="number"] { width: 86px; }
+input.sm { width: 64px; }
+textarea { width: 100%; min-height: 120px; font-family: var(--font-mono); font-size: 12px; }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); padding: 7px 14px; border-radius: 5px; font-weight: 600; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.lock { padding: 12px 14px; border-radius: var(--r); background: var(--ex-bg); color: var(--ex-ink); border: 1px dashed var(--ex-edge); font-weight: 600; }
+.msg { padding: 8px 12px; border-radius: var(--r); border: 1px solid var(--line); background: var(--sunk); font-size: 13px; }
+.msg.bad { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
+
+/* game detail */
+.picker { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.kpi { border-left: 3px solid var(--line); padding: 2px 10px; }
+.kpi b { display: block; font-family: var(--font-mono); font-size: 20px; font-weight: 500; }
+.kpi span { color: var(--muted); font-size: 12px; }
+.scen { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; display: grid; gap: 8px; background: var(--sunk); }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; max-width: 100%; overflow: visible; }
+.chart .tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; font-size: 12px; white-space: nowrap; box-shadow: 0 2px 6px rgb(0 0 0 / 0.12); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+details summary { cursor: pointer; color: var(--accent); font-size: 12.5px; }
+.players td { padding: 3px 6px; }
+.players input[type="number"] { width: 64px; padding: 3px 5px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brand"><h1>NBA 시뮬레이터 기록판</h1><span class="sub" id="sub">데이터 불러오는 중</span></div>
+  <div class="seal"><span class="chip" id="chain" data-state="unknown">픽 로그: 확인 중</span><span class="anchor" id="anchor"></span></div>
+</div></header>
+<div class="band example" id="exBand" hidden><div class="wrap"><span class="big" id="exText"></span><span class="why">이 화면의 예측은 실제 운영 데이터가 아닙니다. 실제 2026-27 경기는 일일 작업이 시작되면 이 자리에 표시됩니다.</span></div></div>
+<div class="band record"><div class="wrap"><span class="big" id="roText">기록 전용 — 구매 비권장</span><span class="why" id="roWhy"></span></div></div>
+<nav class="tabs" aria-label="화면"><div class="wrap" role="tablist">
+  <button role="tab" data-tab="today" id="t-today">오늘 경기</button>
+  <button role="tab" data-tab="detail" id="t-detail">경기 상세</button>
+  <button role="tab" data-tab="odds" id="t-odds">배당·픽</button>
+  <button role="tab" data-tab="record" id="t-record">기록·성적</button>
+  <button role="tab" data-tab="model" id="t-model">모델 상태</button>
+</div></nav>
+<main><div class="wrap">
+  <section class="panel" id="today" role="tabpanel"></section>
+  <section class="panel" id="detail" role="tabpanel" hidden></section>
+  <section class="panel" id="odds" role="tabpanel" hidden></section>
+  <section class="panel" id="record" role="tabpanel" hidden></section>
+  <section class="panel" id="model" role="tabpanel" hidden></section>
+</div></main>
+<script type="module" src="dashboard/app.js"></script>

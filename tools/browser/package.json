@@ -1,0 +1,14 @@
+{
+  "name": "nba-sim-browser-tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dashboard browser tests (P8). Separate from the root package: the engine has no browser-test dependency.",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 dashboard.test.mjs",
+    "perf": "node perf.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
