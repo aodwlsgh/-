@@ -17,7 +17,8 @@ export const sameHash = r => { const { hash, ...rest } = r; return sha256(canon(
 // records the daily job appends at `now`: results of games in the log, evaluations of pending odds whose game has
 // its final prediction in `day`, and unevaluated markets past their deadline.
 // results: Map gameId -> { margin, total }; finals: Map gameId -> { at, runId }
-export function jobBodies({ chain, day = null, cal = null, finals = new Map(), results = new Map(), now = new Date() }) {
+// marginMs: odds whose deadline is that close are left for the next run (the batch is sent a little after this step)
+export function jobBodies({ chain, day = null, cal = null, finals = new Map(), results = new Map(), now = new Date(), marginMs = 0 }) {
   const bodies = [], notes = [];
   const settled = new Set(chain.filter(r => r.type === 'result').map(r => r.gameId));
   const logged = new Set(chain.filter(r => r.type === 'odds' || r.type === 'evaluation' || r.type === 'pick').map(r => r.gameId));
@@ -27,7 +28,7 @@ export function jobBodies({ chain, day = null, cal = null, finals = new Map(), r
   }
   if (day?.kind === 'live' && cal) {
     const ready = new Set(day.games.filter(g => g.prediction?.final).map(g => g.gameId));
-    const pend = pendingOdds(chain, { now }).filter(o => ready.has(o.gameId));
+    const pend = pendingOdds(chain, { now: new Date(new Date(now).getTime() + marginMs) }).filter(o => ready.has(o.gameId));
     if (pend.length) {
       const ev = evaluationRecords({ oddsRecs: pend, day, cal, chain, now });
       bodies.push(...ev.records);
