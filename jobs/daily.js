@@ -271,8 +271,15 @@ async function report() {
   const { day, p, log } = await current();
   const dir = arg('--chain');
   let chain = [], verify = { ok: true, problems: [] };
-  if (dir) ({ records: chain, verify } = await readDir(dir));
-  else log.alerts.push({ code: 'chainRead', text: '픽 로그를 읽지 못함 — 상태는 배당 기록 없이 계산' });
+  if (dir) {
+    ({ records: chain, verify } = await readDir(dir));
+    // dashboard write failures noted outside the chain (failures/), last 36 hours
+    for (const f of (await readdir(join(dir, 'failures')).catch(() => [])).filter(x => x.endsWith('.json')).sort()) {
+      const raw = await readJson(join(dir, 'failures', f)).catch(() => null);
+      const x = raw?.data && !raw.reason ? raw.data : raw;
+      if (x?.at && Date.now() - Date.parse(x.at) < 36 * 3600e3 && !log.alerts.some(a => a.ref === f)) log.alerts.push({ code: 'dashboardWrite', ref: f, text: `대시보드 쓰기 실패 기록(${stamp(x.at).kst.slice(0, 16)} KST): ${x.reason} — 마켓 ${x.markets ?? '—'}` });
+    }
+  } else log.alerts.push({ code: 'chainRead', text: '픽 로그를 읽지 못함 — 상태는 배당 기록 없이 계산' });
   const { totals } = await seasonState({ season: day.season, root: OUT });
   const anchor = await readJson(at('data/live/anchor.json')).catch(() => null);
   const md = reportMarkdown({ day, cal: CAL.calibration, chain, verify, anchor, run: log, alerts: log.alerts, biasAll: totalBias(totals, new Date()), now: new Date() });

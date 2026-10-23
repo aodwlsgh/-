@@ -1,2 +1,4 @@
 node_modules/
 .cache/
+# written by the daily run and published, never committed (P9)
+data/live/today.json

@@ -86,3 +86,15 @@ test('this checkout: frozen files equal 53c88f5 (additions only)', () => {
   const c = check();
   assert.deepEqual(c.frozen, []);
 });
+
+test('the scheduled-task prompt carries the rules and reads STATUS.md first', async () => {
+  const doc = await readFile(new URL('../docs/daily-run.md', import.meta.url), 'utf8');
+  const prompt = doc.split('```text\n')[1].split('```')[0];
+  assert.match(prompt, /코드·파라미터·동결 경로 변경 금지/);
+  assert.match(prompt, /허용 경로만 커밋/);
+  assert.match(prompt, /강제 푸시 금지/);
+  assert.match(prompt, /배당·픽 레코드를 만들거나 지어내지 않는다/);
+  assert.match(prompt, /betman\.co\.kr에 접속하지 않는다/);
+  assert.ok(prompt.indexOf('docs/STATUS.md') < prompt.indexOf('jobs/daily.js prepare'), 'STATUS.md first');
+  assert.ok(prompt.includes('{RUN}'));
+});
