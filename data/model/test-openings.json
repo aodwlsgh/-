@@ -1,0 +1,13 @@
+[
+ {
+  "at": "2026-10-23T04:20:49.555Z",
+  "by": "jobs/backtest.js test",
+  "commit": "53c88f5c7ab3025a89953e8a2e116bb0f9741f3e",
+  "head": "17597c36cd51df55b6f147a632deece642bd73b6",
+  "files": {
+   "data/model/params.json": "c3d585808cbf2956aa9a139566116204094af8df3e2087d402c3930f1dda057f",
+   "data/model/latent.json": "9ca1406edc72e42de2208dca3fe2f3010b894abeae9a331cdebd5d69f3fe1f7c",
+   "data/model/calibration.json": "a6431a97b1891272b7da4daa0325395c75155caaba0deca46f597acbdf3b4994"
+  }
+ }
+]
