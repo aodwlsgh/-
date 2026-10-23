@@ -128,7 +128,9 @@ export function chainText({ verify, records }) {
 // the daily git copy (P9): its last sequence number and hash must match the database chain
 export function anchorCheck(records, anchor) {
   if (!anchor) return { status: 'none', text: 'git 기준점 없음(첫 일일 커밋 전)' };
-  const r = records[anchor.seq], c = String(anchor.commit ?? '').slice(0, 7);
+  const c = String(anchor.commit ?? '').slice(0, 7);
+  if (anchor.count === 0) return { status: 'match', text: `git 기준점 일치 — 레코드 0개, 커밋 ${c}` }; // the empty copy is a prefix of any chain
+  const r = records[anchor.seq];
   if (!r || r.seq !== anchor.seq || r.hash !== anchor.hash) return { status: 'mismatch', text: `git 기준점 불일치 — seq ${anchor.seq}, 커밋 ${c}` };
   return { status: 'match', text: `git 기준점 일치 — seq ${anchor.seq}, 커밋 ${c}` };
 }
