@@ -7,8 +7,11 @@
 - 대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX
 - 현황(2026-10-23)
   - 사용자가 저장소를 고른 작업을 만들었다: A `trig_01ATZgLgwB6vjQY61XNHeNoK`(`CRON_TZ=Asia/Seoul 50 6 * * *`), B `trig_01HB4E5mvxkWzNYAkA1DYTHy`(`CRON_TZ=Asia/Seoul 50 9 * * *`).
-  - **KST 고정은 임시 방식이다**(설계는 ET 고정). 서머타임 종료 뒤 A 07:50·B 10:50 KST로 바꾼다. 바꿀 시각은 2026-11-01 09:50 KST 실행 뒤, 11-02 06:50 KST 전이다(`docs/STATUS.md` 맨 위).
-  - 이 세션에서 만든 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 저장소 없이 실행되어 0단계에서 멈췄다. 지금 꺼져 있다.
+  - **KST 고정이다.** 예약 화면에 시간대 선택 칸이 없다(2026-10-23 사용자 확인). 설계(ET 고정)와 다르므로 서머타임이 바뀔 때 **사용자가 직접** 바꾼다. 무인 세션은 예약 설정을 바꾸지 않는다.
+    - 2026-11-01 09:50 KST 실행 뒤 ~ 11-02 06:50 KST 전: A 07:50, B 10:50 KST
+    - 2027-03-14 10:50 KST 실행 뒤 ~ 03-15 06:50 KST 전: A 06:50, B 09:50 KST
+    - 날짜와 알림은 `docs/STATUS.md` 맨 위에 있다. cron 직접 입력 칸이 있으면 위 ET 형식(`CRON_TZ=America/New_York`)으로 바꾼다.
+  - 이 세션에서 만든 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 저장소 없이 실행되어 0단계에서 멈췄다. 사용자가 지웠다.
 - 수동 실행 규칙
   - 06:50 KST 앞뒤 10분에는 하지 않는다.
   - A와 B를 동시에 하지 않는다. 같은 파일(부상 리포트 스냅샷, 기준점)을 쓰므로 git 커밋이 충돌하고, 게시가 거부된다.
@@ -49,7 +52,7 @@
 |---|---|---|
 | 이름 | NBA 일일 실행 A (17:50 ET) | NBA 일일 실행 B (20:50 ET) |
 | 반복 | 매일 17:50 | 매일 20:50 |
-| 시간대 | America/New_York | America/New_York |
+| 시간대 | America/New_York(화면에 칸이 없으면 KST로 06:50·09:50, 서머타임 해제 기간에는 07:50·10:50) | 같음 |
 | cron(시간대 포함 형식) | `CRON_TZ=America/New_York 50 17 * * *` | `CRON_TZ=America/New_York 50 20 * * *` |
 | cron(시간대를 따로 고르는 형식) | `50 17 * * *` | `50 20 * * *` |
 | 저장소 | `aodwlsgh/-`, 브랜치 `main` | 같음 |
@@ -62,7 +65,7 @@
 - 같은 이름의 환경이 둘이다("Default"). 다른 하나는 `env_01RAEj6CsHEyCw3FpnrT5yAx`("Default - trusted network access")다.
 - 만든 뒤 할 일
   - 이 세션이 수동 1회 실행으로 무인 git 푸시, DB 쓰기(runs), 재게시, 승인 모드를 확인해 보고한다.
-  - 꺼 둔 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 지운다.
+  - 꺼 둔 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 지운다(2026-10-23 사용자가 지웠다).
 
 ## 예약 작업 프롬프트
 아래 글에서 `{RUN}`만 `A` 또는 `B`로 바꿔 `create_trigger`의 prompt로 쓴다.
