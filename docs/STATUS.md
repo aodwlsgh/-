@@ -3,14 +3,15 @@
 > 새 세션은 이 파일부터 읽는다. `main`에 합칠 때마다 갱신한다.
 
 - 마지막 갱신: 2026-10-23
-- 현재 단계: **P8 완료·승인(2026-10-23). P9 계획 보고 — 승인 대기**(계획 `docs/plans/2026-10-22-nba-sim-plan.md` P9 절, 결정 필요 4건)
+- 현재 단계: **P9 코드 완료(2026-10-23, 보고 `docs/reports/p9-report.md`). 예약 실행은 막혀 있다**: 예약 작업이 띄운 세션에 저장소가 붙지 않는다. 예약 작업 2개는 만들었지만 꺼 두었다. 사용자 결정 대기
+- **일일 실행 절차·허용 경로·프롬프트: `docs/daily-run.md`**
 - **대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX** (비공개). 지금은 2024-25 예시 데이터를 싣고 있고, 실제 2026-27 데이터는 P9 첫 실행부터 들어온다.
 - 문서
   - 설계: `docs/design/2026-10-22-nba-sim-design.md` (§8.4 시나리오·앙상블, §9.2 보수 확률, §9.4 기록 전용 기간 종료 조건, §9.5 주당 예상 픽 수, §14.2 데이터 분할·그룹·구간, §14.4·§14.4.1 시험 시즌 개봉 규칙과 사전 등록)
   - 계획과 결정 기록: `docs/plans/2026-10-22-nba-sim-plan.md`
   - 보고: `docs/reports/p1-report.md`, `p2-report.md`, `p3-report.md`, `p4-report.md`, `p5-report.md`, `p5-leak-review.md`
-- 테스트: `npm test` (251개, 예측 불변 회귀 테스트와 SHA-256 표준 시험 벡터 포함 약 50초)
-- 브라우저 테스트: `cd tools/browser && npm ci && npm test`(9개), 시간 측정 `npm run perf`. Chromium 경로는 `/opt/pw-browsers/chromium`(다른 PC는 환경 변수 `CHROMIUM`)
+- 테스트: `npm test` (292개, 예측 불변 회귀 테스트와 SHA-256 표준 시험 벡터 포함 약 80초)
+- 브라우저 테스트: `cd tools/browser && npm ci && npm test`(16개), 시간 측정 `npm run perf`. Chromium 경로는 `/opt/pw-browsers/chromium`(다른 PC는 환경 변수 `CHROMIUM`)
 - 모델
   - `engine/model.js`(asOf·레이팅), `engine/minutes.js`, `engine/predict.js`, `engine/evaluate.js`
   - 튜닝값: `data/model/params.json` (2024-25 전용, 2023-24는 사전값. 2022-23은 2023-24 리허설의 사전값 전용), 보정층·앙상블 `data/model/calibration.json`(2024-25 B판), 출전 확률 `data/model/play-prob.json`. **튜닝 실행 누적 횟수는 `docs/reports/tuning-ledger.json`에 기록**한다(매 튜닝마다 더한다).
@@ -57,14 +58,38 @@
 - 오늘 파일 형식: `data/live/today.json`(`engine/dashboard-data.js` 머리 주석). 게시 목록은 `node scripts/p8/closure.mjs`
 - 예시 데이터: `node scripts/p8/example-day.mjs` → `data/live/example-day.json`(2025-02-12, 15경기)
 
+## P9 결과 (일일 작업·예약)
+- 예측: `engine/live.js`. 검증한 (B)와 같은 단계이고, 2024-25 예시일에서 출전 계획과 시뮬레이션 결과가 같다. **픽·EV는 NBA PDF만 쓴 예측**으로 낸다. ESPN+PDF 합친 예측은 `parallel`에 병행 기록한다(픽·EV 미사용). 승격하려면 4주 비교 보고 뒤 별도 승인이 필요하다
+- 실행 시각: 실행 A 17:50 ET, 실행 B 20:50 ET(`engine/trigger-time.js`, 서머타임 테스트). 정해진 시각 전에 돈 실행의 예측은 "예비"이고 평가에 쓰지 않는다
+- 픽 로그(일일 작업): `jobs/picklog.js plan` → ArtifactData batch(file_path, if_version)
+  - 시도마다 그 시각으로 레코드를 다시 만든다. 마감 2분 안쪽은 넘긴다
+  - 마감 지난 마켓은 `unevaluated` 레코드로 남긴다(사유 3종)
+- 상태 문구(`engine/day-status.js`): "배당 미입력" / "평가 대기" / "오늘은 패스"(평가했지만 후보 없음일 때만) / "평가 못 함". 오버라운드 경고 1.00 미만·1.30 초과(고정, 경고만)
+- git: `jobs/commit-daily.js`가 허용 경로만 커밋하고, 53c88f5 동결 파일을 확인하고, main fast-forward만 한다. 사본 `data/picklog/log.jsonl`(키 정렬 JSON, 앞부분 일치 확인), 기준점 `data/live/anchor.json`
+- 대시보드: 배당 확인 화면, 쓰기 실패 띠와 `failures/` 기록, 2폴더 기록표(해제 조건 밖), 배당 변동표, 평가 못 한 마켓표
+- 예약 작업
+  - 목록: A `trig_013Q7D49FUybeHSndtL8X9vR`, B `trig_01BKh8VqVmjn6nJvtESsL9Ej`. 승인 모드 auto. **지금 꺼져 있음**
+  - 수동 실행 `cse_0147KoBUqMLrPjb58REPf3Nq`은 저장소가 없어 0단계에서 멈췄다(쓰기 0건)
+- `main` 브랜치 보호: 없음(강제 푸시가 GitHub 설정으로 막혀 있지 않다)
+- 첫 실제 베트맨 캡처(2026-10-23 17:00 KST, `docs/betman/2026-10-23-capture.md`)
+  - 한글 팀명 24개를 확인했고, 휴스턴은 "로케츠"로 고쳤다. 6개 팀은 미확인이다
+  - 홈팀이 앞에 온다
+  - 마감 관찰: 08:00 KST 이전 시작 경기는 전날 23:00 KST, 09:00 이후는 시작 시각이다. 전체 규정은 미확인
+  - 정수 기준선은 캡처에 없어서 미확인이다
+
 ## 다음 할 일
-- **P9 일일 작업·예약** — 계획 승인 뒤 구현(계획 P9 절)
-  - 결정 필요: (1) B그룹 대기 배당은 실행 B가 마감 전 가장 최근 입력으로 평가하는가 (2) 실행 B가 마감 전에 못 끝나는 21:00 ET 경기 처리 (3) 일일 커밋을 `main`에 바로 푸시하는가 (4) 오버라운드 경고 기준 1.00 미만·1.30 초과
-  - 완료 기준: 코드 완료(예약 작업 생성, `CRON_TZ=America/New_York`, 시각 계산 테스트, 수동 1회 실행 확인) + 사후 점검 2026-11-02(다음 단계를 막지 않음)
+- **P9 마무리(사용자 결정 대기)**
+  - 예약 실행에 저장소 붙이기: (가) claude.ai 예약 작업 화면에서 저장소 aodwlsgh/-를 선택해 두 작업을 만든다. cron·프롬프트는 `docs/daily-run.md`에 있다. 또는 (나) 저장소가 붙은 실행 전용 세션을 예약 작업이 매번 깨운다(승인 내용 변경이므로 승인 필요)
+  - 그 뒤 수동 실행 1회로 무인 git 푸시, DB 쓰기(runs), 재게시를 확인해 보고한다. 지금 꺼 둔 두 작업은 새 작업이 생기면 지운다
+  - `main` 강제 푸시 금지 규칙을 켤지(사용자 설정)
+  - 베트맨 마감 관찰에 따른 평가 불가 경기(2024-25 기준 10.6%, 미확인 5.5%) 처리 방침
+  - "조합"만 있는 경기의 단일 구매 가능 여부 확인
+- 사후 점검 2026-11-02 11:30 KST(`send_later` 예약됨): 서머타임 전후 실제 실행 시각. 다음 단계를 막지 않는다
 - 첫 실제 쓰기 뒤 확인할 것: 다시 읽어서 체인 검증 결과와 내용(종류별 개수, seq, 해시)을 보고(2026-10-23 P9 조건 7)
-- 첫 실제 베트맨 캡처 때 확인할 것: 한글 팀명, 정수 기준선 규정
+- 다음 베트맨 캡처 때 확인할 것: 남은 6개 팀(BKN, CLE, DEN, OKC, PHI, PHX) 한글명, 정수 기준선 규정, 08:01~08:59 KST 시작 경기의 마감, 승5패 제공 여부
 
 ## 미검증 항목
 - **소유자만 쓰기(DB 접근 규칙 write owner):** 권한 시험용 쓰기로 확인하지 않는다(2026-10-23 P9 조건 7). 낮은 권한의 쓰기 거부는 확인되지 않았다.
 - 실제 DB 쓰기 경로(대시보드·일일 작업): 첫 실제 쓰기 전까지 가짜 DB로만 시험했다.
-- 무인 예약 실행에서의 git 푸시·DB 쓰기·아티팩트 재게시와 승인 모드: P9 첫 수동 실행에서 확인한다.
+- 무인 예약 실행에서의 git 푸시·DB 쓰기·아티팩트 재게시: 저장소 접근이 풀린 뒤 수동 실행으로 확인한다(승인 모드는 auto로 확인됨).
+- ArtifactData `out_dir` 저장 파일에 버전이 들어가는지(실제 문서가 생기면 확인, 코드는 두 형식 모두 읽음)

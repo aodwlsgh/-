@@ -5,6 +5,7 @@
   - 실행 B: `CRON_TZ=America/New_York 50 20 * * *`
 - 실행 시각은 승인 없이 바꾸지 않는다(P9 승인 2).
 - 대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX
+- 현황(2026-10-23): 예약 작업 A·B를 만들었으나 꺼 두었다. 예약 작업이 띄운 세션에 저장소가 붙지 않아 수동 실행이 0단계에서 멈췄다. 저장소를 선택한 예약 작업이 필요하다(`docs/reports/p9-report.md` 4절).
 
 ## 일일 커밋 허용 경로
 무인 실행은 아래 경로만 커밋한다. 이 목록은 2026-10-23 P9 승인 3·6에 따른 것이고, `jobs/lib/commit-guard.js`의 `ALLOWED_PATHS`와 같아야 한다(테스트로 확인한다).
