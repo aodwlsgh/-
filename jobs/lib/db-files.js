@@ -1,6 +1,6 @@
 // Pick-log documents saved by ArtifactData reads with `out_dir` (P9): <dir>/meta/head.json and <dir>/blocks/*.json.
-// The saved file may hold the document itself or a wrapper with `data` and `version`; both are read. The head's
-// version, when the file does not carry it, is passed on the command line from the read's result.
+// The saved file holds the document body only (checked on the real database 2026-10-23); a wrapper with `data` and
+// `version` is read too. The head's version comes from the read's result, passed on the command line.
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { readChain } from '../../engine/log-store.js';
@@ -21,5 +21,7 @@ export async function readDir(dir, { headVersion = null } = {}) {
   for (const f of names) blocks.push({ id: f.slice(0, -5), data: unwrap(await readMaybe(join(dir, 'blocks', f))).data });
   const store = { getHead: async () => ({ exists: !!head, data: head?.data }), getBlock: async id => { const b = blocks.find(x => x.id === id); return { exists: !!b, data: b?.data }; }, listBlocks: async () => blocks };
   const chain = await readChain(store);
-  return { head: head?.data ?? null, headVersion: head?.version ?? headVersion, blocks, ...chain };
+  // the stored head comes last: readChain reports a missing head as EMPTY_HEAD, and that must not stand in for it
+  // (a missing head is created without a version pin; runs 2026-10-23 A-0538 and B-0537 stopped on this)
+  return { ...chain, head: head?.data ?? null, headVersion: head?.version ?? headVersion, blocks };
 }

@@ -1,7 +1,7 @@
 // Pick-log steps of the daily run (P9, docs/daily-run.md). ArtifactData saves the documents into a directory
 // (`get meta/head` and `list blocks` with out_dir); these commands read it. Exit codes: 0 done, 3 a dashboard lease
 // was active (waited until it ended: read again), 4 stop (reported, nothing to send), 5 git copy refused.
-//   plan --dir D [--head-version N]   next ArtifactData batch -> D/plan.json, documents in D/write/
+//   plan --dir D [--head-version N] [--day F]   next ArtifactData batch -> D/plan.json, documents in D/write/
 //   check --dir D                     chain check and contents (the first real write is reported from this)
 //   export --dir D                    data/picklog/log.jsonl, only after the chain check and the prefix check
 //   anchor                            data/live/anchor.json from the committed copy
@@ -24,9 +24,10 @@ async function plan() {
   const dir = resolve(arg('--dir'));
   const hv = arg('--head-version');
   const db = await readDir(dir, { headVersion: hv == null ? null : +hv });
-  const day = JSON.parse(await readFile('data/live/today.json', 'utf8'));
+  // no day file (prepare failed): results and unevaluated markets are still written, pending odds wait
+  const day = await readFile(arg('--day', 'data/live/today.json'), 'utf8').then(JSON.parse, () => null);
   const cal = JSON.parse(await readFile('data/model/calibration.json', 'utf8')).calibration;
-  const { results, finals } = await seasonState({ season: day.season ?? '2026-27' });
+  const { results, finals } = await seasonState({ season: day?.season ?? '2026-27' });
   const now = Date.now();
   const step = await syncStep({ head: db.head, headVersion: db.headVersion, blocks: db.blocks, build: (chain, t) => jobBodies({ chain, day, cal, finals, results, now: new Date(t), marginMs: MARGIN_MS }), now });
   const res = { action: step.action, reason: step.reason ?? null, records: step.records?.length ?? 0, types: counts(step.bodies ?? []), notes: step.notes ?? [], chain: { count: db.records.length, ok: db.verify.ok } };
