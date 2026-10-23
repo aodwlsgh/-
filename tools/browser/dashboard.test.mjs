@@ -191,6 +191,19 @@ test('not the owner: read-only, no odds form', async () => {
 });
 
 // ---- P9 (2026-10-23 approval) ----
+test('승5패 reads 미제공: break-even rows are marked, a note says it is not evaluated, the odds form labels it', async () => {
+  const { page, errors, close } = await open(browser, { day: liveDay() });
+  await tab(page, 'detail');
+  const rows = await page.$$eval('[data-ml5]', els => els.map(e => e.textContent));
+  assert.equal(rows.length, 3);
+  assert.ok(rows.every(r => r.includes('승5패') && r.includes(TEXT.notOffered)));
+  assert.equal((await page.textContent('[data-ml5-note]')).trim(), TEXT.ml5NotOffered);
+  await tab(page, 'odds');
+  assert.equal((await page.$eval('#o-0-type option[value=ML5]', o => o.textContent)).trim(), `승5패(${TEXT.notOffered})`);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
 test('no odds reads "배당 미입력" on every status, never "오늘은 패스"', async () => {
   const { page, errors, close } = await open(browser, { day: liveDay() });
   await tab(page, 'odds');

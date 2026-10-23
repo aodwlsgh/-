@@ -242,7 +242,7 @@ function renderDetail() {
   const opts = d.games.map((x, i) => `<option value="${i}"${i === S.gi ? ' selected' : ''}>${esc(x.away.espn)} @ ${esc(x.home.espn)} · ${hm(x.start.kst)} KST</option>`).join('');
   const sens = g.sensitivity;
   const sensRows = (list, key) => (list ?? []).map(x => `<tr><td>${sensLabel(g, x)} ${badgesHtml(sensitivityBadges(x))}</td><td class="n">${sgn(x[key], 2)}</td></tr>`).join('');
-  const beRow = (label, r) => `<tr><td>${label}</td><td class="n">${pct(r.p)}</td><td class="n">${pct(r.pCons)}</td><td class="n">${fx(r.minOdds)}${exTag()}</td></tr>`;
+  const beRow = (label, r, attr = '') => `<tr${attr}><td>${label}</td><td class="n">${pct(r.p)}</td><td class="n">${pct(r.pCons)}</td><td class="n">${fx(r.minOdds)}${exTag()}</td></tr>`;
   const playerRows = side => playersOf(g, side).map(p => {
     const id = esc(p.playerId);
     return `<tr><td>${esc(g.names?.[p.playerId] ?? p.playerId)}${p.starter ? ' <span class="note">선발</span>' : ''}</td><td class="n">${fx(p.expMin, 1)}</td>
@@ -288,10 +288,10 @@ function renderDetail() {
       <div class="card"><header><h2>손익분기표</h2>${exTag()}<span class="note">최소 필요 배당 = 1.03 / p_cons. 기본 예측만 씁니다.</span></header>
         <div class="tbl"><table><thead><tr><th>선택</th><th class="n">p</th><th class="n">p_cons</th><th class="n">최소 배당</th></tr></thead><tbody>
           ${beRow(`승패 ${esc(g.home.espn)}`, be.ml.home)}${beRow(`승패 ${esc(g.away.espn)}`, be.ml.away)}
-          ${['home', 'close', 'away'].map(k => beRow(`승5패 ${SEL_KO[k]}`, be.ml5[k])).join('')}
+          ${['home', 'close', 'away'].map(k => beRow(`승5패 ${SEL_KO[k]} <span class="badge unv">${TEXT.notOffered}</span>`, be.ml5[k], ' data-ml5')).join('')}
           ${be.hc.map(h => beRow(`핸디캡 홈 ${sgn(h.line)}`, h.home) + beRow(`핸디캡 원정 ${sgn(-h.line)}`, h.away)).join('')}
           ${be.ou.map(o => beRow(`오버 ${o.line}`, o.over) + beRow(`언더 ${o.line}`, o.under)).join('')}
-        </tbody></table></div></div>
+        </tbody></table></div><p class="note" data-ml5-note>${TEXT.ml5NotOffered}</p></div>
       <div class="card"><header><h2>민감도 상위 3</h2><span class="badge unv">${TEXT.unverified}</span><span class="note">${sens ? `한 번에 변수 하나, ${sens.n}회, 같은 시드` : '일일 작업이 계산합니다'}</span></header>
         ${sens ? `<div class="tbl"><table><thead><tr><th>변수</th><th class="n">점수 차 변화</th></tr></thead><tbody>${sensRows(sens.topMargin, 'dMargin')}</tbody></table>
         <table><thead><tr><th>변수</th><th class="n">총점 변화</th></tr></thead><tbody>${sensRows(sens.topTotal, 'dTotal')}</tbody></table></div>` : ''}
@@ -442,7 +442,7 @@ function oddsFormHtml() {
     <template id="o-tpl"><div class="row o-row">
       <label class="f">경기<select class="o-game">${games}</select></label>
       <label class="f">번호<input type="number" class="o-no sm" min="1" step="1"></label>
-      <label class="f">마켓<select class="o-type"><option value="ML">승패</option><option value="ML5">승5패</option><option value="HC">핸디캡</option><option value="OU">언더오버</option></select></label>
+      <label class="f">마켓<select class="o-type"><option value="ML">승패</option><option value="ML5">승5패(${TEXT.notOffered})</option><option value="HC">핸디캡</option><option value="OU">언더오버</option></select></label>
       <label class="f">기준선<input type="number" class="o-line sm" step="0.5" disabled></label>
       <span class="o-odds row"></span>
       <label class="f">마감(KST)<input type="datetime-local" class="o-deadline"></label>

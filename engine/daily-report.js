@@ -41,6 +41,7 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
   L.push(`- 실행 id: \`${run.runId}\` · 시작 ${run.startedAt?.kst ?? '—'} · 게시 ${run.publishedAt?.kst ?? '게시 전'}`);
   L.push(`- **${TEXT.recordOnly}** (2026-27 첫 한 달, 설계 §9.4 기록 전용 기간)`);
   L.push(`- 오늘 상태: **${ds.text}**`);
+  L.push(`- ${TEXT.ml5NotOffered}`);
   L.push(`- 픽 로그: 체인 검증 ${ct.text} · ${an.text}`);
   if (alerts.length) { L.push(''); L.push('## 경고'); for (const a of alerts) L.push(`- 🔴 ${a.text}`); }
   L.push('');

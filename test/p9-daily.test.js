@@ -79,6 +79,7 @@ test('sensitivity, a failed write mark and the report: alerts shown, no odds rea
   const md = daily('report');
   assert.match(md, /픽 로그 쓰기 실패 — retries exhausted/);
   assert.match(md, new RegExp(TEXT.noOdds));
+  assert.ok(md.includes('- 승5패: 베트맨 미제공 — 평가 안 함'), 'the report says 승5패 is not offered (2026-10-23 approval)');
   assert.ok(!md.includes(TEXT.pass));
   assert.deepEqual(forbiddenIn(md), []);
   const day = await json('data/live/today.json');

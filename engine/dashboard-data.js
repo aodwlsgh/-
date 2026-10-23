@@ -43,6 +43,9 @@ export const TEXT = {
   overroundWarn: '오버라운드 경고',
   parallel: 'ESPN+PDF 병행 기록 — 픽·EV 미사용',
   writeFailed: '픽 로그 쓰기 실패',
+  // 승5패 is not on the Betman NBA list (first capture 2026-10-23, docs/betman/2026-10-23-capture.md); display only
+  notOffered: '미제공',
+  ml5NotOffered: '승5패: 베트맨 미제공 — 평가 안 함',
 };
 // wording that would read as a release or as purchase advice; never shown in any state
 export const FORBIDDEN = [/해제\s*가능/, /구매\s*가능/, /베팅\s*가능/, /추천/, /구매\s*하세요/, /베팅\s*하세요/, /지금\s*구매/];
