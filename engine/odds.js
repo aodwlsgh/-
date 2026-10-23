@@ -2,7 +2,7 @@
 // Every market record keeps the line, the odds per selection, the capture time and the deadline (UTC and KST), the
 // simple implied probabilities 1/odds, the overround and the no-vig market probabilities. The no-vig method is
 // fixed to proportional normalisation, (1/odds) / Σ(1/odds) (2026-10-23 user condition 3; design §10.3).
-import { byKorean } from './teams.js';
+import { byKorean } from './betman-teams.js';
 import { stamp } from './clock.js';
 
 export const SELECTIONS = { ML: ['home', 'away'], ML5: ['home', 'close', 'away'], HC: ['home', 'away'], OU: ['over', 'under'] };

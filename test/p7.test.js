@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { stamp } from '../engine/clock.js';
-import { byKorean, TEAMS } from '../engine/teams.js';
+import { byKorean, BETMAN_TEAMS as TEAMS } from '../engine/betman-teams.js';
 import { validateRound, toOddsRecords, noVig } from '../engine/odds.js';
 import { marketProbs } from '../engine/markets.js';
 import { pCons, pConsOld, evaluate, picks, gate, breakeven, FIRST_MONTH, SEASON_OPENING } from '../engine/picks.js';
