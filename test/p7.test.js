@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { stamp } from '../engine/clock.js';
-import { byKorean, BETMAN_TEAMS as TEAMS } from '../engine/betman-teams.js';
+import { byKorean, BETMAN_TEAMS as TEAMS, KO_CAPTURE, teamNameWarning, inputTeamWarnings } from '../engine/betman-teams.js';
 import { validateRound, toOddsRecords, noVig } from '../engine/odds.js';
 import { marketProbs } from '../engine/markets.js';
 import { pCons, pConsOld, evaluate, picks, gate, breakeven, FIRST_MONTH, SEASON_OPENING } from '../engine/picks.js';
@@ -19,13 +19,34 @@ test('stamps carry UTC and KST; ET tip-offs move by one KST hour across 2026-11-
 });
 
 // ---- teams ----
-test('Betman Korean team names map to ESPN abbreviations (unverified until the first capture)', () => {
+test('Betman Korean team names map to ESPN abbreviations', () => {
   assert.equal(byKorean('마이애미 히트').espn, 'MIA');
   assert.equal(byKorean('미네소타 팀버울브스').espn, 'MIN');
   assert.equal(byKorean('LA레이커스').espn, 'LAL');
   assert.equal(byKorean('골든스테이트').espn, 'GS');
   assert.equal(byKorean('없는팀'), undefined);
-  assert.ok(TEAMS.every(t => t.ko && t.koVerified === false));
+  assert.ok(TEAMS.every(t => t.ko));
+});
+
+// 2026-10-23 "첫 캡처 확인 종결 / 팀명 변경 승인": the first capture (17:00 KST, estimated) showed 24 teams
+test('first capture: Houston is "휴스턴 로케츠"; the 24 teams on screen are confirmed, BKN CLE DEN OKC PHI PHX stay unconfirmed', () => {
+  assert.equal(byKorean('휴스턴 로케츠').espn, 'HOU');
+  assert.equal(byKorean('휴스턴 로키츠'), undefined, 'the earlier guess is not a Betman name');
+  assert.equal(TEAMS.filter(t => t.koVerified).length, 24);
+  assert.deepEqual(TEAMS.filter(t => !t.koVerified).map(t => t.espn).sort(), ['BKN', 'CLE', 'DEN', 'OKC', 'PHI', 'PHX']);
+  assert.equal(KO_CAPTURE.at, '2026-10-23T17:00:00+09:00');
+  assert.equal(KO_CAPTURE.atEstimated, true);
+});
+
+test('an unconfirmed team name in an odds input gets a warning (input is not blocked); confirmed names do not', () => {
+  const w = teamNameWarning('브루클린 네츠');
+  assert.equal(w.espn, 'BKN');
+  assert.match(w.text, /미확인/);
+  assert.equal(teamNameWarning('휴스턴 로케츠'), null);
+  assert.equal(teamNameWarning('없는팀'), null, 'unmapped names are rejected by validateRound, not warned');
+  const input = { markets: [{ betmanNo: 1, home: '보스턴 셀틱스', away: '브루클린 네츠' }, { betmanNo: 2, home: '피닉스 선즈', away: '브루클린 네츠' }] };
+  assert.deepEqual(inputTeamWarnings(input).map(x => [x.betmanNo, x.espn]), [[1, 'BKN'], [2, 'PHX'], [2, 'BKN']]);
+  assert.deepEqual(inputTeamWarnings({ markets: [{ betmanNo: 3, home: '휴스턴 로케츠', away: '샌안토니오 스퍼스' }] }), []);
 });
 
 // ---- odds input ----

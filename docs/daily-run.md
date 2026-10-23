@@ -5,7 +5,7 @@
   - 실행 B: `CRON_TZ=America/New_York 50 20 * * *`
 - 실행 시각은 승인 없이 바꾸지 않는다(P9 승인 2).
 - 대시보드: https://claude.ai/artifact/3MxrPFuYDFrzphT71ZKAfX
-- 현황(2026-10-23): 예약 작업 A·B를 만들었으나 꺼 두었다. 예약 작업이 띄운 세션에 저장소가 붙지 않아 수동 실행이 0단계에서 멈췄다. 저장소를 선택한 예약 작업이 필요하다(`docs/reports/p9-report.md` 4절).
+- 현황(2026-10-23): 이 세션에서 만든 작업 A·B는 저장소 없이 실행되어 0단계에서 멈췄고, 지금 꺼져 있다. 사용자가 아래 "예약 작업 만들기" 값으로 저장소를 고른 작업을 만든다.
 
 ## 일일 커밋 허용 경로
 무인 실행은 아래 경로만 커밋한다. 이 목록은 2026-10-23 P9 승인 3·6에 따른 것이고, `jobs/lib/commit-guard.js`의 `ALLOWED_PATHS`와 같아야 한다(테스트로 확인한다).
@@ -35,6 +35,28 @@
 - **기록 시점:** 픽 로그 레코드는 쓰는 순간의 시각으로 매번 다시 만든다.
   - 마감 2분 안쪽의 대기 배당은 다음 실행으로 넘긴다.
   - 마감이 지난 마켓은 사유와 함께 `unevaluated` 레코드로 남긴다.
+
+## 예약 작업 만들기 (claude.ai 화면, 사용자가 만든다)
+이 세션에서 `create_trigger`로 만든 작업은 저장소 없이 실행되어 멈췄다. 그래서 claude.ai의 예약 작업 화면에서 저장소를 골라 만든다. 두 작업의 값은 아래와 같다.
+
+| 항목 | 실행 A | 실행 B |
+|---|---|---|
+| 이름 | NBA 일일 실행 A (17:50 ET) | NBA 일일 실행 B (20:50 ET) |
+| 반복 | 매일 17:50 | 매일 20:50 |
+| 시간대 | America/New_York | America/New_York |
+| cron(시간대 포함 형식) | `CRON_TZ=America/New_York 50 17 * * *` | `CRON_TZ=America/New_York 50 20 * * *` |
+| cron(시간대를 따로 고르는 형식) | `50 17 * * *` | `50 20 * * *` |
+| 저장소 | `aodwlsgh/-`, 브랜치 `main` | 같음 |
+| 환경 | 이 작업 세션과 같은 `env_019T2r6q4JMYeNxu8FaFcNVU`("Default", 설명 없음. ESPN·NBA 접속 확인됨) | 같음 |
+| 실행 방식 | 실행마다 새 세션 | 같음 |
+| 승인 모드 | 자동(auto) | 같음 |
+| 알림 | 휴대폰 푸시만(이메일 끔) | 같음 |
+| 프롬프트 | 아래 템플릿에서 `{RUN}`을 `A`로 | `{RUN}`을 `B`로 |
+
+- 같은 이름의 환경이 둘이다("Default"). 다른 하나는 `env_01RAEj6CsHEyCw3FpnrT5yAx`("Default - trusted network access")다.
+- 만든 뒤 할 일
+  - 이 세션이 수동 1회 실행으로 무인 git 푸시, DB 쓰기(runs), 재게시, 승인 모드를 확인해 보고한다.
+  - 꺼 둔 옛 작업 `trig_013Q7D49FUybeHSndtL8X9vR`·`trig_01BKh8VqVmjn6nJvtESsL9Ej`는 지운다.
 
 ## 예약 작업 프롬프트
 아래 글에서 `{RUN}`만 `A` 또는 `B`로 바꿔 `create_trigger`의 prompt로 쓴다.
