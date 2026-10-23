@@ -271,6 +271,16 @@
    "what": "P5 diagnostic: compression slope with the prior season (1.205 vs 1.176 in 2024-25, 1.387 without a prior); no parameter chosen",
    "runs": 1,
    "chosen": null
+  },
+  {
+   "at": "2026-10-23T04:20:49Z",
+   "window": {
+    "season": "2025-26",
+    "variant": "A+B"
+   },
+   "what": "2025-26 test season opened once (jobs/backtest.js test, registered commit 53c88f5); judged by §14.4.1 as all-pass; evaluation only, no parameter chosen or changed",
+   "runs": 0,
+   "chosen": null
   }
  ]
 }
