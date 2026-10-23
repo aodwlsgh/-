@@ -1,0 +1,95 @@
+{
+ "runId": "2026-10-23-B-0537",
+ "run": "B",
+ "date": "2026-10-23",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-23T09:37:59.885Z",
+  "kst": "2026-10-23T18:37:59+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 717,
+   "detail": "ok   summary 401909093 / ok   injuries (78 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1339,
+   "detail": "12 games, report Injury-Report_2026-10-23_05_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "db",
+   "text": "픽 로그 쓰기 실패 — picklog plan exit 4: head version unknown (meta/head absent; jobs/lib/db-files.js readDir returns EMPTY_HEAD from readChain spread, so plan cannot create the first head)"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401909848",
+   "game": "CHI@MIL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "simSeconds": 5.724,
+ "games": [
+  {
+   "gameId": "401909096",
+   "game": "HOU@SA",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909849",
+   "game": "NO@UTAH",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909850",
+   "game": "MEM@GS",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909851",
+   "game": "LAC@LAL",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909852",
+   "game": "POR@SAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "db": [
+  {
+   "ok": false,
+   "reason": "picklog plan exit 4: head version unknown (meta/head absent; jobs/lib/db-files.js readDir returns EMPTY_HEAD from readChain spread, so plan cannot create the first head)",
+   "at": {
+    "utc": "2026-10-23T09:38:40.282Z",
+    "kst": "2026-10-23T18:38:40+09:00"
+   }
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-23T09:39:03.775Z",
+  "kst": "2026-10-23T18:39:03+09:00"
+ }
+}
