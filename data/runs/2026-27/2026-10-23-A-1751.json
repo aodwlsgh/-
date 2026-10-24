@@ -1,0 +1,169 @@
+{
+ "runId": "2026-10-23-A-1751",
+ "run": "A",
+ "date": "2026-10-23",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-23T21:51:02.601Z",
+  "kst": "2026-10-24T06:51:02+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 662,
+   "detail": "ok   summary 401909093 / ok   injuries (69 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 3831,
+   "detail": "2026-27 {\"games\":16,\"gameDates\":3,\"gamesPerTeam\":{\"1\":28,\"2\":2},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 980,
+   "detail": "2026-27 done: 16 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1365,
+   "detail": "12 games, report Injury-Report_2026-10-23_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 89727
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909848",
+   "game": "CHI@MIL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "simSeconds": 14.349,
+ "games": [
+  {
+   "gameId": "401909095",
+   "game": "NY@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909843",
+   "game": "ATL@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909844",
+   "game": "DAL@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909845",
+   "game": "MIN@ORL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909846",
+   "game": "TOR@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909847",
+   "game": "DET@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909096",
+   "game": "HOU@SA",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909849",
+   "game": "NO@UTAH",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909850",
+   "game": "MEM@GS",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909851",
+   "game": "LAC@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909852",
+   "game": "POR@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-23T21:51:40.263Z",
+  "kst": "2026-10-24T06:51:40+09:00"
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "b5a815917b1f25e78cffe4fcd31932d2e33f5fc3",
+   "at": {
+    "utc": "2026-10-23T21:53:34.004Z",
+    "kst": "2026-10-24T06:53:34+09:00"
+   }
+  },
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "55e53915583b8168658cbe23132936209a9f8ad8",
+   "at": {
+    "utc": "2026-10-23T21:53:38.844Z",
+    "kst": "2026-10-24T06:53:38+09:00"
+   }
+  }
+ ]
+}
