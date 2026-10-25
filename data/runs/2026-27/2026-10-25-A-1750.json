@@ -1,0 +1,110 @@
+{
+ "runId": "2026-10-25-A-1750",
+ "run": "A",
+ "date": "2026-10-25",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-25T21:50:59.738Z",
+  "kst": "2026-10-26T06:50:59+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 730,
+   "detail": "ok   summary 401909853 / ok   injuries (78 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 4743,
+   "detail": "2026-27 {\"games\":36,\"gameDates\":5,\"gamesPerTeam\":{\"2\":18,\"3\":12},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 9839,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"17\" \"Short Timeout\"  games 1 e.g. 401909852"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1290,
+   "detail": "7 games, report Injury-Report_2026-10-25_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 28052
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-10-25T21:51:05.220Z(완료 경기 2026-10-24까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"17\" \"Short Timeout\"  games 1 e.g. 401909852"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401909861",
+   "game": "LAL@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "simSeconds": 5.624,
+ "games": [
+  {
+   "gameId": "401909862",
+   "game": "IND@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909863",
+   "game": "ORL@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909864",
+   "game": "TOR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909865",
+   "game": "LAC@OKC",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909866",
+   "game": "DET@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909867",
+   "game": "MEM@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-25T21:51:38.688Z",
+  "kst": "2026-10-26T06:51:38+09:00"
+ }
+}
