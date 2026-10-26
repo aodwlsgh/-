@@ -1,0 +1,178 @@
+{
+ "runId": "2026-10-26-A-1751",
+ "run": "A",
+ "date": "2026-10-26",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-26T21:51:31.509Z",
+  "kst": "2026-10-27T06:51:31+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 558,
+   "detail": "ok   summary 401909861 / ok   injuries (88 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 5283,
+   "detail": "2026-27 {\"games\":43,\"gameDates\":6,\"gamesPerTeam\":{\"2\":5,\"3\":24,\"4\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 114,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 190,
+   "detail": "2026-27 done: 43 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1264,
+   "detail": "9 games, report Injury-Report_2026-10-26_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 55131
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-26-A-1751.json.gz",
+  "bytes": 46726,
+  "players": 88
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909868",
+   "game": "WSH@CHA",
+   "team": "WSH",
+   "player": "Dybantsa, AJ"
+  },
+  {
+   "gameId": "401909869",
+   "game": "MIN@CLE",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909869",
+   "game": "MIN@CLE",
+   "team": "CLE",
+   "player": "Udeh, Jr., Ernest"
+  },
+  {
+   "gameId": "401909871",
+   "game": "DAL@MIA",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909873",
+   "game": "PHX@OKC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401909874",
+   "game": "ATL@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909874",
+   "game": "ATL@HOU",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  }
+ ],
+ "simSeconds": 10.327,
+ "games": [
+  {
+   "gameId": "401909868",
+   "game": "WSH@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909869",
+   "game": "MIN@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909870",
+   "game": "CHI@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909871",
+   "game": "DAL@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909872",
+   "game": "IND@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909873",
+   "game": "PHX@OKC",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909874",
+   "game": "ATL@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909875",
+   "game": "MEM@UTAH",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909876",
+   "game": "GS@DEN",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-26T21:52:07.590Z",
+  "kst": "2026-10-27T06:52:07+09:00"
+ }
+}
