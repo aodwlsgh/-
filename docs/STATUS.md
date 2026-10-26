@@ -62,6 +62,7 @@
   - **관리자 우회 차단: 룰셋으로 확인함(2026-10-26 사용자 화면).** 규칙 설정은 사용자가 보낸 설정 화면으로만 인정한다
     - 룰셋 `protect-main`(화면): Enforcement status **Active**, Bypass list **비어 있음**("Bypass list is empty"), 대상 Default 브랜치(Applies to 1 target: `main`). 켜진 규칙은 **Restrict deletions**와 **Block force pushes** 둘뿐이고, Restrict creations·Restrict updates·Require linear history·Require deployments·Require signed commits·Require a pull request before merging·Require status checks·code scanning·code quality·code coverage·Copilot review는 꺼져 있다. 우회 목록이 비어 있으므로 강제 푸시 차단과 삭제 제한은 관리자를 포함해 모두에게 적용된다
     - 클래식 규칙 `main`(앞 화면): Require a pull request before merging·status checks·conversation resolution·signed commits 꺼짐. 클래식 규칙의 "Do not allow bypassing the above settings" 칸은 화면에 보이지 않아 읽지 못했다(룰셋이 같은 보호를 우회 없이 건다)
+    - 2026-10-26 사용자가 같은 룰셋에서 Require a pull request before merging과 Require status checks to pass를 켠 화면을 보냈다가, 다시 두 칸이 꺼지고 Restrict deletions·Block force pushes만 켜진 화면을 보냈다(저장 여부는 화면으로 알 수 없어, 이 기록의 main 직접 푸시 성공으로 확인한다)
     - "Restrict updates"와 "Require a pull request"가 꺼져 있어 일일 fast-forward 푸시는 막히지 않는다(10-24~10-26 자동 실행 푸시 모두 1회 성공). 이 세션의 도구로는 `protected` 값만 읽힌다
   - 일일 푸시가 이 설정으로 막히면 원인만 보고하고 멈춘다. 설정 변경은 사용자가 한다
 - **사후 점검 2026-11-02 11:30 KST**(`trig_01DNdRdJKc86N1QjVVvLbjEe`, 다음 단계를 막지 않음)
