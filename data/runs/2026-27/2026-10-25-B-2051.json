@@ -1,0 +1,88 @@
+{
+ "runId": "2026-10-25-B-2051",
+ "run": "B",
+ "date": "2026-10-25",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-26T00:51:23.667Z",
+  "kst": "2026-10-26T09:51:23+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 882,
+   "detail": "ok   summary 401909853 / ok   injuries (82 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1286,
+   "detail": "7 games, report Injury-Report_2026-10-25_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909861",
+   "game": "LAL@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "simSeconds": 1.705,
+ "games": [
+  {
+   "gameId": "401909862",
+   "game": "IND@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909863",
+   "game": "ORL@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909864",
+   "game": "TOR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909865",
+   "game": "LAC@OKC",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909866",
+   "game": "DET@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909867",
+   "game": "MEM@SAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 1
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-26T00:51:50.074Z",
+  "kst": "2026-10-26T09:51:50+09:00"
+ }
+}
