@@ -59,7 +59,10 @@
 - **승5패 "미제공" 표시 코드: main에 병합(2026-10-24).** 2026-10-24 자동 실행 A·B 보고를 마치고 일일 푸시가 막히지 않은 것을 확인한 뒤 병합했다(c33e38c). 병합 전 `npm test` 302/302, 브라우저 테스트 17/17, 동결 경로(53c88f5에 있던 파일) 변화 없음
 - **main 강제 푸시 차단: 설정 완료.** 사용자가 클래식 Branch protection rule을 설정했다(체크 항목 모두 비움, "Require a pull request" 끔). 2026-10-23 11:33Z 확인 결과 `main`의 `protected: true`다
   - 일일 푸시(`jobs/commit-daily.js`의 fast-forward): **막히지 않았다.** 2026-10-24 자동 실행 A·B의 푸시 4번(b5a8159, 55e5391, e93c0f7, 0e56e03)이 모두 시도 1회로 성공했다. 02:00Z 재확인 `protected: true`
-  - **관리자 우회 차단: 미확인.** 규칙 설정은 사용자가 보낸 설정 화면으로만 인정한다. 2026-10-26 받은 main 규칙 화면(Branch name pattern `main`, Applies to 1 branch)에서 읽은 것: "Require a pull request before merging" **꺼짐**, "Require status checks to pass before merging" 꺼짐, "Require conversation resolution before merging" 꺼짐, "Require signed commits" 꺼짐. **"Do not allow bypassing the above settings"는 화면 아래쪽이 잘려 보이지 않아 읽지 못했다.** 켜졌다고도 꺼졌다고도 적지 않는다. 그 항목이 보이는 화면을 받으면 화면 그대로 적고, 꺼져 있으면 "관리자 우회 차단: 미설정"으로 적는다. 이 세션의 도구로는 `protected` 값만 읽힌다
+  - **관리자 우회 차단: 룰셋으로 확인함(2026-10-26 사용자 화면).** 규칙 설정은 사용자가 보낸 설정 화면으로만 인정한다
+    - 룰셋 `protect-main`(화면): Enforcement status **Active**, Bypass list **비어 있음**("Bypass list is empty"), 대상 Default 브랜치(Applies to 1 target: `main`). 켜진 규칙은 **Restrict deletions**와 **Block force pushes** 둘뿐이고, Restrict creations·Restrict updates·Require linear history·Require deployments·Require signed commits·Require a pull request before merging·Require status checks·code scanning·code quality·code coverage·Copilot review는 꺼져 있다. 우회 목록이 비어 있으므로 강제 푸시 차단과 삭제 제한은 관리자를 포함해 모두에게 적용된다
+    - 클래식 규칙 `main`(앞 화면): Require a pull request before merging·status checks·conversation resolution·signed commits 꺼짐. 클래식 규칙의 "Do not allow bypassing the above settings" 칸은 화면에 보이지 않아 읽지 못했다(룰셋이 같은 보호를 우회 없이 건다)
+    - "Restrict updates"와 "Require a pull request"가 꺼져 있어 일일 fast-forward 푸시는 막히지 않는다(10-24~10-26 자동 실행 푸시 모두 1회 성공). 이 세션의 도구로는 `protected` 값만 읽힌다
   - 일일 푸시가 이 설정으로 막히면 원인만 보고하고 멈춘다. 설정 변경은 사용자가 한다
 - **사후 점검 2026-11-02 11:30 KST**(`trig_01DNdRdJKc86N1QjVVvLbjEe`, 다음 단계를 막지 않음)
   - 10-31 ET 실행 A·B의 실제 시작이 21:50Z/00:50Z(11-01 06:50·09:50 KST)인지 본다
