@@ -149,7 +149,11 @@ function renderBands() {
 }
 
 function renderAlerts() {
-  const items = [...(S.day.alerts ?? []).map(a => a.text), ...(S.fail ? [S.fail.text] : [])];
+  // a warning also seen in the comparable earlier run (jobs/daily.js escalate) leads the list and the header chip
+  const al = S.day.alerts ?? [], again = al.filter(a => a.escalated);
+  const items = [...again.map(a => `${a.streak}${TEXT.escalated} — ${a.text}`), ...al.filter(a => !a.escalated).map(a => a.text), ...(S.fail ? [S.fail.text] : [])];
+  $('#escChip').hidden = !again.length;
+  $('#escChip').textContent = again.length ? `${TEXT.escalatedChip} ${again.length}건` : '';
   $('#alertBand').hidden = !items.length;
   $('#alertList').innerHTML = items.map(x => `<li>${esc(x)}</li>`).join('');
 }
@@ -651,7 +655,7 @@ function renderRecord() {
         <div class="kpi"><b>${s.roi.value == null ? '—' : pct(s.roi.value)}</b><span>ROI 1단위 [${pct(s.roi.ci95?.[0])}, ${pct(s.roi.ci95?.[1])}], 경기 단위 군집</span></div>
         <div class="kpi"><b>${fx(m.brierModel, 4)} / ${fx(m.brierMarket, 4)}</b><span>Brier 모델 / 시장(마진 제거), 마켓 ${m.n}개</span></div>
         <div class="kpi"><b>${sum.combos.settled} / ${sum.combos.n}</b><span>2폴더 정산 / 전체, ROI ${pct(sum.combos.roi)}</span></div>
-        <div class="kpi"><b>${sgn(tb.all, 2)}</b><span>언더오버 총점 편향(실제 − 예측), 최근 4주 ${sgn(tb.last4weeks, 2)}, ${tb.games}경기. 표시만, 예측은 조정하지 않음</span></div>
+        <div class="kpi"><b>${sgn(tb.all, 2)}</b><span>${TEXT.biasLabel}, 최근 4주 ${sgn(tb.last4weeks, 2)}, ${tb.games}경기${tb.games ? ` (합 ${sgn(tb.all * tb.games, 1)})` : ''}. 표시만, 예측은 조정하지 않음</span></div>
       </div></div>
     <div class="card" id="unevaluated"><header><h2>평가 못 한 마켓</h2><span class="note">마감 전에 평가하지 못한 마켓도 사유와 함께 장부에 남깁니다.</span></header>
       ${un.length ? `<div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th>사유</th></tr></thead><tbody>${un.map(r => `<tr><td class="mono">${esc(r.id)}</td><td>${shortGame(r.gameId)}</td><td>${MARKET_KO[r.market] ?? esc(r.market)}${r.line != null ? ` ${r.line}` : ''}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody></table></div>` : '<p class="note">없음</p>'}</div>

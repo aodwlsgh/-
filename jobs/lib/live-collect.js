@@ -6,6 +6,7 @@ import { availableAt } from '../../engine/snapshot.js';
 import { NBA_TEAMS } from '../../engine/schedule.js';
 import { etParts } from '../../engine/time.js';
 import { pdfTextItems } from './pdf-text.js';
+import { normalizePdfRows } from '../../engine/pdf-names.js';
 
 export const usDate = etDate => etDate.replaceAll('-', '');
 
@@ -34,7 +35,9 @@ export async function pickSnapshot(pdfs, { at, gameDate, parse }) {
     if (!avail || avail > at) { skipped.push({ pdf: pdf.name, reportTime: parsed?.reportTime ?? null, lastModified: pdf.lastModified }); continue; }
     const base = { pdf: pdf.name, reportTime: parsed?.reportTime ?? null, lastModified: pdf.lastModified, availableAt: avail.toISOString(), lagMin: Math.round((at - avail) / 60000), skippedLater: skipped };
     if (formatError) return { ...base, formatError };
-    return { ...base, rows: parsed.rows.filter(r => r.gameDate === mdY), notSubmitted: parsed.notSubmitted, issues: parsed.issues };
+    // split accented names rejoined before any matching (engine/pdf-names.js); each fix is kept with the snapshot
+    const { rows, fixes } = normalizePdfRows(parsed.rows.filter(r => r.gameDate === mdY));
+    return { ...base, rows, ...(fixes.length ? { nameFixes: fixes } : {}), notSubmitted: parsed.notSubmitted, issues: parsed.issues };
   }
   return { pdf: null, skippedLater: skipped };
 }
@@ -45,7 +48,7 @@ export async function liveInputs(col, { date, season, searchAt }) {
   const sb = await col.schedule(usDate(date));
   const fx = fixturesFromScoreboard(sb, { date, season });
   const snapshot = await pickSnapshot(col.injuryPdfsBefore(searchAt, { maxSteps: 16 }), { at: searchAt, gameDate: date, parse: parsePdf });
-  let espn = null, espnError = null;
-  try { espn = parseEspnInjuries(await col.injuries()); } catch (e) { espnError = String(e.message ?? e); }
-  return { ...fx, snapshot, espn, espnError };
+  let espn = null, espnRaw = null, espnError = null;
+  try { espnRaw = await col.injuries(); espn = parseEspnInjuries(espnRaw); } catch (e) { espnError = String(e.message ?? e); }
+  return { ...fx, snapshot, espn, espnRaw, espnError };
 }

@@ -319,3 +319,23 @@ test('typed odds survive a pick-log refresh (the odds tab re-renders on every da
   assert.deepEqual(errors, []);
   await close();
 });
+
+test('a warning seen in two runs in a row leads the alert list and shows the header chip', async () => {
+  const day = liveDay();
+  day.alerts = [{ code: 'schema', text: 'ESPN 형식 점검 실패' }, { code: 'dataDelay', text: '데이터 지연 — test', escalated: true, streak: 2 }];
+  const { page, errors, close } = await open(browser, { day });
+  assert.equal(await page.isVisible('#escChip'), true);
+  assert.equal(await page.textContent('#escChip'), `${TEXT.escalatedChip} 1건`);
+  assert.deepEqual(await page.$$eval('#alertList li', l => l.map(x => x.textContent)), [`2${TEXT.escalated} — 데이터 지연 — test`, 'ESPN 형식 점검 실패']);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('no escalated warning: the header chip stays hidden', async () => {
+  const day = liveDay();
+  day.alerts = [{ code: 'dataDelay', text: '데이터 지연 — once' }];
+  const { page, errors, close } = await open(browser, { day });
+  assert.equal(await page.isVisible('#escChip'), false);
+  assert.deepEqual(errors, []);
+  await close();
+});

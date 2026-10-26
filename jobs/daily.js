@@ -30,6 +30,7 @@ import { reportMarkdown, totalBias } from '../engine/daily-report.js';
 import { closure } from '../scripts/p8/closure.mjs';
 import { readDir } from './lib/db-files.js';
 import { seasonState } from './lib/season-state.js';
+import { pdfOutUnmatched, escalate } from '../engine/run-alerts.js';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : d);
@@ -46,6 +47,8 @@ const etLabel = t => { const e = etParts(new Date(t)); return `${e.date} ${Strin
 
 export const paths = season => ({
   day: 'data/live/today.json', runs: `data/runs/${season}`, preds: `data/predictions/${season}`, reports: `docs/daily/${season}`, pdf: `data/injury-pdf/${season}`,
+  // raw ESPN injuries feed per run, under an allowed path (parallel record only)
+  espn: `data/injury-pdf/${season}/espn-feed`,
 });
 
 const P = await readJson('data/model/params.json');
@@ -89,7 +92,7 @@ async function prepare() {
   if (!offline) {
     if (!(await step('schema check', () => node(['scripts/check-schema-live.mjs'])))) alert('schema', `ESPN 형식 점검 실패 — ${log.steps.at(-1).error}`);
     if (run === 'A') {
-      const ok = (await step('collect schedule', () => node(['jobs/build-data.js', 'schedule', season]))) && (await step('collect games', () => node(['jobs/build-data.js', 'games', season])));
+      const ok = (await step('collect schedule', () => node(['jobs/build-data.js', 'schedule', season]))) && (await step('normalize play types', () => node(['jobs/normalize-raw.js', season]))) && (await step('collect games', () => node(['jobs/build-data.js', 'games', season])));
       if (!ok) {
         const s = await readJson(`data/schedule/${season}.json`).catch(() => null);
         alert('dataDelay', `데이터 지연 — 마지막 갱신 ${s?.generatedAt ?? '알 수 없음'}(완료 경기 ${s?.scannedThrough ?? '—'}까지). ${log.steps.at(-1).error}`);
@@ -116,6 +119,14 @@ async function prepare() {
     }
   }
   const snap = inputs.snapshot;
+  // ESPN injuries feed as received, every run (2026-10-26 user decision 7): parallel record only, never read by predictions
+  if (inputs.espnRaw) {
+    const raw = gzipSync(JSON.stringify(inputs.espnRaw));
+    await mkdir(at(p.espn), { recursive: true });
+    await writeFile(at(join(p.espn, `${runId}.json.gz`)), raw);
+    log.espnFeed = { path: join(p.espn, `${runId}.json.gz`), bytes: raw.length, players: inputs.espn?.length ?? null };
+  }
+  if (snap?.nameFixes) log.pdfNameFixes = snap.nameFixes;
   const usable = snap?.rows && !snap.formatError ? snap : null;
   if (!usable) alert('injuryPdf', snap?.formatError ? `NBA 부상 리포트 형식 오류(${snap.pdf}) — 검증 경로 예측에 부상 미반영` : 'NBA 부상 리포트 없음 — 검증 경로 예측에 부상 미반영');
   if (!inputs.espn && !offline) alert('espnInjuries', `ESPN 부상 피드 없음 — 병행 기록 생략(${inputs.espnError})`);
@@ -138,6 +149,10 @@ async function prepare() {
   const injuriesFor = s => (f, side, players) => snapshotInjuries(s, { team: side ? f.away.abbr : f.home.abbr, home: f.home.abbr, away: f.away.abbr, players });
   const lp = livePlans({ history, fixtures: targets, date, params: P.params, injuriesFor: injuriesFor(usable) });
   log.skipped.push(...lp.skipped);
+  // PDF Out rows the exact match missed: a known player under another spelling is a warning (2026-10-26 decision 4)
+  const unm = pdfOutUnmatched(lp.rows, usable?.rows);
+  if (unm.known.length) alert('pdfUnmatched', `PDF 선수 못 찾음 — ${unm.known.map(k => `${k.game} ${k.team} ${k.player}(Out, 기록 이름 ${k.known})`).join('; ')}. 검증 경로 예측에 이 부상이 빠졌다`, { players: unm.known });
+  log.pdfOutNoRecord = unm.noRecord;
   const w = CAL.ensemble.w;
   const games = [];
   const t0 = Date.now();
@@ -146,6 +161,11 @@ async function prepare() {
   if (run === 'B') games.push(...(await carryRunA({ p, date, season, history, now, exclude: new Set(games.map(g => g.gameId)) })));
   games.sort((a, b) => Date.parse(a.start.utc) - Date.parse(b.start.utc) || a.gameId.localeCompare(b.gameId));
   if (run === 'B' && !lp.rows.length) log.note = '대상 없음 — 21:00 ET 이후 시작 경기가 없음';
+
+  // warnings seen in the comparable earlier run too go to the dashboard header and a push (2026-10-26 decision 6)
+  const esc = escalate(log.alerts, await earlierLogs(p, runId), run);
+  log.alerts = esc.alerts;
+  if (esc.push.length) log.push = esc.push;
 
   // 5. day file, archive, run log
   const day = {
@@ -159,7 +179,7 @@ async function prepare() {
   await writeGz(at(join(p.preds, `${runId}.json.gz`)), archiveOf(day, snap, log));
   log.games = games.map(g => ({ gameId: g.gameId, game: `${g.away.espn}@${g.home.espn}`, group: g.group, run: g.prediction.run, final: g.prediction.final, parallelDiffs: g.parallel?.diffs?.length ?? null }));
   await finishLog(p, log);
-  console.log(JSON.stringify({ ok: true, runId, date, games: games.length, final: games.filter(g => g.prediction.final).length, provisional: games.filter(g => !g.prediction.final).length, skipped: log.skipped.length, alerts: log.alerts.map(a => a.text), simSeconds: log.simSeconds }));
+  console.log(JSON.stringify({ ok: true, runId, date, games: games.length, final: games.filter(g => g.prediction.final).length, provisional: games.filter(g => !g.prediction.final).length, skipped: log.skipped.length, alerts: log.alerts.map(a => a.text), push: log.push ?? [], simSeconds: log.simSeconds }));
 }
 
 async function gameEntry({ row, run, runId, now, n, w, usable, resolved, names, acc, history, season, date, snap }) {
@@ -213,6 +233,13 @@ const archiveOf = (day, snapshot, log) => ({
   snapshot: snapshot?.rows ? snapshot : snapshot ? { ...snapshot, rows: undefined } : null,
   games: day.games.map(({ simInput, names, breakeven: _b, ...g }) => g),
 });
+
+// run logs of the season before this one, oldest first
+async function earlierLogs(p, runId) {
+  const files = (await readdir(at(p.runs)).catch(() => [])).filter(f => f.endsWith('.json') && f !== `${runId}.json`);
+  const logs = await Promise.all(files.map(f => readJson(at(join(p.runs, f))).catch(() => null)));
+  return logs.filter(l => l?.startedAt?.utc).sort((a, b) => Date.parse(a.startedAt.utc) - Date.parse(b.startedAt.utc));
+}
 
 async function finishLog(p, log) { await writeJson(at(join(p.runs, `${log.runId}.json`)), log); }
 

@@ -46,6 +46,11 @@ export const TEXT = {
   // 승5패 is not on the Betman NBA list (first capture 2026-10-23, docs/betman/2026-10-23-capture.md); display only
   notOffered: '미제공',
   ml5NotOffered: '승5패: 베트맨 미제공 — 평가 안 함',
+  // jobs/daily.js escalate: a warning in two runs in a row (2026-10-26 decision 6)
+  escalated: '회 연속',
+  escalatedChip: '연속 경고',
+  // mean of (actual − predicted) total points per game (2026-10-26 decision 8)
+  biasLabel: '언더오버 총점 편향(실제 − 예측, 경기당 평균)',
 };
 // wording that would read as a release or as purchase advice; never shown in any state
 export const FORBIDDEN = [/해제\s*가능/, /구매\s*가능/, /베팅\s*가능/, /추천/, /구매\s*하세요/, /베팅\s*하세요/, /지금\s*구매/];

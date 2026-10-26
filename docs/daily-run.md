@@ -44,6 +44,16 @@
 - **기록 시점:** 픽 로그 레코드는 쓰는 순간의 시각으로 매번 다시 만든다.
   - 마감 2분 안쪽의 대기 배당은 다음 실행으로 넘긴다.
   - 마감이 지난 마켓은 사유와 함께 `unevaluated` 레코드로 남긴다.
+- **입력 정규화(2026-10-26 사용자 결정, 동결 파일은 그대로):**
+  - 실행 A의 경기 수집은 `build-data schedule` → `jobs/normalize-raw.js` → `build-data games` 순서다. normalize-raw는 경기 파일이 없거나 모자란 날짜의 끝난 경기만 보고, `engine/schema/play-type-aliases.js`의 별칭(지금은 "17" "Short Timeout" → "16" "Full Timeout")을 원본 캐시에 적용한다. 바꾼 플레이는 `data/games/<season>/play-type-aliases.json`과 실행 기록 단계 `normalize play types`에 남는다. 별칭이 없는 새 유형은 전처럼 "데이터 지연"이 된다
+  - 부상 PDF 이름의 쪼개진 악센트("L ó pez, Karim")는 `engine/pdf-names.js`가 매칭 전에 합친다. 고친 이름은 스냅숏의 `nameFixes`와 실행 기록 `pdfNameFixes`에 남는다
+- **경고 승격:** "데이터 지연"(직전 실행 A와 비교)과 "PDF 선수 못 찾음"(직전 실행과 비교)이 2회 연속이면 경고에 `escalated`·`streak`이 붙고, 대시보드 머리글에 "연속 경고" 칩이 뜨고, `prepare` 출력 JSON의 `push`에 문장이 들어간다
+- **ESPN 부상 피드 원본:** 실행마다 `data/injury-pdf/<season>/espn-feed/<runId>.json.gz`(약 45KB). 병행 기록 전용이고 예측은 읽지 않는다
+
+## 2026-11-01 시각 변경 때 사용자가 지시문에 넣을 줄
+예약 작업 A·B의 지시문은 사용자가 고친다(2026-10-23·10-24 결정). 아래 두 줄은 아직 지시문에 없다.
+- 7단계 끝: `node jobs/commit-daily.js "daily <runId>: run log final"` (마지막 `mark git` 뒤 남는 실행 기록 파일 커밋)
+- 1단계 끝: `prepare` 출력 JSON의 `push`가 비어 있지 않으면 그 문장마다 PushNotification(status "proactive")을 보낸다. 도구가 보이지 않으면 ToolSearch "select:PushNotification"으로 불러온다
 
 ## 예약 작업 만들기 (claude.ai 화면, 사용자가 만든다)
 이 세션에서 `create_trigger`로 만든 작업은 저장소 없이 실행되어 멈췄다. 그래서 claude.ai의 예약 작업 화면에서 저장소를 골라 만든다. 두 작업의 값은 아래와 같다.

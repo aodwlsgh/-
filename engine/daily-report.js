@@ -70,8 +70,10 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
   L.push('');
   L.push('## 모니터링 (표시만, 예측은 조정하지 않음)');
   const tb = sum.monitor.totalBias;
-  L.push(`- 언더오버 총점 편향(실제 − 예측), 평가한 경기: ${sgn(tb.all, 2)} (${tb.games}경기, 최근 4주 ${sgn(tb.last4weeks, 2)})`);
-  if (biasAll) L.push(`- 언더오버 총점 편향, 모든 예측 경기(보관본): ${sgn(biasAll.all, 2)} (${biasAll.games}경기, 최근 4주 ${sgn(biasAll.last4weeks, 2)})`);
+  // both are means of (actual − predicted) per game; the sum is shown beside them (2026-10-26 decision 8)
+  const sumOf = b => (b.games ? `, 합 ${sgn(b.all * b.games, 1)}` : '');
+  L.push(`- ${TEXT.biasLabel}, 평가한 경기: ${sgn(tb.all, 2)} (${tb.games}경기${sumOf(tb)}, 최근 4주 경기당 ${sgn(tb.last4weeks, 2)})`);
+  if (biasAll) L.push(`- ${TEXT.biasLabel}, 모든 예측 경기(보관본): ${sgn(biasAll.all, 2)} (${biasAll.games}경기${sumOf(biasAll)}, 최근 4주 경기당 ${sgn(biasAll.last4weeks, 2)})`);
   L.push(`- 배당 변동(첫 입력 대비): 마켓 ${mv.summary.markets}개, 나중 입력 ${mv.summary.laterEntries}개${mv.summary.maxAbsNoVigPp != null ? `, 마진 제거 확률 변화 평균 ${mv.summary.meanAbsNoVigPp.toFixed(1)}%p · 최대 ${mv.summary.maxAbsNoVigPp.toFixed(1)}%p` : ''}`);
   const t = comboTable(chain);
   L.push(`- ${t.caption}: ${t.columns.map(c => `${c.label} ${c.value}`).join(' · ')}`);
