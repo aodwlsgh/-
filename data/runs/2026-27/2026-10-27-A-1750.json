@@ -1,0 +1,136 @@
+{
+ "runId": "2026-10-27-A-1750",
+ "run": "A",
+ "date": "2026-10-27",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-27T21:50:38.652Z",
+  "kst": "2026-10-28T06:50:38+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 551,
+   "detail": "ok   summary 401909868 / ok   injuries (93 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 5740,
+   "detail": "2026-27 {\"games\":52,\"gameDates\":7,\"gamesPerTeam\":{\"2\":1,\"3\":14,\"4\":15},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 99,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 148,
+   "detail": "2026-27 done: 52 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1151,
+   "detail": "4 games, report Injury-Report_2026-10-27_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 19341
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-27-A-1750.json.gz",
+  "bytes": 48959,
+  "players": 93
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909877",
+   "game": "BKN@BOS",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909878",
+   "game": "DET@NY",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909879",
+   "game": "SAC@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909879",
+   "game": "SAC@SA",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909880",
+   "game": "POR@LAL",
+   "team": "LAL",
+   "player": "Carr, Cameron"
+  }
+ ],
+ "simSeconds": 3.283,
+ "games": [
+  {
+   "gameId": "401909877",
+   "game": "BKN@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909878",
+   "game": "DET@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909879",
+   "game": "SAC@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909880",
+   "game": "POR@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-27T21:51:12.850Z",
+  "kst": "2026-10-28T06:51:12+09:00"
+ },
+ "db": [
+  {
+   "ok": true,
+   "records": 12,
+   "at": {
+    "utc": "2026-10-27T21:51:39.778Z",
+    "kst": "2026-10-28T06:51:39+09:00"
+   }
+  }
+ ]
+}
