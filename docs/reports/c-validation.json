@@ -1,0 +1,174 @@
+{
+ "generatedAt": "2026-10-27T07:08:11.328Z",
+ "plan": "docs/plans/2026-10-27-early-run-plan.md",
+ "cutoffEt": {
+  "hour": 8,
+  "minute": 50
+ },
+ "criteria": {
+  "brier": 0.001,
+  "logLoss": 0.003,
+  "marginMAE": 0.3,
+  "totalMAE": 0.3,
+  "slope": 0.1,
+  "coverage": 0.95
+ },
+ "ensembleW": 0.6,
+ "seasons": {
+  "2024-25": {
+   "season": "2024-25",
+   "judged": 1134,
+   "changedGames": 887,
+   "counts": {
+    "rows": 1230,
+    "reused": 257,
+    "simulated": 973,
+    "determinismChecked": 6
+   },
+   "coverage": {
+    "season": "2024-25",
+    "games": 1230,
+    "withSnapshot": 1230,
+    "coverage": 1,
+    "formatErrors": 0,
+    "lagMinMedian": 20,
+    "lagMinMax": 20,
+    "reportTimes": {
+     "08:30 AM": 1230
+    }
+   },
+   "brier": {
+    "registered": 0.208149,
+    "c": 0.209014,
+    "diff": 0.000865,
+    "ci95": [
+     -0.000458,
+     0.002074
+    ]
+   },
+   "logLoss": {
+    "registered": 0.601468,
+    "c": 0.603749,
+    "diff": 0.002282,
+    "ci95": [
+     -0.000619,
+     0.004947
+    ]
+   },
+   "marginMAE": {
+    "registered": 10.967075,
+    "c": 11.001086,
+    "diff": 0.034011,
+    "ci95": [
+     0.00134,
+     0.066187
+    ]
+   },
+   "totalMAE": {
+    "registered": 14.57105,
+    "c": 14.57702,
+    "diff": 0.00597,
+    "ci95": [
+     -0.048057,
+     0.062797
+    ]
+   },
+   "slope": {
+    "registered": 1.0068,
+    "c": 1.0018,
+    "diff": -0.005
+   },
+   "changedOnly": {
+    "games": 887,
+    "brierDiff": 0.001106
+   },
+   "checks": {
+    "coverage": true,
+    "brier": true,
+    "logLoss": true,
+    "marginMAE": true,
+    "totalMAE": true,
+    "slope": true
+   },
+   "pass": true
+  },
+  "2023-24": {
+   "season": "2023-24",
+   "judged": 1137,
+   "changedGames": 884,
+   "counts": {
+    "rows": 1230,
+    "reused": 268,
+    "simulated": 962,
+    "determinismChecked": 6
+   },
+   "coverage": {
+    "season": "2023-24",
+    "games": 1230,
+    "withSnapshot": 1228,
+    "coverage": 0.9984,
+    "formatErrors": 0,
+    "lagMinMedian": 20,
+    "lagMinMax": 20,
+    "reportTimes": {
+     "08:30 AM": 1228
+    }
+   },
+   "brier": {
+    "registered": 0.213044,
+    "c": 0.21396,
+    "diff": 0.000915,
+    "ci95": [
+     -0.000162,
+     0.001968
+    ]
+   },
+   "logLoss": {
+    "registered": 0.613267,
+    "c": 0.61533,
+    "diff": 0.002063,
+    "ci95": [
+     -0.00051,
+     0.00448
+    ]
+   },
+   "marginMAE": {
+    "registered": 10.985773,
+    "c": 11.004585,
+    "diff": 0.018812,
+    "ci95": [
+     -0.004156,
+     0.044284
+    ]
+   },
+   "totalMAE": {
+    "registered": 14.580211,
+    "c": 14.583426,
+    "diff": 0.003215,
+    "ci95": [
+     -0.042239,
+     0.046559
+    ]
+   },
+   "slope": {
+    "registered": 1.1046,
+    "c": 1.0991,
+    "diff": -0.0055
+   },
+   "changedOnly": {
+    "games": 884,
+    "brierDiff": 0.001177
+   },
+   "checks": {
+    "coverage": true,
+    "brier": true,
+    "logLoss": true,
+    "marginMAE": true,
+    "totalMAE": true,
+    "slope": true
+   },
+   "pass": true
+  }
+ },
+ "primaryPass": true
+}
