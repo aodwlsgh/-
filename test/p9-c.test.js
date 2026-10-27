@@ -11,7 +11,7 @@ import { evaluationRecords } from '../engine/log-records.js';
 import { jobBodies } from '../engine/log-sync.js';
 import { classifyInput, unevaluatedRecords } from '../engine/day-status.js';
 import { pickRecord, summarizeByPath, RECORD_SCHEMA } from '../engine/pick-log.js';
-import { inputGapSummary } from '../engine/daily-report.js';
+import { inputGapSummary, notSubmittedSummary } from '../engine/daily-report.js';
 import { IDENTITY } from '../engine/calibrate.js';
 import { normCdf } from '../engine/predict.js';
 import { stamp } from '../engine/clock.js';
@@ -165,4 +165,9 @@ test('exit progress: path C fills its own 200 picks and 8 weeks; nothing is pool
     assert.deepEqual(s[k].exit.minPicks, { target: 200, value: 150, met: false }, `${k}: 150 of its own, not 300`);
     assert.equal(s[k].exit.minWeeks.met, true);
   }
+});
+
+test('report: share of games with a team not yet submitted on the injury report', () => {
+  const g = (h, a) => ({ dataStatus: { injurySnapshot: { home: { notSubmitted: h }, away: { notSubmitted: a } } } });
+  assert.deepEqual(notSubmittedSummary({ games: [g(true, false), g(true, true), g(false, false), { dataStatus: { injurySnapshot: null } }] }), { games: 2, of: 4, oneTeam: 1, bothTeams: 1, share: 0.5 });
 });

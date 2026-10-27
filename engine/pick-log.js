@@ -58,6 +58,8 @@ export function verifyChain(log) {
 // a leg from engine/picks.js becomes a pick record; refused at or after the deadline (= before tip-off)
 // Record schema 2 (2026-10-27, early run C approval 6): evaluation and pick records name the run whose final prediction
 // they used (predictionRun "A" | "B" | "C"); required for every new record. Records without it are schema 1 (path AB).
+// Evaluation records got oddsInputAt and inputToEvalMin on 2026-10-28 while no schema-2 evaluation record existed, so
+// the number stayed 2 (docs/picklog-schema.md).
 export const RECORD_SCHEMA = 2;
 export const PREDICTION_RUNS = ['A', 'B', 'C'];
 export const pathOfRecord = r => (r.predictionRun === 'C' ? 'C' : 'AB');

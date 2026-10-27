@@ -37,6 +37,14 @@ export function inputGapSummary(chain) {
   return { AB: dist(by.AB), C: dist(by.C), missing };
 }
 
+// games whose injury-report snapshot marks a team "NOT YET SUBMITTED" (that team plays with no injury input), shown in
+// every report (2026-10-28 user decision 8)
+export function notSubmittedSummary(day) {
+  const per = day.games.map(g => ['home', 'away'].filter(s => g.dataStatus?.injurySnapshot?.[s]?.notSubmitted).length);
+  const games = per.filter(n => n > 0).length;
+  return { games, of: per.length, oneTeam: per.filter(n => n === 1).length, bothTeams: per.filter(n => n === 2).length, share: per.length ? games / per.length : null };
+}
+
 // over/under monitoring on every predicted game: rows [{ pred, actual, at }] (shown only, predictions unchanged)
 export function totalBias(rows, now) {
   const cut = new Date(now).getTime() - 28 * 86400e3;
@@ -72,6 +80,8 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
     L.push(`| ${hm(g.start.kst)} (${g.start.et?.slice(11) ?? ''}) | ${g.away.espn} @ ${g.home.espn} | ${g.group} | ${g.prediction.final ? '최종' : '예비'} | ${pct(v.winProbHome)} | ${sgn(v.margin)} [${sgn(v.interval90.margin[0], 0)}, ${sgn(v.interval90.margin[1], 0)}] | ${v.total.toFixed(1)} [${v.interval90.total[0].toFixed(0)}, ${v.interval90.total[1].toFixed(0)}] | ${inj?.pdf ? inj.pdf : '없음'} | ${par} | ${s.text} |`);
   }
   if (day.games.some(g => !g.prediction.final)) L.push(`\n예비: ${TEXT.provisional}`);
+  const nsub = notSubmittedSummary(day);
+  L.push(`\n팀 미제출(NOT YET SUBMITTED) 경기: ${nsub.games}/${nsub.of}${nsub.share != null ? ` (${pct(nsub.share)})` : ''} — 한 팀 ${nsub.oneTeam}, 두 팀 ${nsub.bothTeams}. 미제출 팀은 부상 입력 없이 예측합니다.`);
   L.push(`\nESPN+PDF 병행: ${TEXT.parallel}. 픽과 EV는 검증한 경로(NBA PDF만)의 예측으로만 냅니다.`);
   L.push('');
   L.push('## 손익분기 최소 배당 (승패, 기본 예측)');
