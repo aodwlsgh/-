@@ -20,5 +20,23 @@
   ],
   "count": 3,
   "status": "not used for any further validation (2026-10-27)"
+ },
+ "2024-25": {
+  "note": "Calibration season (ensemble weight and calibration were fitted on it); validations on it are in-sample. Counted here: early-run C validations whose results were looked at (2026-10-28 user condition 2).",
+  "validations": [
+   {
+    "at": "2026-10-27",
+    "what": "early run C, 08:50 ET report",
+    "criteria": "eb471ed",
+    "file": "docs/reports/c-validation.json"
+   },
+   {
+    "at": "2026-10-28",
+    "what": "early run C revalidation, 07:50 ET report (plan §8), registered before computing; snapshots and metrics pending",
+    "criteria": "plan §8",
+    "file": "docs/reports/c-validation-0750.json"
+   }
+  ],
+  "revalidations": 1
  }
 }

@@ -8,6 +8,8 @@
 //                    minutes plans equal the registered run's gets the registered simulation (same seed, same
 //                    input); a fixed sample of such games is simulated again to prove they are identical.
 //   report           paired comparison against data/model/sims/<season>-B.json.gz -> docs/reports/c-validation.json
+// --cutoff 0750 (plan §8, 2026-10-28): the same with the 07:50 ET report, into data/injury-pdf-c0750,
+// data/model/sims-c0750 and docs/reports/c-validation-0750.json; the 08:50 files stay as they are.
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { createCollector } from '../../engine/collect.js';
@@ -18,9 +20,14 @@ import { report, withShift, isJudged } from '../../engine/backtest.js';
 import { markets } from '../../engine/calibrate.js';
 import { etParts, fromEt } from '../../engine/time.js';
 import { loadGames } from '../../jobs/lib/games.js';
+import { byEspn } from '../../engine/teams.js';
 import { pickSnapshot, parsePdf } from '../../jobs/lib/live-collect.js';
 
-export const C_ET = { hour: 8, minute: 50 };
+const CUT = process.argv.includes('--cutoff') ? process.argv[process.argv.indexOf('--cutoff') + 1] : '0850';
+if (!['0850', '0750'].includes(CUT)) { console.error('--cutoff 0850 | 0750'); process.exit(2); }
+export const C_ET = { hour: +CUT.slice(0, 2), minute: +CUT.slice(2) };
+const SUFFIX = CUT === '0850' ? '' : CUT;
+const PDF_DIR = `data/injury-pdf-c${SUFFIX}`, SIMS_DIR = `data/model/sims-c${SUFFIX}`, REPORT = `docs/reports/c-validation${SUFFIX ? `-${SUFFIX}` : ''}.json`;
 export const CRITERIA = { brier: 0.001, logLoss: 0.003, marginMAE: 0.3, totalMAE: 0.3, slope: 0.10, coverage: 0.95 };
 // 2023-24 was read once here (2026-10-27) and is not counted as evidence or read again (user decision 1, same day;
 // docs/reports/season-reads.json). 2025-26 is never read.
@@ -43,7 +50,7 @@ async function pdf(season) {
   const col = createCollector({});
   let done = 0;
   for (const date of dates) {
-    const path = `data/injury-pdf-c/${season}/${date}.json.gz`;
+    const path = `${PDF_DIR}/${season}/${date}.json.gz`;
     if (!(await exists(path))) {
       const cutoff = fromEt(date, C_ET.hour, C_ET.minute);
       const snap = await pickSnapshot(col.injuryPdfsBefore(cutoff, { maxSteps: 16 }), { at: cutoff, gameDate: date, parse: parsePdf });
@@ -54,21 +61,31 @@ async function pdf(season) {
   console.log(JSON.stringify(await coverage(season)));
 }
 
+// Coverage counts a game only when its snapshot is a report of the game date (ET), available by the cutoff, without
+// a format error (plan §8). The distribution of the reports used, the games with no game-day report by the cutoff
+// (found later or not found) and the games whose teams had not submitted yet are reported before any metric.
 async function coverage(season) {
   const sched = JSON.parse(await readFile(`data/schedule/${season}.json`, 'utf8'));
-  let games = 0, ok = 0, formatErrors = 0;
-  const lags = [];
-  const reports = {};
+  let games = 0, ok = 0, formatErrors = 0, notSubmittedGames = 0;
+  const lags = [], reports = {}, missing = { foundLater: 0, none: 0, otherDate: 0 };
   for (const g of sched.list) {
     const date = etParts(new Date(g.start)).date;
-    const rec = await readGz(`data/injury-pdf-c/${season}/${date}.json.gz`).catch(() => null);
+    const rec = await readGz(`${PDF_DIR}/${season}/${date}.json.gz`).catch(() => null);
     games++;
     const s = rec?.snap;
     if (s?.formatError) formatErrors++;
-    if (s?.rows && !s.formatError && new Date(s.availableAt) <= new Date(rec.cutoff)) { ok++; lags.push(s.lagMin); reports[s.reportTime?.slice(9) ?? '?'] = (reports[s.reportTime?.slice(9) ?? '?'] ?? 0) + 1; }
+    const gameDay = !!s?.pdf && s.pdf.startsWith(`Injury-Report_${date}_`);
+    if (s?.rows && !s.formatError && gameDay && new Date(s.availableAt) <= new Date(rec.cutoff)) {
+      ok++; lags.push(s.lagMin);
+      const k = s.reportTime?.slice(9) ?? '?';
+      reports[k] = (reports[k] ?? 0) + 1;
+      const m = `${byEspn(g.away)?.nba}@${byEspn(g.home)?.nba}`;
+      if ((s.notSubmitted ?? []).some(x => x.matchup === m)) notSubmittedGames++;
+    } else if (s?.pdf && !gameDay) missing.otherDate++;
+    else if (!s?.formatError) missing[s?.skippedLater?.length ? 'foundLater' : 'none']++;
   }
   lags.sort((a, b) => a - b);
-  return { season, games, withSnapshot: ok, coverage: round(ok / games, 4), formatErrors, lagMinMedian: lags[lags.length >> 1] ?? null, lagMinMax: lags.at(-1) ?? null, reportTimes: reports };
+  return { season, cutoffEt: C_ET, games, withSnapshot: ok, coverage: round(ok / games, 4), formatErrors, noGameDayReport: missing, lagMinMedian: lags[lags.length >> 1] ?? null, lagMinMax: lags.at(-1) ?? null, reportTimes: reports, notSubmittedGames };
 }
 
 // ---- sims ------------------------------------------------------------------------------------------------------
@@ -77,7 +94,7 @@ async function snapshotSource(season, games, which) {
   for (const g of games.filter(x => x.season === season)) {
     const date = etParts(new Date(g.start)).date;
     if (which === 'C') {
-      if (!files.has(date)) files.set(date, await readGz(`data/injury-pdf-c/${season}/${date}.json.gz`).catch(() => null));
+      if (!files.has(date)) files.set(date, await readGz(`${PDF_DIR}/${season}/${date}.json.gz`).catch(() => null));
       const rec = files.get(date), s = rec?.snap;
       const ok = s?.rows && !s.formatError && new Date(s.availableAt) <= new Date(rec.cutoff);
       if (ok && new Date(rec.cutoff) > snapshotCutoff(g.start)) throw new Error(`C cutoff after the game cutoff for ${g.id}`);
@@ -126,7 +143,7 @@ async function sims(season, n) {
       return { sim: simulate(x, n), changed: true };
     },
   });
-  await writeGz(`data/model/sims-c/${season}-B.json.gz`, { season, variant: 'B', cutoffEt: C_ET, n, generatedAt: new Date().toISOString(), counts: { rows: rows.length, reused, simulated, determinismChecked: checked }, rows });
+  await writeGz(`${SIMS_DIR}/${season}-B.json.gz`, { season, variant: 'B', cutoffEt: C_ET, n, generatedAt: new Date().toISOString(), counts: { rows: rows.length, reused, simulated, determinismChecked: checked }, rows });
   console.log(JSON.stringify({ season, rows: rows.length, reused, simulated, determinismChecked: checked, seconds: Math.round((Date.now() - t0) / 1000) }));
 }
 
@@ -149,7 +166,7 @@ function bootstrapCI(diffs, B = 1000, seed = 1) {
 }
 async function compare(season) {
   const reg = (await readGz(`data/model/sims/${season}-B.json.gz`)).rows;
-  const c = await readGz(`data/model/sims-c/${season}-B.json.gz`);
+  const c = await readGz(`${SIMS_DIR}/${season}-B.json.gz`);
   const R = perGame(reg), C = perGame(c.rows);
   const ids = [...R.keys()].filter(id => C.has(id));
   const changed = new Set(c.rows.filter(r => r.changed).map(r => r.id));
@@ -181,6 +198,6 @@ else if (cmd === 'report') {
   const out = { generatedAt: new Date().toISOString(), plan: 'docs/plans/2026-10-27-early-run-plan.md', cutoffEt: C_ET, criteria: CRITERIA, ensembleW: CAL.ensemble.w, seasons: {} };
   for (const s of SEASONS) out.seasons[s] = await compare(s);
   out.primaryPass = out.seasons['2024-25'].pass;
-  await writeFile('docs/reports/c-validation.json', JSON.stringify(out, null, 1));
+  await writeFile(REPORT, JSON.stringify(out, null, 1));
   console.log(JSON.stringify(out, null, 1));
 } else { console.error('usage: node scripts/c/early-run.mjs pdf|coverage|sims <season> | report'); process.exit(2); }
