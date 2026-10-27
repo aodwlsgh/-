@@ -6,7 +6,10 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { runAt, runGames, isFinalRun, evalPath, canEvaluate, RUN_C_ET } from '../engine/trigger-time.js';
+import { runAt, runGames, isFinalRun, evalPath, canEvaluate, RUN_C_ET, runCEt, searchAtOf, cMorningReport } from '../engine/trigger-time.js';
+import { createCollector } from '../engine/collect.js';
+import { pickSnapshot } from '../jobs/lib/live-collect.js';
+import { fromEt } from '../engine/time.js';
 import { evaluationRecords } from '../engine/log-records.js';
 import { jobBodies } from '../engine/log-sync.js';
 import { classifyInput, unevaluatedRecords } from '../engine/day-status.js';
@@ -29,16 +32,17 @@ const dayOf = run => ({ kind: 'live', run, games: [game('gA', START_A, predictio
 const PREV_NIGHT = '2026-10-28T23:00:00+09:00'; // Betman deadline 23:00 KST = 10:00 EDT on game day
 const odds = (no, gameId, deadline, home, away) => ({ type: 'odds', seq: no, round: 128, betmanNo: no, source: 'screenshot', capturedAt: stamp('2026-10-28T12:00:00Z'), deadline: stamp(deadline), home, away, homeKo: '', awayKo: '', market: 'ML', line: null, lineKind: null, odds: { home: 1.9, away: 2.1 }, implied: { home: 1 / 1.9, away: 1 / 2.1 }, overround: 1 / 1.9 + 1 / 2.1, noVig: { home: 0.525, away: 0.475 }, gameId });
 
-test('run C: 08:50 ET; predicts A- and B-group games; final only at or after 08:50 ET and before the start', () => {
+test('run C: 08:50 ET through 10-31, 07:50 ET from 11-01; predicts A- and B-group games; final only at or after the cutoff and before the start', () => {
   assert.deepEqual(RUN_C_ET, { hour: 8, minute: 50 });
   assert.equal(runAt('C', '2026-10-28').toISOString(), '2026-10-28T12:50:00.000Z', '21:50 KST while New York is on daylight time');
-  assert.equal(runAt('C', '2026-11-02').toISOString(), '2026-11-02T13:50:00.000Z', '22:50 KST after 2026-11-01');
+  assert.equal(runAt('C', '2026-11-02').toISOString(), '2026-11-02T12:50:00.000Z', '07:50 EST = 21:50 KST after 2026-11-01');
   const gs = [{ start: '2026-10-28T19:00:00Z' }, { start: START_A }, { start: START_B }]; // 15:00 ET is pre_job_start
   assert.deepEqual(runGames('C', gs).map(g => g.start), [START_A, START_B]);
   assert.equal(isFinalRun('C', START_A, '2026-10-28T12:50:00Z'), true);
   assert.equal(isFinalRun('C', START_B, '2026-10-28T12:51:00Z'), true, 'C covers B-group games too');
   assert.equal(isFinalRun('C', START_A, '2026-10-28T12:49:00Z'), false);
-  assert.equal(isFinalRun('C', '2026-11-03T00:00:00Z', '2026-11-02T12:50:00Z'), false, '21:50 KST after 11-01 is 07:50 EST: provisional');
+  assert.equal(isFinalRun('C', '2026-11-03T00:00:00Z', '2026-11-02T12:50:00Z'), true, '21:50 KST after 11-01 is 07:50 EST: the cutoff, final');
+  assert.equal(isFinalRun('C', '2026-11-03T00:00:00Z', '2026-11-02T12:49:00Z'), false);
   assert.equal(isFinalRun('C', '2026-10-28T19:00:00Z', '2026-10-28T13:00:00Z'), false, 'pre_job_start games: no run');
 });
 
@@ -139,6 +143,17 @@ test('prepare C (offline): every non-early game predicted by run C, final after 
   assert.ok(day.games.every(g => g.prediction.run === 'C' && g.prediction.final === true));
 });
 
+test('prepare C (offline) with no morning report: every C prediction provisional, a warning and a push', () => {
+  const out = mkdtempSync(join(tmpdir(), 'p9c-'));
+  const r = spawnSync(process.execPath, ['jobs/daily.js', 'prepare', 'C', '--offline', '--offline-snapshot', 'none', '--season', '2024-25', '--date', '2025-02-12', '--now', '2025-02-12T14:00:00Z', '--n', '200', '--out', out], { encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stderr);
+  const res = JSON.parse(r.stdout.trim().split('\n').at(-1));
+  const day = JSON.parse(readFileSync(join(out, 'data/live/today.json'), 'utf8'));
+  assert.ok(day.games.length > 0 && day.games.every(g => g.prediction.run === 'C' && g.prediction.final === false));
+  assert.ok(res.alerts.some(t => t.startsWith('아침 리포트 기준(C) 리포트 없음')), res.alerts.join(' | '));
+  assert.ok(res.push.some(t => t.startsWith('[NBA C] 아침 리포트 기준(C) 리포트 없음')), JSON.stringify(res.push));
+});
+
 test('evaluation records carry the odds input time and the minutes to the evaluation; the report gives the distribution per path', () => {
   const mC = { ...odds(1, 'gA', PREV_NIGHT, 'BOS', 'NY'), createdAt: stamp('2026-10-27T06:38:54Z') };
   const mAB = { ...odds(2, 'gA', START_A, 'BOS', 'NY'), createdAt: stamp('2026-10-28T21:40:00Z') };
@@ -170,4 +185,53 @@ test('exit progress: path C fills its own 200 picks and 8 weeks; nothing is pool
 test('report: share of games with a team not yet submitted on the injury report', () => {
   const g = (h, a) => ({ dataStatus: { injurySnapshot: { home: { notSubmitted: h }, away: { notSubmitted: a } } } });
   assert.deepEqual(notSubmittedSummary({ games: [g(true, false), g(true, true), g(false, false), { dataStatus: { injurySnapshot: null } }] }), { games: 2, of: 4, oneTeam: 1, bothTeams: 1, share: 0.5 });
+});
+
+// 2026-10-28 condition 6: the cutoff switch at the daylight-time boundary, and the report a scheduled 21:50 KST run reads
+test('run C at 21:50 KST around 2026-11-01: 08:50 EDT on 10-30/10-31, 07:50 EST from 11-01; the report time searched is the validated cutoff', () => {
+  const cases = [
+    ['2026-10-30T12:50:40Z', '2026-10-30', '2026-10-30T12:50:00.000Z', 8],
+    ['2026-10-31T12:50:40Z', '2026-10-31', '2026-10-31T12:50:00.000Z', 8],
+    ['2026-11-01T12:50:40Z', '2026-11-01', '2026-11-01T12:50:00.000Z', 7],
+    ['2026-11-02T12:51:30Z', '2026-11-02', '2026-11-02T12:50:00.000Z', 7],
+  ];
+  for (const [now, date, at, hour] of cases) {
+    assert.equal(runCEt(date).hour, hour, date);
+    assert.equal(searchAtOf('C', date, now).toISOString(), at, `${date}: reads the report as of ${hour}:50 ET`);
+    assert.equal(searchAtOf('C', date, now).getTime(), fromEt(date, hour, 50).getTime(), 'the cutoff of scripts/c/early-run.mjs for that date (--cutoff 0850 / 0750)');
+    assert.equal(isFinalRun('C', fromEt(date, 19, 0).toISOString(), now), true, `${date}: final`);
+  }
+  // a run started before the cutoff (scheduler early or manual) reads what was out then and stays provisional
+  assert.equal(searchAtOf('C', '2026-11-01', '2026-11-01T12:40:00Z').toISOString(), '2026-11-01T12:40:00.000Z');
+  assert.equal(isFinalRun('C', fromEt('2026-11-01', 19, 0).toISOString(), '2026-11-01T12:40:00Z'), false);
+});
+
+test('run C reads the latest game-day report available by 07:50 ET (same search as the validation); none -> no previous-evening substitute', async () => {
+  const date = '2026-11-01';
+  const pdfs = { // name -> Last-Modified (UTC); 07:50 EST = 12:50Z
+    [`Injury-Report_${date}_07_45AM.pdf`]: '2026-11-01T12:52:00Z', // out after the cutoff: skipped
+    [`Injury-Report_${date}_07_30AM.pdf`]: '2026-11-01T12:31:00Z',
+    'Injury-Report_2026-10-31_11_30PM.pdf': '2026-11-01T04:31:00Z', // previous evening, outside the 4-hour search
+  };
+  const fetch = async url => {
+    const name = url.split('/').pop(), lm = pdfs[name];
+    return lm ? { ok: true, status: 200, headers: { get: h => ({ 'content-type': 'application/pdf', 'last-modified': new Date(lm).toUTCString() })[h] ?? null }, arrayBuffer: async () => new TextEncoder().encode(name).buffer }
+      : { ok: false, status: 404, headers: { get: () => 'application/xml' } };
+  };
+  const parse = async bytes => { const name = new TextDecoder().decode(bytes); const m = name.match(/_(\d{2})_(\d{2})(AM|PM)/); return { reportTime: `${date.slice(5, 7)}/${date.slice(8)}/${date.slice(2, 4)} ${m[1]}:${m[2]} ${m[3]}`, rows: [], notSubmitted: [], issues: [] }; };
+  const col = () => createCollector({ fetch, sleep: async () => {}, perSecond: 1e6 });
+  const at = searchAtOf('C', date, '2026-11-01T12:50:40Z');
+  const snap = await pickSnapshot(col().injuryPdfsBefore(at, { maxSteps: 16 }), { at, gameDate: date, parse });
+  assert.equal(snap.pdf, `Injury-Report_${date}_07_30AM.pdf`);
+  assert.deepEqual(cMorningReport(snap, date, at), { ok: true, why: null });
+  // the validation's own call with its cutoff gives the same file
+  const v = await pickSnapshot(col().injuryPdfsBefore(fromEt(date, 7, 50), { maxSteps: 16 }), { at: fromEt(date, 7, 50), gameDate: date, parse });
+  assert.equal(v.pdf, snap.pdf);
+  // no morning report: nothing within the window, the previous evening's file is never picked; C is provisional
+  delete pdfs[`Injury-Report_${date}_07_30AM.pdf`];
+  const none = await pickSnapshot(col().injuryPdfsBefore(at, { maxSteps: 16 }), { at, gameDate: date, parse });
+  assert.equal(none.pdf, null);
+  assert.equal(cMorningReport(none, date, at).ok, false);
+  assert.equal(cMorningReport({ pdf: 'Injury-Report_2026-10-31_11_30PM.pdf', rows: [], availableAt: '2026-11-01T04:31:00Z' }, date, at).ok, false, 'a previous-evening report never counts');
+  assert.equal(cMorningReport({ pdf: `Injury-Report_${date}_07_30AM.pdf`, formatError: 'x' }, date, at).ok, false);
 });

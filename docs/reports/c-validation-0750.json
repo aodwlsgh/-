@@ -1,0 +1,137 @@
+{
+ "generatedAt": "2026-10-27T16:30:57.943Z",
+ "plan": "docs/plans/2026-10-27-early-run-plan.md",
+ "cutoffEt": {
+  "hour": 7,
+  "minute": 50
+ },
+ "criteria": {
+  "brier": 0.001,
+  "logLoss": 0.003,
+  "marginMAE": 0.3,
+  "totalMAE": 0.3,
+  "slope": 0.1,
+  "coverage": 0.95
+ },
+ "ensembleW": 0.6,
+ "seasons": {
+  "2024-25": {
+   "season": "2024-25",
+   "judged": 1134,
+   "changedGames": 887,
+   "counts": {
+    "rows": 1230,
+    "reused": 257,
+    "simulated": 973,
+    "determinismChecked": 6
+   },
+   "coverage": {
+    "season": "2024-25",
+    "cutoffEt": {
+     "hour": 7,
+     "minute": 50
+    },
+    "games": 1230,
+    "withSnapshot": 1230,
+    "coverage": 1,
+    "formatErrors": 0,
+    "noGameDayReport": {
+     "foundLater": 0,
+     "none": 0,
+     "otherDate": 0
+    },
+    "lagMinMedian": 20,
+    "lagMinMax": 20,
+    "reportTimes": {
+     "07:30 AM": 1230
+    },
+    "notSubmittedGames": 386
+   },
+   "brier": {
+    "registered": 0.208149,
+    "c": 0.209041,
+    "diff": 0.000892,
+    "ci95": [
+     -0.0004,
+     0.002104
+    ]
+   },
+   "logLoss": {
+    "registered": 0.601468,
+    "c": 0.603804,
+    "diff": 0.002336,
+    "ci95": [
+     -0.00058,
+     0.005016
+    ]
+   },
+   "marginMAE": {
+    "registered": 10.967075,
+    "c": 11.001299,
+    "diff": 0.034224,
+    "ci95": [
+     0.00134,
+     0.066149
+    ]
+   },
+   "totalMAE": {
+    "registered": 14.57105,
+    "c": 14.576708,
+    "diff": 0.005658,
+    "ci95": [
+     -0.048458,
+     0.062195
+    ]
+   },
+   "slope": {
+    "registered": 1.0068,
+    "c": 1.0014,
+    "diff": -0.0054
+   },
+   "changedOnly": {
+    "games": 887,
+    "brierDiff": 0.00114
+   },
+   "checks": {
+    "coverage": true,
+    "brier": true,
+    "logLoss": true,
+    "marginMAE": true,
+    "totalMAE": true,
+    "slope": true
+   },
+   "pass": true,
+   "s1": {
+    "note": "2024-25 is the calibration season (in sample); reference only, not a criterion",
+    "c0750": {
+     "model": 0.209,
+     "base": 0.2109,
+     "diff": -0.0019,
+     "ci95": [
+      -0.0057,
+      0.0022
+     ],
+     "label": "pass, advantage unconfirmed"
+    },
+    "registered": {
+     "model": 0.2081,
+     "base": 0.2109,
+     "diff": -0.0028,
+     "ci95": [
+      -0.0068,
+      0.0013
+     ],
+     "label": "pass, advantage unconfirmed"
+    },
+    "method": "engine/backtest.js report().all.S1, bootstrap 1000, seed 1 (same as docs/reports/c-validation.json)"
+   }
+  }
+ },
+ "primaryPass": true,
+ "registration": {
+  "criteria": "4298179 (2026-10-27T15:55:50Z)",
+  "snapshots": "0839663 (2026-10-27T15:59:18Z)",
+  "computedOnce": true,
+  "note": "criteria registered and the report-time distribution reported before any metric; computed once (2026-10-28 user approval 2)"
+ }
+}

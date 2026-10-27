@@ -30,12 +30,28 @@ export function nextFireUtc(expr, from) {
   throw new Error('no firing within three days');
 }
 
-// Early run C (docs/plans/2026-10-27-early-run-plan.md, validated in docs/reports/c-validation.md, approved
-// 2026-10-27): the injury report as of 08:50 ET. Scheduled at 21:50 KST, which is 08:50 ET only while New York is on
-// daylight time; from 2026-11-01 the same KST time is 07:50 ET, before this cutoff, so a C run then is provisional.
+// Early run C (docs/plans/2026-10-27-early-run-plan.md), scheduled at 21:50 KST (08:50 EDT, 07:50 EST): the injury report
+// as of 08:50 ET for game dates through 2026-10-31 (validated in docs/reports/c-validation.md, approved 2026-10-27) and
+// as of 07:50 ET from 2026-11-01 (plan §8, option 다, criteria 4298179, passed 2026-10-28 in
+// docs/reports/c-validation-0750.json; the 08:50 cutoff stays until then by the user's condition).
 export const RUN_C_ET = { hour: 8, minute: 50 };
-const runEt = run => (run === 'C' ? RUN_C_ET : RUN_ET[run]);
-export const runAt = (run, etDate) => fromEt(etDate, runEt(run).hour, runEt(run).minute);
+export const RUN_C_ET_0750 = { hour: 7, minute: 50 };
+export const RUN_C_0750_FROM = '2026-11-01'; // ET game date
+export const runCEt = etDate => (etDate >= RUN_C_0750_FROM ? RUN_C_ET_0750 : RUN_C_ET);
+const runEt = (run, etDate) => (run === 'C' ? runCEt(etDate) : RUN_ET[run]);
+export const runAt = (run, etDate) => fromEt(etDate, runEt(run, etDate).hour, runEt(run, etDate).minute);
+// the moment a run reads the injury report at: its cutoff, or now for a run before its time (provisional)
+export const searchAtOf = (run, etDate, now) => { const c = runAt(run, etDate); return new Date(now) < c ? new Date(now) : c; };
+// run C uses its predictions as final only on a report of the game date available by the cutoff, without a format
+// error (the coverage definition of plan §8); otherwise they are provisional, with a warning and a push (2026-10-28
+// user condition 6). The search window (16 steps of 15 minutes) never reaches the previous evening.
+export function cMorningReport(snap, etDate, cutoff) {
+  if (!snap?.pdf) return { ok: false, why: '리포트 없음' };
+  if (snap.formatError) return { ok: false, why: `형식 오류(${snap.pdf})` };
+  if (!snap.pdf.startsWith(`Injury-Report_${etDate}_`)) return { ok: false, why: `경기 당일 리포트가 아님(${snap.pdf})` };
+  if (!snap.availableAt || new Date(snap.availableAt) > new Date(cutoff)) return { ok: false, why: `기준 시각 뒤 리포트(${snap.pdf})` };
+  return { ok: true, why: null };
+}
 
 // games a run predicts: runs A and C every game after 17:50 ET (run A the B-group ones provisionally), run B the
 // 21:00 ET+ games

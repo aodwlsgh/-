@@ -32,8 +32,8 @@
    },
    {
     "at": "2026-10-28",
-    "what": "early run C revalidation, 07:50 ET report (plan §8), registered before computing; snapshots and metrics pending",
-    "criteria": "plan §8",
+    "what": "early run C revalidation, 07:50 ET report (plan §8), registered before computing (4298179), computed once: pass",
+    "criteria": "4298179",
     "file": "docs/reports/c-validation-0750.json"
    }
   ],
