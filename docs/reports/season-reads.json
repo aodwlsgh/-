@@ -1,0 +1,24 @@
+{
+ "note": "Reads of held-out seasons whose results were looked at (2026-10-27 user decision 1). 2025-26 openings are sealed separately in data/model/test-openings.json.",
+ "2023-24": {
+  "reads": [
+   {
+    "at": "2026-10-22",
+    "what": "P5 first rehearsal, no prior season",
+    "file": "docs/reports/p5-rehearsal.json"
+   },
+   {
+    "at": "2026-10-22",
+    "what": "P5 re-rehearsal with 2022-23 as prior",
+    "file": "docs/reports/p5-rehearsal-2.json"
+   },
+   {
+    "at": "2026-10-27",
+    "what": "early run C validation, second season (not counted as evidence)",
+    "file": "docs/reports/c-validation.json"
+   }
+  ],
+  "count": 3,
+  "status": "not used for any further validation (2026-10-27)"
+ }
+}

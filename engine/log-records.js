@@ -7,7 +7,8 @@
 // Every pick and 2-fold carries the record-only flag and the gate reasons (§9.4).
 import { toOddsRecords } from './odds.js';
 import { evaluate, picks, gate } from './picks.js';
-import { pickRecord } from './pick-log.js';
+import { pickRecord, RECORD_SCHEMA, assertPredictionRun } from './pick-log.js';
+import { canEvaluate, evalPath } from './trigger-time.js';
 import { stamp } from './clock.js';
 import { etParts } from './time.js';
 
@@ -41,6 +42,13 @@ export function pendingOdds(chain, { now = new Date() } = {}) {
   return [...latest.values()];
 }
 
+// why a market waits: its path's final prediction is not the one on the day file (yet)
+const awaitingNote = (o, g) => {
+  if (!g) return 'no such game';
+  const path = evalPath(o.deadline.utc, g.start.utc);
+  return path === null ? 'no run covers this game' : path === 'C' ? 'awaiting run C' : 'awaiting the final prediction';
+};
+
 export function evaluationRecords({ oddsRecs, day, cal, chain = [], now = new Date() }) {
   const games = new Map(day.games.map(g => [g.gameId, g]));
   const fixed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey)); // closed either way
@@ -48,7 +56,8 @@ export function evaluationRecords({ oddsRecs, day, cal, chain = [], now = new Da
   for (const o of oddsRecs) {
     const k = marketKey(o);
     if (fixed.has(k)) { notes.push({ market: k, note: 'already fixed' }); continue; }
-    if (!games.get(o.gameId)?.prediction?.final) { notes.push({ market: k, note: 'awaiting the final prediction' }); continue; }
+    const g = games.get(o.gameId);
+    if (!canEvaluate(o, g)) { notes.push({ market: k, note: awaitingNote(o, g) }); continue; }
     if (ms(now) >= ms(o.deadline.utc)) { notes.push({ market: k, note: 'after the deadline' }); continue; }
     fixed.add(k);
     todo.push(o);
@@ -63,7 +72,7 @@ export function evaluationRecords({ oddsRecs, day, cal, chain = [], now = new Da
   const haveCombo = new Set(chain.filter(r => r.type === 'combo').map(r => r.id));
   const reasons = leg => gate(leg.market, etParts(new Date(games.get(leg.gameId)?.start?.utc ?? leg.deadline.utc)).date).reasons;
   const createdAt = stamp(now);
-  const evals = rows.map(r => ({ type: 'evaluation', id: pickId(r), ...r, createdAt }));
+  const evals = rows.map(r => { const e = { type: 'evaluation', schema: RECORD_SCHEMA, id: pickId(r), ...r, createdAt }; assertPredictionRun(e); return e; });
   const newPicks = result.legs.filter(l => !havePick.has(pickId(l))).map(l => ({ ...pickRecord(l, { now }), recordOnly: true, gateReasons: reasons(l) }));
   const combos = result.combos.map(c => {
     const legs = c.legs.map(pickId).sort();

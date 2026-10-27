@@ -146,7 +146,7 @@ test('confirmation screen: the first entry of a market fixes it, later or pre-fi
     mk(1, '보스턴 셀틱스', '뉴욕 닉스', 'ML', { home: 1.5, away: 1.5 }),
     mk(1, '보스턴 셀틱스', '뉴욕 닉스', 'ML', { home: 1.6, away: 2.2 }),
     mk(2, '보스턴 셀틱스', '뉴욕 닉스', 'OU', { over: 1.8, under: 1.9 }, 220),
-    mk(3, 'LA 레이커스', 'LA 클리퍼스', 'ML', { home: 1.8, away: 1.9 }),
+    { ...mk(3, 'LA 레이커스', 'LA 클리퍼스', 'ML', { home: 1.8, away: 1.9 }), deadline: '2026-11-03T11:50:00+09:00' }, // after run B (path AB)
   ] };
   const fixedBefore = [{ type: 'evaluation', round: 7, betmanNo: 9, gameId: 'g1' }];
   const c = classifyInput({ input, day, chain: fixedBefore, now });

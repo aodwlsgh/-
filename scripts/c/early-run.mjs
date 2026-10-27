@@ -22,8 +22,10 @@ import { pickSnapshot, parsePdf } from '../../jobs/lib/live-collect.js';
 
 export const C_ET = { hour: 8, minute: 50 };
 export const CRITERIA = { brier: 0.001, logLoss: 0.003, marginMAE: 0.3, totalMAE: 0.3, slope: 0.10, coverage: 0.95 };
-const SEASONS = ['2024-25', '2023-24'];
-const PRIOR = { '2023-24': ['2022-23'], '2024-25': ['2023-24'] };
+// 2023-24 was read once here (2026-10-27) and is not counted as evidence or read again (user decision 1, same day;
+// docs/reports/season-reads.json). 2025-26 is never read.
+const SEASONS = ['2024-25'];
+const PRIOR = { '2024-25': ['2023-24'] };
 const exists = p => access(p).then(() => true, () => false);
 const readGz = async p => JSON.parse(gunzipSync(await readFile(p)));
 const writeGz = async (p, v) => { await mkdir(p.split('/').slice(0, -1).join('/'), { recursive: true }); await writeFile(p, gzipSync(JSON.stringify(v))); };
@@ -32,7 +34,7 @@ const P = JSON.parse(await readFile('data/model/params.json', 'utf8'));
 const LATENT = JSON.parse(await readFile('data/model/latent.json', 'utf8')).latent;
 const CAL = JSON.parse(await readFile('data/model/calibration.json', 'utf8'));
 const RULES_ON = { garbageTime: true, clutchFoul: true, overtime: true, latent: true };
-const guard = season => { if (!SEASONS.includes(season)) { console.error(`season must be one of ${SEASONS.join(', ')} (2025-26 is not read)`); process.exit(2); } };
+const guard = season => { if (!SEASONS.includes(season)) { console.error(`season must be ${SEASONS.join(', ')} (2023-24 and 2025-26 are not read)`); process.exit(2); } };
 
 // ---- pdf -------------------------------------------------------------------------------------------------------
 async function pdf(season) {

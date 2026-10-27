@@ -57,7 +57,7 @@ export function evaluate(oddsRecs, predictions, cal, { now = new Date() } = {}) 
     const probs = marketProbs(pred, cal, { ...rec, type: market });
     const nv = rec.noVig ?? noVig(rec.odds);
     for (const [selection, odds] of Object.entries(rec.odds)) {
-      const base = { gameId: rec.gameId, round: rec.round, betmanNo: rec.betmanNo, market, line: rec.line ?? null, selection, odds, deadline: rec.deadline, noVig: nv[selection], predictionRef: pred.runId, predTotal: pred.sim.total, evaluatedAt: new Date(now).toISOString() };
+      const base = { gameId: rec.gameId, round: rec.round, betmanNo: rec.betmanNo, market, line: rec.line ?? null, selection, odds, deadline: rec.deadline, noVig: nv[selection], predictionRef: pred.runId, predictionRun: pred.run ?? null, predTotal: pred.sim.total, evaluatedAt: new Date(now).toISOString() };
       if (probs.unsupported) { rows.push({ ...base, unsupported: probs.unsupported }); continue; }
       const p = probs[selection], pc = pCons(p), pco = pConsOld(p);
       rows.push({ ...base, p, pCons: pc, ev: pc * odds - 1, pConsOld: pco, evOld: pco * odds - 1 });

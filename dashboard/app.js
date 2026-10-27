@@ -14,7 +14,7 @@ import {
 } from '../engine/dashboard-data.js';
 import { pageStore, readChain, appendAsPage, HEAD_PATH } from '../engine/log-store.js';
 import { roundRecords } from '../engine/log-records.js';
-import { summarize, purchaseRecord } from '../engine/pick-log.js';
+import { summarize, summarizeByPath, purchaseRecord } from '../engine/pick-log.js';
 import { inFirstMonth, settle, SEASON_OPENING, FIRST_MONTH } from '../engine/picks.js';
 import { SELECTIONS } from '../engine/odds.js';
 import { MARGIN_T, marginSurvival } from '../engine/calibrate.js';
@@ -40,7 +40,7 @@ const REASON_KO = {
   conflict: '체인 저장 충돌 — 확인 필요. 기록하지 않았습니다.',
   'head mismatch': '머리 문서와 마지막 블록이 맞지 않습니다 — 확인 필요. 기록하지 않았습니다.',
 };
-const NOTE_KO = { 'already fixed': '이미 확정된 마켓이라 배당만 기록했습니다', 'awaiting the final prediction': '실행 B 예측 전이라 배당만 기록했습니다(실행 B가 평가)', 'after the deadline': '마감이 지나 배당만 기록했습니다' };
+const NOTE_KO = { 'already fixed': '이미 확정된 마켓이라 배당만 기록했습니다', 'awaiting the final prediction': '최종 예측 전이라 배당만 기록했습니다(실행 A·B가 평가)', 'awaiting run C': '아침 리포트 기준(C) 예측 전이라 배당만 기록했습니다(실행 C가 평가)', 'no run covers this game': '어떤 실행도 다루지 않는 경기라 배당만 기록했습니다', 'after the deadline': '마감이 지나 배당만 기록했습니다' };
 
 const S = {
   day: null, cal: null, status: null, anchor: null, db: null, store: null, owner: false, dbState: 'connecting',
@@ -188,6 +188,7 @@ function renderToday() {
     const unmatched = inj.flatMap(x => x.unmatched ?? []).length, absent = inj.reduce((a, x) => a + (x.top3Absent ?? 0), 0);
     const status = [`실행 ${esc(st.run ?? g.group)}`, st.injurySnapshot ? `부상 리포트 반영${absent ? `, 상위 3인 결장 ${absent}` : ''}${unmatched ? `, 이름 미매칭 ${unmatched}` : ''}` : '부상 리포트 없음'];
     if (!isEx() && g.prediction.final === false) status.unshift(`<span class="badge unv" data-prov>${TEXT.provisional}</span>`);
+    if (g.prediction.run === 'C') status.unshift(`<span class="badge apx" data-crun title="${esc(TEXT.cRunNote)}">${TEXT.cRun}</span>`);
     if (g.parallel) status.push(`<span data-par>${TEXT.parallel}: ${g.parallel.same ? '차이 없음' : `차이 ${g.parallel.diffs.length}명(${g.parallel.diffs.slice(0, 3).map(x => esc(x.name)).join(', ')}), 홈 승률 ${pct(g.parallel.winProbHome)}`}</span>`);
     if (!isEx()) status.push(`<strong data-status>${esc(gs.get(g.gameId)?.text ?? '')}</strong>`);
     return `<tr data-game="${esc(g.gameId)}">
@@ -200,7 +201,7 @@ function renderToday() {
   }).join('');
   $('#today').innerHTML = `
     <div class="card"><header><h2>오늘 경기 ${d.games.length}개</h2>${exTag()}<span class="note">시각은 KST, 아래는 ET. 승률은 보정층을 거친 기본 예측, 점수 차는 홈 기준 앙상블 위치, 괄호는 90% 구간(시뮬레이션 분포).</span></header>
-    <div class="tbl"><table><thead><tr><th class="n">시작(KST)</th><th>경기(원정 @ 홈)</th><th class="n">홈 승률</th><th class="n">예상 점수 차</th><th class="n">예상 총점</th><th>데이터 상태</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    <div class="tbl"><table><thead><tr><th class="n">시작(KST)</th><th>경기(원정 @ 홈)</th><th class="n">홈 승률</th><th class="n">예상 점수 차</th><th class="n">예상 총점</th><th>데이터 상태</th></tr></thead><tbody>${rows}</tbody></table></div>${d.run === 'C' ? `<p class="note" data-crun-note>${esc(TEXT.cRunNote)}</p>` : ''}</div>`;
   for (const b of $$('#today [data-open]')) b.addEventListener('click', () => { S.gi = d.games.findIndex(g => g.gameId === b.dataset.open); setTab('detail'); });
 }
 
@@ -643,7 +644,9 @@ function exitTable(v, caption) {
 function renderRecord() {
   const recs = S.chain.records;
   const sum = summarize(recs, { now: new Date() });
-  const vS = exitView(sum.exit), ct = comboTable(recs), mv = oddsMovement(recs), un = recs.filter(r => r.type === 'unevaluated');
+  // release conditions per evaluation path (2026-10-27): run-time report (A·B) and morning report (C) never pooled
+  const byPath = summarizeByPath(recs, { now: new Date() });
+  const vAB = exitView(byPath.AB.exit), vC = exitView(byPath.C.exit), ct = comboTable(recs), mv = oddsMovement(recs), un = recs.filter(r => r.type === 'unevaluated');
   const results = new Map(recs.filter(r => r.type === 'result').map(r => [r.gameId, r]));
   const bought = purchases();
   const picks = recs.filter(r => r.type === 'pick').slice().reverse();
@@ -655,7 +658,8 @@ function renderRecord() {
       ${S.dbState !== 'ok' ? `<div class="msg">DB에 연결되지 않아 픽 로그를 읽을 수 없습니다.</div>` : t ? `<div class="msg${t.ok ? '' : ' bad'}" id="chainDetail">${esc(t.text)}</div>
       <p class="note">블록 ${S.chain.head?.blocks ?? 0}개 · ${esc(a.text)}${S.chain.orphans.length ? ` · <strong>머리 문서 밖 블록 ${S.chain.orphans.map(esc).join(', ')}: 확인 필요</strong>` : ''}${S.chain.verify.problems?.length ? ` · ${S.chain.verify.problems.map(esc).join(' · ')}` : ''}</p>` : '<p class="note">확인 중</p>'}</div>
     <div class="grid2">
-      <div class="card"><header><h2>해제 조건 진행도 — 단일 픽</h2></header>${exitTable(vS, '설계 §9.4. 모두 충족해도 해제는 사용자 승인으로만 합니다.')}</div>
+      <div class="card" data-path="AB"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathAB}</h2></header>${exitTable(vAB, `설계 §9.4. 경로별로 따로 셉니다. 모두 충족해도 해제는 사용자 승인으로만 합니다.`)}</div>
+      <div class="card" data-path="C"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathC}</h2></header>${exitTable(vC, `설계 §9.4. 경로별로 따로 셉니다.${byPath.mixedCombos ? ` 경로가 섞인 2폴더 ${byPath.mixedCombos}개는 어느 경로에도 넣지 않았습니다.` : ''}`)}</div>
       <div class="card" id="comboTable"><header><h2>2폴더 기록 — 해제 조건에 넣지 않음</h2></header><div class="tbl"><table><caption class="note" style="text-align:left">${esc(ct.caption)}</caption><tbody>${ct.columns.map(c => `<tr><td>${c.label}</td><td class="n">${esc(c.value)}</td></tr>`).join('')}</tbody></table></div></div>
     </div>
     <div class="card"><header><h2>성적 요약</h2>${roBadge(true)}</header>

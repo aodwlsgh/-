@@ -27,9 +27,9 @@ async function plan() {
   // no day file (prepare failed): results and unevaluated markets are still written, pending odds wait
   const day = await readFile(arg('--day', 'data/live/today.json'), 'utf8').then(JSON.parse, () => null);
   const cal = JSON.parse(await readFile('data/model/calibration.json', 'utf8')).calibration;
-  const { results, finals } = await seasonState({ season: day?.season ?? '2026-27' });
+  const { results, finals, finalsC, starts } = await seasonState({ season: day?.season ?? '2026-27' });
   const now = Date.now();
-  const step = await syncStep({ head: db.head, headVersion: db.headVersion, blocks: db.blocks, build: (chain, t) => jobBodies({ chain, day, cal, finals, results, now: new Date(t), marginMs: MARGIN_MS }), now });
+  const step = await syncStep({ head: db.head, headVersion: db.headVersion, blocks: db.blocks, build: (chain, t) => jobBodies({ chain, day, cal, finals, finalsC, starts, results, now: new Date(t), marginMs: MARGIN_MS }), now });
   const res = { action: step.action, reason: step.reason ?? null, records: step.records?.length ?? 0, types: counts(step.bodies ?? []), notes: step.notes ?? [], chain: { count: db.records.length, ok: db.verify.ok } };
   if (step.action === 'commit' || step.action === 'adopt') {
     for (const w of step.writes) await write(join(dir, 'write', `${w.path}.json`), w.data);

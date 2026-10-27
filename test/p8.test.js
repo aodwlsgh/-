@@ -310,7 +310,7 @@ test('exit progress: unmet conditions read 미충족 and keep record-only; all m
 });
 
 test('2-fold progress is counted separately from single picks', () => {
-  const mkPick = (round, no, sel, odds) => pickRecord({ round, betmanNo: no, selection: sel, gameId: `g${no}`, market: 'ML', line: null, odds, p: 0.6, pCons: 0.59, ev: 0.1, pConsOld: 0.59, evOld: 0.1, noVig: 0.5, predictionRef: 'r', deadline: { utc: '2026-11-06T00:00:00Z', kst: 'x' } }, { now: NOW });
+  const mkPick = (round, no, sel, odds) => pickRecord({ round, betmanNo: no, selection: sel, gameId: `g${no}`, market: 'ML', line: null, odds, p: 0.6, pCons: 0.59, ev: 0.1, pConsOld: 0.59, evOld: 0.1, noVig: 0.5, predictionRef: 'r', predictionRun: 'A', deadline: { utc: '2026-11-06T00:00:00Z', kst: 'x' } }, { now: NOW });
   const log = chainOf([
     mkPick(1, 1, 'home', 1.8), mkPick(1, 2, 'home', 1.8),
     { type: 'combo', id: '1-1-home+1-2-home', legs: ['1-1-home', '1-2-home'], round: 1, oddsProduct: 3.24, pCons: 0.35, ev: 0.13 },

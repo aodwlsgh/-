@@ -1,7 +1,7 @@
 // Daily run (P9; design §11.2, §12, §13; plan P9; procedure docs/daily-run.md). The Node steps are here; the run's
 // Claude session does the tool steps between them (Artifact publish, ArtifactData reads and batches, git push via
 // jobs/commit-daily.js). Nothing is fitted: params, latent, calibration and play-prob are only read.
-//   prepare A|B [--now ISO] [--n 10000] [--offline --season S]   collect, predict, write the day file, archive, run log
+//   prepare A|B|C [--now ISO] [--n 10000] [--offline --season S]   collect, predict, write the day file, archive, run log
 //   sensitivity [--n 2000]                                       sensitivity (unverified) for this run's games
 //   mark published | mark <field> '<json>'                       record a tool step in the run log
 //   report [--chain DIR]                                         report with the pick-log statuses
@@ -68,7 +68,7 @@ const trim = (ratings, ids, teams) => ({
 // ---- prepare ----------------------------------------------------------------------------------------------------
 async function prepare() {
   const run = argv[1];
-  if (!['A', 'B'].includes(run)) throw new Error('usage: prepare A|B');
+  if (!['A', 'B', 'C'].includes(run)) throw new Error('usage: prepare A|B|C');
   const now = new Date(arg('--now') ?? Date.now());
   const n = +arg('--n', 10000);
   const offline = argv.includes('--offline');
@@ -91,7 +91,8 @@ async function prepare() {
   // 1-2. live schema check and the finished games (run A only; run B uses what run A collected)
   if (!offline) {
     if (!(await step('schema check', () => node(['scripts/check-schema-live.mjs'])))) alert('schema', `ESPN 형식 점검 실패 — ${log.steps.at(-1).error}`);
-    if (run === 'A') {
+    // runs A and C collect the finished games (C: the morning before run A; docs/plans/2026-10-27-early-run-plan.md)
+    if (run === 'A' || run === 'C') {
       const ok = (await step('collect schedule', () => node(['jobs/build-data.js', 'schedule', season]))) && (await step('normalize play types', () => node(['jobs/normalize-raw.js', season]))) && (await step('collect games', () => node(['jobs/build-data.js', 'games', season])));
       if (!ok) {
         const s = await readJson(`data/schedule/${season}.json`).catch(() => null);
@@ -108,7 +109,7 @@ async function prepare() {
     const games = await loadGames([season]);
     const day = games.filter(g => etParts(new Date(g.start)).date === date);
     const pdfRec = await readGz(join(p.pdf, `${date}.json.gz`)).catch(() => null);
-    inputs = { fixtures: day.map(g => ({ id: g.id, start: g.start, season: g.season, home: g.home, away: g.away })), skipped: [], snapshot: (run === 'B' ? pdfRec?.runB : pdfRec?.main) ?? { pdf: null }, espn: null, espnError: 'offline' };
+    inputs = { fixtures: day.map(g => ({ id: g.id, start: g.start, season: g.season, home: g.home, away: g.away })), skipped: [], snapshot: (run === 'B' ? pdfRec?.runB : run === 'C' ? pdfRec?.runC : pdfRec?.main) ?? { pdf: null }, espn: null, espnError: 'offline' };
   } else {
     const col = createCollector({});
     if (!(await step('inputs', async () => { inputs = await liveInputs(col, { date, season, searchAt }); return `${inputs.fixtures.length} games, report ${inputs.snapshot.pdf ?? 'none'}`; }))) {
@@ -135,7 +136,7 @@ async function prepare() {
   if (!offline) {
     const file = join(p.pdf, `${date}.json.gz`);
     const rec = (await readGz(file).catch(() => null)) ?? { date, cutoff: runAt('A', date).toISOString(), format: '15min', main: null, early: [], runB: null };
-    if (now >= cutoff) rec[run === 'A' ? 'main' : 'runB'] = snap; else (rec.manual ??= []).push({ runId, at: searchAt.toISOString(), ...snap });
+    if (now >= cutoff) rec[{ A: 'main', B: 'runB', C: 'runC' }[run]] = snap; else (rec.manual ??= []).push({ runId, at: searchAt.toISOString(), ...snap });
     await writeGz(at(file), rec);
   }
 
@@ -144,7 +145,7 @@ async function prepare() {
   const targets = runGames(run, inputs.fixtures).filter(f => new Date(f.start) > now);
   for (const f of inputs.fixtures) {
     if (jobGroup(f.start) === 'pre_job_start') log.skipped.push({ id: f.id, game: `${f.away.abbr}@${f.home.abbr}`, reason: 'starts before 17:50 ET (no run covers it)' });
-    else if (!targets.includes(f) && run === 'A') log.skipped.push({ id: f.id, game: `${f.away.abbr}@${f.home.abbr}`, reason: 'started before the run' });
+    else if (!targets.includes(f) && run !== 'B') log.skipped.push({ id: f.id, game: `${f.away.abbr}@${f.home.abbr}`, reason: 'started before the run' });
   }
   const injuriesFor = s => (f, side, players) => snapshotInjuries(s, { team: side ? f.away.abbr : f.home.abbr, home: f.home.abbr, away: f.away.abbr, players });
   const lp = livePlans({ history, fixtures: targets, date, params: P.params, injuriesFor: injuriesFor(usable) });

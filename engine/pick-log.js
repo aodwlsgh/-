@@ -56,12 +56,22 @@ export function verifyChain(log) {
 }
 
 // a leg from engine/picks.js becomes a pick record; refused at or after the deadline (= before tip-off)
+// Record schema 2 (2026-10-27, early run C approval 6): evaluation and pick records name the run whose final prediction
+// they used (predictionRun "A" | "B" | "C"); required for every new record. Records without it are schema 1 (path AB).
+export const RECORD_SCHEMA = 2;
+export const PREDICTION_RUNS = ['A', 'B', 'C'];
+export const pathOfRecord = r => (r.predictionRun === 'C' ? 'C' : 'AB');
+export function assertPredictionRun(r) {
+  if (!PREDICTION_RUNS.includes(r.predictionRun)) throw new Error(`${r.type ?? 'record'} ${r.gameId} ${r.market} ${r.selection ?? ''}: predictionRun missing (schema ${RECORD_SCHEMA})`);
+}
+
 export function pickRecord(leg, { now = new Date() } = {}) {
+  assertPredictionRun(leg);
   if (!leg.deadline?.utc || new Date(now) >= new Date(leg.deadline.utc)) throw new Error(`pick ${leg.gameId} ${leg.market} ${leg.selection}: at or after the deadline ${leg.deadline?.utc}`);
   return {
-    type: 'pick', id: `${leg.round}-${leg.betmanNo}-${leg.selection}`, createdAt: stamp(now), deadline: leg.deadline,
+    type: 'pick', schema: RECORD_SCHEMA, id: `${leg.round}-${leg.betmanNo}-${leg.selection}`, createdAt: stamp(now), deadline: leg.deadline,
     gameId: leg.gameId, round: leg.round, betmanNo: leg.betmanNo, market: leg.market, line: leg.line, selection: leg.selection,
-    odds: leg.odds, p: leg.p, pCons: leg.pCons, ev: leg.ev, pConsOld: leg.pConsOld, evOld: leg.evOld, noVig: leg.noVig, predictionRef: leg.predictionRef,
+    odds: leg.odds, p: leg.p, pCons: leg.pCons, ev: leg.ev, pConsOld: leg.pConsOld, evOld: leg.evOld, noVig: leg.noVig, predictionRef: leg.predictionRef, predictionRun: leg.predictionRun,
   };
 }
 export const purchaseRecord = (pickId, purchased, { now = new Date(), stake = null } = {}) => ({ type: 'purchase', pickId, purchased: !!purchased, stake, at: stamp(now) });
@@ -84,6 +94,16 @@ function roiByGame(settled, { resamples = 2000, seed = 1 } = {}) {
 }
 
 // weekly summary of the record-only period (§9.4): single picks counted alone (200-pick condition), 2-folds apart
+// exit progress per evaluation path (2026-10-27 early run C approval 6): picks evaluated with the morning report (C)
+// and with the run-time report (A·B) are never pooled. Evaluations and picks go by their predictionRun (schema 1
+// records count as AB); a 2-fold goes to a path only when all its legs are in it, otherwise it is counted as mixed.
+export function summarizeByPath(log, opts) {
+  const pickPath = new Map(log.filter(r => r.type === 'pick').map(r => [r.id, pathOfRecord(r)]));
+  const comboPath = c => { const ps = new Set(c.legs.map(id => pickPath.get(id) ?? 'AB')); return ps.size === 1 ? [...ps][0] : 'mixed'; };
+  const keep = path => log.filter(r => (r.type === 'evaluation' || r.type === 'pick' ? pathOfRecord(r) === path : r.type === 'combo' ? comboPath(r) === path : true));
+  return { AB: summarize(keep('AB'), opts), C: summarize(keep('C'), opts), mixedCombos: log.filter(r => r.type === 'combo' && comboPath(r) === 'mixed').length };
+}
+
 export function summarize(log, { now = new Date() } = {}) {
   const results = new Map(log.filter(r => r.type === 'result').map(r => [r.gameId, r]));
   const outcome = r => { const g = results.get(r.gameId); return g ? settle(r.market, r.selection, r.line, g.margin, g.total) : null; };

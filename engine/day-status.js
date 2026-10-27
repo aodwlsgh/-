@@ -9,6 +9,7 @@ import { TEXT, comboProgress } from './dashboard-data.js';
 import { marketKey, joinGames } from './log-records.js';
 import { toOddsRecords } from './odds.js';
 import { byKorean } from './betman-teams.js';
+import { canEvaluate, evalPath } from './trigger-time.js';
 import { stamp } from './clock.js';
 
 const ms = t => new Date(t).getTime();
@@ -42,11 +43,15 @@ export const UNEVALUATED_REASONS = {
   'deadline before final prediction': `${TEXT.deadlineMissed} — 최종 예측보다 베트맨 마감이 먼저`,
   'no final prediction': `${TEXT.unevaluated} — 최종 예측 없음(제외·실패·실행 전 시작 경기)`,
   'not written before deadline': `${TEXT.unevaluated} — 최종 예측은 있었지만 마감 전에 기록되지 않음`,
+  // early run C (2026-10-27): a market of path C with no C prediction published (no run C that day)
+  'no C prediction': `${TEXT.unevaluated} — 아침 리포트 기준(C) 예측 없음`,
 };
 
 // markets with odds but no evaluation whose deadline has passed: one record each, with the reason.
-// finals: Map gameId -> { at (when the final prediction was published), runId }
-export function unevaluatedRecords({ chain, finals = new Map(), now = new Date() }) {
+// finals / finalsC: Map gameId -> { at (when the final prediction was published), runId, start } of path AB / C; a
+// market is judged against its own path's final prediction (engine/trigger-time.js evalPath)
+// starts: Map gameId -> tip-off (any predicted game), so the path is known even without a final prediction
+export function unevaluatedRecords({ chain, finals = new Map(), finalsC = new Map(), starts = new Map(), now = new Date() }) {
   const done = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
   const latest = new Map();
   for (const r of chain) {
@@ -57,8 +62,10 @@ export function unevaluatedRecords({ chain, finals = new Map(), now = new Date()
   const out = [];
   for (const o of latest.values()) {
     if (ms(o.deadline.utc) > ms(now)) continue; // still before its deadline: pending
-    const f = finals.get(o.gameId);
-    const reason = !f ? 'no final prediction' : ms(f.at) >= ms(o.deadline.utc) ? 'deadline before final prediction' : 'not written before deadline';
+    const start = starts.get(o.gameId) ?? (finals.get(o.gameId) ?? finalsC.get(o.gameId))?.start;
+    const pathC = !!start && evalPath(o.deadline.utc, start) === 'C';
+    const f = (pathC ? finalsC : finals).get(o.gameId);
+    const reason = !f ? (pathC ? 'no C prediction' : 'no final prediction') : ms(f.at) >= ms(o.deadline.utc) ? 'deadline before final prediction' : 'not written before deadline';
     out.push({
       type: 'unevaluated', id: marketKey(o), round: o.round, betmanNo: o.betmanNo, gameId: o.gameId, market: o.market, line: o.line ?? null,
       deadline: o.deadline, oddsSeq: o.seq, oddsCapturedAt: o.capturedAt, finalAt: f?.at ?? null, reason, note: UNEVALUATED_REASONS[reason], createdAt: stamp(now),
@@ -135,6 +142,9 @@ export const HANDLING = {
   oddsOnlyFixed: '배당만 기록 — 이미 확정된 마켓(변동 모니터링용)',
   oddsOnlyAwaitingB: '배당만 기록 — 실행 B 예측 뒤 평가',
   oddsOnlyAwaitingFinal: '배당만 기록 — 최종 예측 뒤 평가',
+  // early run C (2026-10-27): markets whose Betman deadline comes before the game's A/B final prediction
+  oddsOnlyAwaitingC: '배당만 기록 — 아침 리포트 기준(C) 예측 뒤 평가',
+  fixC: '평가·픽 확정 — 아침 리포트 기준(C) 예측, 확정 뒤 수정 불가',
   unsupported: '미지원(정수 기준선) — 평가만 기록, 픽 제외',
 };
 // markets left out one by one before validation (2026-10-26 user decision on the odds input flow): the input rule is
@@ -168,7 +178,9 @@ export function classifyInput({ input: raw, day, chain, now = new Date() }) {
   const closed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
   const rows = recs.map(o => {
     const g = day.games.find(x => x.gameId === o.gameId), k = marketKey(o);
-    const handling = closed.has(k) ? 'oddsOnlyFixed' : !g.prediction?.final ? (g.group === 'B' ? 'oddsOnlyAwaitingB' : 'oddsOnlyAwaitingFinal') : o.lineKind === 'integer' ? 'unsupported' : 'fix';
+    const handling = closed.has(k) ? 'oddsOnlyFixed'
+      : !canEvaluate(o, g) ? (evalPath(o.deadline.utc, g.start.utc) === 'C' ? 'oddsOnlyAwaitingC' : g.group === 'B' ? 'oddsOnlyAwaitingB' : 'oddsOnlyAwaitingFinal')
+      : o.lineKind === 'integer' ? 'unsupported' : g.prediction.run === 'C' ? 'fixC' : 'fix';
     closed.add(k); // a market repeated in the same input: only its first entry fixes
     return { market: k, gameId: o.gameId, game: `${g.away.espn}@${g.home.espn}`, type: o.market, line: o.line, odds: o.odds, overround: o.overround, warning: overroundWarning(o.overround), deadline: o.deadline, handling, text: HANDLING[handling] };
   });

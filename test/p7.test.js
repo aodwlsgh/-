@@ -96,7 +96,7 @@ function basePrediction(gameId = 'g1', over = {}, mu = MU) {
   const p = [], tp = [];
   for (let k = -60; k <= 60; k++) p.push(Phi((k + 0.5 - mu) / SD) - Phi((k - 0.5 - mu) / SD));
   for (let k = 150; k <= 300; k++) tp.push(Phi((k + 0.5 - TMU) / TSD) - Phi((k - 0.5 - TMU) / TSD));
-  return { source: 'base', runId: 'run-1', gameId, home: 'MIA', away: 'MIN', tipoff: '2026-11-06T00:00:00Z', sim: { margin: mu, total: TMU, marginHist: { lo: -60, p }, totalHist: { lo: 150, p: tp }, shift: 0 }, ...over };
+  return { source: 'base', runId: 'run-1', run: 'A', gameId, home: 'MIA', away: 'MIN', tipoff: '2026-11-06T00:00:00Z', sim: { margin: mu, total: TMU, marginHist: { lo: -60, p }, totalHist: { lo: 150, p: tp }, shift: 0 }, ...over };
 }
 const rec = (type, line, odds, gameId = 'g1') => ({ type, line, odds, gameId, round: 125, betmanNo: 9, deadline: stamp(new Date('2026-11-06T08:30:00+09:00')) });
 

@@ -368,3 +368,27 @@ test('only out-of-rule markets: nothing is written and the reason is shown', asy
   assert.deepEqual(errors, []);
   await close();
 });
+
+test('run C day: "아침 리포트 기준(C)" on every game and under the table; release progress shown per path', async () => {
+  const day = liveDay();
+  day.run = 'C';
+  day.games.forEach(g => { g.prediction = { ...g.prediction, run: 'C' }; });
+  const { page, errors, close } = await open(browser, { day });
+  assert.equal(await page.$$eval('#today [data-crun]', l => l.length), day.games.length);
+  assert.equal((await page.textContent('#today [data-crun]')).trim(), TEXT.cRun);
+  assert.match(await page.textContent('#today [data-crun-note]'), /기록 전용/);
+  await tab(page, 'record');
+  assert.deepEqual(await page.$$eval('#record [data-path]', l => l.map(x => x.dataset.path)), ['AB', 'C']);
+  assert.match(await page.textContent('#record [data-path="C"]'), new RegExp(TEXT.pathC.replace(/[()]/g, '\\$&')));
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('run A day: no C label', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  assert.equal(await page.$('#today [data-crun]'), null);
+  assert.equal(await page.$('#today [data-crun-note]'), null);
+  assert.deepEqual(errors, []);
+  await close();
+});

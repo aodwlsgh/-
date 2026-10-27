@@ -4,22 +4,25 @@ import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 import { serve } from './serve.mjs';
 import { stamp } from '../../engine/clock.js';
-import { etParts } from '../../engine/time.js';
+import { etParts, fromEt } from '../../engine/time.js';
 
 export const EXE = process.env.CHROMIUM ?? '/opt/pw-browsers/chromium';
 export const example = JSON.parse(await readFile(new URL('../../data/live/example-day.json', import.meta.url), 'utf8'));
 
-// test-only live day: the example predictions moved to today with tip-offs from now + 3 h (never published)
+// test-only live day: the example predictions moved to the next ET evening at least 2 h away, tip-offs from 19:00 ET
+// 8 minutes apart (all group A, so odds due 10 minutes before tip-off are evaluated by run A; never published)
 export function liveDay(now = Date.now()) {
   const d = structuredClone(example);
   d.kind = 'live';
   delete d.exampleNote;
   delete d.season;
   d.run = 'A';
-  d.date = etParts(new Date(now)).date;
+  let date = etParts(new Date(now)).date;
+  if (fromEt(date, 19, 0).getTime() < now + 2 * 3600e3) date = etParts(new Date(fromEt(date, 19, 0).getTime() + 86400e3)).date;
+  d.date = date;
   d.generatedAt = stamp(now);
   d.games.forEach((g, i) => {
-    const t = now + 3 * 3600e3 + i * 1800e3, et = etParts(new Date(t));
+    const t = fromEt(date, 19, 0).getTime() + i * 8 * 60e3, et = etParts(new Date(t));
     g.start = { ...stamp(t), et: `${et.date} ${String(et.hour).padStart(2, '0')}:${String(et.minute).padStart(2, '0')} ET` };
     g.group = 'A';
     g.prediction = { ...g.prediction, run: 'A', final: true, runId: `test-live-${d.date}` };

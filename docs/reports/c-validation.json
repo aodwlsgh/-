@@ -90,7 +90,29 @@
     "totalMAE": true,
     "slope": true
    },
-   "pass": true
+   "pass": true,
+   "s1": {
+    "note": "2024-25 is the calibration season (in sample)",
+    "c": {
+     "model": 0.209,
+     "base": 0.2109,
+     "diff": -0.0019,
+     "ci95": [
+      -0.0058,
+      0.0021
+     ]
+    },
+    "registered": {
+     "model": 0.2081,
+     "base": 0.2109,
+     "diff": -0.0028,
+     "ci95": [
+      -0.0068,
+      0.0013
+     ]
+    },
+    "method": "engine/backtest.js report().all.S1, bootstrap 1000, seed 1"
+   }
   },
   "2023-24": {
    "season": "2023-24",
@@ -170,5 +192,24 @@
    "pass": true
   }
  },
- "primaryPass": true
+ "primaryPass": true,
+ "countedSeasons": [
+  "2024-25"
+ ],
+ "notCounted": {
+  "2023-24": "computed on 2026-10-27, not counted as evidence and not read again (user decision 1, 2026-10-27); read count in docs/reports/season-reads.json"
+ },
+ "registration": {
+  "criteriaFixed": {
+   "commit": "eb471edc9cf8c2dece448d280a52b76d99a391a6",
+   "at": "2026-10-27T06:43:42Z",
+   "file": "docs/plans/2026-10-27-early-run-plan.md"
+  },
+  "firstSnapshotWritten": "2026-10-27T06:45:44Z",
+  "simsGenerated": {
+   "2024-25": "2026-10-27T07:07:54.520Z"
+  },
+  "reportGenerated": "2026-10-27T07:08:11.328Z",
+  "before": "draft plan 1107fbc (2026-10-27T06:35:59Z) proposed looser criteria; at ~06:3xZ only the HTTP availability of three 2024-25 morning PDFs was probed (no metric computed) before the criteria were fixed"
+ }
 }

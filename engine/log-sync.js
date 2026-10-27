@@ -9,6 +9,7 @@ import { readChain, jobStep, blockId, HEAD_PATH, BLOCKS } from './log-store.js';
 import { pendingOdds, evaluationRecords } from './log-records.js';
 import { unevaluatedRecords } from './day-status.js';
 import { resultRecord, verifyChain, sha256 } from './pick-log.js';
+import { canEvaluate } from './trigger-time.js';
 
 // = engine/pick-log.js canon (not exported there; the chain functions stay as they are). Tests hold the two equal.
 export const canon = v => (Array.isArray(v) ? `[${v.map(canon).join(',')}]` : v && typeof v === 'object' ? `{${Object.keys(v).sort().filter(k => v[k] !== undefined).map(k => `${JSON.stringify(k)}:${canon(v[k])}`).join(',')}}` : JSON.stringify(v));
@@ -16,9 +17,9 @@ export const sameHash = r => { const { hash, ...rest } = r; return sha256(canon(
 
 // records the daily job appends at `now`: results of games in the log, evaluations of pending odds whose game has
 // its final prediction in `day`, and unevaluated markets past their deadline.
-// results: Map gameId -> { margin, total }; finals: Map gameId -> { at, runId }
+// results: Map gameId -> { margin, total }; finals / finalsC: Map gameId -> { at, runId, start } of path AB / C
 // marginMs: odds whose deadline is that close are left for the next run (the batch is sent a little after this step)
-export function jobBodies({ chain, day = null, cal = null, finals = new Map(), results = new Map(), now = new Date(), marginMs = 0 }) {
+export function jobBodies({ chain, day = null, cal = null, finals = new Map(), finalsC = new Map(), starts = new Map(), results = new Map(), now = new Date(), marginMs = 0 }) {
   const bodies = [], notes = [];
   const settled = new Set(chain.filter(r => r.type === 'result').map(r => r.gameId));
   const logged = new Set(chain.filter(r => r.type === 'odds' || r.type === 'evaluation' || r.type === 'pick').map(r => r.gameId));
@@ -27,15 +28,16 @@ export function jobBodies({ chain, day = null, cal = null, finals = new Map(), r
     if (!settled.has(id) && res) bodies.push(resultRecord(id, res.margin, res.total, { now }));
   }
   if (day?.kind === 'live' && cal) {
-    const ready = new Set(day.games.filter(g => g.prediction?.final).map(g => g.gameId));
-    const pend = pendingOdds(chain, { now: new Date(new Date(now).getTime() + marginMs) }).filter(o => ready.has(o.gameId));
+    // only markets whose path (C or AB) matches the day's final prediction (engine/trigger-time.js canEvaluate)
+    const games = new Map(day.games.map(g => [g.gameId, g]));
+    const pend = pendingOdds(chain, { now: new Date(new Date(now).getTime() + marginMs) }).filter(o => canEvaluate(o, games.get(o.gameId)));
     if (pend.length) {
       const ev = evaluationRecords({ oddsRecs: pend, day, cal, chain, now });
       bodies.push(...ev.records);
       notes.push(...ev.notes);
     }
   }
-  bodies.push(...unevaluatedRecords({ chain: [...chain, ...bodies], finals, now }));
+  bodies.push(...unevaluatedRecords({ chain: [...chain, ...bodies], finals, finalsC, starts, now }));
   return { bodies, notes };
 }
 

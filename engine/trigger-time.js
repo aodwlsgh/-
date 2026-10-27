@@ -30,17 +30,34 @@ export function nextFireUtc(expr, from) {
   throw new Error('no firing within three days');
 }
 
-export const runAt = (run, etDate) => fromEt(etDate, RUN_ET[run].hour, RUN_ET[run].minute);
+// Early run C (docs/plans/2026-10-27-early-run-plan.md, validated in docs/reports/c-validation.md, approved
+// 2026-10-27): the injury report as of 08:50 ET. Scheduled at 21:50 KST, which is 08:50 ET only while New York is on
+// daylight time; from 2026-11-01 the same KST time is 07:50 ET, before this cutoff, so a C run then is provisional.
+export const RUN_C_ET = { hour: 8, minute: 50 };
+const runEt = run => (run === 'C' ? RUN_C_ET : RUN_ET[run]);
+export const runAt = (run, etDate) => fromEt(etDate, runEt(run).hour, runEt(run).minute);
 
-// games a run predicts: run A every game after 17:50 ET (B-group ones provisionally), run B the 21:00 ET+ games
+// games a run predicts: runs A and C every game after 17:50 ET (run A the B-group ones provisionally), run B the
+// 21:00 ET+ games
 export const runGames = (run, games) => games.filter(g => {
   const grp = jobGroup(g.start.utc ?? g.start);
-  return run === 'A' ? grp !== 'pre_job_start' : grp === 'B';
+  return run === 'B' ? grp === 'B' : grp !== 'pre_job_start';
 });
 
 export function isFinalRun(run, startIso, now) {
   const start = new Date(startIso), t = new Date(now);
   const grp = jobGroup(start.toISOString());
-  if (grp === 'pre_job_start' || grp !== run || t >= start) return false;
+  if (grp === 'pre_job_start' || (run !== 'C' && grp !== run) || t >= start) return false;
   return t >= runAt(run, etParts(start).date);
 }
+
+// A market is evaluated by exactly one path: "C" when its Betman deadline is not after the final time of the game's
+// own run (A 17:50 / B 20:50 ET), "AB" otherwise. Each path uses only its own final predictions.
+export function evalPath(deadlineUtc, startUtc) {
+  const start = new Date(startUtc), grp = jobGroup(start.toISOString());
+  if (grp === 'pre_job_start') return null; // no run covers it
+  return Date.parse(deadlineUtc) <= runAt(grp, etParts(start).date).getTime() ? 'C' : 'AB';
+}
+export const pathOfRun = run => (run === 'C' ? 'C' : 'AB');
+// may this game's published prediction evaluate this odds record?
+export const canEvaluate = (odds, game) => !!game?.prediction?.final && pathOfRun(game.prediction.run) === evalPath(odds.deadline.utc, game.start.utc);

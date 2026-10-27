@@ -51,6 +51,11 @@ export const TEXT = {
   escalatedChip: '연속 경고',
   // mean of (actual − predicted) total points per game (2026-10-26 decision 8)
   biasLabel: '언더오버 총점 편향(실제 − 예측, 경기당 평균)',
+  // early run C (2026-10-27): predictions from the morning injury report; record-only like every prediction
+  cRun: '아침 리포트 기준(C)',
+  cRunNote: '아침 리포트 기준(C) — 08:50 ET까지 나온 NBA 부상 리포트로 예측. 마감이 실행 A·B보다 이른 마켓만 이 예측으로 평가합니다. 기록 전용',
+  pathAB: '경로 A·B(실행 시각 리포트)',
+  pathC: '경로 C(아침 리포트)',
 };
 // wording that would read as a release or as purchase advice; never shown in any state
 export const FORBIDDEN = [/해제\s*가능/, /구매\s*가능/, /베팅\s*가능/, /추천/, /구매\s*하세요/, /베팅\s*하세요/, /지금\s*구매/];
