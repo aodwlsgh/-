@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import { launch, open, tab, liveDay, closeAll } from './harness.mjs';
 import { FORBIDDEN, TEXT } from '../../engine/dashboard-data.js';
 import { stamp } from '../../engine/clock.js';
+import { runAt } from '../../engine/trigger-time.js';
 
 let browser;
 before(async () => { browser = await launch(); });
@@ -27,7 +28,7 @@ async function fillOdds(page, day, rows, round = 901) {
     await page.selectOption(`#o-${i}-type`, r.type);
     if (r.line != null) await page.fill(`#o-${i}-line`, String(r.line));
     for (const [k, v] of Object.entries(r.odds)) await page.fill(`#o-${i}-odd-${k}`, String(v));
-    await page.fill(`#o-${i}-deadline`, kstLocal(Date.parse(g.start.utc) - 10 * 60e3));
+    await page.fill(`#o-${i}-deadline`, kstLocal(r.deadline ?? Date.parse(g.start.utc) - 10 * 60e3));
   }
   await page.click('#o-save');
   await page.waitForSelector('#confirm, #odds .msg.bad');
@@ -336,6 +337,18 @@ test('no escalated warning: the header chip stays hidden', async () => {
   day.alerts = [{ code: 'dataDelay', text: '데이터 지연 — once' }];
   const { page, errors, close } = await open(browser, { day });
   assert.equal(await page.isVisible('#escChip'), false);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('confirmation screen: each market shows its deadline and the evaluation path it decides (C before the run A time, A·B after)', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  const cDeadline = runAt('A', day.date).getTime() - 10 * 60e3; // >= 40 min from now: liveDay tips off >= 2 h away at 19:00 ET
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 1.9, away: 1.9 } }, { game: 1, no: 2, type: 'ML', odds: { home: 1.9, away: 1.9 }, deadline: cDeadline }], 903);
+  assert.deepEqual(await page.$$eval('[data-path-cell]', l => l.map(x => [x.dataset.pathCell, x.textContent])), [['AB', 'A·B'], ['C', 'C']]);
+  const cells = await page.$$eval('[data-confirm-row]', rows => rows.map(r => [...r.children].map(c => c.textContent)));
+  assert.match(cells[1].at(-2), new RegExp(`${stamp(cDeadline).kst.slice(5, 10)} ${stamp(cDeadline).kst.slice(11, 16)} KST`));
   assert.deepEqual(errors, []);
   await close();
 });

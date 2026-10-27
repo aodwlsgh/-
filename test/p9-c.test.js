@@ -11,6 +11,7 @@ import { evaluationRecords } from '../engine/log-records.js';
 import { jobBodies } from '../engine/log-sync.js';
 import { classifyInput, unevaluatedRecords } from '../engine/day-status.js';
 import { pickRecord, summarizeByPath, RECORD_SCHEMA } from '../engine/pick-log.js';
+import { inputGapSummary } from '../engine/daily-report.js';
 import { IDENTITY } from '../engine/calibrate.js';
 import { normCdf } from '../engine/predict.js';
 import { stamp } from '../engine/clock.js';
@@ -122,6 +123,8 @@ test('confirmation screen: a C market is fixed on the C day, waits for C on an A
   const input = { round: 128, capturedAt: '2026-10-28T21:52:00+09:00', source: 'screenshot', markets: [mk(1, '보스턴 셀틱스', '뉴욕 닉스', PREV_NIGHT), mk(2, 'LA 레이커스', 'LA 클리퍼스', '2026-10-29T11:00:00+09:00')] };
   const c = classifyInput({ input, day: dayOf('C'), chain: [], now });
   assert.deepEqual(c.rows.map(r => r.handling), ['fixC', 'oddsOnlyAwaitingB']);
+  // the confirmation screen shows each market's deadline with the path it decides (2026-10-28 item 5)
+  assert.deepEqual(c.rows.map(r => [r.deadline.kst.slice(0, 16), r.path]), [['2026-10-28T23:00', 'C'], ['2026-10-29T11:00', 'AB']]);
   const provisionalA = { ...dayOf('A'), games: dayOf('A').games.map(g => ({ ...g, prediction: { ...g.prediction, final: false } })) };
   assert.deepEqual(classifyInput({ input: { ...input, markets: [input.markets[0]] }, day: provisionalA, chain: [], now }).rows.map(r => r.handling), ['oddsOnlyAwaitingC']);
 });
@@ -134,4 +137,32 @@ test('prepare C (offline): every non-early game predicted by run C, final after 
   assert.equal(day.run, 'C');
   assert.ok(day.games.length > 0);
   assert.ok(day.games.every(g => g.prediction.run === 'C' && g.prediction.final === true));
+});
+
+test('evaluation records carry the odds input time and the minutes to the evaluation; the report gives the distribution per path', () => {
+  const mC = { ...odds(1, 'gA', PREV_NIGHT, 'BOS', 'NY'), createdAt: stamp('2026-10-27T06:38:54Z') };
+  const mAB = { ...odds(2, 'gA', START_A, 'BOS', 'NY'), createdAt: stamp('2026-10-28T21:40:00Z') };
+  const c = evaluationRecords({ oddsRecs: [mC], day: dayOf('C'), cal: IDENTITY, chain: [], now: new Date('2026-10-28T12:55:00Z') });
+  const evC = c.records.filter(r => r.type === 'evaluation');
+  assert.ok(evC.length && evC.every(r => r.oddsInputAt === '2026-10-27T06:38:54.000Z' && r.inputToEvalMin === 1816), JSON.stringify(evC[0]));
+  const a = evaluationRecords({ oddsRecs: [mAB], day: dayOf('A'), cal: IDENTITY, chain: [], now: new Date('2026-10-28T21:55:00Z') });
+  const evA = a.records.filter(r => r.type === 'evaluation');
+  assert.ok(evA.every(r => r.inputToEvalMin === 15));
+  const g = inputGapSummary([...evC, ...evA, { type: 'evaluation', round: 128, betmanNo: 9, predictionRun: 'A' }]);
+  assert.deepEqual(g.C, { n: 1, min: 1816, median: 1816, p90: 1816, max: 1816, sameRun: 0 });
+  assert.deepEqual(g.AB, { n: 1, min: 15, median: 15, p90: 15, max: 15, sameRun: 0 });
+  assert.equal(g.missing, 1, 'one value per market; a record without the field is counted as missing');
+});
+
+test('exit progress: path C fills its own 200 picks and 8 weeks; nothing is pooled with path A·B', () => {
+  const pick = (i, run, day) => ({ type: 'pick', id: `128-${i}-home`, gameId: `g${i}`, market: 'ML', selection: 'home', line: null, odds: 2, pCons: 0.5, ev: 0, createdAt: stamp(`2026-${day}T12:00:00Z`), predictionRun: run });
+  const res = i => ({ type: 'result', gameId: `g${i}`, margin: 3, total: 220 });
+  const log = [];
+  for (let i = 0; i < 150; i++) log.push(pick(i, 'A', i < 75 ? '11-01' : '12-31'), res(i));
+  for (let i = 150; i < 300; i++) log.push(pick(i, 'C', i < 225 ? '11-01' : '12-31'), res(i));
+  const s = summarizeByPath(log, { now: new Date('2027-01-01T00:00:00Z') });
+  for (const k of ['AB', 'C']) {
+    assert.deepEqual(s[k].exit.minPicks, { target: 200, value: 150, met: false }, `${k}: 150 of its own, not 300`);
+    assert.equal(s[k].exit.minWeeks.met, true);
+  }
 });

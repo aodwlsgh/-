@@ -19,6 +19,24 @@ export function unevaluatedSummary(chain) {
   return { markets: un.length, games: new Set(un.map(r => r.gameId)).size, byReason };
 }
 
+// minutes from odds input to evaluation, one value per market, per path (2026-10-28 item 6); evaluation records
+// before this field (none in the chain at the time) are counted as missing
+export function inputGapSummary(chain) {
+  const seen = new Set(), by = { AB: [], C: [] };
+  let missing = 0;
+  for (const r of chain) {
+    if (r.type !== 'evaluation') continue;
+    const k = `${r.round}-${r.betmanNo}`;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    if (r.inputToEvalMin == null) { missing++; continue; }
+    by[r.predictionRun === 'C' ? 'C' : 'AB'].push(r.inputToEvalMin);
+  }
+  const q = (xs, f) => xs[Math.min(xs.length - 1, Math.floor(f * xs.length))];
+  const dist = xs => { const s = [...xs].sort((a, b) => a - b); return s.length ? { n: s.length, min: s[0], median: q(s, 0.5), p90: q(s, 0.9), max: s.at(-1), sameRun: s.filter(x => x <= 5).length } : { n: 0 }; };
+  return { AB: dist(by.AB), C: dist(by.C), missing };
+}
+
 // over/under monitoring on every predicted game: rows [{ pred, actual, at }] (shown only, predictions unchanged)
 export function totalBias(rows, now) {
   const cut = new Date(now).getTime() - 28 * 86400e3;
@@ -75,6 +93,9 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
   L.push(`- ${TEXT.biasLabel}, 평가한 경기: ${sgn(tb.all, 2)} (${tb.games}경기${sumOf(tb)}, 최근 4주 경기당 ${sgn(tb.last4weeks, 2)})`);
   if (biasAll) L.push(`- ${TEXT.biasLabel}, 모든 예측 경기(보관본): ${sgn(biasAll.all, 2)} (${biasAll.games}경기${sumOf(biasAll)}, 최근 4주 경기당 ${sgn(biasAll.last4weeks, 2)})`);
   L.push(`- 배당 변동(첫 입력 대비): 마켓 ${mv.summary.markets}개, 나중 입력 ${mv.summary.laterEntries}개${mv.summary.maxAbsNoVigPp != null ? `, 마진 제거 확률 변화 평균 ${mv.summary.meanAbsNoVigPp.toFixed(1)}%p · 최대 ${mv.summary.maxAbsNoVigPp.toFixed(1)}%p` : ''}`);
+  const gap = inputGapSummary(chain);
+  const gapText = d => (d.n ? `${d.n}마켓, 중앙값 ${d.median}분 · 90% ${d.p90}분 · 최소 ${d.min}분 · 최대 ${d.max}분 (5분 이내 ${d.sameRun})` : '없음');
+  L.push(`- 배당 입력→평가 간격: 경로 A·B ${gapText(gap.AB)} · 경로 C ${gapText(gap.C)}${gap.missing ? ` · 간격 기록 없는 평가 ${gap.missing}마켓` : ''}`);
   const t = comboTable(chain);
   L.push(`- ${t.caption}: ${t.columns.map(c => `${c.label} ${c.value}`).join(' · ')}`);
   L.push('');

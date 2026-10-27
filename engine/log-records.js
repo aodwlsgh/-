@@ -72,7 +72,15 @@ export function evaluationRecords({ oddsRecs, day, cal, chain = [], now = new Da
   const haveCombo = new Set(chain.filter(r => r.type === 'combo').map(r => r.id));
   const reasons = leg => gate(leg.market, etParts(new Date(games.get(leg.gameId)?.start?.utc ?? leg.deadline.utc)).date).reasons;
   const createdAt = stamp(now);
-  const evals = rows.map(r => { const e = { type: 'evaluation', schema: RECORD_SCHEMA, id: pickId(r), ...r, createdAt }; assertPredictionRun(e); return e; });
+  // odds input time (the odds record's createdAt) and the gap to this evaluation (2026-10-28 item 6)
+  const inputAt = new Map(todo.map(o => [marketKey(o), o.createdAt?.utc ?? null]));
+  const gapMin = (a, b) => (a ? Math.round((ms(b) - ms(a)) / 60000) : null);
+  const evals = rows.map(r => {
+    const oddsInputAt = inputAt.get(marketKey(r)) ?? null;
+    const e = { type: 'evaluation', schema: RECORD_SCHEMA, id: pickId(r), ...r, oddsInputAt, inputToEvalMin: gapMin(oddsInputAt, createdAt.utc), createdAt };
+    assertPredictionRun(e);
+    return e;
+  });
   const newPicks = result.legs.filter(l => !havePick.has(pickId(l))).map(l => ({ ...pickRecord(l, { now }), recordOnly: true, gateReasons: reasons(l) }));
   const combos = result.combos.map(c => {
     const legs = c.legs.map(pickId).sort();

@@ -178,11 +178,12 @@ export function classifyInput({ input: raw, day, chain, now = new Date() }) {
   const closed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
   const rows = recs.map(o => {
     const g = day.games.find(x => x.gameId === o.gameId), k = marketKey(o);
+    const path = evalPath(o.deadline.utc, g.start.utc); // shown next to the deadline for the user to check (2026-10-28 item 5)
     const handling = closed.has(k) ? 'oddsOnlyFixed'
-      : !canEvaluate(o, g) ? (evalPath(o.deadline.utc, g.start.utc) === 'C' ? 'oddsOnlyAwaitingC' : g.group === 'B' ? 'oddsOnlyAwaitingB' : 'oddsOnlyAwaitingFinal')
+      : !canEvaluate(o, g) ? (path === 'C' ? 'oddsOnlyAwaitingC' : g.group === 'B' ? 'oddsOnlyAwaitingB' : 'oddsOnlyAwaitingFinal')
       : o.lineKind === 'integer' ? 'unsupported' : g.prediction.run === 'C' ? 'fixC' : 'fix';
     closed.add(k); // a market repeated in the same input: only its first entry fixes
-    return { market: k, gameId: o.gameId, game: `${g.away.espn}@${g.home.espn}`, type: o.market, line: o.line, odds: o.odds, overround: o.overround, warning: overroundWarning(o.overround), deadline: o.deadline, handling, text: HANDLING[handling] };
+    return { market: k, gameId: o.gameId, game: `${g.away.espn}@${g.home.espn}`, type: o.market, line: o.line, odds: o.odds, overround: o.overround, warning: overroundWarning(o.overround), deadline: o.deadline, path, handling, text: HANDLING[handling] };
   });
   return { ok: true, rows, warnings: rows.filter(r => r.warning).length, excluded, input };
 }

@@ -501,9 +501,9 @@ function excludedHtml() {
 function confirmHtml() {
   const rows = S.pending.rows.map(r => `<tr data-confirm-row><td class="mono">${esc(r.market)}</td><td>${esc(r.game)}</td><td>${MARKET_KO[r.type]}${r.line != null ? ` ${r.line}` : ''}</td>
     <td class="n">${Object.entries(r.odds).map(([k, o]) => `${SEL_KO[k]} ${fx(o)}`).join(' · ')}</td><td class="n">${fx(r.overround, 3)}${r.warning ? ` <span class="warnline" data-warn>${esc(r.warning.text)}</span>` : ''}</td>
-    <td><strong>${esc(r.text)}</strong></td><td class="note">${hm(r.deadline.kst)} KST</td></tr>`).join('');
+    <td><strong>${esc(r.text)}</strong></td><td class="note">${hm(r.deadline.kst)} KST</td><td data-path-cell="${esc(r.path ?? 'none')}">${esc(r.path ? TEXT.pathShort[r.path] : TEXT.pathNone)}</td></tr>`).join('');
   return `<div class="card confirm" id="confirm"><header><h2>확인 — 아직 기록하지 않았습니다</h2><span class="note">[확정]을 누르면 픽 로그에 추가됩니다. ${TEXT.fixed}. 각 마켓의 처음 확정만 평가·픽이 되고, 나중 입력은 배당 레코드로만 남습니다.</span></header>
-    <div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th class="n">배당</th><th class="n">오버라운드</th><th>처리</th><th>마감</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th class="n">배당</th><th class="n">오버라운드</th><th>처리</th><th>마감</th><th title="마감이 경기의 실행 A·B 최종 시각(17:50·20:50 ET) 이전이면 C, 이후면 A·B">경로</th></tr></thead><tbody>${rows}</tbody></table></div>
     ${excludedHtml()}
     <div class="row"><button class="btn" type="button" id="o-confirm">확정</button><button class="btn ghost" type="button" id="o-back">돌아가기</button></div></div>`;
 }
@@ -658,8 +658,8 @@ function renderRecord() {
       ${S.dbState !== 'ok' ? `<div class="msg">DB에 연결되지 않아 픽 로그를 읽을 수 없습니다.</div>` : t ? `<div class="msg${t.ok ? '' : ' bad'}" id="chainDetail">${esc(t.text)}</div>
       <p class="note">블록 ${S.chain.head?.blocks ?? 0}개 · ${esc(a.text)}${S.chain.orphans.length ? ` · <strong>머리 문서 밖 블록 ${S.chain.orphans.map(esc).join(', ')}: 확인 필요</strong>` : ''}${S.chain.verify.problems?.length ? ` · ${S.chain.verify.problems.map(esc).join(' · ')}` : ''}</p>` : '<p class="note">확인 중</p>'}</div>
     <div class="grid2">
-      <div class="card" data-path="AB"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathAB}</h2></header>${exitTable(vAB, `설계 §9.4. 경로별로 따로 셉니다. 모두 충족해도 해제는 사용자 승인으로만 합니다.`)}</div>
-      <div class="card" data-path="C"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathC}</h2></header>${exitTable(vC, `설계 §9.4. 경로별로 따로 셉니다.${byPath.mixedCombos ? ` 경로가 섞인 2폴더 ${byPath.mixedCombos}개는 어느 경로에도 넣지 않았습니다.` : ''}`)}</div>
+      <div class="card" data-path="AB"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathAB}</h2></header>${exitTable(vAB, `설계 §9.4. ${TEXT.pathRule}`)}</div>
+      <div class="card" data-path="C"><header><h2>해제 조건 진행도 — 단일 픽, ${TEXT.pathC}</h2></header>${exitTable(vC, `설계 §9.4. ${TEXT.pathRule}${byPath.mixedCombos ? ` 경로가 섞인 2폴더 ${byPath.mixedCombos}개는 어느 경로에도 넣지 않았습니다.` : ''}`)}</div>
       <div class="card" id="comboTable"><header><h2>2폴더 기록 — 해제 조건에 넣지 않음</h2></header><div class="tbl"><table><caption class="note" style="text-align:left">${esc(ct.caption)}</caption><tbody>${ct.columns.map(c => `<tr><td>${c.label}</td><td class="n">${esc(c.value)}</td></tr>`).join('')}</tbody></table></div></div>
     </div>
     <div class="card"><header><h2>성적 요약</h2>${roBadge(true)}</header>
