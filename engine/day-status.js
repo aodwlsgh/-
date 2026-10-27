@@ -8,6 +8,7 @@
 import { TEXT, comboProgress } from './dashboard-data.js';
 import { marketKey, joinGames } from './log-records.js';
 import { toOddsRecords } from './odds.js';
+import { byKorean } from './betman-teams.js';
 import { stamp } from './clock.js';
 
 const ms = t => new Date(t).getTime();
@@ -136,9 +137,34 @@ export const HANDLING = {
   oddsOnlyAwaitingFinal: '배당만 기록 — 최종 예측 뒤 평가',
   unsupported: '미지원(정수 기준선) — 평가만 기록, 픽 제외',
 };
-export function classifyInput({ input, day, chain, now = new Date() }) {
+// markets left out one by one before validation (2026-10-26 user decision on the odds input flow): the input rule is
+// 승패·핸디캡·언더오버 per game, so 승5패 and SUM are not recorded; a market past its deadline or for a game not on the
+// dashboard's day cannot be evaluated. Each is listed with its reason on the confirmation screen, never dropped
+// silently. Anything else wrong (numbers, lines, selections, unknown types or team names, times) rejects the whole input.
+export const EXCLUDED = {
+  notInRule: '기록 안 함 — 입력 규칙 밖(승5패·SUM)',
+  pastDeadline: '기록 안 함 — 마감 지남',
+  noGame: '기록 안 함 — 오늘 대시보드 일정에 없는 경기(17:50 ET 전 시작 등)',
+};
+const OUT_OF_RULE = new Set(['ML5', 'SUM']);
+export function screenInput({ input, day, now = new Date() }) {
+  const excluded = [], markets = [];
+  for (const m of input?.markets ?? []) {
+    const h = byKorean(m.home), a = byKorean(m.away), dl = new Date(m.deadline);
+    const reason = OUT_OF_RULE.has(m.type) ? 'notInRule'
+      : !Number.isNaN(dl.getTime()) && dl <= new Date(now) ? 'pastDeadline'
+      : h && a && !day.games.some(g => g.home.espn === h.espn && g.away.espn === a.espn) ? 'noGame' : null;
+    if (reason) excluded.push({ betmanNo: m.betmanNo, type: m.type, game: `${m.away} @ ${m.home}`, reason, text: EXCLUDED[reason] });
+    else markets.push(m);
+  }
+  return { input: excluded.length ? { ...input, markets } : input, excluded };
+}
+
+export function classifyInput({ input: raw, day, chain, now = new Date() }) {
+  const { input, excluded } = screenInput({ input: raw, day, now });
+  if (excluded.length && !input.markets.length) return { ok: false, error: '기록할 마켓이 없습니다 — 모두 제외됐습니다', rows: [], excluded };
   let recs;
-  try { recs = joinGames(toOddsRecords(input, { now }), day.games); } catch (e) { return { ok: false, error: e.message, rows: [] }; }
+  try { recs = joinGames(toOddsRecords(input, { now }), day.games); } catch (e) { return { ok: false, error: e.message, rows: [], excluded }; }
   const closed = new Set(chain.filter(r => r.type === 'evaluation' || r.type === 'unevaluated').map(marketKey));
   const rows = recs.map(o => {
     const g = day.games.find(x => x.gameId === o.gameId), k = marketKey(o);
@@ -146,5 +172,5 @@ export function classifyInput({ input, day, chain, now = new Date() }) {
     closed.add(k); // a market repeated in the same input: only its first entry fixes
     return { market: k, gameId: o.gameId, game: `${g.away.espn}@${g.home.espn}`, type: o.market, line: o.line, odds: o.odds, overround: o.overround, warning: overroundWarning(o.overround), deadline: o.deadline, handling, text: HANDLING[handling] };
   });
-  return { ok: true, rows, warnings: rows.filter(r => r.warning).length };
+  return { ok: true, rows, warnings: rows.filter(r => r.warning).length, excluded, input };
 }

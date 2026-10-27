@@ -482,10 +482,19 @@ function readOddsForm() {
 function previewRound(input) {
   if (!canWrite()) { S.msg = { bad: true, text: writeBlock() }; return renderOdds(); }
   const c = classifyInput({ input, day: S.day, chain: S.chain.records, now: new Date() });
-  if (!c.ok) { S.msg = { bad: true, text: c.error }; S.pending = null; return renderOdds(); }
-  S.pending = { input, rows: c.rows };
+  if (!c.ok) { S.msg = { bad: true, text: `${c.error}${c.excluded?.length ? ` · ${c.excluded.map(excludedText).join(' · ')}` : ''}` }; S.pending = null; return renderOdds(); }
+  // only the markets that passed the screen are written on [확정]; the rest are listed on the confirmation screen
+  S.pending = { input: c.input, rows: c.rows, excluded: c.excluded };
   S.msg = null;
   renderOdds();
+}
+
+const excludedText = x => `#${x.betmanNo} ${x.game} ${MARKET_KO[x.type] ?? x.type}: ${x.text}`;
+
+function excludedHtml() {
+  const ex = S.pending.excluded ?? [];
+  if (!ex.length) return '';
+  return `<div class="msg bad" id="excluded"><strong>기록하지 않는 마켓 ${ex.length}개</strong><ul>${ex.map(x => `<li data-excluded="${esc(x.reason)}">${esc(excludedText(x))}</li>`).join('')}</ul></div>`;
 }
 
 function confirmHtml() {
@@ -494,6 +503,7 @@ function confirmHtml() {
     <td><strong>${esc(r.text)}</strong></td><td class="note">${hm(r.deadline.kst)} KST</td></tr>`).join('');
   return `<div class="card confirm" id="confirm"><header><h2>확인 — 아직 기록하지 않았습니다</h2><span class="note">[확정]을 누르면 픽 로그에 추가됩니다. ${TEXT.fixed}. 각 마켓의 처음 확정만 평가·픽이 되고, 나중 입력은 배당 레코드로만 남습니다.</span></header>
     <div class="tbl"><table><thead><tr><th>회차-번호</th><th>경기</th><th>마켓</th><th class="n">배당</th><th class="n">오버라운드</th><th>처리</th><th>마감</th></tr></thead><tbody>${rows}</tbody></table></div>
+    ${excludedHtml()}
     <div class="row"><button class="btn" type="button" id="o-confirm">확정</button><button class="btn ghost" type="button" id="o-back">돌아가기</button></div></div>`;
 }
 

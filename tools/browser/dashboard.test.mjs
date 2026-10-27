@@ -339,3 +339,32 @@ test('no escalated warning: the header chip stays hidden', async () => {
   assert.deepEqual(errors, []);
   await close();
 });
+
+test('승5패 is left out with its reason on the confirmation screen; only the kept markets are written', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await fillOdds(page, day, [{ game: 0, no: 1, type: 'ML', odds: { home: 1.9, away: 1.9 } }, { game: 0, no: 2, type: 'ML5', odds: { home: 2.5, close: 4, away: 3 } }], 902);
+  assert.equal(await page.$$eval('[data-confirm-row]', r => r.length), 1);
+  assert.deepEqual(await page.$$eval('#excluded [data-excluded]', l => l.map(x => x.dataset.excluded)), ['notInRule']);
+  assert.match(await page.textContent('#excluded'), /#2 .*승5패: 기록 안 함 — 입력 규칙 밖/);
+  await page.click('#o-confirm');
+  await page.waitForFunction(() => window.__db && [...window.__db.docs.keys()].some(k => k.startsWith('blocks/')));
+  assert.deepEqual((await types(page)).filter(t => t === 'odds').length, 1);
+  assert.deepEqual(errors, []);
+  await close();
+});
+
+test('only out-of-rule markets: nothing is written and the reason is shown', async () => {
+  const day = liveDay();
+  const { page, errors, close } = await open(browser, { day });
+  await tab(page, 'odds');
+  const g = day.games[0];
+  await page.$eval('#o-json', (el, v) => { el.value = v; el.closest('details').open = true; }, JSON.stringify({ round: 903, capturedAt: new Date().toISOString(), source: 'screenshot', markets: [{ betmanNo: 5, home: g.home.ko, away: g.away.ko, deadline: new Date(Date.parse(g.start.utc) - 600e3).toISOString(), type: 'SUM', odds: { odd: 1.8, even: 1.8 } }] }));
+  await page.click('#o-json-save');
+  await page.waitForSelector('#odds .msg.bad');
+  assert.match(await page.textContent('#odds .msg.bad'), /기록할 마켓이 없습니다.*#5 .*SUM: 기록 안 함 — 입력 규칙 밖/);
+  assert.equal(await page.$('#confirm'), null);
+  assert.equal((await types(page)).length, 0);
+  assert.deepEqual(errors, []);
+  await close();
+});

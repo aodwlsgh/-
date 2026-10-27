@@ -22,6 +22,8 @@ export function validateRound(input, { now = new Date() } = {}) {
   if (!Number.isInteger(input.round)) errs.push('round: not an integer');
   if (Number.isNaN(cap.getTime())) errs.push('capturedAt: not a time');
   if (!['chrome', 'screenshot', 'manual'].includes(input.source)) errs.push(`source: ${input.source}`);
+  // 'received': no capture time was given and the time the capture arrived stands in (2026-10-26 user decision 4)
+  if (input.capturedAtBasis !== undefined && !['capture', 'received'].includes(input.capturedAtBasis)) errs.push(`capturedAtBasis: ${input.capturedAtBasis}`);
   for (const m of input.markets ?? []) {
     const at = `#${m.betmanNo}`;
     const sel = SELECTIONS[m.type];
@@ -48,6 +50,7 @@ export function toOddsRecords(input, { now = new Date() } = {}) {
       home: byKorean(m.home).espn, away: byKorean(m.away).espn, homeKo: m.home, awayKo: m.away, market: m.type, line,
       lineKind: line === null ? null : Number.isInteger(line) ? 'integer' : 'half',
       odds: { ...m.odds }, implied, overround: Object.values(implied).reduce((a, b) => a + b, 0), noVig: noVig(m.odds), noVigMethod: NO_VIG_METHOD,
+      ...(input.capturedAtBasis ? { capturedAtBasis: input.capturedAtBasis } : {}),
     };
   });
 }
