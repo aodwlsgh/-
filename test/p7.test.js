@@ -29,24 +29,24 @@ test('Betman Korean team names map to ESPN abbreviations', () => {
 });
 
 // 2026-10-23 "첫 캡처 확인 종결 / 팀명 변경 승인": the first capture (17:00 KST, estimated) showed 24 teams
-test('captures: Houston is "휴스턴 로케츠", Denver "덴버 너게츠"; the 28 teams seen on screen are confirmed, BKN and PHI stay unconfirmed', () => {
+test('captures: Houston is "휴스턴 로케츠", Denver "덴버 너게츠"; the 29 teams seen on screen are confirmed, PHI stays unconfirmed', () => {
   assert.equal(byKorean('휴스턴 로케츠').espn, 'HOU');
   assert.equal(byKorean('휴스턴 로키츠'), undefined, 'the earlier guess is not a Betman name');
-  assert.equal(TEAMS.filter(t => t.koVerified).length, 28);
-  assert.deepEqual(TEAMS.filter(t => !t.koVerified).map(t => t.espn).sort(), ['BKN', 'PHI']);
+  assert.equal(TEAMS.filter(t => t.koVerified).length, 29);
+  assert.deepEqual(TEAMS.filter(t => !t.koVerified).map(t => t.espn).sort(), ['PHI']);
   assert.equal(byKorean('덴버 너게츠').espn, 'DEN', 'Denver as written on the 2026-10-27 screens');
   assert.equal(KO_CAPTURE.at, '2026-10-23T17:00:00+09:00');
   assert.equal(KO_CAPTURE.atEstimated, true);
 });
 
 test('an unconfirmed team name in an odds input gets a warning (input is not blocked); confirmed names do not', () => {
-  const w = teamNameWarning('브루클린 네츠');
-  assert.equal(w.espn, 'BKN');
+  const w = teamNameWarning('필라델피아 76ers');
+  assert.equal(w.espn, 'PHI');
   assert.match(w.text, /미확인/);
   assert.equal(teamNameWarning('휴스턴 로케츠'), null);
   assert.equal(teamNameWarning('없는팀'), null, 'unmapped names are rejected by validateRound, not warned');
-  const input = { markets: [{ betmanNo: 1, home: '보스턴 셀틱스', away: '브루클린 네츠' }, { betmanNo: 2, home: '피닉스 선즈', away: '브루클린 네츠' }] };
-  assert.deepEqual(inputTeamWarnings(input).map(x => [x.betmanNo, x.espn]), [[1, 'BKN'], [2, 'BKN']], 'PHX was seen on the 2026-10-27 screens');
+  const input = { markets: [{ betmanNo: 1, home: '보스턴 셀틱스', away: '필라델피아 76ers' }, { betmanNo: 2, home: '피닉스 선즈', away: '브루클린 네츠' }] };
+  assert.deepEqual(inputTeamWarnings(input).map(x => [x.betmanNo, x.espn]), [[1, 'PHI']], 'PHX (10-27) and BKN (10-28 screens) were seen');
   assert.deepEqual(inputTeamWarnings({ markets: [{ betmanNo: 3, home: '휴스턴 로케츠', away: '샌안토니오 스퍼스' }] }), []);
 });
 
