@@ -1,0 +1,112 @@
+{
+ "runId": "2026-10-26-B-2051",
+ "run": "B",
+ "date": "2026-10-26",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-27T00:51:01.553Z",
+  "kst": "2026-10-27T09:51:01+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 672,
+   "detail": "ok   summary 401909861 / ok   injuries (82 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1405,
+   "detail": "9 games, report Injury-Report_2026-10-26_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-26-B-2051.json.gz",
+  "bytes": 44339,
+  "players": 82
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 2.128,
+ "games": [
+  {
+   "gameId": "401909868",
+   "game": "WSH@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909869",
+   "game": "MIN@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909870",
+   "game": "CHI@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909871",
+   "game": "DAL@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909872",
+   "game": "IND@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909873",
+   "game": "PHX@OKC",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909874",
+   "game": "ATL@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909875",
+   "game": "MEM@UTAH",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909876",
+   "game": "GS@DEN",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-27T00:51:39.780Z",
+  "kst": "2026-10-27T09:51:39+09:00"
+ }
+}
