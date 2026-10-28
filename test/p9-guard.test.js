@@ -29,13 +29,15 @@ test('no force push in any form', () => {
 });
 
 // scripted git: records calls, answers from a table
-function fakeGit({ status = '', frozenWt = '', frozenHead = '', pushFails = 0, rebaseFails = false, statusAfter = null } = {}) {
+function fakeGit({ status = '', frozenWt = '', frozenHead = '', pushFails = 0, rebaseFails = false, statusAfter = null, registered = 'present' } = {}) {
   const calls = [];
   let pushes = 0, fetched = false;
   const git = args => {
     assertNoForce(args);
     calls.push(args.join(' '));
     const [c] = args;
+    if (c === 'cat-file' && (registered === 'missing' || (registered === 'shallow' && !calls.includes('fetch -q --unshallow origin main')))) { const e = new Error('missing'); e.stderr = 'fatal: Not a valid object name 53c88f5^{commit}'; throw e; }
+    if (c === 'fetch' && args.includes('--unshallow') && registered !== 'shallow') { const e = new Error('complete'); e.stderr = 'fatal: --unshallow on a complete repository does not make sense'; throw e; }
     if (c === 'status') return fetched && statusAfter != null ? statusAfter : status;
     if (c === 'diff') return args.includes('HEAD') ? frozenHead : frozenWt;
     if (c === 'rev-list') return '1\n';
@@ -80,6 +82,20 @@ test('a rejected push fetches main, replays the run commits and retries; a confl
   r = commitAndPush('daily', { git: f.git });
   assert.match(r.reason, /do not apply/);
   assert.ok(f.calls.includes('rebase --abort'));
+});
+
+test('a shallow clone without 53c88f5 fetches the history once before the frozen check; still missing is reported, nothing committed', () => {
+  let f = fakeGit({ status: ' M data/live/anchor.json\n', registered: 'shallow' });
+  let r = commitAndPush('daily', { git: f.git });
+  assert.deepEqual([r.ok, r.pushed], [true, true]);
+  assert.ok(f.calls.indexOf('fetch -q --unshallow origin main') < f.calls.findIndex(c => c.startsWith('diff')));
+  f = fakeGit({ status: ' M data/live/anchor.json\n' });
+  commitAndPush('daily', { git: f.git });
+  assert.ok(!f.calls.some(c => c.includes('--unshallow')));
+  f = fakeGit({ status: ' M data/live/anchor.json\n', registered: 'missing' });
+  r = commitAndPush('daily', { git: f.git });
+  assert.deepEqual([r.ok, r.reason], [false, 'registered commit 53c88f5 not found after fetching the history']);
+  assert.ok(!f.calls.some(c => c.startsWith('diff') || c.startsWith('commit') || c.startsWith('push')));
 });
 
 test('this checkout: frozen files equal 53c88f5 (additions only)', () => {

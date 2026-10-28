@@ -2,7 +2,8 @@
 // here (the same list is in docs/daily-run.md), only while every file that existed at the registered commit
 // 53c88f5 under the frozen paths is unchanged (additions after it are P6-P9 files), and pushes to main as a
 // fast-forward: never forced; a rejected push fetches main, replays the run's own unpushed commits on it and tries
-// again (three times), otherwise it stops and reports.
+// again (three times), otherwise it stops and reports. A shallow clone without the registered commit fetches the
+// history of main once before the frozen check (first run C, 2026-10-28: `bad revision`).
 import { execFileSync } from 'node:child_process';
 import { FROZEN } from './provenance.js';
 
@@ -40,7 +41,16 @@ export const assertNoForce = args => {
 
 const sh = (args, opts = {}) => execFileSync('git', assertNoForce(args), { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], ...opts });
 
+// true when the registered commit is in this clone, after one unshallow fetch if it was not
+export function ensureRegistered(git = sh) {
+  const has = () => { try { git(['cat-file', '-e', `${REGISTERED}^{commit}`]); return true; } catch { return false; } };
+  if (has()) return true;
+  try { git(['fetch', '-q', '--unshallow', 'origin', 'main']); } catch {}
+  return has();
+}
+
 export function check(git = sh) {
+  if (!ensureRegistered(git)) return { paths: [], outside: [], frozen: [], ok: false, missing: `registered commit ${REGISTERED} not found after fetching the history` };
   const paths = statusPaths(git(['status', '--porcelain=v1', '-uall']));
   const outside = paths.filter(p => !allowed(p));
   const frozen = [...frozenProblems(git(['diff', '--name-status', REGISTERED, '--', ...FROZEN])), ...frozenProblems(git(['diff', '--name-status', REGISTERED, 'HEAD', '--', ...FROZEN]))];
@@ -50,6 +60,7 @@ export function check(git = sh) {
 // commit the allowed changes and push to main; returns { ok, committed, pushed, attempts, reason?, commit? }
 export function commitAndPush(message, { git = sh, attempts = 3 } = {}) {
   const c = check(git);
+  if (c.missing) return { ok: false, reason: c.missing };
   if (c.outside.length) return { ok: false, reason: 'paths outside the allowed list', paths: c.outside };
   if (c.frozen.length) return { ok: false, reason: `frozen files differ from ${REGISTERED}`, paths: c.frozen };
   if (c.paths.length) {
@@ -67,7 +78,7 @@ export function commitAndPush(message, { git = sh, attempts = 3 } = {}) {
         return { ok: false, reason: `main moved and the run's commits do not apply on it: ${String(r.stderr ?? r.message).trim().split('\n').at(-1)}`, attempts: i };
       }
       const again = check(git);
-      if (!again.ok) return { ok: false, reason: `after fetching main: ${again.outside.length ? 'paths outside the allowed list' : `frozen files differ from ${REGISTERED}`}`, paths: [...again.outside, ...again.frozen], attempts: i };
+      if (!again.ok) return { ok: false, reason: `after fetching main: ${again.missing ?? (again.outside.length ? 'paths outside the allowed list' : `frozen files differ from ${REGISTERED}`)}`, paths: [...again.outside, ...again.frozen], attempts: i };
     }
   }
   return { ok: false, reason: 'unreachable' };
