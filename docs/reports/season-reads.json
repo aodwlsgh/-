@@ -38,5 +38,14 @@
    }
   ],
   "revalidations": 1
+ },
+ "2025-26-metadata": {
+  "note": "Injury-report snapshot metadata of 2025-26 (file name, title time, Last-Modified, lag) read to compare report editions; no results, predictions or metrics read. Not an opening (data/model/test-openings.json unchanged).",
+  "reads": [
+   {
+    "at": "2026-10-28",
+    "what": "A/B report edition check (docs/reports/ab-report-edition.md)"
+   }
+  ]
  }
 }
