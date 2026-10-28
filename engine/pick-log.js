@@ -59,7 +59,8 @@ export function verifyChain(log) {
 // Record schema 2 (2026-10-27, early run C approval 6): evaluation and pick records name the run whose final prediction
 // they used (predictionRun "A" | "B" | "C"); required for every new record. Records without it are schema 1 (path AB).
 // Evaluation records got oddsInputAt and inputToEvalMin on 2026-10-28 while no schema-2 evaluation record existed, so
-// the number stayed 2 (docs/picklog-schema.md).
+// the number stayed 2 (docs/picklog-schema.md). The same holds for predictionReport (the report edition and the rule that
+// chose it, 2026-10-28 user decision 3) on evaluation and pick records.
 export const RECORD_SCHEMA = 2;
 export const PREDICTION_RUNS = ['A', 'B', 'C'];
 export const pathOfRecord = r => (r.predictionRun === 'C' ? 'C' : 'AB');
@@ -73,7 +74,7 @@ export function pickRecord(leg, { now = new Date() } = {}) {
   return {
     type: 'pick', schema: RECORD_SCHEMA, id: `${leg.round}-${leg.betmanNo}-${leg.selection}`, createdAt: stamp(now), deadline: leg.deadline,
     gameId: leg.gameId, round: leg.round, betmanNo: leg.betmanNo, market: leg.market, line: leg.line, selection: leg.selection,
-    odds: leg.odds, p: leg.p, pCons: leg.pCons, ev: leg.ev, pConsOld: leg.pConsOld, evOld: leg.evOld, noVig: leg.noVig, predictionRef: leg.predictionRef, predictionRun: leg.predictionRun,
+    odds: leg.odds, p: leg.p, pCons: leg.pCons, ev: leg.ev, pConsOld: leg.pConsOld, evOld: leg.evOld, noVig: leg.noVig, predictionRef: leg.predictionRef, predictionRun: leg.predictionRun, predictionReport: leg.predictionReport ?? null,
   };
 }
 export const purchaseRecord = (pickId, purchased, { now = new Date(), stake = null } = {}) => ({ type: 'purchase', pickId, purchased: !!purchased, stake, at: stamp(now) });

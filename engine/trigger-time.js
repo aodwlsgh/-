@@ -45,7 +45,11 @@ export const searchAtOf = (run, etDate, now) => { const c = runAt(run, etDate); 
 // run C uses its predictions as final only on a report of the game date available by the cutoff, without a format
 // error (the coverage definition of plan §8); otherwise they are provisional, with a warning and a push (2026-10-28
 // user condition 6). The search window (16 steps of 15 minutes) never reaches the previous evening.
+// With the pin30 rule (2026-10-28 user decision 2) only the cutoff hour's :30 report counts (cPin).
+export const cPin = etDate => ({ date: etDate, hour: runCEt(etDate).hour, minute: 30 });
+const PIN_MISS = { missing: ':30판 없음', late: ':30판이 기준 시각 뒤에 나옴', 'format error': ':30판 형식 오류' };
 export function cMorningReport(snap, etDate, cutoff) {
+  if (snap?.pinMiss) return { ok: false, why: `${PIN_MISS[snap.pinMiss] ?? snap.pinMiss}${snap.late ? `(${snap.late.pdf}, 가용 ${snap.late.availableAt})` : snap.pdf ? `(${snap.pdf})` : ''}` };
   if (!snap?.pdf) return { ok: false, why: '리포트 없음' };
   if (snap.formatError) return { ok: false, why: `형식 오류(${snap.pdf})` };
   if (!snap.pdf.startsWith(`Injury-Report_${etDate}_`)) return { ok: false, why: `경기 당일 리포트가 아님(${snap.pdf})` };

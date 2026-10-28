@@ -13,11 +13,11 @@ import { gzipSync, gunzipSync } from 'node:zlib';
 import { dirname, join } from 'node:path';
 import { loadGames } from './lib/games.js';
 import { createCollector } from '../engine/collect.js';
-import { liveInputs, fixturesFromScoreboard } from './lib/live-collect.js';
+import { liveInputs, fixturesFromScoreboard, PIN30, LATEST } from './lib/live-collect.js';
 import { livePlans, simulateRow, mergedInjuries, injuryDiff, RULES_ON } from '../engine/live.js';
 import { snapshotInjuries, jobGroup } from '../engine/snapshot.js';
 import { resolveStatuses } from '../engine/injury.js';
-import { runAt, runCEt, runGames, isFinalRun, searchAtOf, cMorningReport } from '../engine/trigger-time.js';
+import { runAt, runCEt, runGames, isFinalRun, searchAtOf, cMorningReport, cPin } from '../engine/trigger-time.js';
 import { etParts } from '../engine/time.js';
 import { stamp } from '../engine/clock.js';
 import { breakeven } from '../engine/picks.js';
@@ -104,6 +104,9 @@ async function prepare() {
   // 3. today's games, the injury report snapshot of this run, the ESPN feed (parallel record only)
   const cutoff = runAt(run, date);
   const searchAt = searchAtOf(run, date, now); // a run before its time uses what was out then (provisional)
+  // report edition rule (2026-10-28 user decision 2): run C the cutoff hour's :30 report only, runs A and B the latest
+  const reportRule = run === 'C' ? PIN30 : LATEST;
+  log.reportRule = reportRule;
   let inputs;
   if (offline) {
     const games = await loadGames([season]);
@@ -116,7 +119,7 @@ async function prepare() {
     inputs = { fixtures: day.map(g => ({ id: g.id, start: g.start, season: g.season, home: g.home, away: g.away })), skipped: [], snapshot: (run === 'B' ? pdfRec?.runB : run === 'C' ? pdfRec?.runC ?? cRec?.snap : pdfRec?.main) ?? { pdf: null }, espn: null, espnError: 'offline' };
   } else {
     const col = createCollector({});
-    if (!(await step('inputs', async () => { inputs = await liveInputs(col, { date, season, searchAt }); return `${inputs.fixtures.length} games, report ${inputs.snapshot.pdf ?? 'none'}`; }))) {
+    if (!(await step('inputs', async () => { inputs = await liveInputs(col, { date, season, searchAt, pin: reportRule === PIN30 ? cPin(date) : null }); return `${inputs.fixtures.length} games, report ${inputs.snapshot.pdf ?? 'none'}`; }))) {
       alert('inputs', `오늘 일정·부상 리포트를 가져오지 못함 — ${log.steps.at(-1).error}`);
       await finishLog(p, log);
       console.log(JSON.stringify({ ok: false, runId, alerts: log.alerts }));
@@ -136,6 +139,7 @@ async function prepare() {
   if (!usable) alert('injuryPdf', snap?.formatError ? `NBA 부상 리포트 형식 오류(${snap.pdf}) — 검증 경로 예측에 부상 미반영` : 'NBA 부상 리포트 없음 — 검증 경로 예측에 부상 미반영');
   // run C: no game-day morning report by the cutoff -> every C prediction provisional, warning and push (condition 6)
   const cReport = run === 'C' ? cMorningReport(snap, date, cutoff) : { ok: true };
+  if (run === 'C') log.cReport = { rule: reportRule, ok: cReport.ok, why: cReport.why, pdf: snap?.pdf ?? null, reportTime: snap?.reportTime ?? null, pinMiss: snap?.pinMiss ?? null };
   if (!cReport.ok) alert('cMorningReport', `아침 리포트 기준(C) 리포트 없음 — ${cReport.why}. 이번 C 예측은 모두 예비이고 평가하지 않습니다`);
   if (!inputs.espn && !offline) alert('espnInjuries', `ESPN 부상 피드 없음 — 병행 기록 생략(${inputs.espnError})`);
   const resolved = inputs.espn ? resolveStatuses({ espn: inputs.espn, pdf: usable }) : null;
@@ -164,7 +168,7 @@ async function prepare() {
   const w = CAL.ensemble.w;
   const games = [];
   const t0 = Date.now();
-  for (const row of lp.rows) games.push(await gameEntry({ row, run, runId, now, n, w, usable, resolved, names: lp.names, acc: lp.acc, history, season, date, snap, reportOk: cReport.ok }));
+  for (const row of lp.rows) games.push(await gameEntry({ row, run, runId, now, n, w, usable, resolved, names: lp.names, acc: lp.acc, history, season, date, snap, reportOk: cReport.ok, reportRule }));
   log.simSeconds = (Date.now() - t0) / 1000;
   if (run === 'B') games.push(...(await carryRunA({ p, date, season, history, now, exclude: new Set(games.map(g => g.gameId)) })));
   games.sort((a, b) => Date.parse(a.start.utc) - Date.parse(b.start.utc) || a.gameId.localeCompare(b.gameId));
@@ -191,10 +195,11 @@ async function prepare() {
   console.log(JSON.stringify({ ok: true, runId, date, games: games.length, final: games.filter(g => g.prediction.final).length, provisional: games.filter(g => !g.prediction.final).length, skipped: log.skipped.length, alerts: log.alerts.map(a => a.text), push: log.push ?? [], simSeconds: log.simSeconds }));
 }
 
-async function gameEntry({ row, run, runId, now, n, w, usable, resolved, names, acc, history, season, date, snap, reportOk = true }) {
+async function gameEntry({ row, run, runId, now, n, w, usable, resolved, names, acc, history, season, date, snap, reportOk = true, reportRule = LATEST }) {
   const f = row.fixture;
   const { sim, input } = simulateRow(row, { n, latent: LATENT, w });
-  const prediction = { source: 'base', runId, run, final: isFinalRun(run, f.start, now) && reportOk, sim };
+  // the report edition this prediction used and the rule that chose it (2026-10-28 user decision 3)
+  const prediction = { source: 'base', runId, run, final: isFinalRun(run, f.start, now) && reportOk, report: { rule: reportRule, pdf: usable ? snap.pdf : null, reportTime: usable ? snap.reportTime : null }, sim };
   const ids = [...row.homePlan.players, ...row.awayPlan.players].map(x => x.playerId);
   // parallel record: design §6.5 merge, simulated only where it changes someone's play probability
   let parallel = null;

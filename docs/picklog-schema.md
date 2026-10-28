@@ -13,6 +13,8 @@
 | 2 | 2026-10-27 (c6cab06) | 평가·픽 레코드 | `schema: 2`. `predictionRun`("A"/"B"/"C")이 없으면 기록을 거부한다. |
 | 2(필드 추가) | 2026-10-28 (82a5e01) | 평가 레코드 | `oddsInputAt`(배당 레코드의 `createdAt.utc`)과 `inputToEvalMin`(배당 입력부터 평가까지 분)을 더했다. |
 
+| 2(필드 추가) | 2026-10-28 (:30판 고정과 함께) | 평가·픽 레코드 | `predictionReport` = {rule: "pin30"/"latest", pdf, reportTime}. 예측에 쓴 리포트 판과 그 판을 고른 규칙이다(사용자 결정 3) |
+
 - **스키마 2 평가 레코드가 0건일 때 필드를 추가했다.**
   - 추가 시점의 체인은 odds 12건뿐이었다(seq 0~11, 2026-10-27 15:38 KST 확정).
   - 그래서 번호를 올리지 않았다(2026-10-28 사용자 승인 7).
@@ -23,8 +25,8 @@
 | type | 언제 쓰나 | 주요 필드 |
 |---|---|---|
 | odds | 배당 확정 | round, betmanNo, market, line, odds, deadline, capturedAt(+capturedAtBasis), createdAt |
-| evaluation | 자기 경로의 최종 예측으로 마켓을 평가 | p, pCons, ev, noVig, predictionRef, predictionRun, oddsInputAt, inputToEvalMin, evaluatedAt, createdAt |
-| pick | EV ≥ 3% 후보 | odds, pCons, ev, deadline, predictionRun, recordOnly, gateReasons |
+| evaluation | 자기 경로의 최종 예측으로 마켓을 평가 | p, pCons, ev, noVig, predictionRef, predictionRun, predictionReport, oddsInputAt, inputToEvalMin, evaluatedAt, createdAt |
+| pick | EV ≥ 3% 후보 | odds, pCons, ev, deadline, predictionRun, predictionReport, recordOnly, gateReasons |
 | combo | 2폴더 후보 | legs, oddsProduct, pCons, ev |
 | unevaluated | 마감까지 평가 못 한 마켓 | reason, note |
 | purchase | 구매 여부(사용자) | pickId, purchased, stake |

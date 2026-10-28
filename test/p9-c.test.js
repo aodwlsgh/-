@@ -206,7 +206,7 @@ test('run C at 21:50 KST around 2026-11-01: 08:50 EDT on 10-30/10-31, 07:50 EST 
   assert.equal(isFinalRun('C', fromEt('2026-11-01', 19, 0).toISOString(), '2026-11-01T12:40:00Z'), false);
 });
 
-test('run C reads the latest game-day report available by 07:50 ET (same search as the validation); none -> no previous-evening substitute', async () => {
+test('rule latest (runs A·B): the latest game-day report available by the cutoff, as the validation search; none -> no previous-evening substitute', async () => {
   const date = '2026-11-01';
   const pdfs = { // name -> Last-Modified (UTC); 07:50 EST = 12:50Z
     [`Injury-Report_${date}_07_45AM.pdf`]: '2026-11-01T12:52:00Z', // out after the cutoff: skipped

@@ -67,6 +67,9 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
   L.push(`- 실행 id: \`${run.runId}\` · 시작 ${run.startedAt?.kst ?? '—'} · 게시 ${run.publishedAt?.kst ?? '게시 전'}`);
   L.push(`- **${TEXT.recordOnly}** (2026-27 첫 한 달, 설계 §9.4 기록 전용 기간)`);
   L.push(`- 오늘 상태: **${ds.text}**`);
+  // the report edition the predictions used and the rule that chose it (2026-10-28 user decision 3)
+  const rep = day.games.find(g => g.prediction.run === run.run)?.prediction.report;
+  if (rep) L.push(`- 부상 리포트 판: ${rep.reportTime ?? '없음'}${rep.pdf ? ` (\`${rep.pdf}\`)` : ''} · 선택 규칙 ${rep.rule === 'pin30' ? 'pin30(기준 시각 시간대의 :30판만)' : 'latest(기준 시각까지 나온 최신 판)'}`);
   L.push(`- ${TEXT.ml5NotOffered}`);
   L.push(`- 픽 로그: 체인 검증 ${ct.text} · ${an.text}`);
   if (alerts.length) { L.push(''); L.push('## 경고'); for (const a of alerts) L.push(`- 🔴 ${a.text}`); }
