@@ -1,37 +1,33 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-10-26",
- "generatedAt": "2026-10-27T21:50:44.959Z",
- "games": 52,
- "gameDates": 7,
+ "scannedThrough": "2026-10-27",
+ "generatedAt": "2026-10-28T12:55:46.760Z",
+ "games": 56,
+ "gameDates": 8,
  "gamesPerTeam": {
-  "2": [
-   "POR"
-  ],
   "3": [
-   "DET",
-   "BOS",
-   "NY",
-   "SA",
    "ORL",
-   "BKN",
    "TOR",
    "NO",
-   "LAL",
+   "POR",
    "PHX",
    "LAC",
-   "SAC",
    "CLE",
    "DEN"
   ],
   "4": [
+   "DET",
+   "BOS",
+   "NY",
    "PHI",
+   "SA",
    "OKC",
    "ATL",
    "WSH",
    "MIL",
    "MIA",
    "MIN",
+   "BKN",
    "CHA",
    "CHI",
    "MEM",
@@ -39,7 +35,9 @@
    "IND",
    "HOU",
    "DAL",
-   "GS"
+   "LAL",
+   "GS",
+   "SAC"
   ]
  },
  "skippedRegularSeasonLabel": [],
@@ -615,6 +613,50 @@
    "status": "STATUS_FINAL",
    "home": "DEN",
    "away": "GS",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909877",
+   "usDate": "20261027",
+   "start": "2026-10-27T23:30Z",
+   "status": "STATUS_FINAL",
+   "home": "BOS",
+   "away": "BKN",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909878",
+   "usDate": "20261027",
+   "start": "2026-10-28T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "NY",
+   "away": "DET",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909879",
+   "usDate": "20261027",
+   "start": "2026-10-28T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "SA",
+   "away": "SAC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909880",
+   "usDate": "20261027",
+   "start": "2026-10-28T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "LAL",
+   "away": "POR",
    "slug": "regular-season",
    "year": 2027,
    "ctype": "STD"

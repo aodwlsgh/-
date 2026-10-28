@@ -1,0 +1,224 @@
+{
+ "runId": "2026-10-28-C-0855",
+ "run": "C",
+ "date": "2026-10-28",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-28T12:55:39.654Z",
+  "kst": "2026-10-28T21:55:39+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 757,
+   "detail": "ok   summary 401909877 / ok   injuries (94 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 6322,
+   "detail": "2026-27 {\"games\":56,\"gameDates\":8,\"gamesPerTeam\":{\"3\":8,\"4\":22},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 1801,
+   "detail": "2026-27 normalize: checked 4 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 337,
+   "detail": "2026-27 done: 56 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1893,
+   "detail": "12 games, report Injury-Report_2026-10-28_08_30AM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-28-C-0855.json.gz",
+  "bytes": 49724,
+  "players": 94
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-10-28_08_30AM.pdf",
+  "reportTime": "10/28/26 08:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909881",
+   "game": "MIA@ATL",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909882",
+   "game": "WSH@CLE",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909882",
+   "game": "WSH@CLE",
+   "team": "CLE",
+   "player": "Udeh, Jr., Ernest"
+  },
+  {
+   "gameId": "401909883",
+   "game": "CHA@DET",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401909884",
+   "game": "PHI@IND",
+   "team": "PHI",
+   "player": "Fall, Tacko"
+  },
+  {
+   "gameId": "401909885",
+   "game": "ORL@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909885",
+   "game": "ORL@TOR",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909887",
+   "game": "HOU@MIL",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909891",
+   "game": "OKC@DAL",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 21.695,
+ "games": [
+  {
+   "gameId": "401909881",
+   "game": "MIA@ATL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909882",
+   "game": "WSH@CLE",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909883",
+   "game": "CHA@DET",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909884",
+   "game": "PHI@IND",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909885",
+   "game": "ORL@TOR",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909886",
+   "game": "NY@CHI",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909887",
+   "game": "HOU@MIL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909888",
+   "game": "GS@MIN",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909889",
+   "game": "DEN@NO",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909890",
+   "game": "SA@UTAH",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909891",
+   "game": "OKC@DAL",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  },
+  {
+   "gameId": "401909892",
+   "game": "LAL@LAC",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  }
+ ],
+ "db": [
+  {
+   "ok": true,
+   "records": 4,
+   "at": {
+    "utc": "2026-10-28T12:56:55.744Z",
+    "kst": "2026-10-28T21:56:55+09:00"
+   }
+  }
+ ]
+}
