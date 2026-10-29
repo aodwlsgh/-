@@ -1,0 +1,107 @@
+{
+ "runId": "2026-10-29-A-1751",
+ "run": "A",
+ "date": "2026-10-29",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-29T21:51:34.252Z",
+  "kst": "2026-10-30T06:51:34+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 650,
+   "detail": "ok   summary 401909881 / ok   injuries (95 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 6878,
+   "detail": "2026-27 {\"games\":68,\"gameDates\":9,\"gamesPerTeam\":{\"3\":2,\"4\":10,\"5\":18},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 146,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 212,
+   "detail": "2026-27 done: 68 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1772,
+   "detail": "3 games, report Injury-Report_2026-10-29_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 19845
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-29-A-1751.json.gz",
+  "bytes": 50408,
+  "players": 95
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909893",
+   "game": "CLE@ATL",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909893",
+   "game": "CLE@ATL",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909894",
+   "game": "SAC@NO",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 4.273,
+ "games": [
+  {
+   "gameId": "401909893",
+   "game": "CLE@ATL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909894",
+   "game": "SAC@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909895",
+   "game": "MEM@POR",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-29T21:52:07.404Z",
+  "kst": "2026-10-30T06:52:07+09:00"
+ }
+}
