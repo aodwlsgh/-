@@ -1,0 +1,98 @@
+{
+ "runId": "2026-10-29-C-0855",
+ "run": "C",
+ "date": "2026-10-29",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-29T12:55:42.209Z",
+  "kst": "2026-10-29T21:55:42+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 677,
+   "detail": "ok   summary 401909881 / ok   injuries (86 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 7916,
+   "detail": "2026-27 {\"games\":68,\"gameDates\":9,\"gamesPerTeam\":{\"3\":2,\"4\":10,\"5\":18},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 5773,
+   "detail": "2026-27 normalize: checked 12 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 432,
+   "detail": "2026-27 done: 68 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 2027,
+   "detail": "3 games, report Injury-Report_2026-10-29_08_30AM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-29-C-0855.json.gz",
+  "bytes": 46830,
+  "players": 86
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-10-29_08_30AM.pdf",
+  "reportTime": "10/29/26 08:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909894",
+   "game": "SAC@NO",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 6.786,
+ "games": [
+  {
+   "gameId": "401909893",
+   "game": "CLE@ATL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909894",
+   "game": "SAC@NO",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909895",
+   "game": "MEM@POR",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-29T12:56:59.418Z",
+  "kst": "2026-10-29T21:56:59+09:00"
+ }
+}
