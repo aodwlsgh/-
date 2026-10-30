@@ -1,0 +1,155 @@
+{
+ "runId": "2026-10-30-C-0852",
+ "run": "C",
+ "date": "2026-10-30",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-30T12:52:57.053Z",
+  "kst": "2026-10-30T21:52:57+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 599,
+   "detail": "ok   summary 401909893 / ok   injuries (96 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 7326,
+   "detail": "2026-27 {\"games\":71,\"gameDates\":10,\"gamesPerTeam\":{\"3\":1,\"4\":7,\"5\":21,\"6\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 1261,
+   "detail": "2026-27 normalize: checked 3 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 302,
+   "detail": "2026-27 done: 71 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 2612,
+   "detail": "10 games, report none"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "injuryPdf",
+   "text": "NBA 부상 리포트 없음 — 검증 경로 예측에 부상 미반영"
+  },
+  {
+   "code": "cMorningReport",
+   "text": "아침 리포트 기준(C) 리포트 없음 — :30판 없음. 이번 C 예측은 모두 예비이고 평가하지 않습니다"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-30-C-0852.json.gz",
+  "bytes": 51620,
+  "players": 96
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": false,
+  "why": ":30판 없음",
+  "pdf": null,
+  "reportTime": null,
+  "pinMiss": "missing"
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 24.481,
+ "push": [
+  "[NBA C] 아침 리포트 기준(C) 리포트 없음 — :30판 없음. 이번 C 예측은 모두 예비이고 평가하지 않습니다"
+ ],
+ "games": [
+  {
+   "gameId": "401909277",
+   "game": "CHA@WSH",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 8
+  },
+  {
+   "gameId": "401909278",
+   "game": "CHI@BOS",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 5
+  },
+  {
+   "gameId": "401909279",
+   "game": "DET@BKN",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 3
+  },
+  {
+   "gameId": "401909280",
+   "game": "NY@PHI",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 5
+  },
+  {
+   "gameId": "401909281",
+   "game": "ORL@TOR",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 5
+  },
+  {
+   "gameId": "401909282",
+   "game": "IND@MIA",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 8
+  },
+  {
+   "gameId": "401909283",
+   "game": "HOU@DAL",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 8
+  },
+  {
+   "gameId": "401909284",
+   "game": "LAC@MIN",
+   "group": "A",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 8
+  },
+  {
+   "gameId": "401909285",
+   "game": "LAL@GS",
+   "group": "B",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 6
+  },
+  {
+   "gameId": "401909286",
+   "game": "DEN@PHX",
+   "group": "B",
+   "run": "C",
+   "final": false,
+   "parallelDiffs": 6
+  }
+ ]
+}

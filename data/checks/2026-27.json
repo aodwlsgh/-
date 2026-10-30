@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-10-29T21:51:42.169Z",
- "games": 68,
+ "generatedAt": "2026-10-30T12:53:06.554Z",
+ "games": 71,
  "checks": [
   {
    "id": "401909088",
@@ -1534,6 +1534,72 @@
    "failed": [
     "home_away_diff_over_2"
    ],
+   "issues": []
+  },
+  {
+   "id": "401909893",
+   "usDate": "20261029",
+   "matchup": "CLE@ATL",
+   "errPct2": 1.723,
+   "errPct1": -1.349,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909894",
+   "usDate": "20261029",
+   "matchup": "SAC@NO",
+   "errPct2": -0.395,
+   "errPct1": -2.58,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909895",
+   "usDate": "20261029",
+   "matchup": "MEM@POR",
+   "errPct2": 2.143,
+   "errPct1": -2.261,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
    "issues": []
   }
  ]
