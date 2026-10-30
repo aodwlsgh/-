@@ -1,0 +1,65 @@
+{
+ "runId": "2026-10-29-B-2051",
+ "run": "B",
+ "date": "2026-10-29",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-30T00:51:30.477Z",
+  "kst": "2026-10-30T09:51:30+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 1551,
+   "detail": "ok   summary 401909881 / ok   injuries (94 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1442,
+   "detail": "3 games, report Injury-Report_2026-10-29_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-29-B-2051.json.gz",
+  "bytes": 50280,
+  "players": 94
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 2.193,
+ "games": [
+  {
+   "gameId": "401909893",
+   "game": "CLE@ATL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909894",
+   "game": "SAC@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909895",
+   "game": "MEM@POR",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 2
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-30T00:52:07.120Z",
+  "kst": "2026-10-30T09:52:07+09:00"
+ }
+}
