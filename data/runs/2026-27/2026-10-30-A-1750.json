@@ -1,0 +1,193 @@
+{
+ "runId": "2026-10-30-A-1750",
+ "run": "A",
+ "date": "2026-10-30",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-30T21:50:49.645Z",
+  "kst": "2026-10-31T06:50:49+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 588,
+   "detail": "ok   summary 401909893 / ok   injuries (98 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 7291,
+   "detail": "2026-27 {\"games\":71,\"gameDates\":10,\"gamesPerTeam\":{\"3\":1,\"4\":7,\"5\":21,\"6\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 205,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 185,
+   "detail": "2026-27 done: 71 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1406,
+   "detail": "10 games, report Injury-Report_2026-10-30_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 59388
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-30-A-1750.json.gz",
+  "bytes": 52002,
+  "players": 98
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909277",
+   "game": "CHA@WSH",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401909279",
+   "game": "DET@BKN",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909279",
+   "game": "DET@BKN",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909280",
+   "game": "NY@PHI",
+   "team": "PHI",
+   "player": "Fall, Tacko"
+  },
+  {
+   "gameId": "401909281",
+   "game": "ORL@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909281",
+   "game": "ORL@TOR",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909283",
+   "game": "HOU@DAL",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909285",
+   "game": "LAL@GS",
+   "team": "LAL",
+   "player": "Carr, Cameron"
+  }
+ ],
+ "simSeconds": 12.985,
+ "games": [
+  {
+   "gameId": "401909277",
+   "game": "CHA@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909278",
+   "game": "CHI@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909279",
+   "game": "DET@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909280",
+   "game": "NY@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909281",
+   "game": "ORL@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909282",
+   "game": "IND@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909283",
+   "game": "HOU@DAL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909284",
+   "game": "LAC@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909285",
+   "game": "LAL@GS",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909286",
+   "game": "DEN@PHX",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 2
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-30T21:51:30.594Z",
+  "kst": "2026-10-31T06:51:30+09:00"
+ }
+}
