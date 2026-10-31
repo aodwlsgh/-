@@ -1,0 +1,134 @@
+{
+ "runId": "2026-10-30-B-2051",
+ "run": "B",
+ "date": "2026-10-30",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-31T00:51:01.355Z",
+  "kst": "2026-10-31T09:51:01+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 866,
+   "detail": "ok   summary 401909893 / ok   injuries (88 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1468,
+   "detail": "10 games, report Injury-Report_2026-10-30_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-30-B-2051.json.gz",
+  "bytes": 47512,
+  "players": 88
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909285",
+   "game": "LAL@GS",
+   "team": "LAL",
+   "player": "Carr, Cameron"
+  }
+ ],
+ "simSeconds": 4.008,
+ "games": [
+  {
+   "gameId": "401909277",
+   "game": "CHA@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909278",
+   "game": "CHI@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909279",
+   "game": "DET@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909280",
+   "game": "NY@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909281",
+   "game": "ORL@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909282",
+   "game": "IND@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909283",
+   "game": "HOU@DAL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909284",
+   "game": "LAC@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909285",
+   "game": "LAL@GS",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909286",
+   "game": "DEN@PHX",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 2
+  }
+ ],
+ "db": [
+  {
+   "ok": true,
+   "records": 0,
+   "at": {
+    "utc": "2026-10-31T00:51:27.597Z",
+    "kst": "2026-10-31T09:51:27+09:00"
+   }
+  }
+ ]
+}
