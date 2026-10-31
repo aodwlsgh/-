@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-10-30T21:50:57.926Z",
- "games": 71,
+ "generatedAt": "2026-10-31T12:51:41.694Z",
+ "games": 81,
  "checks": [
   {
    "id": "401909088",
@@ -1590,6 +1590,235 @@
    "heaves": [
     0,
     1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909277",
+   "usDate": "20261030",
+   "matchup": "CHA@WSH",
+   "errPct2": 3.422,
+   "errPct1": -1.89,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": false,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "fga_mismatch"
+   ],
+   "issues": [
+    "fga_mismatch(27)"
+   ]
+  },
+  {
+   "id": "401909278",
+   "usDate": "20261030",
+   "matchup": "CHI@BOS",
+   "errPct2": 1.879,
+   "errPct1": -2.462,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    2
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909279",
+   "usDate": "20261030",
+   "matchup": "DET@BKN",
+   "errPct2": 0.12,
+   "errPct1": -3.717,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909280",
+   "usDate": "20261030",
+   "matchup": "NY@PHI",
+   "errPct2": 1.022,
+   "errPct1": -2.305,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909281",
+   "usDate": "20261030",
+   "matchup": "ORL@TOR",
+   "errPct2": 2.631,
+   "errPct1": -1.823,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909282",
+   "usDate": "20261030",
+   "matchup": "IND@MIA",
+   "errPct2": 1.961,
+   "errPct1": 0,
+   "haDiff": 0,
+   "heaves": [
+    1,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909283",
+   "usDate": "20261030",
+   "matchup": "HOU@DAL",
+   "errPct2": 3.43,
+   "errPct1": -1.68,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909284",
+   "usDate": "20261030",
+   "matchup": "LAC@MIN",
+   "errPct2": 3.906,
+   "errPct1": -1.25,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": false,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "possessions_over_3.5pct",
+    "fga_mismatch"
+   ],
+   "issues": [
+    "fga_mismatch(16)"
+   ]
+  },
+  {
+   "id": "401909285",
+   "usDate": "20261030",
+   "matchup": "LAL@GS",
+   "errPct2": 2.152,
+   "errPct1": -4.588,
+   "haDiff": 0,
+   "heaves": [
+    1,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909286",
+   "usDate": "20261030",
+   "matchup": "DEN@PHX",
+   "errPct2": 1.01,
+   "errPct1": -1.527,
+   "haDiff": 0,
+   "heaves": [
+    1,
+    0
    ],
    "heaveRule": "excluded",
    "fgaMatch": true,

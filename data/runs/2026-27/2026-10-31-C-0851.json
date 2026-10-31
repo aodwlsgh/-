@@ -1,0 +1,148 @@
+{
+ "runId": "2026-10-31-C-0851",
+ "run": "C",
+ "date": "2026-10-31",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-31T12:51:28.227Z",
+  "kst": "2026-10-31T21:51:28+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 574,
+   "detail": "ok   summary 401909277 / ok   injuries (85 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 7806,
+   "detail": "2026-27 {\"games\":81,\"gameDates\":11,\"gamesPerTeam\":{\"4\":2,\"5\":14,\"6\":14},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 4733,
+   "detail": "2026-27 normalize: checked 10 games, aliased 2 play(s) (1 game(s) new in the log) [401909285:401909285689 17->16 \"Short Timeout\"; 401909285:401909285696 17->16 \"Short Timeout\"], still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 341,
+   "detail": "2026-27 done: 81 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1606,
+   "detail": "7 games, report Injury-Report_2026-10-31_08_30AM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909896",
+   "game": "POR@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-31-C-0851.json.gz",
+  "bytes": 46616,
+  "players": 85
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-10-31_08_30AM.pdf",
+  "reportTime": "10/31/26 08:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909898",
+   "game": "ATL@NO",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909899",
+   "game": "SAC@MEM",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909900",
+   "game": "CLE@MIL",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909901",
+   "game": "MIN@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 10.237,
+ "games": [
+  {
+   "gameId": "401909897",
+   "game": "PHI@CHA",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 7
+  },
+  {
+   "gameId": "401909898",
+   "game": "ATL@NO",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909899",
+   "game": "SAC@MEM",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909900",
+   "game": "CLE@MIL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909901",
+   "game": "MIN@SA",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  }
+ ]
+}
