@@ -1,0 +1,176 @@
+{
+ "runId": "2026-10-31-A-1750",
+ "run": "A",
+ "date": "2026-10-31",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-10-31T21:50:46.624Z",
+  "kst": "2026-11-01T06:50:46+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 820,
+   "detail": "ok   summary 401909277 / ok   injuries (90 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 7868,
+   "detail": "2026-27 {\"games\":81,\"gameDates\":11,\"gamesPerTeam\":{\"4\":2,\"5\":14,\"6\":14},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 155,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 249,
+   "detail": "2026-27 done: 81 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1277,
+   "detail": "7 games, report Injury-Report_2026-10-31_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 48963
+  }
+ ],
+ "alerts": [
+  {
+   "code": "pdfUnmatched",
+   "text": "PDF 선수 못 찾음 — CLE@MIL CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다",
+   "players": [
+    {
+     "gameId": "401909900",
+     "game": "CLE@MIL",
+     "team": "CLE",
+     "player": "Udeh, Jr., Ernest",
+     "playerId": "5106261",
+     "known": "Ernest Udeh Jr."
+    }
+   ]
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401909896",
+   "game": "POR@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-31-A-1750.json.gz",
+  "bytes": 48569,
+  "players": 90
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909897",
+   "game": "PHI@CHA",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401909898",
+   "game": "ATL@NO",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909899",
+   "game": "SAC@MEM",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909900",
+   "game": "CLE@MIL",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909901",
+   "game": "MIN@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 9.524,
+ "games": [
+  {
+   "gameId": "401909897",
+   "game": "PHI@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909898",
+   "game": "ATL@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909899",
+   "game": "SAC@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909900",
+   "game": "CLE@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909901",
+   "game": "MIN@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-10-31T21:51:27.670Z",
+  "kst": "2026-11-01T06:51:27+09:00"
+ }
+}
