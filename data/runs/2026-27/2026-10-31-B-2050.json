@@ -1,0 +1,96 @@
+{
+ "runId": "2026-10-31-B-2050",
+ "run": "B",
+ "date": "2026-10-31",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-01T00:50:59.584Z",
+  "kst": "2026-11-01T09:50:59+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 735,
+   "detail": "ok   summary 401909277 / ok   injuries (89 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1408,
+   "detail": "7 games, report Injury-Report_2026-10-31_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909896",
+   "game": "POR@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-10-31-B-2050.json.gz",
+  "bytes": 47831,
+  "players": 89
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
+ "games": [
+  {
+   "gameId": "401909897",
+   "game": "PHI@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909898",
+   "game": "ATL@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909899",
+   "game": "SAC@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909900",
+   "game": "CLE@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909901",
+   "game": "MIN@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909902",
+   "game": "OKC@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-01T00:51:33.860Z",
+  "kst": "2026-11-01T09:51:33+09:00"
+ }
+}
