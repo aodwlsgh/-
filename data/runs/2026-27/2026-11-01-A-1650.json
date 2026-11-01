@@ -1,0 +1,98 @@
+{
+ "runId": "2026-11-01-A-1650",
+ "run": "A",
+ "date": "2026-11-01",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-01T21:50:59.078Z",
+  "kst": "2026-11-02T06:50:59+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 653,
+   "detail": "ok   summary 401909896 / ok   injuries (93 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 8328,
+   "detail": "2026-27 {\"games\":88,\"gameDates\":12,\"gamesPerTeam\":{\"4\":1,\"5\":7,\"6\":17,\"7\":5},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 142,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 238,
+   "detail": "2026-27 done: 88 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1273,
+   "detail": "4 games, report Injury-Report_2026-11-01_04_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 13101
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909903",
+   "game": "BOS@ORL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909904",
+   "game": "BKN@IND",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-01-A-1650.json.gz",
+  "bytes": 50523,
+  "players": 93
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909906",
+   "game": "TOR@LAL",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  }
+ ],
+ "simSeconds": 2.202,
+ "games": [
+  {
+   "gameId": "401909905",
+   "game": "LAC@GS",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909906",
+   "game": "TOR@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-01T21:51:31.716Z",
+  "kst": "2026-11-02T06:51:31+09:00"
+ }
+}
