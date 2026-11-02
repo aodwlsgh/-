@@ -1,0 +1,75 @@
+{
+ "runId": "2026-11-01-B-1951",
+ "run": "B",
+ "date": "2026-11-01",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-02T00:51:43.817Z",
+  "kst": "2026-11-02T09:51:43+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 670,
+   "detail": "ok   summary 401909896 / ok   injuries (91 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1216,
+   "detail": "4 games, report Injury-Report_2026-11-01_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401909903",
+   "game": "BOS@ORL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909904",
+   "game": "BKN@IND",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-01-B-1951.json.gz",
+  "bytes": 49902,
+  "players": 91
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909906",
+   "game": "TOR@LAL",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  }
+ ],
+ "simSeconds": 1.305,
+ "games": [
+  {
+   "gameId": "401909905",
+   "game": "LAC@GS",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909906",
+   "game": "TOR@LAL",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-02T00:52:26.959Z",
+  "kst": "2026-11-02T09:52:26+09:00"
+ }
+}
