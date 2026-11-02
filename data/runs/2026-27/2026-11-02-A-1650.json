@@ -1,0 +1,286 @@
+{
+ "runId": "2026-11-02-A-1650",
+ "run": "A",
+ "date": "2026-11-02",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-02T21:50:48.163Z",
+  "kst": "2026-11-03T06:50:48+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 732,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[0].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 8876,
+   "detail": "2026-27 {\"games\":92,\"gameDates\":13,\"gamesPerTeam\":{\"4\":1,\"5\":2,\"6\":19,\"7\":8},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 152,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 279,
+   "detail": "2026-27 done: 92 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1360,
+   "detail": "15 games, report Injury-Report_2026-11-02_04_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 101527
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[0].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[0].injuries[0].status: unexpected value \"Suspension\")"
+  },
+  {
+   "code": "pdfUnmatched",
+   "text": "PDF 선수 못 찾음 — OKC@CLE CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다",
+   "players": [
+    {
+     "gameId": "401909907",
+     "game": "OKC@CLE",
+     "team": "CLE",
+     "player": "Udeh, Jr., Ernest",
+     "playerId": "5106261",
+     "known": "Ernest Udeh Jr."
+    }
+   ],
+   "escalated": true,
+   "streak": 2
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909907",
+   "game": "OKC@CLE",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909907",
+   "game": "OKC@CLE",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401909908",
+   "game": "DET@CHA",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909909",
+   "game": "ATL@IND",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909910",
+   "game": "BKN@NY",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909911",
+   "game": "WSH@ORL",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909913",
+   "game": "SAC@DAL",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909913",
+   "game": "SAC@DAL",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909914",
+   "game": "NO@MEM",
+   "team": "NO",
+   "player": "Dia, Malik"
+  },
+  {
+   "gameId": "401909914",
+   "game": "NO@MEM",
+   "team": "NO",
+   "player": "Pierre Jr., Jaron"
+  },
+  {
+   "gameId": "401909916",
+   "game": "BOS@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909917",
+   "game": "UTAH@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909920",
+   "game": "TOR@LAC",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  }
+ ],
+ "simSeconds": 17.491,
+ "push": [
+  "[NBA 일일 실행] 2회 연속 경고 — PDF 선수 못 찾음 — OKC@CLE CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다"
+ ],
+ "games": [
+  {
+   "gameId": "401909907",
+   "game": "OKC@CLE",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909908",
+   "game": "DET@CHA",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909909",
+   "game": "ATL@IND",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909910",
+   "game": "BKN@NY",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909911",
+   "game": "WSH@ORL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909912",
+   "game": "CHI@PHI",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909913",
+   "game": "SAC@DAL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909914",
+   "game": "NO@MEM",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909915",
+   "game": "MIL@MIN",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909916",
+   "game": "BOS@HOU",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909917",
+   "game": "UTAH@SA",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909918",
+   "game": "POR@DEN",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909919",
+   "game": "PHX@GS",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909920",
+   "game": "TOR@LAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909921",
+   "game": "MIA@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-02T21:51:38.082Z",
+  "kst": "2026-11-03T06:51:38+09:00"
+ }
+}
