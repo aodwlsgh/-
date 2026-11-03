@@ -1,18 +1,18 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-11-01",
- "generatedAt": "2026-11-02T21:50:57.787Z",
- "games": 92,
- "gameDates": 13,
+ "scannedThrough": "2026-11-02",
+ "generatedAt": "2026-11-03T12:52:04.997Z",
+ "games": 107,
+ "gameDates": 14,
  "gamesPerTeam": {
-  "4": [
+  "5": [
    "PHX"
   ],
-  "5": [
+  "6": [
    "POR",
    "DEN"
   ],
-  "6": [
+  "7": [
    "DET",
    "BOS",
    "NY",
@@ -33,7 +33,7 @@
    "SAC",
    "CLE"
   ],
-  "7": [
+  "8": [
    "PHI",
    "ATL",
    "MIN",
@@ -1057,6 +1057,171 @@
    "status": "STATUS_FINAL",
    "home": "LAL",
    "away": "TOR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909907",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "CLE",
+   "away": "OKC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909908",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "CHA",
+   "away": "DET",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909909",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "IND",
+   "away": "ATL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909910",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "NY",
+   "away": "BKN",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909911",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "ORL",
+   "away": "WSH",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909912",
+   "usDate": "20261102",
+   "start": "2026-11-03T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "PHI",
+   "away": "CHI",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909913",
+   "usDate": "20261102",
+   "start": "2026-11-03T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "DAL",
+   "away": "SAC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909914",
+   "usDate": "20261102",
+   "start": "2026-11-03T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "MEM",
+   "away": "NO",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909915",
+   "usDate": "20261102",
+   "start": "2026-11-03T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "MIN",
+   "away": "MIL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909916",
+   "usDate": "20261102",
+   "start": "2026-11-03T01:30Z",
+   "status": "STATUS_FINAL",
+   "home": "HOU",
+   "away": "BOS",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909917",
+   "usDate": "20261102",
+   "start": "2026-11-03T01:30Z",
+   "status": "STATUS_FINAL",
+   "home": "SA",
+   "away": "UTAH",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909918",
+   "usDate": "20261102",
+   "start": "2026-11-03T02:00Z",
+   "status": "STATUS_FINAL",
+   "home": "DEN",
+   "away": "POR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909919",
+   "usDate": "20261102",
+   "start": "2026-11-03T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "GS",
+   "away": "PHX",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909920",
+   "usDate": "20261102",
+   "start": "2026-11-03T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "LAC",
+   "away": "TOR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909921",
+   "usDate": "20261102",
+   "start": "2026-11-03T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "LAL",
+   "away": "MIA",
    "slug": "regular-season",
    "year": 2027,
    "ctype": "STD"
