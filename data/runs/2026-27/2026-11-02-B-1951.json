@@ -1,0 +1,172 @@
+{
+ "runId": "2026-11-02-B-1951",
+ "run": "B",
+ "date": "2026-11-02",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-03T00:51:13.831Z",
+  "kst": "2026-11-03T09:51:13+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 1974,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[0].injuries[1].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 2582,
+   "detail": "15 games, report Injury-Report_2026-11-02_07_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[0].injuries[1].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[0].injuries[1].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909920",
+   "game": "TOR@LAC",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  }
+ ],
+ "simSeconds": 5.009,
+ "games": [
+  {
+   "gameId": "401909907",
+   "game": "OKC@CLE",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909908",
+   "game": "DET@CHA",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909909",
+   "game": "ATL@IND",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909910",
+   "game": "BKN@NY",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909911",
+   "game": "WSH@ORL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909912",
+   "game": "CHI@PHI",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909913",
+   "game": "SAC@DAL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909914",
+   "game": "NO@MEM",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909915",
+   "game": "MIL@MIN",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909916",
+   "game": "BOS@HOU",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909917",
+   "game": "UTAH@SA",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909918",
+   "game": "POR@DEN",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909919",
+   "game": "PHX@GS",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909920",
+   "game": "TOR@LAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909921",
+   "game": "MIA@LAL",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-03T00:51:51.739Z",
+  "kst": "2026-11-03T09:51:51+09:00"
+ }
+}
