@@ -1,0 +1,63 @@
+{
+ "runId": "2026-11-03-A-1651",
+ "run": "A",
+ "date": "2026-11-03",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-03T21:51:39.019Z",
+  "kst": "2026-11-04T06:51:39+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 632,
+   "detail": "ok   summary 401909907 / ok   injuries (95 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 9365,
+   "detail": "2026-27 {\"games\":107,\"gameDates\":14,\"gamesPerTeam\":{\"5\":1,\"6\":2,\"7\":19,\"8\":8},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 149,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 302,
+   "detail": "2026-27 107/107 games, excluded 0, 0s / 2026-27 done: 107 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1246,
+   "detail": "0 games, report Injury-Report_2026-11-03_04_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 3
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-03-A-1651.json.gz",
+  "bytes": 51465,
+  "players": 95
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "games": [],
+ "publishedAt": {
+  "utc": "2026-11-03T21:52:11.629Z",
+  "kst": "2026-11-04T06:52:11+09:00"
+ }
+}
