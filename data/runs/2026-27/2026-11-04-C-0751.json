@@ -1,0 +1,249 @@
+{
+ "runId": "2026-11-04-C-0751",
+ "run": "C",
+ "date": "2026-11-04",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-04T12:51:50.300Z",
+  "kst": "2026-11-04T21:51:50+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 543,
+   "detail": "skip summary: no final game on 20261103 / ok   injuries (96 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": false,
+   "ms": 7285,
+   "error": "jobs/build-data.js schedule 2026-27 exit 1:     at async file:///home/user/-/jobs/build-data.js:224:3 /  / Node.js v22.23.4"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 2882,
+   "detail": "14 games, report Injury-Report_2026-11-04_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-03T21:51:49.038Z(완료 경기 2026-11-02까지). jobs/build-data.js schedule 2026-27 exit 1:     at async file:///home/user/-/jobs/build-data.js:224:3 /  / Node.js v22.23.4"
+  },
+  {
+   "code": "pdfUnmatched",
+   "text": "PDF 선수 못 찾음 — CLE@OKC CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다",
+   "players": [
+    {
+     "gameId": "401909929",
+     "game": "CLE@OKC",
+     "team": "CLE",
+     "player": "Udeh, Jr., Ernest",
+     "playerId": "5106261",
+     "known": "Ernest Udeh Jr."
+    }
+   ]
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-04-C-0751.json.gz",
+  "bytes": 52335,
+  "players": 96
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-04_07_30AM.pdf",
+  "reportTime": "11/04/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909922",
+   "game": "PHI@DET",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909923",
+   "game": "ATL@WSH",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909925",
+   "game": "CHA@BKN",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909925",
+   "game": "CHA@BKN",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401909929",
+   "game": "CLE@OKC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401909929",
+   "game": "CLE@OKC",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909930",
+   "game": "MIN@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909931",
+   "game": "TOR@DEN",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909934",
+   "game": "LAL@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 26.059,
+ "games": [
+  {
+   "gameId": "401909922",
+   "game": "PHI@DET",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909923",
+   "game": "ATL@WSH",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909924",
+   "game": "MIL@BOS",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909925",
+   "game": "CHA@BKN",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909926",
+   "game": "CHI@NY",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909927",
+   "game": "IND@MEM",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909928",
+   "game": "UTAH@NO",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909929",
+   "game": "CLE@OKC",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909930",
+   "game": "MIN@HOU",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909931",
+   "game": "TOR@DEN",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909932",
+   "game": "POR@PHX",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909934",
+   "game": "LAL@SAC",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909935",
+   "game": "MIA@LAC",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ]
+}
