@@ -33,5 +33,18 @@
  "pdfOutNoRecord": [],
  "simSeconds": 0,
  "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
- "games": []
+ "games": [],
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "c9e4d4389197dfdf3e441c95d388140dbab9bc53",
+   "at": {
+    "utc": "2026-11-04T00:51:41.170Z",
+    "kst": "2026-11-04T09:51:41+09:00"
+   }
+  }
+ ]
 }
