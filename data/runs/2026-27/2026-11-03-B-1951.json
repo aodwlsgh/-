@@ -1,0 +1,37 @@
+{
+ "runId": "2026-11-03-B-1951",
+ "run": "B",
+ "date": "2026-11-03",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-04T00:51:10.391Z",
+  "kst": "2026-11-04T09:51:10+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 812,
+   "detail": "ok   summary 401909907 / ok   injuries (96 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1312,
+   "detail": "0 games, report Injury-Report_2026-11-03_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-03-B-1951.json.gz",
+  "bytes": 52574,
+  "players": 96
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
+ "games": []
+}
