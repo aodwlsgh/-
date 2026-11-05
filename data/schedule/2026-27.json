@@ -1,24 +1,24 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-11-03",
- "generatedAt": "2026-11-04T21:51:28.964Z",
- "games": 107,
- "gameDates": 14,
+ "scannedThrough": "2026-11-04",
+ "generatedAt": "2026-11-05T12:52:08.395Z",
+ "games": 121,
+ "gameDates": 15,
  "gamesPerTeam": {
-  "5": [
+  "6": [
    "PHX"
   ],
-  "6": [
+  "7": [
+   "ORL",
    "POR",
    "DEN"
   ],
-  "7": [
+  "8": [
    "DET",
    "BOS",
    "NY",
    "SA",
    "OKC",
-   "ORL",
    "WSH",
    "MIL",
    "MIA",
@@ -29,19 +29,19 @@
    "UTAH",
    "NO",
    "DAL",
+   "GS",
    "LAC",
    "SAC",
    "CLE"
   ],
-  "8": [
+  "9": [
    "PHI",
    "ATL",
    "MIN",
    "CHA",
    "IND",
    "HOU",
-   "LAL",
-   "GS"
+   "LAL"
   ]
  },
  "skippedRegularSeasonLabel": [],
@@ -1221,6 +1221,160 @@
    "start": "2026-11-03T03:00Z",
    "status": "STATUS_FINAL",
    "home": "LAL",
+   "away": "MIA",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909922",
+   "usDate": "20261104",
+   "start": "2026-11-05T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "DET",
+   "away": "PHI",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909923",
+   "usDate": "20261104",
+   "start": "2026-11-05T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "WSH",
+   "away": "ATL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909924",
+   "usDate": "20261104",
+   "start": "2026-11-05T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "BOS",
+   "away": "MIL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909925",
+   "usDate": "20261104",
+   "start": "2026-11-05T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "BKN",
+   "away": "CHA",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909926",
+   "usDate": "20261104",
+   "start": "2026-11-05T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "NY",
+   "away": "CHI",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909927",
+   "usDate": "20261104",
+   "start": "2026-11-05T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "MEM",
+   "away": "IND",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909928",
+   "usDate": "20261104",
+   "start": "2026-11-05T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "NO",
+   "away": "UTAH",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909929",
+   "usDate": "20261104",
+   "start": "2026-11-05T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "OKC",
+   "away": "CLE",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909930",
+   "usDate": "20261104",
+   "start": "2026-11-05T01:30Z",
+   "status": "STATUS_FINAL",
+   "home": "HOU",
+   "away": "MIN",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909931",
+   "usDate": "20261104",
+   "start": "2026-11-05T02:00Z",
+   "status": "STATUS_FINAL",
+   "home": "DEN",
+   "away": "TOR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909932",
+   "usDate": "20261104",
+   "start": "2026-11-05T02:00Z",
+   "status": "STATUS_FINAL",
+   "home": "PHX",
+   "away": "POR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909933",
+   "usDate": "20261104",
+   "start": "2026-11-05T02:30Z",
+   "status": "STATUS_FINAL",
+   "home": "SA",
+   "away": "DAL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909934",
+   "usDate": "20261104",
+   "start": "2026-11-05T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "SAC",
+   "away": "LAL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909935",
+   "usDate": "20261104",
+   "start": "2026-11-05T03:30Z",
+   "status": "STATUS_FINAL",
+   "home": "LAC",
    "away": "MIA",
    "slug": "regular-season",
    "year": 2027,
