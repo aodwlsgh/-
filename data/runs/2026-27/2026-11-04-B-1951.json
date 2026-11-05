@@ -1,0 +1,178 @@
+{
+ "runId": "2026-11-04-B-1951",
+ "run": "B",
+ "date": "2026-11-04",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-05T00:51:22.802Z",
+  "kst": "2026-11-05T09:51:22+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 659,
+   "detail": "skip summary: no final game on 20261103 / ok   injuries (85 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1381,
+   "detail": "14 games, report Injury-Report_2026-11-04_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-04-B-1951.json.gz",
+  "bytes": 47229,
+  "players": 85
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909931",
+   "game": "TOR@DEN",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909934",
+   "game": "LAL@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 10.891,
+ "games": [
+  {
+   "gameId": "401909922",
+   "game": "PHI@DET",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909923",
+   "game": "ATL@WSH",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909924",
+   "game": "MIL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909925",
+   "game": "CHA@BKN",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909926",
+   "game": "CHI@NY",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909927",
+   "game": "IND@MEM",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909928",
+   "game": "UTAH@NO",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909929",
+   "game": "CLE@OKC",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909930",
+   "game": "MIN@HOU",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909931",
+   "game": "TOR@DEN",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909932",
+   "game": "POR@PHX",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909933",
+   "game": "DAL@SA",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909934",
+   "game": "LAL@SAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909935",
+   "game": "MIA@LAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-05T00:52:13.984Z",
+  "kst": "2026-11-05T09:52:13+09:00"
+ }
+}
