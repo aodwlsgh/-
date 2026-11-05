@@ -1,0 +1,93 @@
+{
+ "runId": "2026-11-05-A-1651",
+ "run": "A",
+ "date": "2026-11-05",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-05T21:51:47.168Z",
+  "kst": "2026-11-06T06:51:47+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 580,
+   "detail": "ok   summary 401909922 / ok   injuries (90 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 10212,
+   "detail": "2026-27 {\"games\":121,\"gameDates\":15,\"gamesPerTeam\":{\"6\":1,\"7\":3,\"8\":19,\"9\":7},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 105,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 170,
+   "detail": "2026-27 107/121 games, excluded 0, 0s / 2026-27 done: 121 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1177,
+   "detail": "2 games, report Injury-Report_2026-11-05_04_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 9885
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-05-A-1651.json.gz",
+  "bytes": 49700,
+  "players": 90
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909936",
+   "game": "ORL@PHX",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909937",
+   "game": "MIA@GS",
+   "team": "MIA",
+   "player": "Donaldson, Tre"
+  }
+ ],
+ "simSeconds": 1.696,
+ "games": [
+  {
+   "gameId": "401909936",
+   "game": "ORL@PHX",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909937",
+   "game": "MIA@GS",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-05T21:52:29.137Z",
+  "kst": "2026-11-06T06:52:29+09:00"
+ }
+}
