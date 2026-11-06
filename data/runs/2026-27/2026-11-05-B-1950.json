@@ -1,0 +1,66 @@
+{
+ "runId": "2026-11-05-B-1950",
+ "run": "B",
+ "date": "2026-11-05",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-06T00:50:55.464Z",
+  "kst": "2026-11-06T09:50:55+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 755,
+   "detail": "ok   summary 401909922 / ok   injuries (93 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1133,
+   "detail": "2 games, report Injury-Report_2026-11-05_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-05-B-1950.json.gz",
+  "bytes": 50577,
+  "players": 93
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909936",
+   "game": "ORL@PHX",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909937",
+   "game": "MIA@GS",
+   "team": "MIA",
+   "player": "Donaldson, Tre"
+  }
+ ],
+ "simSeconds": 1.945,
+ "games": [
+  {
+   "gameId": "401909936",
+   "game": "ORL@PHX",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909937",
+   "game": "MIA@GS",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ]
+}
