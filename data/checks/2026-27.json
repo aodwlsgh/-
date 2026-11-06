@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-11-05T21:51:58.245Z",
- "games": 121,
+ "generatedAt": "2026-11-06T12:51:27.088Z",
+ "games": 123,
  "checks": [
   {
    "id": "401909088",
@@ -2728,6 +2728,50 @@
    "issues": [
     "period_start_inferred"
    ]
+  },
+  {
+   "id": "401909936",
+   "usDate": "20261105",
+   "matchup": "ORL@PHX",
+   "errPct2": 1.905,
+   "errPct1": -2.105,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909937",
+   "usDate": "20261105",
+   "matchup": "MIA@GS",
+   "errPct2": 2.391,
+   "errPct1": -1.471,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
   }
  ]
 }
