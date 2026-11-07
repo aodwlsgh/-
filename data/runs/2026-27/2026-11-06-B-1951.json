@@ -1,0 +1,126 @@
+{
+ "runId": "2026-11-06-B-1951",
+ "run": "B",
+ "date": "2026-11-06",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-07T00:51:09.186Z",
+  "kst": "2026-11-07T09:51:09+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 795,
+   "detail": "ok   summary 401909936 / ok   injuries (89 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1260,
+   "detail": "9 games, report Injury-Report_2026-11-06_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-06-B-1951.json.gz",
+  "bytes": 48422,
+  "players": 89
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909295",
+   "game": "SA@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909295",
+   "game": "SA@SAC",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  }
+ ],
+ "simSeconds": 1.997,
+ "games": [
+  {
+   "gameId": "401909287",
+   "game": "WSH@ATL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909288",
+   "game": "BOS@CHA",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909289",
+   "game": "PHI@CLE",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909290",
+   "game": "UTAH@DAL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909291",
+   "game": "OKC@MEM",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909292",
+   "game": "TOR@MIL",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909293",
+   "game": "MIN@NO",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909294",
+   "game": "POR@LAL",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909295",
+   "game": "SA@SAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-07T00:51:42.506Z",
+  "kst": "2026-11-07T09:51:42+09:00"
+ }
+}
