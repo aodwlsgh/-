@@ -132,5 +132,22 @@
    "final": true,
    "parallelDiffs": 4
   }
- ]
+ ],
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "d5513a9339da2b54787cbe12a738414382da267f",
+   "at": {
+    "utc": "2026-11-07T12:52:09.621Z",
+    "kst": "2026-11-07T21:52:09+09:00"
+   }
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-07T12:52:28.546Z",
+  "kst": "2026-11-07T21:52:28+09:00"
+ }
 }
