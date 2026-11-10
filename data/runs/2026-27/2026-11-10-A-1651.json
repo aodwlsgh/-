@@ -1,0 +1,131 @@
+{
+ "runId": "2026-11-10-A-1651",
+ "run": "A",
+ "date": "2026-11-10",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-10T21:51:27.091Z",
+  "kst": "2026-11-11T06:51:27+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 602,
+   "detail": "ok   summary 401909952 / ok   injuries (91 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 12987,
+   "detail": "2026-27 {\"games\":154,\"gameDates\":20,\"gamesPerTeam\":{\"9\":7,\"10\":10,\"11\":11,\"12\":2},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 10787,
+   "detail": "2026-27 normalize: checked 22 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 415,
+   "detail": "2026-27 107/154 games, excluded 0, 0s / 2026-27 done: 154 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1186,
+   "detail": "6 games, report Injury-Report_2026-11-10_04_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 39304
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-10-A-1651.json.gz",
+  "bytes": 49763,
+  "players": 91
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909965",
+   "game": "OKC@POR",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 6.592,
+ "games": [
+  {
+   "gameId": "401909960",
+   "game": "MIL@NY",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909961",
+   "game": "BOS@PHI",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909962",
+   "game": "LAC@PHX",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909963",
+   "game": "MIA@UTAH",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909965",
+   "game": "OKC@POR",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-10T21:52:27.376Z",
+  "kst": "2026-11-11T06:52:27+09:00"
+ }
+}
