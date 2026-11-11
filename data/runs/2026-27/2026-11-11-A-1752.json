@@ -1,0 +1,213 @@
+{
+ "runId": "2026-11-11-A-1752",
+ "run": "A",
+ "date": "2026-11-11",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-11T22:52:16.640Z",
+  "kst": "2026-11-12T07:52:16+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 540,
+   "detail": "ok   summary 401909960 / ok   injuries (96 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 13228,
+   "detail": "2026-27 {\"games\":160,\"gameDates\":21,\"gamesPerTeam\":{\"9\":2,\"10\":9,\"11\":16,\"12\":3},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 162,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 202,
+   "detail": "2026-27 107/160 games, excluded 0, 0s / 2026-27 done: 160 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1199,
+   "detail": "10 games, report Injury-Report_2026-11-11_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 59959
+  }
+ ],
+ "alerts": [
+  {
+   "code": "pdfUnmatched",
+   "text": "PDF 선수 못 찾음 — CLE@NY CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다",
+   "players": [
+    {
+     "gameId": "401909967",
+     "game": "CLE@NY",
+     "team": "CLE",
+     "player": "Udeh, Jr., Ernest",
+     "playerId": "5106261",
+     "known": "Ernest Udeh Jr."
+    }
+   ],
+   "escalated": true,
+   "streak": 2
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-11-A-1752.json.gz",
+  "bytes": 51364,
+  "players": 96
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909967",
+   "game": "CLE@NY",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909968",
+   "game": "BOS@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909969",
+   "game": "SA@CHI",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909970",
+   "game": "DEN@MEM",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401909972",
+   "game": "BKN@NO",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909973",
+   "game": "ORL@UTAH",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909975",
+   "game": "OKC@POR",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 11.255,
+ "push": [
+  "[NBA 일일 실행] 2회 연속 경고 — PDF 선수 못 찾음 — CLE@NY CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다"
+ ],
+ "games": [
+  {
+   "gameId": "401909966",
+   "game": "WSH@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909967",
+   "game": "CLE@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909968",
+   "game": "BOS@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909969",
+   "game": "SA@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909970",
+   "game": "DEN@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909971",
+   "game": "LAL@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909972",
+   "game": "BKN@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909973",
+   "game": "ORL@UTAH",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909975",
+   "game": "OKC@POR",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-11T22:53:11.201Z",
+  "kst": "2026-11-12T07:53:11+09:00"
+ }
+}
