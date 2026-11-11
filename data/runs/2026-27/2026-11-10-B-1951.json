@@ -1,0 +1,108 @@
+{
+ "runId": "2026-11-10-B-1951",
+ "run": "B",
+ "date": "2026-11-10",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-11T00:51:11.211Z",
+  "kst": "2026-11-11T09:51:11+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 579,
+   "detail": "ok   summary 401909952 / ok   injuries (91 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1409,
+   "detail": "6 games, report Injury-Report_2026-11-10_07_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-10-B-1951.json.gz",
+  "bytes": 49331,
+  "players": 91
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909965",
+   "game": "OKC@POR",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 4.024,
+ "games": [
+  {
+   "gameId": "401909960",
+   "game": "MIL@NY",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909961",
+   "game": "BOS@PHI",
+   "group": "A",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909962",
+   "game": "LAC@PHX",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909963",
+   "game": "MIA@UTAH",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909964",
+   "game": "ORL@SAC",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909965",
+   "game": "OKC@POR",
+   "group": "B",
+   "run": "B",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-11T00:52:02.132Z",
+  "kst": "2026-11-11T09:52:02+09:00"
+ }
+}
