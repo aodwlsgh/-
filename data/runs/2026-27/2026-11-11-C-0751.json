@@ -1,0 +1,199 @@
+{
+ "runId": "2026-11-11-C-0751",
+ "run": "C",
+ "date": "2026-11-11",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-11T12:51:42.858Z",
+  "kst": "2026-11-11T21:51:42+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 538,
+   "detail": "ok   summary 401909960 / ok   injuries (91 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 13260,
+   "detail": "2026-27 {\"games\":160,\"gameDates\":21,\"gamesPerTeam\":{\"9\":2,\"10\":9,\"11\":16,\"12\":3},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 2755,
+   "detail": "2026-27 normalize: checked 6 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 295,
+   "detail": "2026-27 107/160 games, excluded 0, 0s / 2026-27 done: 160 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1632,
+   "detail": "10 games, report Injury-Report_2026-11-11_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "pdfUnmatched",
+   "text": "PDF 선수 못 찾음 — CLE@NY CLE Udeh, Jr., Ernest(Out, 기록 이름 Ernest Udeh Jr.). 검증 경로 예측에 이 부상이 빠졌다",
+   "players": [
+    {
+     "gameId": "401909967",
+     "game": "CLE@NY",
+     "team": "CLE",
+     "player": "Udeh, Jr., Ernest",
+     "playerId": "5106261",
+     "known": "Ernest Udeh Jr."
+    }
+   ]
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-11-C-0751.json.gz",
+  "bytes": 49002,
+  "players": 91
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-11_07_30AM.pdf",
+  "reportTime": "11/11/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909967",
+   "game": "CLE@NY",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909968",
+   "game": "BOS@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909969",
+   "game": "SA@CHI",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909970",
+   "game": "DEN@MEM",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401909972",
+   "game": "BKN@NO",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  }
+ ],
+ "simSeconds": 16.242,
+ "games": [
+  {
+   "gameId": "401909966",
+   "game": "WSH@IND",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909967",
+   "game": "CLE@NY",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  },
+  {
+   "gameId": "401909968",
+   "game": "BOS@TOR",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909969",
+   "game": "SA@CHI",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909970",
+   "game": "DEN@MEM",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909971",
+   "game": "LAL@MIL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909972",
+   "game": "BKN@NO",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909973",
+   "game": "ORL@UTAH",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 9
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909975",
+   "game": "OKC@POR",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 7
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-11T12:53:02.794Z",
+  "kst": "2026-11-11T21:53:02+09:00"
+ }
+}

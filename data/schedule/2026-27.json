@@ -1,45 +1,45 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-11-09",
- "generatedAt": "2026-11-10T21:51:40.703Z",
- "games": 154,
- "gameDates": 20,
+ "scannedThrough": "2026-11-10",
+ "generatedAt": "2026-11-11T12:51:56.688Z",
+ "games": 160,
+ "gameDates": 21,
  "gamesPerTeam": {
   "9": [
-   "NY",
-   "ORL",
    "CHI",
-   "POR",
-   "PHX",
-   "LAC",
    "DEN"
   ],
   "10": [
    "DET",
-   "BOS",
-   "OKC",
-   "MIL",
-   "MIA",
+   "NY",
+   "ORL",
    "BKN",
    "TOR",
    "MEM",
-   "UTAH",
-   "SAC"
+   "POR",
+   "PHX",
+   "LAC"
   ],
   "11": [
-   "PHI",
+   "BOS",
    "SA",
+   "OKC",
    "WSH",
+   "MIL",
+   "MIA",
    "MIN",
    "CHA",
+   "UTAH",
    "NO",
    "IND",
    "HOU",
    "DAL",
    "GS",
+   "SAC",
    "CLE"
   ],
   "12": [
+   "PHI",
    "ATL",
    "LAL"
   ]
@@ -1739,6 +1739,72 @@
    "status": "STATUS_FINAL",
    "home": "GS",
    "away": "NO",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909960",
+   "usDate": "20261110",
+   "start": "2026-11-11T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "NY",
+   "away": "MIL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909961",
+   "usDate": "20261110",
+   "start": "2026-11-11T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "PHI",
+   "away": "BOS",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909962",
+   "usDate": "20261110",
+   "start": "2026-11-11T02:00Z",
+   "status": "STATUS_FINAL",
+   "home": "PHX",
+   "away": "LAC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909963",
+   "usDate": "20261110",
+   "start": "2026-11-11T02:00Z",
+   "status": "STATUS_FINAL",
+   "home": "UTAH",
+   "away": "MIA",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909964",
+   "usDate": "20261110",
+   "start": "2026-11-11T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "SAC",
+   "away": "ORL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401909965",
+   "usDate": "20261110",
+   "start": "2026-11-11T04:00Z",
+   "status": "STATUS_FINAL",
+   "home": "POR",
+   "away": "OKC",
    "slug": "regular-season",
    "year": 2027,
    "ctype": "STD"
