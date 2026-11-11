@@ -26,6 +26,10 @@
 ## 다음 할 일
 - **예약 작업 C 생성됨(2026-10-28 01:05 KST, 사용자):** "NBA 일일 실행 C (아침 리포트)" `trig_017AvhAhsv8K87T2HRMAhFzu`, `CRON_TZ=Asia/Seoul 50 21 * * *`(**KST 고정**, 21:50 KST), 다음 실행 2026-10-28T12:50Z(21:50 KST), 알림 푸시만. 저장된 지시문은 `docs/daily-run.md` "예약 작업 C" 블록과 같다(58줄, 2026-10-28 list_triggers 결과를 옮겨 비교)
 - **11-01 점검 항목:** A 06:50 → 07:50, B 09:50 → 10:50 KST(사용자가 바꿈). **C는 21:50 KST 그대로**(안 "다"). 07:50 ET 재검증이 불합격이라 안 "라"면 사용자가 C를 끈다. 11-01 알림(`trig_01QeW5Gpn4xbQqigHNh9y4Zc`)과 11-02 사후 점검(`trig_01DNdRdJKc86N1QjVVvLbjEe`) 문구에 C를 넣었다
+- **11-11 :30판 누락 2주 보고(`docs/reports/pin30-misses-2026-11-11.md`):** C 실행 11회 중 누락 1회(9.1%, 10-30 `missing`)라 규칙은 그대로다.
+  - 11-08~11-10 C는 실행 기록이 없다.
+  - A·B 시각은 아직 바뀌지 않았다. 11-01 ET 이후 A·B 예측은 최종 0이다.
+  - 11-07 A~11-10 C 8회는 커밋이 없다. 11-10 C는 조직 설정 403(`oauth_not_allowed_for_organization`)으로 실패했다.
 - **11-02 사후 점검 결과(2026-11-02 11:30 KST, `trig_01DNdRdJKc86N1QjVVvLbjEe`): A·B 시각이 바뀌지 않았다.**
   - list_triggers 결과: A `CRON_TZ=Asia/Seoul 50 6 * * *`, B `50 9 * * *`. 둘 다 updated_at이 2026-10-23이다. C는 `50 21 * * *` 그대로다(기대값과 같음).
   - 실제 시작 시각(트리거 fired_at · 실행 기록 startedAt). 트리거로 뜬 세션은 list_sessions에 나오지 않아 세션 created_at은 대조하지 못했다.
