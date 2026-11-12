@@ -1,0 +1,118 @@
+{
+ "runId": "2026-11-12-C-0752",
+ "run": "C",
+ "date": "2026-11-12",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-12T12:52:27.890Z",
+  "kst": "2026-11-12T21:52:27+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 571,
+   "detail": "ok   summary 401909966 / ok   injuries (97 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 13837,
+   "detail": "2026-27 {\"games\":170,\"gameDates\":22,\"gamesPerTeam\":{\"10\":5,\"11\":11,\"12\":13,\"13\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 4771,
+   "detail": "2026-27 normalize: checked 10 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 443,
+   "detail": "2026-27 107/170 games, excluded 0, 0s / 2026-27 done: 170 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1876,
+   "detail": "4 games, report Injury-Report_2026-11-12_07_30AM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-12-C-0752.json.gz",
+  "bytes": 52548,
+  "players": 97
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-12_07_30AM.pdf",
+  "reportTime": "11/12/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909977",
+   "game": "DET@WSH",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909978",
+   "game": "DAL@MIN",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  }
+ ],
+ "simSeconds": 7.96,
+ "games": [
+  {
+   "gameId": "401909976",
+   "game": "TOR@PHI",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  },
+  {
+   "gameId": "401909977",
+   "game": "DET@WSH",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 4
+  },
+  {
+   "gameId": "401909978",
+   "game": "DAL@MIN",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-12T12:53:43.994Z",
+  "kst": "2026-11-12T21:53:43+09:00"
+ }
+}

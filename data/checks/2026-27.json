@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-11-11T22:52:30.790Z",
- "games": 160,
+ "generatedAt": "2026-11-12T12:52:47.531Z",
+ "games": 170,
  "checks": [
   {
    "id": "401909088",
@@ -3601,6 +3601,230 @@
    "teamMinutesOk": true,
    "pbpComplete": true,
    "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909966",
+   "usDate": "20261111",
+   "matchup": "WSH@IND",
+   "errPct2": 2.542,
+   "errPct1": -2.161,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909967",
+   "usDate": "20261111",
+   "matchup": "CLE@NY",
+   "errPct2": 1.757,
+   "errPct1": -2.577,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909968",
+   "usDate": "20261111",
+   "matchup": "BOS@TOR",
+   "errPct2": 2.626,
+   "errPct1": -2.229,
+   "haDiff": 2,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909969",
+   "usDate": "20261111",
+   "matchup": "SA@CHI",
+   "errPct2": 0.085,
+   "errPct1": -3.983,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909970",
+   "usDate": "20261111",
+   "matchup": "DEN@MEM",
+   "errPct2": 3.121,
+   "errPct1": -4.68,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909971",
+   "usDate": "20261111",
+   "matchup": "LAL@MIL",
+   "errPct2": 2.754,
+   "errPct1": -1.787,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909972",
+   "usDate": "20261111",
+   "matchup": "BKN@NO",
+   "errPct2": 0.41,
+   "errPct1": -3.066,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909973",
+   "usDate": "20261111",
+   "matchup": "ORL@UTAH",
+   "errPct2": -0.147,
+   "errPct1": -5.604,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909974",
+   "usDate": "20261111",
+   "matchup": "GS@HOU",
+   "errPct2": 3.875,
+   "errPct1": -0.924,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    2
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "possessions_over_3.5pct"
+   ],
+   "issues": []
+  },
+  {
+   "id": "401909975",
+   "usDate": "20261111",
+   "matchup": "OKC@POR",
+   "errPct2": 4.342,
+   "errPct1": -2.348,
+   "haDiff": 2,
+   "heaves": [
+    2,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "possessions_over_3.5pct"
+   ],
    "issues": []
   }
  ]
