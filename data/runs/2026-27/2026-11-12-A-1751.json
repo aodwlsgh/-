@@ -1,0 +1,125 @@
+{
+ "runId": "2026-11-12-A-1751",
+ "run": "A",
+ "date": "2026-11-12",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-12T22:51:21.496Z",
+  "kst": "2026-11-13T07:51:21+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 508,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 13739,
+   "detail": "2026-27 {\"games\":170,\"gameDates\":22,\"gamesPerTeam\":{\"10\":5,\"11\":11,\"12\":13,\"13\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 152,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 222,
+   "detail": "2026-27 107/170 games, excluded 0, 0s / 2026-27 done: 170 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1099,
+   "detail": "4 games, report Injury-Report_2026-11-12_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 23275
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[10].injuries[0].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909976",
+   "game": "TOR@PHI",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909977",
+   "game": "DET@WSH",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909978",
+   "game": "DAL@MIN",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  }
+ ],
+ "simSeconds": 3.728,
+ "games": [
+  {
+   "gameId": "401909976",
+   "game": "TOR@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909977",
+   "game": "DET@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909978",
+   "game": "DAL@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-12T22:52:06.417Z",
+  "kst": "2026-11-13T07:52:06+09:00"
+ }
+}
