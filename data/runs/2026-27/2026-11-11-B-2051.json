@@ -1,0 +1,140 @@
+{
+ "runId": "2026-11-11-B-2051",
+ "run": "B",
+ "date": "2026-11-11",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-12T01:51:04.402Z",
+  "kst": "2026-11-12T10:51:04+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 1677,
+   "detail": "ok   summary 401909960 / ok   injuries (90 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1182,
+   "detail": "10 games, report Injury-Report_2026-11-11_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-11-B-2051.json.gz",
+  "bytes": 48421,
+  "players": 90
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909973",
+   "game": "ORL@UTAH",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909975",
+   "game": "OKC@POR",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 3.032,
+ "games": [
+  {
+   "gameId": "401909966",
+   "game": "WSH@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909967",
+   "game": "CLE@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401909968",
+   "game": "BOS@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909969",
+   "game": "SA@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909970",
+   "game": "DEN@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909971",
+   "game": "LAL@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909972",
+   "game": "BKN@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909973",
+   "game": "ORL@UTAH",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909974",
+   "game": "GS@HOU",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909975",
+   "game": "OKC@POR",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-12T01:51:55.660Z",
+  "kst": "2026-11-12T10:51:55+09:00"
+ }
+}
