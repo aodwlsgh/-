@@ -1,7 +1,7 @@
 // Daily run (P9; design §11.2, §12, §13; plan P9; procedure docs/daily-run.md). The Node steps are here; the run's
 // Claude session does the tool steps between them (Artifact publish, ArtifactData reads and batches, git push via
 // jobs/commit-daily.js). Nothing is fitted: params, latent, calibration and play-prob are only read.
-//   prepare A|B|C [--now ISO] [--n 10000] [--offline --season S [--offline-snapshot none]]   collect, predict, write the day file, archive, run log
+//   prepare A|B|C [--now ISO] [--n 10000] [--manual] [--offline --season S [--offline-snapshot none]]   collect, predict, write the day file, archive, run log
 //   sensitivity [--n 2000]                                       sensitivity (unverified) for this run's games
 //   mark published | mark <field> '<json>'                       record a tool step in the run log
 //   report [--chain DIR]                                         report with the pick-log statuses
@@ -30,7 +30,7 @@ import { reportMarkdown, totalBias } from '../engine/daily-report.js';
 import { closure } from '../scripts/p8/closure.mjs';
 import { readDir } from './lib/db-files.js';
 import { seasonState } from './lib/season-state.js';
-import { pdfOutUnmatched, escalate } from '../engine/run-alerts.js';
+import { pdfOutUnmatched, escalate, runEarly, missedRun, finalZero, PUSH_AT_ONCE, pushText } from '../engine/run-alerts.js';
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => (argv.includes(k) ? argv[argv.indexOf(k) + 1] : d);
@@ -174,10 +174,23 @@ async function prepare() {
   games.sort((a, b) => Date.parse(a.start.utc) - Date.parse(b.start.utc) || a.gameId.localeCompare(b.gameId));
   if (run === 'B' && !lp.rows.length) log.note = '대상 없음 — 21:00 ET 이후 시작 경기가 없음';
 
+  // automatic run checks (docs/plans/2026-11-13-auto-alerts.md): warnings only, pushed from the first occurrence
+  const earlier = await earlierLogs(p, runId);
+  log.games = games.map(g => ({ gameId: g.gameId, game: `${g.away.espn}@${g.home.espn}`, group: g.group, run: g.prediction.run, final: g.prediction.final, parallelDiffs: g.parallel?.diffs?.length ?? null }));
+  if (argv.includes('--manual')) log.manual = true;
+  const runFiles = (await readdir(at(p.runs)).catch(() => [])).filter(f => f.endsWith('.json') && f !== `${runId}.json`);
+  const checks = [
+    runEarly({ run, date, startedAt: now, manual: !!log.manual }),
+    missedRun({ run, date, present: (r, d) => runFiles.some(f => f.startsWith(`${d}-${r}-`)), earliest: runFiles.map(f => f.slice(0, 10)).sort()[0] }),
+    finalZero({ run, games: log.games }),
+  ].filter(Boolean);
+  log.alerts.push(...checks);
+
   // warnings seen in the comparable earlier run too go to the dashboard header and a push (2026-10-26 decision 6)
-  const esc = escalate(log.alerts, await earlierLogs(p, runId), run);
+  const esc = escalate(log.alerts, earlier, run);
   log.alerts = esc.alerts;
-  if (esc.push.length) log.push = esc.push;
+  const pushNow = log.alerts.filter(a => PUSH_AT_ONCE.has(a.code)).map(pushText);
+  if (pushNow.length || esc.push.length) log.push = [...pushNow, ...esc.push];
   if (!cReport.ok) (log.push ??= []).push(`[NBA C] ${log.alerts.find(a => a.code === 'cMorningReport').text}`);
 
   // 5. day file, archive, run log
@@ -190,7 +203,6 @@ async function prepare() {
   if (errs.length) throw new Error(`day file: ${errs.join('; ')}`);
   await writeJson(at(p.day), day, false);
   await writeGz(at(join(p.preds, `${runId}.json.gz`)), archiveOf(day, snap, log));
-  log.games = games.map(g => ({ gameId: g.gameId, game: `${g.away.espn}@${g.home.espn}`, group: g.group, run: g.prediction.run, final: g.prediction.final, parallelDiffs: g.parallel?.diffs?.length ?? null }));
   await finishLog(p, log);
   console.log(JSON.stringify({ ok: true, runId, date, games: games.length, final: games.filter(g => g.prediction.final).length, provisional: games.filter(g => !g.prediction.final).length, skipped: log.skipped.length, alerts: log.alerts.map(a => a.text), push: log.push ?? [], simSeconds: log.simSeconds }));
 }

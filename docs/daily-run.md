@@ -49,6 +49,10 @@
   - 부상 PDF 이름의 쪼개진 악센트("L ó pez, Karim")는 `engine/pdf-names.js`가 매칭 전에 합친다. 고친 이름은 스냅숏의 `nameFixes`와 실행 기록 `pdfNameFixes`에 남는다
   - 접미사가 쉼표로 따로 떨어진 이름("Udeh, Jr., Ernest" → "Udeh Jr., Ernest")은 `engine/pdf-name-suffix.js`가 같은 자리에서 붙인다(2026-11-12 승인). 2023-24~2025-26 PDF 행 103,921개는 바이트가 그대로다. 고친 이름은 위와 같이 `nameFixes`·`pdfNameFixes`에 남는다
 - **경고 승격:** "데이터 지연"(직전 실행 A와 비교)과 "PDF 선수 못 찾음"(직전 실행과 비교)이 2회 연속이면 경고에 `escalated`·`streak`이 붙고, 대시보드 머리글에 "연속 경고" 칩이 뜨고, `prepare` 출력 JSON의 `push`에 문장이 들어간다
+- **자동 점검(경고만, 예측 불변):** `prepare`가 `engine/run-alerts.js`로 세 가지를 본다(기준 `docs/plans/2026-11-13-auto-alerts.md`, 등록 13d9e15, 개정 9e36947). 셋 다 첫 회부터 `push`에 문장이 들어가고, 지시문 1단계가 그대로 보낸다(지시문 변경 없음)
+  - `runEarly`: 기준 시각(A 17:50, B 20:50, C 07:50 ET)보다 5분 이상 일찍 시작. 상한 없음. `--manual`로 돈 실행은 제외
+  - `missedRun`: 직전 정해진 실행의 기록이 `data/runs`에 없음. A는 당일 C·전날 B, B는 당일 A, C는 전날 A·B를 본다. 이어 빠진 실행을 최대 9개까지 적는다
+  - `finalZero`: A·B에서 자기 그룹 경기가 1개 이상인데 최종 0건(칩 "시각 오류 의심")
 - **ESPN 부상 피드 원본:** 실행마다 `data/injury-pdf/<season>/espn-feed/<runId>.json.gz`(약 45KB). 병행 기록 전용이고 예측은 읽지 않는다
 
 ## 2026-11-01 시각 변경 때 사용자가 지시문에 넣을 줄
