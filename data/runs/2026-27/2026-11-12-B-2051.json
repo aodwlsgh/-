@@ -1,0 +1,84 @@
+{
+ "runId": "2026-11-12-B-2051",
+ "run": "B",
+ "date": "2026-11-12",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-13T01:51:06.027Z",
+  "kst": "2026-11-13T10:51:06+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 545,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1139,
+   "detail": "4 games, report Injury-Report_2026-11-12_08_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[10].injuries[0].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  }
+ ],
+ "simSeconds": 0.873,
+ "games": [
+  {
+   "gameId": "401909976",
+   "game": "TOR@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909977",
+   "game": "DET@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909978",
+   "game": "DAL@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909979",
+   "game": "CHA@PHX",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-13T01:52:11.453Z",
+  "kst": "2026-11-13T10:52:11+09:00"
+ }
+}
