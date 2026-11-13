@@ -1,6 +1,8 @@
 // NBA injury-report PDF names whose accented letter the text extraction split into its own token ("L ó pez, Karim",
 // 2026-10-25 reports). Rejoined here, on the parsed rows, before matching (2026-10-26 user decision: engine/injury.js
 // and jobs/lib/pdf-text.js stay frozen). A name with no lone non-ASCII letter comes back unchanged.
+// normalizePdfRows also joins a suffix set off by its own comma (engine/pdf-name-suffix.js, 2026-11-12).
+import { joinSuffixComma } from './pdf-name-suffix.js';
 const lone = t => t.length === 1 && t.charCodeAt(0) > 0x7f && /\p{L}/u.test(t);
 const lower = t => t !== t.toUpperCase();
 const startsLower = t => !!t && /^\p{Ll}/u.test(t);
@@ -31,7 +33,7 @@ export function rejoinSplitAccents(name) {
 export function normalizePdfRows(rows = []) {
   const fixes = [];
   const out = rows.map(r => {
-    const to = rejoinSplitAccents(r.player);
+    const to = joinSuffixComma(rejoinSplitAccents(r.player));
     if (to === r.player) return r;
     fixes.push({ team: r.team, from: r.player, to });
     return { ...r, player: to };

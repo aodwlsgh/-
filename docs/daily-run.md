@@ -47,6 +47,7 @@
 - **입력 정규화(2026-10-26 사용자 결정, 동결 파일은 그대로):**
   - 실행 A의 경기 수집은 `build-data schedule` → `jobs/normalize-raw.js` → `build-data games` 순서다. normalize-raw는 경기 파일이 없거나 모자란 날짜의 끝난 경기만 보고, `engine/schema/play-type-aliases.js`의 별칭(지금은 "17" "Short Timeout" → "16" "Full Timeout")을 원본 캐시에 적용한다. 바꾼 플레이는 `data/games/<season>/play-type-aliases.json`과 실행 기록 단계 `normalize play types`에 남는다. 별칭이 없는 새 유형은 전처럼 "데이터 지연"이 된다
   - 부상 PDF 이름의 쪼개진 악센트("L ó pez, Karim")는 `engine/pdf-names.js`가 매칭 전에 합친다. 고친 이름은 스냅숏의 `nameFixes`와 실행 기록 `pdfNameFixes`에 남는다
+  - 접미사가 쉼표로 따로 떨어진 이름("Udeh, Jr., Ernest" → "Udeh Jr., Ernest")은 `engine/pdf-name-suffix.js`가 같은 자리에서 붙인다(2026-11-12 승인). 2023-24~2025-26 PDF 행 103,921개는 바이트가 그대로다. 고친 이름은 위와 같이 `nameFixes`·`pdfNameFixes`에 남는다
 - **경고 승격:** "데이터 지연"(직전 실행 A와 비교)과 "PDF 선수 못 찾음"(직전 실행과 비교)이 2회 연속이면 경고에 `escalated`·`streak`이 붙고, 대시보드 머리글에 "연속 경고" 칩이 뜨고, `prepare` 출력 JSON의 `push`에 문장이 들어간다
 - **ESPN 부상 피드 원본:** 실행마다 `data/injury-pdf/<season>/espn-feed/<runId>.json.gz`(약 45KB). 병행 기록 전용이고 예측은 읽지 않는다
 

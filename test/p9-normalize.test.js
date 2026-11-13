@@ -10,6 +10,7 @@ import { createCollector } from '../engine/collect.js';
 import { extractGame } from '../engine/extract.js';
 import { normalizeSeason } from '../jobs/normalize-raw.js';
 import { rejoinSplitAccents, normalizePdfRows } from '../engine/pdf-names.js';
+import { joinSuffixComma } from '../engine/pdf-name-suffix.js';
 import { snapshotInjuries } from '../engine/snapshot.js';
 import { pdfOutUnmatched, escalate } from '../engine/run-alerts.js';
 import { paths } from '../jobs/daily.js';
@@ -86,6 +87,28 @@ test('split accents are rejoined: the López rows of 2026-10-25 now match the pl
     found.push(status);
   }
   assert.deepEqual(found, ['Questionable', 'Out'], 'both 2026-27 rows (run A and run B reports)');
+});
+
+test('a suffix set off by its own comma joins the last name: the Udeh Jr. rows of 2026-10-31 now match the player', () => {
+  assert.equal(joinSuffixComma('Udeh, Jr., Ernest'), 'Udeh Jr., Ernest');
+  assert.equal(joinSuffixComma('Hardaway, Sr., Tim'), 'Hardaway Sr., Tim');
+  assert.equal(joinSuffixComma('Porter, III, Otto'), 'Porter III, Otto');
+  for (const n of ['Udeh Jr., Ernest', 'Pierre Jr., Jaron', 'Lopez, Karim', 'Smith, John, Paul', 'Jr., Ernest', 'Udeh, Jr.', 'Udeh,  Jr., Ernest', 'Ernest Udeh Jr.', '']) assert.equal(joinSuffixComma(n), n, n);
+  const rec = JSON.parse(gunzipSync(readFileSync(new URL('../data/injury-pdf/2026-27/2026-10-31.json.gz', import.meta.url))));
+  const players = [{ id: '5106261', name: 'Ernest Udeh Jr.' }];
+  for (const snap of [rec.main, rec.runB]) {
+    assert.equal(snap.rows.filter(r => r.player === 'Udeh, Jr., Ernest').length, 1);
+    const { rows, fixes } = normalizePdfRows(snap.rows);
+    assert.deepEqual(fixes, [{ team: 'Cleveland Cavaliers', from: 'Udeh, Jr., Ernest', to: 'Udeh Jr., Ernest' }]);
+    assert.equal(rows.length, snap.rows.length);
+    const was = snapshotInjuries({ ...snap, rows: snap.rows }, { team: 'CLE', home: 'MIL', away: 'CLE', players });
+    const now = snapshotInjuries({ ...snap, rows }, { team: 'CLE', home: 'MIL', away: 'CLE', players });
+    assert.equal(was.injuries['5106261'], undefined);
+    assert.ok(was.unmatched.includes('Udeh, Jr., Ernest'));
+    assert.equal(now.injuries['5106261'], 0, 'Out');
+    assert.ok(!now.unmatched.includes('Udeh Jr., Ernest'));
+    assert.deepEqual(rows.filter(r => r.player !== 'Udeh Jr., Ernest'), snap.rows.filter(r => r.player !== 'Udeh, Jr., Ernest'), 'other rows untouched');
+  }
 });
 
 test('every PDF player row of 2023-24, 2024-25 and 2025-26 passes the normalizer byte-identical', () => {
