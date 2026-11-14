@@ -1,0 +1,143 @@
+{
+ "runId": "2026-11-13-B-2051",
+ "run": "B",
+ "date": "2026-11-13",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-14T01:51:00.002Z",
+  "kst": "2026-11-14T10:51:00+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 443,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1383,
+   "detail": "9 games, report Injury-Report_2026-11-13_08_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[10].injuries[0].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909302",
+   "game": "GS@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909303",
+   "game": "POR@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909304",
+   "game": "OKC@LAC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 2.554,
+ "games": [
+  {
+   "gameId": "401909296",
+   "game": "NY@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909297",
+   "game": "MIL@ORL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909298",
+   "game": "CLE@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909299",
+   "game": "ATL@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909300",
+   "game": "MEM@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909301",
+   "game": "UTAH@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909302",
+   "game": "GS@SA",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909303",
+   "game": "POR@SAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909304",
+   "game": "OKC@LAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-14T01:51:55.502Z",
+  "kst": "2026-11-14T10:51:55+09:00"
+ }
+}
