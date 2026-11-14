@@ -1,0 +1,220 @@
+{
+ "runId": "2026-11-13-A-1751",
+ "run": "A",
+ "date": "2026-11-13",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-13T22:51:23.710Z",
+  "kst": "2026-11-14T07:51:23+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 620,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 18914,
+   "detail": "2026-27 {\"games\":174,\"gameDates\":23,\"gamesPerTeam\":{\"10\":3,\"11\":9,\"12\":15,\"13\":3},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 137,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 229,
+   "detail": "2026-27 107/174 games, excluded 0, 0s / 2026-27 done: 174 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1166,
+   "detail": "9 games, report Injury-Report_2026-11-13_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 46105
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[10].injuries[0].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[10].injuries[0].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909297",
+   "game": "MIL@ORL",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909298",
+   "game": "CLE@MIA",
+   "team": "CLE",
+   "player": "Diop, Khalifa"
+  },
+  {
+   "gameId": "401909299",
+   "game": "ATL@CHI",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909300",
+   "game": "MEM@NO",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401909301",
+   "game": "UTAH@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909302",
+   "game": "GS@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909303",
+   "game": "POR@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909304",
+   "game": "OKC@LAC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 7.857,
+ "games": [
+  {
+   "gameId": "401909296",
+   "game": "NY@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909297",
+   "game": "MIL@ORL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909298",
+   "game": "CLE@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909299",
+   "game": "ATL@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909300",
+   "game": "MEM@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909301",
+   "game": "UTAH@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909302",
+   "game": "GS@SA",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909303",
+   "game": "POR@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909304",
+   "game": "OKC@LAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-13T22:52:23.778Z",
+  "kst": "2026-11-14T07:52:23+09:00"
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "2017007d7969da4382968f3417bf867d66df4b50",
+   "at": {
+    "utc": "2026-11-13T22:53:57.983Z",
+    "kst": "2026-11-14T07:53:57+09:00"
+   }
+  },
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "b266524a51a8cbb83e553e39e6d2393d4418eba4",
+   "at": {
+    "utc": "2026-11-13T22:54:04.812Z",
+    "kst": "2026-11-14T07:54:04+09:00"
+   }
+  }
+ ]
+}
