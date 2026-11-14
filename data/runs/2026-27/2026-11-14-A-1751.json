@@ -1,0 +1,140 @@
+{
+ "runId": "2026-11-14-A-1751",
+ "run": "A",
+ "date": "2026-11-14",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-14T22:51:01.095Z",
+  "kst": "2026-11-15T07:51:01+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 609,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[3].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 14769,
+   "detail": "2026-27 {\"games\":183,\"gameDates\":24,\"gamesPerTeam\":{\"10\":1,\"11\":5,\"12\":11,\"13\":13},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 168,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 191,
+   "detail": "2026-27 107/183 games, excluded 0, 0s / 2026-27 done: 183 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1294,
+   "detail": "5 games, report Injury-Report_2026-11-14_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 26063
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[3].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[9].injuries[3].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909981",
+   "game": "DAL@CLE",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909982",
+   "game": "DET@MIA",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909983",
+   "game": "BKN@MEM",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401909983",
+   "game": "BKN@MEM",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  }
+ ],
+ "simSeconds": 4.456,
+ "games": [
+  {
+   "gameId": "401909980",
+   "game": "DEN@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909981",
+   "game": "DAL@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909982",
+   "game": "DET@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909983",
+   "game": "BKN@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909984",
+   "game": "CHI@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-14T22:51:45.299Z",
+  "kst": "2026-11-15T07:51:45+09:00"
+ }
+}
