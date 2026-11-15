@@ -1,0 +1,93 @@
+{
+ "runId": "2026-11-14-B-2051",
+ "run": "B",
+ "date": "2026-11-14",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-15T01:51:18.830Z",
+  "kst": "2026-11-15T10:51:18+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 725,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[3].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1258,
+   "detail": "5 games, report Injury-Report_2026-11-14_08_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[3].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[9].injuries[3].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
+ "games": [
+  {
+   "gameId": "401909980",
+   "game": "DEN@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909981",
+   "game": "DAL@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909982",
+   "game": "DET@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909983",
+   "game": "BKN@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909984",
+   "game": "CHI@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-15T01:52:08.598Z",
+  "kst": "2026-11-15T10:52:08+09:00"
+ }
+}
