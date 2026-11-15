@@ -405,3 +405,27 @@ test('run A day: no C label', async () => {
   assert.deepEqual(errors, []);
   await close();
 });
+
+test('"오래된 게시": a red banner when the last expected run has no publish for over 3 hours, none when fresh', async () => {
+  const fresh = liveDay();
+  let s = await open(browser, { day: fresh });
+  assert.equal(await s.page.isVisible('#staleBand'), false);
+  assert.match(await s.page.textContent('#evalInfo'), /^평가 레코드 0건 · 마지막 배당 입력 없음$/);
+  assert.deepEqual(s.errors, []);
+  await s.close();
+  const old = liveDay();
+  old.generatedAt = stamp(Date.now() - 30 * 3600e3);
+  s = await open(browser, { day: old });
+  assert.equal(await s.page.isVisible('#staleBand'), true);
+  assert.match(await s.page.textContent('#staleText'), /^마지막 게시 30시간 전\(.+ KST\) — 실행 [ABC]\(.+ KST\) 뒤 게시가 없습니다\. 예약 작업 확인$/);
+  assert.deepEqual(forbidden(await s.page.textContent('body')), []);
+  assert.deepEqual(s.errors, []);
+  await s.close();
+});
+
+test('example data: no "오래된 게시" banner however old the file is', async () => {
+  const { page, errors, close } = await open(browser);
+  assert.equal(await page.isVisible('#staleBand'), false);
+  assert.deepEqual(errors, []);
+  await close();
+});

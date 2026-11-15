@@ -20,6 +20,7 @@ import { SELECTIONS } from '../engine/odds.js';
 import { MARGIN_T, marginSurvival } from '../engine/calibrate.js';
 import { seasonOf } from '../engine/model.js';
 import { classifyInput, gameStatuses, dayStatus, oddsMovement, comboTable } from '../engine/day-status.js';
+import { staleBanner, evalLine } from '../engine/display-status.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -131,6 +132,8 @@ function renderHeader() {
   const a = anchorCheck(S.chain.records, S.anchor);
   anchor.textContent = a.text;
   anchor.dataset.state = a.status;
+  // display only (2026-11-13): evaluation count and the last odds input date
+  $('#evalInfo').textContent = t.ok ? evalLine(S.chain.records).text : '';
 }
 
 function renderBands() {
@@ -145,6 +148,10 @@ function renderBands() {
     why.push(`${s} 시즌 첫 한 달(${open}~${end})은 시장과 관계없이 기록 전용입니다.`);
   }
   $('#roWhy').textContent = why.join(' ');
+  // "오래된 게시" (display only, 2026-11-11 approval): computed from the viewer's clock when the page opens
+  const stale = staleBanner(d, new Date());
+  $('#staleBand').hidden = !stale;
+  $('#staleText').textContent = stale?.text ?? '';
   renderAlerts();
 }
 

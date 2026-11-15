@@ -2,6 +2,7 @@
 // (over/under total bias, odds movement) and alerts. Every pick line says "기록 전용 — 구매 비권장"; provisional
 // predictions and the ESPN+PDF parallel record are labelled; the wording is checked against the forbidden list.
 import { TEXT, gameView, chainText, anchorCheck, forbiddenIn } from './dashboard-data.js';
+import { evalLine } from './display-status.js';
 import { gameStatuses, dayStatus, oddsMovement, comboTable } from './day-status.js';
 import { summarize } from './pick-log.js';
 import { breakeven } from './picks.js';
@@ -108,6 +109,7 @@ export function reportMarkdown({ day, cal, chain, verify, anchor, run, alerts = 
   L.push(`- 배당 변동(첫 입력 대비): 마켓 ${mv.summary.markets}개, 나중 입력 ${mv.summary.laterEntries}개${mv.summary.maxAbsNoVigPp != null ? `, 마진 제거 확률 변화 평균 ${mv.summary.meanAbsNoVigPp.toFixed(1)}%p · 최대 ${mv.summary.maxAbsNoVigPp.toFixed(1)}%p` : ''}`);
   const gap = inputGapSummary(chain);
   const gapText = d => (d.n ? `${d.n}마켓, 중앙값 ${d.median}분 · 90% ${d.p90}분 · 최소 ${d.min}분 · 최대 ${d.max}분 (5분 이내 ${d.sameRun})` : '없음');
+  L.push(`- ${evalLine(chain).text}`);
   L.push(`- 배당 입력→평가 간격: 경로 A·B ${gapText(gap.AB)} · 경로 C ${gapText(gap.C)}${gap.missing ? ` · 간격 기록 없는 평가 ${gap.missing}마켓` : ''}`);
   const t = comboTable(chain);
   L.push(`- ${t.caption}: ${t.columns.map(c => `${c.label} ${c.value}`).join(' · ')}`);

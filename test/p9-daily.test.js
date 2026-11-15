@@ -81,6 +81,7 @@ test('sensitivity, a failed write mark and the report: alerts shown, no odds rea
   assert.match(md, new RegExp(TEXT.noOdds));
   assert.ok(md.includes('- 승5패: 베트맨 미제공 — 평가 안 함'), 'the report says 승5패 is not offered (2026-10-23 approval)');
   assert.match(md, /- 언더오버 총점 편향\(실제 − 예측, 경기당 평균\), 평가한 경기: /, 'the bias is a per-game mean, labelled so (2026-10-26 decision 8)');
+  assert.ok(md.includes('- 평가 레코드 0건 · 마지막 배당 입력 없음'), 'evaluation count and last odds date (2026-11-13 display)');
   assert.ok(!md.includes(TEXT.pass));
   assert.deepEqual(forbiddenIn(md), []);
   const day = await json('data/live/today.json');
