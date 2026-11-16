@@ -1,0 +1,190 @@
+{
+ "runId": "2026-11-15-A-1751",
+ "run": "A",
+ "date": "2026-11-15",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-15T22:51:13.196Z",
+  "kst": "2026-11-16T07:51:13+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 639,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[8].injuries[2].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 15300,
+   "detail": "2026-27 {\"games\":188,\"gameDates\":25,\"gamesPerTeam\":{\"11\":3,\"12\":10,\"13\":15,\"14\":2},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 118,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 181,
+   "detail": "2026-27 107/188 games, excluded 0, 0s / 2026-27 done: 188 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1238,
+   "detail": "9 games, report Injury-Report_2026-11-15_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 25045
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[8].injuries[2].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[8].injuries[2].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401909985",
+   "game": "IND@PHI",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909986",
+   "game": "LAL@PHX",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909987",
+   "game": "CHA@LAC",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909988",
+   "game": "SA@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909989",
+   "game": "DAL@BOS",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909990",
+   "game": "NY@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909991",
+   "game": "HOU@WSH",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909992",
+   "game": "ATL@MIL",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 4.094,
+ "games": [
+  {
+   "gameId": "401909989",
+   "game": "DAL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909990",
+   "game": "NY@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909991",
+   "game": "HOU@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909992",
+   "game": "ATL@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-15T22:52:01.772Z",
+  "kst": "2026-11-16T07:52:01+09:00"
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "9bb8c43eea91e98ae5cbd624ddf009e0fffa7216",
+   "at": {
+    "utc": "2026-11-15T22:53:09.599Z",
+    "kst": "2026-11-16T07:53:09+09:00"
+   }
+  },
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "47e80fcbffa950598fe55da4a9bb1a30eee3fe5c",
+   "at": {
+    "utc": "2026-11-15T22:53:11.821Z",
+    "kst": "2026-11-16T07:53:11+09:00"
+   }
+  }
+ ]
+}

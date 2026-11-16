@@ -1,0 +1,143 @@
+{
+ "runId": "2026-11-15-B-2050",
+ "run": "B",
+ "date": "2026-11-15",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-16T01:50:42.221Z",
+  "kst": "2026-11-16T10:50:42+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 610,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[8].injuries[2].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1315,
+   "detail": "9 games, report Injury-Report_2026-11-15_08_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[8].injuries[2].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[8].injuries[2].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401909985",
+   "game": "IND@PHI",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909986",
+   "game": "LAL@PHX",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909987",
+   "game": "CHA@LAC",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  },
+  {
+   "id": "401909988",
+   "game": "SA@UTAH",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  }
+ ],
+ "simSeconds": 0.817,
+ "games": [
+  {
+   "gameId": "401909989",
+   "game": "DAL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909990",
+   "game": "NY@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909991",
+   "game": "HOU@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909992",
+   "game": "ATL@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909993",
+   "game": "OKC@SAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-16T01:52:05.226Z",
+  "kst": "2026-11-16T10:52:05+09:00"
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "9b62888f62c9f4868dfba0d028ca1b1baf6c829b",
+   "at": {
+    "utc": "2026-11-16T01:52:08.873Z",
+    "kst": "2026-11-16T10:52:08+09:00"
+   }
+  },
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "0e0cdf4ba9e14efa92b6f4798552d53dbc1a44cf",
+   "at": {
+    "utc": "2026-11-16T01:52:27.805Z",
+    "kst": "2026-11-16T10:52:27+09:00"
+   }
+  }
+ ]
+}
