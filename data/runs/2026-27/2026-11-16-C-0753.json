@@ -153,5 +153,18 @@
    "final": true,
    "parallelDiffs": null
   }
+ ],
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "3434716e9cbb9a98439c647d984651b78c49afbd",
+   "at": {
+    "utc": "2026-11-16T12:54:32.188Z",
+    "kst": "2026-11-16T21:54:32+09:00"
+   }
+  }
  ]
 }
