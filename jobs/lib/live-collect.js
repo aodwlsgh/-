@@ -1,13 +1,14 @@
 // Network side of the daily run (P9): the day's games from the ESPN scoreboard, the injury-report snapshot a run
 // may use and the ESPN injuries feed (parallel record only). The snapshot rule is jobs/build-data.js `snapshot`:
 // the newest NBA report readable by the cutoff (later of its title time and Last-Modified), later ones listed.
-import { parseInjuryPdf, PdfFormatError, parseEspnInjuries, reportTimeEt } from '../../engine/injury.js';
+import { parseInjuryPdf, PdfFormatError, reportTimeEt } from '../../engine/injury.js';
 import { injuryPdfEt, PDF_15MIN_FROM } from '../../engine/collect.js';
 import { availableAt } from '../../engine/snapshot.js';
 import { NBA_TEAMS } from '../../engine/schedule.js';
 import { etParts } from '../../engine/time.js';
 import { pdfTextItems } from './pdf-text.js';
 import { normalizePdfRows } from '../../engine/pdf-names.js';
+import { espnInjuriesMapped } from './espn-status-map.js';
 
 export const usDate = etDate => etDate.replaceAll('-', '');
 
@@ -70,7 +71,7 @@ export async function liveInputs(col, { date, season, searchAt, pin = null }) {
   const fx = fixturesFromScoreboard(sb, { date, season });
   // pinned: from the cutoff back to the pinned hour (4 steps of 15 minutes reach HH:00 from HH:50)
   const snapshot = await pickSnapshot(col.injuryPdfsBefore(searchAt, { maxSteps: pin ? 4 : 16 }), { at: searchAt, gameDate: date, parse: parsePdf, pin });
-  let espn = null, espnRaw = null, espnError = null;
-  try { espnRaw = await col.injuries(); espn = parseEspnInjuries(espnRaw); } catch (e) { espnError = String(e.message ?? e); }
-  return { ...fx, snapshot, espn, espnRaw, espnError };
+  // ESPN feed (parallel record only); a status the frozen schema does not list goes through jobs/lib/espn-status-map.js
+  const e = await espnInjuriesMapped(col);
+  return { ...fx, snapshot, ...e };
 }

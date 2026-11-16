@@ -135,6 +135,9 @@ async function prepare() {
     log.espnFeed = { path: join(p.espn, `${runId}.json.gz`), bytes: raw.length, players: inputs.espn?.length ?? null };
   }
   if (snap?.nameFixes) log.pdfNameFixes = snap.nameFixes;
+  // ESPN statuses mapped for the parallel record (2026-11-13 decision 8) and new values left unmapped (reported only)
+  if (inputs.espnStatusMap) log.espnStatusMap = inputs.espnStatusMap;
+  if (inputs.espnUnmapped?.length) log.espnUnmapped = inputs.espnUnmapped;
   const usable = snap?.rows && !snap.formatError ? snap : null;
   if (!usable) alert('injuryPdf', snap?.formatError ? `NBA 부상 리포트 형식 오류(${snap.pdf}) — 검증 경로 예측에 부상 미반영` : 'NBA 부상 리포트 없음 — 검증 경로 예측에 부상 미반영');
   // run C: no game-day morning report by the cutoff -> every C prediction provisional, warning and push (condition 6)

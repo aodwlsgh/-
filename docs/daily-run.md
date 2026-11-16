@@ -53,6 +53,7 @@
   - `runEarly`: 기준 시각(A 17:50, B 20:50, C 07:50 ET)보다 5분 이상 일찍 시작. 상한 없음. `--manual`로 돈 실행은 제외
   - `missedRun`: 직전 정해진 실행의 기록이 `data/runs`에 없음. A는 당일 C·전날 B, B는 당일 A, C는 전날 A·B를 본다. 이어 빠진 실행을 최대 9개까지 적는다
   - `finalZero`: A·B에서 자기 그룹 경기가 1개 이상인데 최종 0건(칩 "시각 오류 의심")
+- **ESPN 상태 매핑(병행 기록 전용, 2026-11-13 결정 8):** 동결 스키마(Out, Day-To-Day)에 없는 값이 오면 `jobs/lib/espn-status-map.js`가 피드를 받은 그대로 다시 읽는다. "Suspension"이면서 ESPN `fantasyStatus`가 OUT일 때만 Out으로 바꾸고 실행 기록 `espnStatusMap`에 남긴다. 다른 새 값은 바꾸지 않고 `espnUnmapped`에 남기며 병행 기록은 건너뛴다. 예측·픽·EV는 NBA PDF만 쓰므로 영향이 없다. `scripts/check-schema-live.mjs`의 `schema` 경고는 받은 그대로를 검사하므로 그 값이 피드에 있는 동안 계속 난다
 - **ESPN 부상 피드 원본:** 실행마다 `data/injury-pdf/<season>/espn-feed/<runId>.json.gz`(약 45KB). 병행 기록 전용이고 예측은 읽지 않는다
 
 ## 2026-11-01 시각 변경 때 사용자가 지시문에 넣을 줄
