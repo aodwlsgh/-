@@ -1,0 +1,129 @@
+{
+ "runId": "2026-11-17-A-1751",
+ "run": "A",
+ "date": "2026-11-17",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-17T22:51:06.017Z",
+  "kst": "2026-11-18T07:51:06+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 553,
+   "detail": "ok   summary 401909994 / ok   injuries (108 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 16261,
+   "detail": "2026-27 {\"games\":205,\"gameDates\":27,\"gamesPerTeam\":{\"12\":3,\"13\":9,\"14\":13,\"15\":5},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 111,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 206,
+   "detail": "2026-27 205/205 games, excluded 0, 0s / 2026-27 done: 205 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1237,
+   "detail": "5 games, report Injury-Report_2026-11-17_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 34409
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-17-A-1751.json.gz",
+  "bytes": 56551,
+  "players": 108
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910002",
+   "game": "NY@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401910004",
+   "game": "DET@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401910004",
+   "game": "DET@SA",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401910005",
+   "game": "CHA@LAL",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  }
+ ],
+ "simSeconds": 6.227,
+ "games": [
+  {
+   "gameId": "401910002",
+   "game": "NY@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910003",
+   "game": "POR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910004",
+   "game": "DET@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910006",
+   "game": "UTAH@LAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910005",
+   "game": "CHA@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-17T22:51:58.738Z",
+  "kst": "2026-11-18T07:51:58+09:00"
+ }
+}
