@@ -1,0 +1,116 @@
+{
+ "runId": "2026-11-16-B-2051",
+ "run": "B",
+ "date": "2026-11-16",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-17T01:51:07.445Z",
+  "kst": "2026-11-17T10:51:07+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 832,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[4].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1115,
+   "detail": "8 games, report Injury-Report_2026-11-16_08_45PM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[4].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[9].injuries[4].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [],
+ "simSeconds": 0.881,
+ "games": [
+  {
+   "gameId": "401909994",
+   "game": "ORL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909995",
+   "game": "CHI@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909996",
+   "game": "MEM@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909997",
+   "game": "PHI@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909998",
+   "game": "HOU@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909999",
+   "game": "POR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401910000",
+   "game": "GS@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401910001",
+   "game": "PHX@DEN",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-17T01:51:59.353Z",
+  "kst": "2026-11-17T10:51:59+09:00"
+ }
+}
