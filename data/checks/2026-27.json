@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-11-15T22:51:29.447Z",
- "games": 188,
+ "generatedAt": "2026-11-16T22:51:47.461Z",
+ "games": 197,
  "checks": [
   {
    "id": "401909088",
@@ -4219,6 +4219,206 @@
    "heaves": [
     0,
     0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909985",
+   "usDate": "20261115",
+   "matchup": "IND@PHI",
+   "errPct2": -0.059,
+   "errPct1": -1.514,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909986",
+   "usDate": "20261115",
+   "matchup": "LAL@PHX",
+   "errPct2": 0.475,
+   "errPct1": -4.713,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909987",
+   "usDate": "20261115",
+   "matchup": "CHA@LAC",
+   "errPct2": 3.009,
+   "errPct1": -3.315,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    2
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909988",
+   "usDate": "20261115",
+   "matchup": "SA@UTAH",
+   "errPct2": 0.294,
+   "errPct1": -0.748,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909989",
+   "usDate": "20261115",
+   "matchup": "DAL@BOS",
+   "errPct2": 1.323,
+   "errPct1": -2.324,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909990",
+   "usDate": "20261115",
+   "matchup": "NY@TOR",
+   "errPct2": 3.103,
+   "errPct1": -0.323,
+   "haDiff": 0,
+   "heaves": [
+    1,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    265,
+    265
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909991",
+   "usDate": "20261115",
+   "matchup": "HOU@WSH",
+   "errPct2": -0.96,
+   "errPct1": -2.903,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401909992",
+   "usDate": "20261115",
+   "matchup": "ATL@MIL",
+   "errPct2": 1.991,
+   "errPct1": -0.415,
+   "haDiff": 3,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [
+    "home_away_diff_over_2"
+   ],
+   "issues": []
+  },
+  {
+   "id": "401909993",
+   "usDate": "20261115",
+   "matchup": "OKC@SAC",
+   "errPct2": 2.983,
+   "errPct1": -1.514,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    1
    ],
    "heaveRule": "excluded",
    "fgaMatch": true,

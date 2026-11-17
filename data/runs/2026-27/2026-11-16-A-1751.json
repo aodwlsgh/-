@@ -1,0 +1,188 @@
+{
+ "runId": "2026-11-16-A-1751",
+ "run": "A",
+ "date": "2026-11-16",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-16T22:51:30.664Z",
+  "kst": "2026-11-17T07:51:30+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": false,
+   "ms": 666,
+   "error": "scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[4].status: unexpected value \"Suspension\""
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 15722,
+   "detail": "2026-27 {\"games\":197,\"gameDates\":26,\"gamesPerTeam\":{\"11\":1,\"12\":7,\"13\":9,\"14\":13},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 173,
+   "detail": "2026-27 normalize: checked 0 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 0"
+  },
+  {
+   "name": "collect games",
+   "ok": true,
+   "ms": 230,
+   "detail": "2026-27 107/197 games, excluded 0, 0s / 2026-27 done: 197 games, data-excluded 0 (0.00%)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1269,
+   "detail": "8 games, report Injury-Report_2026-11-16_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 40690
+  }
+ ],
+ "alerts": [
+  {
+   "code": "schema",
+   "text": "ESPN 형식 점검 실패 — scripts/check-schema-live.mjs exit 1: FAIL injuries / ESPN injuries schema mismatch (1): /   injuries[9].injuries[4].status: unexpected value \"Suspension\""
+  },
+  {
+   "code": "espnInjuries",
+   "text": "ESPN 부상 피드 없음 — 병행 기록 생략(ESPN injuries schema mismatch (1):\n  injuries[9].injuries[4].status: unexpected value \"Suspension\")"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "pdfNameFixes": [
+  {
+   "team": "Cleveland Cavaliers",
+   "from": "Udeh, Jr., Ernest",
+   "to": "Udeh Jr., Ernest"
+  }
+ ],
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909994",
+   "game": "ORL@BOS",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909996",
+   "game": "MEM@WSH",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401909997",
+   "game": "PHI@BKN",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401909998",
+   "game": "HOU@MIA",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  }
+ ],
+ "simSeconds": 6.804,
+ "games": [
+  {
+   "gameId": "401909994",
+   "game": "ORL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909995",
+   "game": "CHI@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909996",
+   "game": "MEM@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909997",
+   "game": "PHI@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909998",
+   "game": "HOU@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401909999",
+   "game": "POR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401910000",
+   "game": "GS@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": null
+  },
+  {
+   "gameId": "401910001",
+   "game": "PHX@DEN",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": null
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-16T22:52:24.083Z",
+  "kst": "2026-11-17T07:52:24+09:00"
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "ebf783910eb14bbf952b823342af6965c38ff99b",
+   "at": {
+    "utc": "2026-11-16T22:53:51.271Z",
+    "kst": "2026-11-17T07:53:51+09:00"
+   }
+  },
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "ed4dbcb1212333ada453a8a150c6384c3eed1791",
+   "at": {
+    "utc": "2026-11-16T22:53:57.552Z",
+    "kst": "2026-11-17T07:53:57+09:00"
+   }
+  }
+ ]
+}
