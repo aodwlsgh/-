@@ -1,0 +1,84 @@
+{
+ "runId": "2026-11-17-B-2051",
+ "run": "B",
+ "date": "2026-11-17",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-18T01:51:21.059Z",
+  "kst": "2026-11-18T10:51:21+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 803,
+   "detail": "ok   summary 401909994 / ok   injuries (105 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1429,
+   "detail": "5 games, report Injury-Report_2026-11-17_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-17-B-2051.json.gz",
+  "bytes": 54699,
+  "players": 105
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910005",
+   "game": "CHA@LAL",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  }
+ ],
+ "simSeconds": 2.25,
+ "games": [
+  {
+   "gameId": "401910002",
+   "game": "NY@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910003",
+   "game": "POR@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910004",
+   "game": "DET@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910006",
+   "game": "UTAH@LAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910005",
+   "game": "CHA@LAL",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ]
+}
