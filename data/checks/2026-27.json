@@ -1,7 +1,7 @@
 {
  "season": "2026-27",
- "generatedAt": "2026-11-17T22:51:23.159Z",
- "games": 205,
+ "generatedAt": "2026-11-18T12:51:43.026Z",
+ "games": 210,
  "checks": [
   {
    "id": "401909088",
@@ -4614,6 +4614,116 @@
    "issues": [
     "pbp_running_score_mismatch"
    ]
+  },
+  {
+   "id": "401910002",
+   "usDate": "20261117",
+   "matchup": "NY@TOR",
+   "errPct2": 1.646,
+   "errPct1": -3.603,
+   "haDiff": 2,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401910003",
+   "usDate": "20261117",
+   "matchup": "POR@MIN",
+   "errPct2": 1.826,
+   "errPct1": -4.856,
+   "haDiff": 1,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401910004",
+   "usDate": "20261117",
+   "matchup": "DET@SA",
+   "errPct2": 1.411,
+   "errPct1": -2.872,
+   "haDiff": 0,
+   "heaves": [
+    0,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401910006",
+   "usDate": "20261117",
+   "matchup": "UTAH@LAC",
+   "errPct2": 1.704,
+   "errPct1": -2.451,
+   "haDiff": 1,
+   "heaves": [
+    1,
+    1
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    240,
+    240
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
+  },
+  {
+   "id": "401910005",
+   "usDate": "20261117",
+   "matchup": "CHA@LAL",
+   "errPct2": 1.223,
+   "errPct1": -4.065,
+   "haDiff": 2,
+   "heaves": [
+    0,
+    0
+   ],
+   "heaveRule": "excluded",
+   "fgaMatch": true,
+   "teamMinutes": [
+    265,
+    265
+   ],
+   "teamMinutesOk": true,
+   "pbpComplete": true,
+   "failed": [],
+   "issues": []
   }
  ]
 }

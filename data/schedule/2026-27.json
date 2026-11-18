@@ -1,46 +1,46 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-11-16",
- "generatedAt": "2026-11-17T22:51:22.851Z",
- "games": 205,
- "gameDates": 27,
+ "scannedThrough": "2026-11-17",
+ "generatedAt": "2026-11-18T12:51:40.595Z",
+ "games": 210,
+ "gameDates": 28,
  "gamesPerTeam": {
   "12": [
-   "DET",
-   "LAC",
    "DEN"
   ],
   "13": [
-   "NY",
+   "DET",
    "ORL",
    "BKN",
-   "CHA",
-   "TOR",
    "CHI",
-   "POR",
    "PHX",
+   "LAC",
    "SAC"
   ],
   "14": [
    "BOS",
-   "SA",
+   "NY",
    "OKC",
    "ATL",
    "MIL",
    "MIA",
-   "MIN",
+   "CHA",
+   "TOR",
    "MEM",
-   "UTAH",
    "IND",
    "DAL",
-   "LAL",
-   "GS"
+   "GS",
+   "POR"
   ],
   "15": [
    "PHI",
+   "SA",
    "WSH",
+   "MIN",
+   "UTAH",
    "NO",
    "HOU",
+   "LAL",
    "CLE"
   ]
  },
@@ -2300,6 +2300,61 @@
    "status": "STATUS_FINAL",
    "home": "DEN",
    "away": "PHX",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910002",
+   "usDate": "20261117",
+   "start": "2026-11-18T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "TOR",
+   "away": "NY",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910003",
+   "usDate": "20261117",
+   "start": "2026-11-18T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "MIN",
+   "away": "POR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910004",
+   "usDate": "20261117",
+   "start": "2026-11-18T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "SA",
+   "away": "DET",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910006",
+   "usDate": "20261117",
+   "start": "2026-11-18T03:30Z",
+   "status": "STATUS_FINAL",
+   "home": "LAC",
+   "away": "UTAH",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910005",
+   "usDate": "20261117",
+   "start": "2026-11-18T04:00Z",
+   "status": "STATUS_FINAL",
+   "home": "LAL",
+   "away": "CHA",
    "slug": "regular-season",
    "year": 2027,
    "ctype": "STD"
