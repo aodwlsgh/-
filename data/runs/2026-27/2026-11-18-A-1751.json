@@ -223,5 +223,18 @@
  "publishedAt": {
   "utc": "2026-11-18T22:52:42.688Z",
   "kst": "2026-11-19T07:52:42+09:00"
- }
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "attempts": 1,
+   "commit": "45ba733fdd65d2c5f1d2eb68717e398c56ee9a54",
+   "at": {
+    "utc": "2026-11-18T22:54:52.110Z",
+    "kst": "2026-11-19T07:54:52+09:00"
+   }
+  }
+ ]
 }
