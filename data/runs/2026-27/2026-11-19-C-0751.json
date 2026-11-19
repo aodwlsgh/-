@@ -1,0 +1,111 @@
+{
+ "runId": "2026-11-19-C-0751",
+ "run": "C",
+ "date": "2026-11-19",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-19T12:51:23.145Z",
+  "kst": "2026-11-19T21:51:23+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 471,
+   "detail": "ok   summary 401910007 / ok   injuries (101 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 17187,
+   "detail": "2026-27 {\"games\":222,\"gameDates\":29,\"gamesPerTeam\":{\"13\":2,\"14\":9,\"15\":12,\"16\":7},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 5715,
+   "detail": "2026-27 normalize: checked 12 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 283,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1765,
+   "detail": "4 games, report Injury-Report_2026-11-19_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-19T12:51:40.813Z(완료 경기 2026-11-18까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-19-C-0751.json.gz",
+  "bytes": 52810,
+  "players": 101
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-19_07_30AM.pdf",
+  "reportTime": "11/19/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910022",
+   "game": "LAC@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  }
+ ],
+ "simSeconds": 5.1,
+ "games": [
+  {
+   "gameId": "401910019",
+   "game": "GS@MEM",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 10
+  },
+  {
+   "gameId": "401910020",
+   "game": "POR@MIL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 2
+  },
+  {
+   "gameId": "401910021",
+   "game": "NY@MIN",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910022",
+   "game": "LAC@SA",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-19T12:52:36.354Z",
+  "kst": "2026-11-19T21:52:36+09:00"
+ }
+}
