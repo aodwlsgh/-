@@ -110,5 +110,18 @@
  "publishedAt": {
   "utc": "2026-11-19T22:52:47.611Z",
   "kst": "2026-11-20T07:52:47+09:00"
- }
+ },
+ "git": [
+  {
+   "ok": true,
+   "committed": true,
+   "pushed": true,
+   "commit": "add6e041b57490400c218c7f5392ac30c5234faf",
+   "note": "result JSON lost by session pipe; reconstructed from git (origin/main == HEAD), attempts unknown",
+   "at": {
+    "utc": "2026-11-19T22:54:40.880Z",
+    "kst": "2026-11-20T07:54:40+09:00"
+   }
+  }
+ ]
 }
