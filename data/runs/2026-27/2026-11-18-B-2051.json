@@ -1,0 +1,144 @@
+{
+ "runId": "2026-11-18-B-2051",
+ "run": "B",
+ "date": "2026-11-18",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-19T01:51:01.357Z",
+  "kst": "2026-11-19T10:51:01+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 900,
+   "detail": "ok   summary 401910002 / ok   injuries (100 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1180,
+   "detail": "12 games, report Injury-Report_2026-11-18_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-18-B-2051.json.gz",
+  "bytes": 52797,
+  "players": 100
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910018",
+   "game": "PHX@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 3.478,
+ "games": [
+  {
+   "gameId": "401910007",
+   "game": "MEM@CLE",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910008",
+   "game": "HOU@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910009",
+   "game": "MIL@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910010",
+   "game": "PHI@ORL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910011",
+   "game": "CHI@BKN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910012",
+   "game": "WSH@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910013",
+   "game": "DET@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910014",
+   "game": "ATL@OKC",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910016",
+   "game": "GS@DAL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910015",
+   "game": "BOS@DEN",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910017",
+   "game": "UTAH@LAL",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910018",
+   "game": "PHX@SAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-19T01:52:12.886Z",
+  "kst": "2026-11-19T10:52:12+09:00"
+ }
+}
