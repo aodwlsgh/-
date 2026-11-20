@@ -1,0 +1,74 @@
+{
+ "runId": "2026-11-19-B-2050",
+ "run": "B",
+ "date": "2026-11-19",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-20T01:50:39.641Z",
+  "kst": "2026-11-20T10:50:39+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 612,
+   "detail": "ok   summary 401910007 / ok   injuries (107 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1154,
+   "detail": "4 games, report Injury-Report_2026-11-19_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-19-B-2050.json.gz",
+  "bytes": 55956,
+  "players": 107
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
+ "games": [
+  {
+   "gameId": "401910019",
+   "game": "GS@MEM",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910020",
+   "game": "POR@MIL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910021",
+   "game": "NY@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910022",
+   "game": "LAC@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-20T01:51:48.120Z",
+  "kst": "2026-11-20T10:51:48+09:00"
+ }
+}
