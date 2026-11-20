@@ -1,0 +1,193 @@
+{
+ "runId": "2026-11-20-C-0752",
+ "run": "C",
+ "date": "2026-11-20",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-20T12:52:03.758Z",
+  "kst": "2026-11-20T21:52:03+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 455,
+   "detail": "ok   summary 401910019 / ok   injuries (108 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 17665,
+   "detail": "2026-27 {\"games\":226,\"gameDates\":30,\"gamesPerTeam\":{\"13\":1,\"14\":8,\"15\":9,\"16\":12},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 7785,
+   "detail": "2026-27 normalize: checked 16 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 297,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1942,
+   "detail": "9 games, report Injury-Report_2026-11-20_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-20T12:52:21.902Z(완료 경기 2026-11-19까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-20-C-0752.json.gz",
+  "bytes": 56674,
+  "players": 108
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-20_07_30AM.pdf",
+  "reportTime": "11/20/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909305",
+   "game": "CHA@ATL",
+   "team": "ATL",
+   "player": "Veesaar, Henri"
+  },
+  {
+   "gameId": "401909305",
+   "game": "CHA@ATL",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401909306",
+   "game": "ORL@BKN",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401909308",
+   "game": "TOR@DET",
+   "team": "DET",
+   "player": "Onyenso, Ugonna"
+  },
+  {
+   "gameId": "401909308",
+   "game": "TOR@DET",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401909310",
+   "game": "NO@OKC",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401909312",
+   "game": "HOU@DEN",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401909313",
+   "game": "SAC@LAL",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 10.435,
+ "games": [
+  {
+   "gameId": "401909305",
+   "game": "CHA@ATL",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909306",
+   "game": "ORL@BKN",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909307",
+   "game": "IND@CLE",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909308",
+   "game": "TOR@DET",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909309",
+   "game": "WSH@CHI",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909310",
+   "game": "NO@OKC",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909311",
+   "game": "PHX@UTAH",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909312",
+   "game": "HOU@DEN",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909313",
+   "game": "SAC@LAL",
+   "group": "B",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-20T12:53:40.515Z",
+  "kst": "2026-11-20T21:53:40+09:00"
+ }
+}
