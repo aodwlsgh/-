@@ -1,0 +1,139 @@
+{
+ "runId": "2026-11-22-C-0751",
+ "run": "C",
+ "date": "2026-11-22",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-22T12:51:22.407Z",
+  "kst": "2026-11-22T21:51:22+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 508,
+   "detail": "ok   summary 401910023 / ok   injuries (110 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 18715,
+   "detail": "2026-27 {\"games\":241,\"gameDates\":32,\"gamesPerTeam\":{\"14\":1,\"15\":8,\"16\":10,\"17\":10,\"18\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 8759,
+   "detail": "2026-27 normalize: checked 18 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 362,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1660,
+   "detail": "7 games, report Injury-Report_2026-11-22_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-22T12:51:41.646Z(완료 경기 2026-11-21까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401910029",
+   "game": "DET@ATL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-22-C-0751.json.gz",
+  "bytes": 58002,
+  "players": 110
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-22_07_30AM.pdf",
+  "reportTime": "11/22/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910030",
+   "game": "OKC@MIA",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401910031",
+   "game": "ORL@WSH",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  }
+ ],
+ "simSeconds": 10.873,
+ "games": [
+  {
+   "gameId": "401910030",
+   "game": "OKC@MIA",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910031",
+   "game": "ORL@WSH",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910032",
+   "game": "DEN@CHI",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910033",
+   "game": "DAL@UTAH",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 4
+  },
+  {
+   "gameId": "401910034",
+   "game": "IND@NY",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  },
+  {
+   "gameId": "401910035",
+   "game": "BOS@GS",
+   "group": "A",
+   "run": "C",
+   "final": true,
+   "parallelDiffs": 3
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-22T12:52:59.060Z",
+  "kst": "2026-11-22T21:52:59+09:00"
+ }
+}
