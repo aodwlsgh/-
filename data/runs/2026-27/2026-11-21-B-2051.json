@@ -1,0 +1,90 @@
+{
+ "runId": "2026-11-21-B-2051",
+ "run": "B",
+ "date": "2026-11-21",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-22T01:51:10.742Z",
+  "kst": "2026-11-22T10:51:10+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 424,
+   "detail": "ok   summary 401909305 / ok   injuries (111 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1127,
+   "detail": "6 games, report Injury-Report_2026-11-21_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401910023",
+   "game": "MIL@PHI",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-21-B-2051.json.gz",
+  "bytes": 58703,
+  "players": 111
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910028",
+   "game": "BOS@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  }
+ ],
+ "simSeconds": 1.133,
+ "games": [
+  {
+   "gameId": "401910024",
+   "game": "POR@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910025",
+   "game": "LAC@DAL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910026",
+   "game": "MEM@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910027",
+   "game": "NO@SA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910028",
+   "game": "BOS@SAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ]
+}
