@@ -1,0 +1,147 @@
+{
+ "runId": "2026-11-22-A-1751",
+ "run": "A",
+ "date": "2026-11-22",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-22T22:51:29.004Z",
+  "kst": "2026-11-23T07:51:29+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 571,
+   "detail": "ok   summary 401910023 / ok   injuries (104 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 18711,
+   "detail": "2026-27 {\"games\":241,\"gameDates\":32,\"gamesPerTeam\":{\"14\":1,\"15\":8,\"16\":10,\"17\":10,\"18\":1},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 5764,
+   "detail": "2026-27 normalize: checked 12 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 323,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1430,
+   "detail": "7 games, report Injury-Report_2026-11-22_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 40131
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-22T22:51:48.309Z(완료 경기 2026-11-21까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013",
+   "escalated": true,
+   "streak": 4
+  }
+ ],
+ "skipped": [
+  {
+   "id": "401910029",
+   "game": "DET@ATL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-22-A-1751.json.gz",
+  "bytes": 55069,
+  "players": 104
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910030",
+   "game": "OKC@MIA",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401910031",
+   "game": "ORL@WSH",
+   "team": "ORL",
+   "player": "Nelson, Izaiyah"
+  },
+  {
+   "gameId": "401910033",
+   "game": "DAL@UTAH",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  }
+ ],
+ "simSeconds": 7.895,
+ "games": [
+  {
+   "gameId": "401910030",
+   "game": "OKC@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910031",
+   "game": "ORL@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910032",
+   "game": "DEN@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910033",
+   "game": "DAL@UTAH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910034",
+   "game": "IND@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910035",
+   "game": "BOS@GS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "push": [
+  "[NBA 일일 실행] 4회 연속 경고 — 데이터 지연 — 마지막 갱신 2026-11-22T22:51:48.309Z(완료 경기 2026-11-21까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+ ],
+ "publishedAt": {
+  "utc": "2026-11-22T22:52:35.856Z",
+  "kst": "2026-11-23T07:52:35+09:00"
+ }
+}
