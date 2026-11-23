@@ -1,0 +1,96 @@
+{
+ "runId": "2026-11-22-B-2051",
+ "run": "B",
+ "date": "2026-11-22",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-23T01:51:13.721Z",
+  "kst": "2026-11-23T10:51:13+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 612,
+   "detail": "ok   summary 401910023 / ok   injuries (103 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1125,
+   "detail": "7 games, report Injury-Report_2026-11-22_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [
+  {
+   "id": "401910029",
+   "game": "DET@ATL",
+   "reason": "starts before 17:50 ET (no run covers it)"
+  }
+ ],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-22-B-2051.json.gz",
+  "bytes": 54381,
+  "players": 103
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "note": "대상 없음 — 21:00 ET 이후 시작 경기가 없음",
+ "games": [
+  {
+   "gameId": "401910030",
+   "game": "OKC@MIA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910031",
+   "game": "ORL@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910032",
+   "game": "DEN@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910033",
+   "game": "DAL@UTAH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910034",
+   "game": "IND@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910035",
+   "game": "BOS@GS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-23T01:51:57.835Z",
+  "kst": "2026-11-23T10:51:57+09:00"
+ }
+}
