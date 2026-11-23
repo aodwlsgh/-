@@ -1,0 +1,209 @@
+{
+ "runId": "2026-11-23-A-1751",
+ "run": "A",
+ "date": "2026-11-23",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-23T22:51:55.287Z",
+  "kst": "2026-11-24T07:51:55+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 464,
+   "detail": "ok   summary 401910029 / ok   injuries (102 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 19194,
+   "detail": "2026-27 {\"games\":248,\"gameDates\":33,\"gamesPerTeam\":{\"15\":5,\"16\":7,\"17\":15,\"18\":3},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 5751,
+   "detail": "2026-27 normalize: checked 12 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 272,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1275,
+   "detail": "10 games, report Injury-Report_2026-11-23_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 56018
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-23T22:52:14.966Z(완료 경기 2026-11-22까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013",
+   "escalated": true,
+   "streak": 5
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-23-A-1751.json.gz",
+  "bytes": 53842,
+  "players": 102
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401910036",
+   "game": "MEM@CHA",
+   "team": "CHA",
+   "player": "Boswell, Kylan"
+  },
+  {
+   "gameId": "401910036",
+   "game": "MEM@CHA",
+   "team": "MEM",
+   "player": "Saunders, Richie"
+  },
+  {
+   "gameId": "401910038",
+   "game": "OKC@IND",
+   "team": "OKC",
+   "player": "Sorber, Thomas"
+  },
+  {
+   "gameId": "401910039",
+   "game": "MIL@TOR",
+   "team": "TOR",
+   "player": "Bittle, Nate"
+  },
+  {
+   "gameId": "401910040",
+   "game": "BKN@MIN",
+   "team": "BKN",
+   "player": "Bilodeau, Tyler"
+  },
+  {
+   "gameId": "401910041",
+   "game": "CLE@CHI",
+   "team": "CLE",
+   "player": "Austin, Zack"
+  },
+  {
+   "gameId": "401910043",
+   "game": "LAC@HOU",
+   "team": "HOU",
+   "player": "Copeland, Quadir"
+  },
+  {
+   "gameId": "401910045",
+   "game": "SA@SAC",
+   "team": "SAC",
+   "player": "Simmons, Ben"
+  },
+  {
+   "gameId": "401910045",
+   "game": "SA@SAC",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  }
+ ],
+ "simSeconds": 12.588,
+ "games": [
+  {
+   "gameId": "401910036",
+   "game": "MEM@CHA",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910037",
+   "game": "POR@PHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910038",
+   "game": "OKC@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910039",
+   "game": "MIL@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910040",
+   "game": "BKN@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910041",
+   "game": "CLE@CHI",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401910042",
+   "game": "PHX@NO",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910043",
+   "game": "LAC@HOU",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910044",
+   "game": "UTAH@LAL",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401910045",
+   "game": "SA@SAC",
+   "group": "B",
+   "run": "A",
+   "final": false,
+   "parallelDiffs": 0
+  }
+ ],
+ "push": [
+  "[NBA 일일 실행] 5회 연속 경고 — 데이터 지연 — 마지막 갱신 2026-11-23T22:52:14.966Z(완료 경기 2026-11-22까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+ ],
+ "publishedAt": {
+  "utc": "2026-11-23T22:53:09.567Z",
+  "kst": "2026-11-24T07:53:09+09:00"
+ }
+}
