@@ -1,45 +1,47 @@
 {
  "season": "2026-27",
- "scannedThrough": "2026-11-22",
- "generatedAt": "2026-11-23T22:52:14.966Z",
- "games": 248,
- "gameDates": 33,
+ "scannedThrough": "2026-11-23",
+ "generatedAt": "2026-11-24T12:52:00.071Z",
+ "games": 258,
+ "gameDates": 34,
  "gamesPerTeam": {
   "15": [
-   "BKN",
-   "CHA",
-   "PHX",
-   "LAC",
    "DEN"
   ],
   "16": [
    "DET",
    "ORL",
    "MIA",
-   "TOR",
-   "CHI",
-   "POR",
-   "SAC"
+   "BKN",
+   "CHA",
+   "PHX",
+   "LAC"
   ],
   "17": [
    "BOS",
    "NY",
+   "ATL",
+   "TOR",
+   "CHI",
+   "DAL",
+   "GS",
+   "POR",
+   "SAC"
+  ],
+  "18": [
    "PHI",
    "SA",
    "OKC",
-   "ATL",
+   "WSH",
    "MIL",
    "MIN",
    "MEM",
    "IND",
    "HOU",
-   "DAL",
    "LAL",
-   "GS",
    "CLE"
   ],
-  "18": [
-   "WSH",
+  "19": [
    "UTAH",
    "NO"
   ]
@@ -2773,6 +2775,116 @@
    "status": "STATUS_FINAL",
    "home": "GS",
    "away": "BOS",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910036",
+   "usDate": "20261123",
+   "start": "2026-11-24T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "CHA",
+   "away": "MEM",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910037",
+   "usDate": "20261123",
+   "start": "2026-11-24T00:00Z",
+   "status": "STATUS_FINAL",
+   "home": "PHI",
+   "away": "POR",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910038",
+   "usDate": "20261123",
+   "start": "2026-11-24T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "IND",
+   "away": "OKC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910039",
+   "usDate": "20261123",
+   "start": "2026-11-24T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "TOR",
+   "away": "MIL",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910040",
+   "usDate": "20261123",
+   "start": "2026-11-24T00:30Z",
+   "status": "STATUS_FINAL",
+   "home": "MIN",
+   "away": "BKN",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910041",
+   "usDate": "20261123",
+   "start": "2026-11-24T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "CHI",
+   "away": "CLE",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910042",
+   "usDate": "20261123",
+   "start": "2026-11-24T01:00Z",
+   "status": "STATUS_FINAL",
+   "home": "NO",
+   "away": "PHX",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910043",
+   "usDate": "20261123",
+   "start": "2026-11-24T01:30Z",
+   "status": "STATUS_FINAL",
+   "home": "HOU",
+   "away": "LAC",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910044",
+   "usDate": "20261123",
+   "start": "2026-11-24T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "LAL",
+   "away": "UTAH",
+   "slug": "regular-season",
+   "year": 2027,
+   "ctype": "STD"
+  },
+  {
+   "id": "401910045",
+   "usDate": "20261123",
+   "start": "2026-11-24T03:00Z",
+   "status": "STATUS_FINAL",
+   "home": "SAC",
+   "away": "SA",
    "slug": "regular-season",
    "year": 2027,
    "ctype": "STD"
