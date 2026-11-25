@@ -1,0 +1,72 @@
+{
+ "runId": "2026-11-24-B-2050",
+ "run": "B",
+ "date": "2026-11-24",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-25T01:50:54.733Z",
+  "kst": "2026-11-25T10:50:54+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 807,
+   "detail": "ok   summary 401910036 / ok   injuries (94 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1133,
+   "detail": "3 games, report Injury-Report_2026-11-24_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-24-B-2050.json.gz",
+  "bytes": 50072,
+  "players": 94
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909316",
+   "game": "DAL@DEN",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  }
+ ],
+ "simSeconds": 1.053,
+ "games": [
+  {
+   "gameId": "401909314",
+   "game": "DET@ORL",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909315",
+   "game": "BOS@WSH",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909316",
+   "game": "DAL@DEN",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-25T01:51:44.741Z",
+  "kst": "2026-11-25T10:51:44+09:00"
+ }
+}
