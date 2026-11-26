@@ -1,0 +1,73 @@
+{
+ "runId": "2026-11-26-A-1751",
+ "run": "A",
+ "date": "2026-11-26",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-26T22:51:09.551Z",
+  "kst": "2026-11-27T07:51:09+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 485,
+   "detail": "ok   summary 401909317 / ok   injuries (97 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 20726,
+   "detail": "2026-27 {\"games\":270,\"gameDates\":36,\"gamesPerTeam\":{\"16\":1,\"17\":9,\"18\":9,\"19\":11},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 5773,
+   "detail": "2026-27 normalize: checked 12 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 258,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1211,
+   "detail": "0 games, report Injury-Report_2026-11-26_05_45PM.pdf"
+  },
+  {
+   "name": "sensitivity",
+   "ok": true,
+   "ms": 2
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-26T22:51:30.769Z(완료 경기 2026-11-25까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013",
+   "escalated": true,
+   "streak": 8
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-26-A-1751.json.gz",
+  "bytes": 52227,
+  "players": 97
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "games": [],
+ "push": [
+  "[NBA 일일 실행] 8회 연속 경고 — 데이터 지연 — 마지막 갱신 2026-11-26T22:51:30.769Z(완료 경기 2026-11-25까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+ ],
+ "publishedAt": {
+  "utc": "2026-11-26T22:52:14.193Z",
+  "kst": "2026-11-27T07:52:14+09:00"
+ }
+}
