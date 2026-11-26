@@ -1,0 +1,71 @@
+{
+ "runId": "2026-11-26-C-0751",
+ "run": "C",
+ "date": "2026-11-26",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-26T12:51:11.748Z",
+  "kst": "2026-11-26T21:51:11+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 600,
+   "detail": "ok   summary 401909317 / ok   injuries (93 players)"
+  },
+  {
+   "name": "collect schedule",
+   "ok": true,
+   "ms": 20765,
+   "detail": "2026-27 {\"games\":270,\"gameDates\":36,\"gamesPerTeam\":{\"16\":1,\"17\":9,\"18\":9,\"19\":11},\"skipped\":{},\"otherSlugs\":{\"preseason\":14}}"
+  },
+  {
+   "name": "normalize play types",
+   "ok": true,
+   "ms": 10277,
+   "detail": "2026-27 normalize: checked 21 games, aliased 0 play(s) (0 game(s) new in the log), still unknown 1 [401910013]"
+  },
+  {
+   "name": "collect games",
+   "ok": false,
+   "ms": 644,
+   "error": "jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1963,
+   "detail": "0 games, report Injury-Report_2026-11-26_07_30AM.pdf"
+  }
+ ],
+ "alerts": [
+  {
+   "code": "dataDelay",
+   "text": "데이터 지연 — 마지막 갱신 2026-11-26T12:51:33.160Z(완료 경기 2026-11-25까지). jobs/build-data.js games 2026-27 exit 3: (Use `node --trace-warnings ...` to show where the warning was created) / 2026-27: 1 unknown play type(s); classify in engine/schema/espn-play-types.js and rerun /   \"19\" \"Official Timeout\"  games 1 e.g. 401910013"
+  }
+ ],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "pin30",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-26-C-0751.json.gz",
+  "bytes": 50345,
+  "players": 93
+ },
+ "cReport": {
+  "rule": "pin30",
+  "ok": true,
+  "why": null,
+  "pdf": "Injury-Report_2026-11-26_07_30AM.pdf",
+  "reportTime": "11/26/26 07:30 AM",
+  "pinMiss": null
+ },
+ "pdfOutNoRecord": [],
+ "simSeconds": 0,
+ "games": [],
+ "publishedAt": {
+  "utc": "2026-11-26T12:52:42.452Z",
+  "kst": "2026-11-26T21:52:42+09:00"
+ }
+}
