@@ -29,7 +29,18 @@ test('play type 17 "Short Timeout" is mapped to 16 explicitly; the raw game fail
   const p = summary.plays.find(x => x.id === '401909852354');
   assert.deepEqual([p.type.id, p.type.text, p.text], ['16', 'Full Timeout', 'Kings 20 Sec. timeout']);
   assert.equal(raw.plays.find(x => x.id === '401909852354').type.id, '17', 'the input is not modified');
-  assert.deepEqual(Object.keys(PLAY_TYPE_ALIASES), ['17']);
+  assert.deepEqual(Object.keys(PLAY_TYPE_ALIASES), ['17', '19']);
+});
+
+test('play type 19 "Official Timeout" (401910013) is mapped to 16; the game then passes validation and extracts', () => {
+  const raw = fx('summary_401910013.json.gz');
+  assert.throws(() => assertValid('summary', raw), e => e instanceof SchemaError && /unknown play type id "19" "Official Timeout"/.test(e.message));
+  const { summary, mapped } = aliasPlayTypes(raw);
+  assert.deepEqual(mapped, [{ playId: '401910013315', from: '19', to: '16', text: 'Official Timeout' }]);
+  assert.doesNotThrow(() => assertValid('summary', summary));
+  const p = summary.plays.find(x => x.id === '401910013315');
+  assert.deepEqual([p.type.id, p.type.text, p.text], ['16', 'Full Timeout', 'Pelicans Official timeout']);
+  assert.ok(extractGame(summary), 'the game extracts');
 });
 
 test('an alias needs the same text; games without aliased types come back as the same object', () => {

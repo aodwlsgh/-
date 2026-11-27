@@ -9,6 +9,9 @@ import { PLAY_TYPES } from './espn-play-types.js';
 export const PLAY_TYPE_ALIASES = {
   // "Kings 20 Sec. timeout" (401909852, 2026-10-23): the same play fields as "16" "Full Timeout"
   '17': { text: 'Short Timeout', to: '16', since: '2026-10-26' },
+  // "Pelicans Official timeout" (401910013, 2026-11-18 US date): the same play fields as "16" "Full Timeout"
+  // (team-charged timeout, not a scoring or shooting play); proposed 2026-11-27, merged only after approval
+  '19': { text: 'Official Timeout', to: '16', since: '2026-11-27' },
 };
 
 // summary -> { summary, mapped: [{ playId, from, to, text }] }; the input is not modified, and with nothing
