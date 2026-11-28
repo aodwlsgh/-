@@ -1,0 +1,148 @@
+{
+ "runId": "2026-11-27-B-2051",
+ "run": "B",
+ "date": "2026-11-27",
+ "season": "2026-27",
+ "startedAt": {
+  "utc": "2026-11-28T01:51:34.538Z",
+  "kst": "2026-11-28T10:51:34+09:00"
+ },
+ "steps": [
+  {
+   "name": "schema check",
+   "ok": true,
+   "ms": 478,
+   "detail": "skip summary: no final game on 20261126 / ok   injuries (96 players)"
+  },
+  {
+   "name": "inputs",
+   "ok": true,
+   "ms": 1125,
+   "detail": "11 games, report Injury-Report_2026-11-27_08_45PM.pdf"
+  }
+ ],
+ "alerts": [],
+ "skipped": [],
+ "offline": false,
+ "reportRule": "latest",
+ "espnFeed": {
+  "path": "data/injury-pdf/2026-27/espn-feed/2026-11-27-B-2051.json.gz",
+  "bytes": 50860,
+  "players": 96
+ },
+ "pdfOutNoRecord": [
+  {
+   "gameId": "401909332",
+   "game": "DAL@PHX",
+   "team": "DAL",
+   "player": "Biberovic, Tarik"
+  },
+  {
+   "gameId": "401909333",
+   "game": "LAL@SA",
+   "team": "SA",
+   "player": "Quaintance, Jayden"
+  },
+  {
+   "gameId": "401909336",
+   "game": "GS@POR",
+   "team": "POR",
+   "player": "Yang, Hansen"
+  }
+ ],
+ "simSeconds": 6.913,
+ "games": [
+  {
+   "gameId": "401909326",
+   "game": "MIA@NY",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909327",
+   "game": "MIL@DET",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909328",
+   "game": "PHI@IND",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909329",
+   "game": "BKN@TOR",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909330",
+   "game": "ATL@BOS",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909331",
+   "game": "MEM@MIN",
+   "group": "A",
+   "run": "A",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909332",
+   "game": "DAL@PHX",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909333",
+   "game": "LAL@SA",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 1
+  },
+  {
+   "gameId": "401909334",
+   "game": "DEN@UTAH",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909335",
+   "game": "NO@LAC",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  },
+  {
+   "gameId": "401909336",
+   "game": "GS@POR",
+   "group": "B",
+   "run": "B",
+   "final": true,
+   "parallelDiffs": 0
+  }
+ ],
+ "publishedAt": {
+  "utc": "2026-11-28T01:52:21.681Z",
+  "kst": "2026-11-28T10:52:21+09:00"
+ }
+}
